@@ -15,6 +15,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " vim plugins, managed by NeoBundle
 NeoBundle 'tpope/vim-fugitive', '124550'
+NeoBundle 'tomasr/molokai', 'e7bcec7573'
 
 " TODO: plugins to try:
 " * sparkup
@@ -64,6 +65,7 @@ set wildmenu
 set wildignore=.svn,.git,.gitignore,*.pyc,*.so,*.swp,*.jpg,*.png,*.gif,node_modules
 set laststatus=2            " Always show a status line for lowest window in a split
 set cursorline              " highlight the full line that the cursor is currently on
+color molokai
 
 
 "===============================================================================
