@@ -14,11 +14,14 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " vim plugins, managed by NeoBundle
+NeoBundle 'kien/ctrlp.vim', 'b5d3fe66'
+NeoBundle 'techlivezheng/vim-plugin-minibufexpl', '349a9fbb7'
 NeoBundle 'tpope/vim-fugitive', '124550'
+NeoBundle 'airblade/vim-gitgutter', '878c3422'
+NeoBundle 'af/vim-powerline'
 NeoBundle 'tomasr/molokai', 'e7bcec7573'
 
-" TODO: plugins to try:
-" * sparkup
+" plugins to try/relearn: sparkup, yankring, syntastic/jslint
 
 filetype plugin indent on
 NeoBundleCheck
@@ -40,7 +43,8 @@ set noswapfile              " Disable swap files
 
 " File/buffer settings
 autocmd BufWinEnter,BufNewFile * silent tabo    " Ensure only one tab is open
-set hidden                  " TODO: do we want this? Hides instead of unloads buffers
+set hidden                  " TODO: revisit this. Hides instead of unloads buffers
+set autoread                " reload files on changes (ie. changing git branches)
 set encoding=utf-8
 set scrolloff=3             " # of lines always shown above/below the cursor
 
@@ -66,14 +70,6 @@ set wildignore=.svn,.git,.gitignore,*.pyc,*.so,*.swp,*.jpg,*.png,*.gif,node_modu
 set laststatus=2            " Always show a status line for lowest window in a split
 set cursorline              " highlight the full line that the cursor is currently on
 set colorcolumn=80,100      " Highlight these columns with a different bg
-
-
-"===============================================================================
-" Colorscheme
-"===============================================================================
-color molokai
-hi normal guibg=black       " gvim/mvim: override bg color to use full black
-set guifont=Monaco:h14      " gvim/mvim: Bump up the default fontsize
 
 
 "===============================================================================
@@ -105,6 +101,14 @@ nnoremap k gk
 
 
 "===============================================================================
+" Colorscheme
+"===============================================================================
+color molokai
+hi normal guibg=black       " gvim/mvim: override bg color to use full black
+set guifont=Monaco:h14      " gvim/mvim: Bump up the default fontsize
+
+
+"===============================================================================
 " MacVim/GVIM Overrides
 "===============================================================================
 if has('gui_running')
@@ -112,3 +116,42 @@ if has('gui_running')
 elseif $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
     set t_Co=256            " Richer colours if our terminal can handle it.
 endif
+
+
+"===============================================================================
+" Plugin customization
+"===============================================================================
+" Ctrl-P
+nmap <leader><leader> :CtrlP<CR>
+nmap T :CtrlPBuffer<CR>
+let g:ctrlp_open_new_file = 'r'
+let g:ctrlp_open_multiple_files = 'i'
+let g:ctrlp_clear_cache_on_exit = 1
+
+" gitgutter
+" OS X's default vim doesn't have signs support, so disable it for that editor.
+if has('signs')
+    map! <C-j> <esc>:GitGutterNextHunk<CR>
+    map <C-j> :GitGutterNextHunk<CR>
+    map! <C-k> <esc>:GitGutterPrevHunk<CR>
+    map <C-k> :GitGutterPrevHunk<CR>
+else
+    let g:gitgutter_enabled = 0
+endif
+
+
+"===============================================================================
+" Key Bindings: Moving around
+"===============================================================================
+
+" (built-in)
+" <C-O> - move the cursor position back in the jump list
+" <C-I> - move the cursor position forward in the jump list
+
+" Navigating between buffers:
+nnoremap <silent> <C-u> :MBEbd<CR>     " typing <C-u> will 'unload' the current buffer
+map! <C-h> <esc>:bp<CR>
+map <C-h> :bp<CR>
+map! <C-l> <esc>:bn<CR>
+map <C-l> :bn<CR>
+
