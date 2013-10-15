@@ -65,7 +65,15 @@ set wildmenu
 set wildignore=.svn,.git,.gitignore,*.pyc,*.so,*.swp,*.jpg,*.png,*.gif,node_modules
 set laststatus=2            " Always show a status line for lowest window in a split
 set cursorline              " highlight the full line that the cursor is currently on
+set colorcolumn=80,100      " Highlight these columns with a different bg
+
+
+"===============================================================================
+" Colorscheme
+"===============================================================================
 color molokai
+hi normal guibg=black       " gvim/mvim: override bg color to use full black
+set guifont=Monaco:h14      " gvim/mvim: Bump up the default fontsize
 
 
 "===============================================================================
@@ -94,3 +102,13 @@ set textwidth=99
 set formatoptions=qrn1
 nnoremap j gj
 nnoremap k gk
+
+
+"===============================================================================
+" MacVim/GVIM Overrides
+"===============================================================================
+if has('gui_running')
+    set transp=8            " Slight window transparency
+elseif $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
+    set t_Co=256            " Richer colours if our terminal can handle it.
+endif
