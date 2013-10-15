@@ -14,7 +14,8 @@ call neobundle#rc(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " vim plugins, managed by NeoBundle
-NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-fugitive', '124550'
+
 " TODO: plugins to try:
 " * sparkup
 
