@@ -1,0 +1,29 @@
+set nocompatible
+
+
+"""""""""""""""""""""""
+" Begin NeoBundle setup
+"
+" Besides the bundles to install, assume that everything until the end of this
+" section is required for NeoBundle's setup process.
+if has('vim_starting')
+   set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+
+call neobundle#rc(expand('~/.vim/bundle/'))
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" vim plugins, managed by NeoBundle
+NeoBundle 'tpope/vim-fugitive'
+" TODO: plugins to try:
+" * sparkup
+
+filetype plugin indent on
+NeoBundleCheck
+
+" End NeoBundle setup
+"""""""""""""""""""""""
+
+
+" General vim options:
+set number
