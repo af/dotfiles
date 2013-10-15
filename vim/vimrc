@@ -1,9 +1,9 @@
-set nocompatible
+set nocompatible            " we're using Vim, not Vi
 
 
-"""""""""""""""""""""""
-" Begin NeoBundle setup
-"
+"===============================================================================
+" NeoBundle setup
+"===============================================================================
 " Besides the bundles to install, assume that everything until the end of this
 " section is required for NeoBundle's setup process.
 if has('vim_starting')
@@ -21,10 +21,74 @@ NeoBundle 'tpope/vim-fugitive', '124550'
 
 filetype plugin indent on
 NeoBundleCheck
+"===============================================================================
+" (End of NeoBundle setup)
+"===============================================================================
 
-" End NeoBundle setup
-"""""""""""""""""""""""
 
 
-" General vim options:
-set number
+"===============================================================================
+" General Vim settings
+"===============================================================================
+set number                  " line number gutter
+set visualbell
+set history=500             " longer command history (default=20)
+let mapleader = ","         " <leader> is our personal modifier key (use ,)
+set noswapfile              " Disable swap files
+"set directory=~/.vim/swp    " where the .swp files go (if enabled)
+
+" File/buffer settings
+autocmd BufWinEnter,BufNewFile * silent tabo    " Ensure only one tab is open
+set hidden                  " TODO: do we want this? Hides instead of unloads buffers
+set encoding=utf-8
+set scrolloff=3             " # of lines always shown above/below the cursor
+
+" Indenting & white space
+set expandtab
+set tabstop=4 shiftwidth=4 softtabstop=4
+set autoindent
+set list listchars=tab:›\ ,trail:·          " mark trailing white space
+"set list listchars=tab:›\ ,trail:·,eol:¬   " mark trailing white space (with eol)
+
+
+"===============================================================================
+" Display/window settings
+"===============================================================================
+syntax on
+set bg=dark
+set number                  " line number gutter
+set ruler                   " line numbers at bottom of page
+set showcmd
+set title
+set wildmenu
+set wildignore=.svn,.git,.gitignore,*.pyc,*.so,*.swp,*.jpg,*.png,*.gif,node_modules
+set laststatus=2            " Always show a status line for lowest window in a split
+set cursorline              " highlight the full line that the cursor is currently on
+
+
+"===============================================================================
+" Searching & Replacing
+"===============================================================================
+set ignorecase
+set smartcase               " override 'ignorecase' if search term has upper case chars
+set incsearch               " incremental search
+set showmatch
+set hlsearch                " highlight searched items
+set gdefault                " use 'global' mode by default for substitutions
+
+" Clear search highlighting with ', ', use python-style search regexes:
+nnoremap <leader><space> :noh<cr>
+nnoremap / /\v
+vnoremap / /\v
+nnoremap ? ?\v
+vnoremap ? ?\v
+
+
+"===============================================================================
+" Line wrapping
+"===============================================================================
+set wrap
+set textwidth=99
+set formatoptions=qrn1
+nnoremap j gj
+nnoremap k gk
