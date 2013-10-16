@@ -155,3 +155,18 @@ map <C-h> :bp<CR>
 map! <C-l> <esc>:bn<CR>
 map <C-l> :bn<CR>
 
+"EXPERIMENTAL!
+" Save current file every time we leave insert mode
+" This causes a problem where a "c" is entered when opening a file,
+" so I should probably rewrite this to use an autocmd instead (InsertLeave?)
+" http://learnvimscriptthehardway.stevelosh.com/chapters/12.html
+inoremap <esc> <esc>:w<CR>
+nnoremap <esc> <esc>:w<CR>
+
+
+"===============================================================================
+"" Filetype-specific settings
+"===============================================================================
+"" filetype detection for syntax highlighting
+au BufNewFile,BufRead *.mustache set filetype=mustache
+autocmd FileType mustache set ft=html.mustache
