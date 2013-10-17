@@ -19,7 +19,12 @@ NeoBundle 'techlivezheng/vim-plugin-minibufexpl', '349a9fbb7'
 NeoBundle 'tpope/vim-fugitive', '124550'
 NeoBundle 'airblade/vim-gitgutter', '878c3422'
 NeoBundle 'af/vim-powerline'
+NeoBundle 'tpope/vim-sleuth', '039e2cd'
+NeoBundle 'tomtom/tcomment_vim', '3d0a9975'
+
+" theme/syntax related plugins:
 NeoBundle 'tomasr/molokai', 'e7bcec7573'
+NeoBundle 'wavded/vim-stylus', '046ccf1d'
 
 " plugins to try/relearn: sparkup, yankring, syntastic/jslint
 
@@ -34,7 +39,6 @@ NeoBundleCheck
 "===============================================================================
 " General Vim settings
 "===============================================================================
-set number                  " line number gutter
 set visualbell
 set history=500             " longer command history (default=20)
 let mapleader = ","         " <leader> is our personal modifier key (use ,)
