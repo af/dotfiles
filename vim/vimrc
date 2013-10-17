@@ -143,6 +143,15 @@ else
     let g:gitgutter_enabled = 0
 endif
 
+" Syntastic display customizations:
+" TODO: update colors so they work in console vim also
+let g:syntastic_error_symbol = '!!'
+let g:syntastic_warning_symbol = '!!'
+hi SyntasticErrorSign guifg=#ff0000
+hi SyntasticWarningSign guifg=#ff0000
+
+" MiniBufExpl
+nnoremap <silent> <C-u> :MBEbd<CR>     " typing <C-u> will 'unload' the current buffer
 
 "===============================================================================
 " Key Bindings: Moving around
@@ -153,7 +162,6 @@ endif
 " <C-I> - move the cursor position forward in the jump list
 
 " Navigating between buffers:
-nnoremap <silent> <C-u> :MBEbd<CR>     " typing <C-u> will 'unload' the current buffer
 map! <C-h> <esc>:bp<CR>
 map <C-h> :bp<CR>
 map! <C-l> <esc>:bn<CR>
