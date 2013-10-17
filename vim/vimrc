@@ -1,6 +1,5 @@
 set nocompatible            " we're using Vim, not Vi
 
-
 "===============================================================================
 " NeoBundle setup
 "===============================================================================
@@ -25,8 +24,9 @@ NeoBundle 'tomtom/tcomment_vim', '3d0a9975'
 " theme/syntax related plugins:
 NeoBundle 'tomasr/molokai', 'e7bcec7573'
 NeoBundle 'wavded/vim-stylus', '046ccf1d'
+NeoBundle 'scrooloose/syntastic', 'f92741d3'
 
-" plugins to try/relearn: sparkup, yankring, syntastic/jslint
+" plugins to try/relearn: sparkup, snipmate, yankring
 
 filetype plugin indent on
 NeoBundleCheck
