@@ -10,6 +10,7 @@ import os
 SYMLINK_MAP = {
     'vim':          '~/.vim',
     'vim/vimrc':    '~/.vimrc',
+    'jshintrc':     '~/.jshintrc',
 }
 
 # Assume this script is located the root of the dotfiles repo:
