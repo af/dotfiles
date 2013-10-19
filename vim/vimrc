@@ -112,6 +112,16 @@ color molokai
 hi normal guibg=black       " gvim/mvim: override bg color to use full black
 set guifont=Monaco:h14      " gvim/mvim: Bump up the default fontsize
 
+" Show syntax highlighting groups for word under cursor with Ctrl-Shift-P
+" A tip from Vimcasts #25: http://vimcasts.org/episodes/creating-colorschemes-for-vim/
+nnoremap <C-S-A> :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+
 
 "===============================================================================
 " MacVim/GVIM Overrides
