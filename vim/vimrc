@@ -180,8 +180,12 @@ nnoremap <esc> <esc>:w<CR>
 
 
 "===============================================================================
-"" Filetype-specific settings
+" Filetype-specific settings
 "===============================================================================
-"" filetype detection for syntax highlighting
+" filetype detection for syntax highlighting
 au BufNewFile,BufRead *.mustache set filetype=mustache
 autocmd FileType mustache set ft=html.mustache
+
+" JSON files: set filetype to json for syntastic, use js highlighting:
+au BufRead,BufNewFile *.json set filetype=json
+au BufRead,BufNewFile *.json setlocal syntax=javascript
