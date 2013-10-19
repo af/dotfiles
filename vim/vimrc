@@ -14,10 +14,9 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " vim plugins, managed by NeoBundle
 NeoBundle 'kien/ctrlp.vim', 'b5d3fe66'
-NeoBundle 'techlivezheng/vim-plugin-minibufexpl', '349a9fbb7'
 NeoBundle 'tpope/vim-fugitive', '124550'
 NeoBundle 'airblade/vim-gitgutter', '878c3422'
-NeoBundle 'af/vim-powerline'
+NeoBundle 'bling/vim-airline', '592cc41'
 NeoBundle 'tpope/vim-sleuth', '039e2cd'
 NeoBundle 'tomtom/tcomment_vim', '3d0a9975'
 
@@ -164,8 +163,13 @@ hi SyntasticWarningSign guifg=#ff0000
 " Syntastic checker config:
 let g:syntastic_python_checkers=['pyflakes']
 
-" MiniBufExpl
-nnoremap <silent> <C-u> :MBEbd<CR>     " typing <C-u> will 'unload' the current buffer
+" vim-airline:
+"let g:airline_powerline_fonts = 1
+let g:airline_left_sep=' '
+let g:airline_right_sep=' '
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
 
 " Colorizer
 nnoremap <leader><F2> :ColorToggle<CR>
@@ -183,6 +187,7 @@ map! <C-h> <esc>:bp<CR>
 map <C-h> :bp<CR>
 map! <C-l> <esc>:bn<CR>
 map <C-l> :bn<CR>
+nnoremap <silent> <C-u> :bd<CR>
 
 "EXPERIMENTAL!
 " Save current file every time we leave insert mode
