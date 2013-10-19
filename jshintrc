@@ -1,9 +1,6 @@
 {
-    // JSHint Settings config
-    // See http://www.jshint.com/options/ for a full description of these (and some more) options.
-    //
-    // Comments are used liberally, even though they are not valid inside JSON. Make sure
-    // they are stripped out before running JSON.parse on this file.
+    // JSHint config
+    // See http://www.jshint.com/options/ for full config documentation
 
     // JSHint Running
     "passfail"      : false,  // Stop on first error if this is true.
@@ -12,60 +9,54 @@
     // Predefined globals that JSHint will ignore.
     "browser"       : true,   // Standard browser globals e.g. `window`, `document`.
     "node"          : true,
-    "rhino"         : false,
-    "couch"         : false,
-    "wsh"           : false,
-    "jquery"        : false,
-    "prototypejs"   : false,
-    "mootools"      : false,
-    "dojo"          : false,
-    "predef"        : ["rh", "FB", "Handlebars",      // Array of globals tolerate
-                       "before", "describe", "it"
-                      ],
+    "predef"        : [       // tolerable globals (for mocha)
+        "describe", "it", "before", "beforeEach", "after", "afterEach"
+    ],
 
     // Development.
-    "debug"         : false,  // Allow debugger statements e.g. browser breakpoints.
-    "devel"         : true,   // Allow development statements e.g. `console.log();`.
+    "debug"         : false,  // Allow debugger statements
+    "devel"         : true,   // Allow development statements (eg. console.log)
 
     // EcmaScript 5.
     "strict"        : false,  // Require `use strict` pragma in every file.
-    "globalstrict"  : false,  // Allow global "use strict" (also enables 'strict').
+    "globalstrict"  : false,  // Allow global "use strict" (enables "strict").
 
     // Enforcing Options
     // These options tell JSHint to be more strict towards your code.
     "bitwise"       : true,   // Prohibit bitwise operators (&, |, ^, etc.).
-    "curly"         : false,  // Require {} for every new block or scope.
-    "eqeqeq"        : true,   // Require triple equals i.e. `===`.
-    "forin"         : false,  // Require `for in` loops to filter with `hasOwnPrototype`.
-    "immed"         : true,   // Require immediate invocations to be wrapped in parens e.g. `( function(){}() );`
-    "latedef"       : false,  // Prohibit variable use before definition.
-    "newcap"        : false,  // Require capitalization of all constructor functions e.g. `new F()`.
-    "noarg"         : true,   // Prohibit use of `arguments.caller` and `arguments.callee`.
-    "noempty"       : true,   // Prohibit use of empty blocks.
-    "nonew"         : false,  // Prohibit use of constructors for side-effects.
-    "plusplus"      : false,  // Prohibit use of `++` & `--`.
-    "regexp"        : true,   // Prohibit `.` and `[^...]` in regular expressions.
-    "trailing"      : true,   // Prohibit trailing whitespaces.
-    "undef"         : true,   // Require all non-global variables be declared before they are used.
-    "unused"        : "vars", // Warn when you define and never use your variables
+    "curly"         : false,  // Requires {} for every new block or scope.
+    "eqeqeq"        : true,   // Requires triple equals i.e. `===`.
+    "forin"         : false,  // Requires `for in` loops to be filtered with
+                              // `hasOwnPrototype`.
+    "immed"         : true,   // Requires IIFEs to be wrapped in parens
+                              // eg. `( function(){}() );`
+    "latedef"       : false,  // Prohibits variable use before definition.
+    "newcap"        : false,  // Requires capitalization of all constructors
+    "noarg"         : true,   // Prohibits use of `arguments.caller` and `callee`.
+    "noempty"       : true,   // Prohibits use of empty blocks.
+    "nonew"         : false,  // Prohibits use of constructors for side-effects.
+    "plusplus"      : false,  // Prohibits use of `++` & `--`.
+    "regexp"        : true,   // Prohibits `.` and `[^...]` in regular expressions.
+    "trailing"      : true,   // Prohibits trailing whitespaces.
+    "undef"         : true,   // Requires all non-globals be declared before use.
+    "unused"        : "vars", // Warns when you define unused vars (but not fn args)
 
     // Relaxing Options
     // These options allow you to suppress certain types of warnings.
-    "asi"           : false,  // Tolerate Automatic Semicolon Insertion (no semicolons).
-    "boss"          : false,  // Tolerate assignments inside if, for & while.
-    "eqnull"        : true,   // Tolerate use of `== null`.
-    "evil"          : false,  // Tolerate use of `eval`.
-    "expr"          : true,   // Tolerate `ExpressionStatement` as Programs.
-    "laxbreak"      : false,  // Tolerate unsafe line breaks e.g. `return [\n] x` without semicolons.
-    "loopfunc"      : false,  // Allow functions to be defined within loops.
-    "regexdash"     : false,  // Tolerate unescaped last dash i.e. `[-...]`.
-    "scripturl"     : true,   // Tolerate script-targeted URLs.
-    "shadow"        : false,  // Allows re-define variables later in code e.g. `var x=1; x=2;`.
-    "sub"           : true,   // Tolerate use of subscript notation (e.g. obj['key'] instead of obj.key).
-    "supernew"      : true,  // Tolerate `new function () { ... };` and `new Object;`.
-
-    // Personal style prefrences.
-    "nomen"         : false,  // Prohibit use of initial or trailing underbars in names.
-    "onevar"        : false,  // Allow only one `var` statement per function.
-    "white"         : false   // Check against strict whitespace and indentation rules.
+    "asi"           : false,  // Allows statements without semicolons
+    "boss"          : false,  // Tolerates assignments inside if, for & while.
+    "eqnull"        : true,   // Tolerates use of `== null`.
+    "evil"          : false,  // Tolerates use of `eval`.
+    "expr"          : true,   // Tolerates `ExpressionStatement` as Programs.
+    "laxbreak"      : false,  // Tolerates unsafe line breaks
+                              // eg. `return [\n] x` without semicolons.
+    "loopfunc"      : false,  // Allows functions to be defined within loops.
+    "regexdash"     : false,  // Tolerates unescaped last dash i.e. `[-...]`.
+    "scripturl"     : true,   // Tolerates script-targeted URLs.
+    "shadow"        : false,  // Allows re-defined variables later in code
+                              // eg. `var x=1; x=2;`.
+    "sub"           : true,   // Tolerates use of subscript notation
+                              // (eg. obj['key'] instead of obj.key).
+    "supernew"      : true,   // Tolerate `new function()` and `new Object;`.
+    "lastsemic"     : true    // Tolerate missing ; for final statements in blocks
 }
