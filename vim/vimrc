@@ -25,8 +25,9 @@ NeoBundle 'tomtom/tcomment_vim', '3d0a9975'
 NeoBundle 'tomasr/molokai', 'e7bcec7573'
 NeoBundle 'wavded/vim-stylus', '046ccf1d'
 NeoBundle 'scrooloose/syntastic', 'f92741d3'
+NeoBundle 'colorizer', 'aae6b518'
 
-" plugins to try/relearn: sparkup, snipmate, yankring
+" plugins to try/relearn: sparkup, snipmate, yankring, ack.vim
 
 filetype plugin indent on
 NeoBundleCheck
@@ -155,6 +156,9 @@ let g:syntastic_python_checkers=['pyflakes']
 
 " MiniBufExpl
 nnoremap <silent> <C-u> :MBEbd<CR>     " typing <C-u> will 'unload' the current buffer
+
+" Colorizer
+nnoremap <leader><F2> :ColorToggle<CR>
 
 "===============================================================================
 " Key Bindings: Moving around
