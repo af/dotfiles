@@ -107,9 +107,16 @@ nnoremap k gk
 "===============================================================================
 " Colorscheme
 "===============================================================================
-color molokai
 hi normal guibg=black       " gvim/mvim: override bg color to use full black
 set guifont=Monaco:h14      " gvim/mvim: Bump up the default fontsize
+color molokai
+
+" Molokai overrides for commit preview highlighting (eg. after "git commit"):
+hi link diffAdded Function
+hi diffRemoved guifg=#960050 ctermfg=162
+hi link diffLine Define
+hi link diffFile Define
+hi link diffSubname Constant
 
 " Show syntax highlighting groups for word under cursor with ,s
 " From Vimcasts #25: http://vimcasts.org/episodes/creating-colorschemes-for-vim/
