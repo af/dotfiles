@@ -28,6 +28,10 @@ NeoBundle 'colorizer', 'aae6b518'
 
 " plugins to try/relearn: sparkup, snipmate, yankring, ack.vim
 
+" plugins for colorscheme dev (not tested yet):
+" https://github.com/shawncplus/Vim-toCterm
+" https://github.com/guns/xterm-color-table.vim
+
 filetype plugin indent on
 NeoBundleCheck
 "===============================================================================
@@ -107,8 +111,6 @@ nnoremap k gk
 "===============================================================================
 " Colorscheme
 "===============================================================================
-hi normal guibg=black       " gvim/mvim: override bg color to use full black
-set guifont=Monaco:h14      " gvim/mvim: Bump up the default fontsize
 color molokai
 
 " Molokai overrides for commit preview highlighting (eg. after "git commit"):
@@ -117,6 +119,13 @@ hi diffRemoved guifg=#960050 ctermfg=162
 hi link diffLine Define
 hi link diffFile Define
 hi link diffSubname Constant
+
+" MacVim/GVIM and 256-colour term overrides
+if has('gui_running')
+    set guifont=Monaco:h14      " gvim/mvim: Bump up the default fontsize
+elseif $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
+    set t_Co=256            " Richer colours if our terminal can handle it.
+endif
 
 " Show syntax highlighting groups for word under cursor with ,s
 " From Vimcasts #25: http://vimcasts.org/episodes/creating-colorschemes-for-vim/
@@ -127,16 +136,6 @@ function! <SID>SynStack()
   endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
-
-
-"===============================================================================
-" MacVim/GVIM Overrides
-"===============================================================================
-if has('gui_running')
-    set transp=8            " Slight window transparency
-elseif $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
-    set t_Co=256            " Richer colours if our terminal can handle it.
-endif
 
 
 "===============================================================================
@@ -187,6 +186,7 @@ let g:airline#extensions#tabline#enabled = 1    " Tab line at top of window
 " Colorizer
 nnoremap <leader><F2> :ColorToggle<CR>
 
+
 "===============================================================================
 " Key Bindings: Moving around
 "===============================================================================
@@ -210,6 +210,27 @@ autocmd InsertLeave * nnoremap <esc> <esc>:w<CR>
 
 " Shortcut to edit current vimrc file
 nnoremap <leader>v :e $MYVIMRC<CR>
+
+" Swap ` and ' for mark jumping:
+nnoremap ' `
+nnoremap ` '
+
+" Use tab key for jumping between brace pairs:
+nmap <tab> %
+vmap <tab> %
+
+
+"===============================================================================
+" Key Bindings: Misc
+"===============================================================================
+" Use ':w!!' to save a root-owned file using sudo:
+cmap w!! w !sudo tee % >/dev/null
+
+" Folding
+set foldlevelstart=0
+nnoremap <Space> za
+vnoremap <Space> za
+au BufNewFile,BufRead *.html map <leader>ft Vatzf
 
 
 "===============================================================================
