@@ -194,13 +194,14 @@ map! <C-l> <esc>:bn<CR>
 map <C-l> :bn<CR>
 nnoremap <silent> <C-u> :bd<CR>
 
-"EXPERIMENTAL!
-" Save current file every time we leave insert mode
-" This causes a problem where a "c" is entered when opening a file,
-" so I should probably rewrite this to use an autocmd instead (InsertLeave?)
-" http://learnvimscriptthehardway.stevelosh.com/chapters/12.html
+" Save current file every time we leave insert mode or hit <esc>:
+" Note that the autocmd repeats the mapping each time we leave insert mode,
+" this doesn't seem to be a problem in practice.
 inoremap <esc> <esc>:w<CR>
-nnoremap <esc> <esc>:w<CR>
+autocmd InsertLeave * nnoremap <esc> <esc>:w<CR>
+
+" Shortcut to edit current vimrc file
+nnoremap <leader>v :e $MYVIMRC<CR>
 
 
 "===============================================================================
