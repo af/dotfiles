@@ -143,8 +143,9 @@ endif
 " Plugin customization
 "===============================================================================
 " Ctrl-P
-nmap <leader><leader> :CtrlP<CR>
-nmap T :CtrlPBuffer<CR>
+nnoremap T :CtrlPBuffer<CR>             " Search active buffers
+nnoremap <leader>r :CtrlPMRU<CR>        " Search recently accessed files
+let g:ctrlp_map = '<leader><leader>'    " Search in current directory
 let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_open_multiple_files = 'i'
 let g:ctrlp_clear_cache_on_exit = 1
