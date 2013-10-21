@@ -13,7 +13,8 @@
 // https://github.com/sdegutis/zephyros/blob/master/Docs/JavaScript.md
 // https://github.com/sdegutis/zephyros/wiki/Sizeup
 
-var MOD_COMBO = ['cmd', 'alt', 'ctrl'];
+var MOD_COMBO = ['cmd', 'alt', 'ctrl']; // Modifiers to use for all bindings
+var LEFT_TO_RIGHT_RATIO = 0.6;          // Make windows on the left side wider
 
 function moveWindow(fn) {
     var win = api.focusedWindow();
@@ -52,18 +53,17 @@ var actions = {
 
     pushRight: function() {
         moveWindow(function(frame) {
-            var width = frame.w/2;
-            frame.x = width;
+            var leftWidth = frame.w*LEFT_TO_RIGHT_RATIO;
+            frame.x += leftWidth;   // We are assuming the window was left-aligned previously
             frame.y = 0;
-            frame.w = width;
+            frame.w = frame.w - leftWidth;
         });
     },
 
     pushLeft: function() {
         moveWindow(function(frame) {
-            frame.x = 0;
             frame.y = 0;
-            frame.w = frame.w/2;
+            frame.w = frame.w*LEFT_TO_RIGHT_RATIO;
         });
     },
 
