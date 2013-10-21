@@ -14,9 +14,10 @@ import subprocess
 # Assume this script is located the root of the dotfiles repo:
 DOTFILES_ROOT = os.path.dirname(os.path.abspath(__file__))
 SYMLINK_MAP = {
+    'jshintrc':     '~/.jshintrc',
     'vim':          '~/.vim',
     'vim/vimrc':    '~/.vimrc',
-    'jshintrc':     '~/.jshintrc',
+    'zephyros.js':     '~/.zephyros.js',
 }
 
 # npm packages to install globally:
