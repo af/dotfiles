@@ -16,6 +16,22 @@
 var MOD_COMBO = ['cmd', 'alt', 'ctrl']; // Modifiers to use for all bindings
 var LEFT_TO_RIGHT_RATIO = 0.6;          // Make windows on the left side wider
 
+var MAPPINGS = {
+    // Copied/adapted from SizeUp:
+    'PAD4': 'pushLeft',
+    'PAD5': 'fullscreen',
+    'PAD6': 'pushRight',
+    'PAD0': 'toNextScreen',
+
+    // Experimental:
+    'PAD9': 'showClipboard',
+    's':    'runShell',
+    'r':    'reloadConfig'
+};
+
+
+// Move a window, as specified by a given frame transformation function.
+// This is a utility fn from the Zephyros docs
 function moveWindow(fn) {
     var win = api.focusedWindow();
     var frame = win.screen().frameWithoutDockOrMenu();
@@ -23,6 +39,8 @@ function moveWindow(fn) {
     win.setFrame(frame);
 }
 
+// Move a window to the given screen.
+// This is a utility fn from the Zephyros docs
 function moveToScreen(win, screen) {
     if (!screen) return;
 
@@ -41,6 +59,8 @@ function moveToScreen(win, screen) {
     });
 }
 
+
+// A collection of actions, each suitable to be bound to a keystroke:
 var actions = {
     fullscreen: function() {
         api.focusedWindow().maximize();
@@ -54,7 +74,7 @@ var actions = {
     pushRight: function() {
         moveWindow(function(frame) {
             var leftWidth = frame.w*LEFT_TO_RIGHT_RATIO;
-            frame.x += leftWidth;   // We are assuming the window was left-aligned previously
+            frame.x += leftWidth;   // assume window was left-aligned previously
             frame.y = 0;
             frame.w = frame.w - leftWidth;
         });
@@ -66,6 +86,8 @@ var actions = {
             frame.w = frame.w*LEFT_TO_RIGHT_RATIO;
         });
     },
+
+    reloadConfig: function() { reloadConfig(); },
 
     // Experimental shit:
     runShell: function() {
@@ -79,14 +101,8 @@ var actions = {
     }
 };
 
-// Bindings
-bind("PAD4", MOD_COMBO, actions.pushLeft);
-bind("PAD5", MOD_COMBO, actions.fullscreen);
-bind("PAD6", MOD_COMBO, actions.pushRight);
-bind("PAD0", MOD_COMBO, actions.toNextScreen);
-
-// Experimental:
-bind("PAD9", MOD_COMBO, actions.showClipboard);
-bind("PAD7", MOD_COMBO, actions.runShell);
-
-bind("r", MOD_COMBO, reloadConfig);
+// Create bindings from the MAPPINGS object:
+for (var k in MAPPINGS) {
+    var actionName = MAPPINGS[k];
+    bind(k, MOD_COMBO, actions[actionName]);
+}
