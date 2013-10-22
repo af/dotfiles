@@ -18,19 +18,25 @@ var LEFT_TO_RIGHT_RATIO = 0.6;          // Make windows on the left side wider
 
 var MAPPINGS = {
     // Copied/adapted from SizeUp:
-    'PAD4': 'pushLeft',
+    'PAD1': 'bottomLeft',
+    'PAD3': 'bottomRight',
+    'PAD4': 'leftSide',
     'PAD5': 'fullscreen',
-    'PAD6': 'pushRight',
+    'PAD6': 'rightSide',
+    'PAD7': 'topLeft',
+    'PAD9': 'topRight',
     'PAD0': 'toNextScreen',
 
     // Experimental:
-    'PAD9': 'showClipboard',
+    'c': 'showClipboard',
     's':    'runShell',
     'r':    'reloadConfig'
 };
 
 
 // Move a window, as specified by a given frame transformation function.
+// Note! the frame object passed to the given function is for the current
+// *screen*, not for the window itself!
 // This is a utility fn from the Zephyros docs
 function moveWindow(fn) {
     var win = api.focusedWindow();
@@ -48,9 +54,10 @@ function moveToScreen(win, screen) {
     var oldScreenRect = win.screen().frameWithoutDockOrMenu();
     var newScreenRect = screen.frameWithoutDockOrMenu();
 
+    // Move window to other screen while preserving the relative w/h/x/y
+    // values from the old window:
     var xRatio = newScreenRect.w  / oldScreenRect.w;
     var yRatio = newScreenRect.h / oldScreenRect.h;
-
     win.setFrame({
       x: Math.round((frame.x - oldScreenRect.x) * xRatio) + newScreenRect.x,
       y: Math.round((frame.y - oldScreenRect.y) * yRatio) + newScreenRect.y,
@@ -71,19 +78,53 @@ var actions = {
         moveToScreen(win, win.screen().nextScreen());
     },
 
-    pushRight: function() {
+    rightSide: function() {
         moveWindow(function(frame) {
             var leftWidth = frame.w*LEFT_TO_RIGHT_RATIO;
             frame.x += leftWidth;   // assume window was left-aligned previously
-            frame.y = 0;
             frame.w = frame.w - leftWidth;
         });
     },
 
-    pushLeft: function() {
+    leftSide: function() {
         moveWindow(function(frame) {
-            frame.y = 0;
             frame.w = frame.w*LEFT_TO_RIGHT_RATIO;
+        });
+    },
+
+    topLeft: function() {
+        moveWindow(function(frame) {
+            frame.w = frame.w*LEFT_TO_RIGHT_RATIO;
+            frame.h = frame.h/2;
+        });
+    },
+
+    bottomLeft: function() {
+        moveWindow(function(frame) {
+            var halfHeight = frame.h/2;
+            frame.w = frame.w*LEFT_TO_RIGHT_RATIO;
+            frame.y = halfHeight;
+            frame.h = halfHeight;
+        });
+    },
+
+    topRight: function() {
+        moveWindow(function(frame) {
+            var leftWidth = frame.w*LEFT_TO_RIGHT_RATIO;
+            frame.x += leftWidth;
+            frame.w = frame.w - leftWidth;
+            frame.h = frame.h/2;
+        });
+    },
+
+    bottomRight: function() {
+        moveWindow(function(frame) {
+            var leftWidth = frame.w*LEFT_TO_RIGHT_RATIO;
+            var halfHeight = frame.h/2;
+            frame.x += leftWidth;
+            frame.w = frame.w - leftWidth;
+            frame.h = halfHeight;
+            frame.y = halfHeight;
         });
     },
 
