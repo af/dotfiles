@@ -162,6 +162,7 @@ endif
 
 " Syntastic display customizations:
 " TODO: update colors so they work in console vim also
+let syntastic_mode_map = { 'passive_filetypes': ['html'] }  " disable html checking by default
 let g:syntastic_error_symbol = '!!'
 let g:syntastic_warning_symbol = '!!'
 hi SyntasticErrorSign guifg=#ff0000
