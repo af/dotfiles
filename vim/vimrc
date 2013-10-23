@@ -22,12 +22,15 @@ NeoBundle 'tomtom/tcomment_vim', '3d0a9975'
 NeoBundle 'mileszs/ack.vim', 'f183a34'
 
 " theme/syntax related plugins:
-NeoBundle 'tomasr/molokai', 'e7bcec7573'
 NeoBundle 'wavded/vim-stylus', '046ccf1d'
 NeoBundle 'scrooloose/syntastic', 'f92741d3'
 NeoBundle 'colorizer', 'aae6b518'
 
-" plugins to try/relearn: sparkup, snipmate, yankring, ack.vim
+" Colour schemes:
+NeoBundle 'tomasr/molokai', 'e7bcec7573'        " default
+NeoBundle 'junegunn/seoul256.vim', '340817d'    " softer, lower contrast
+
+" plugins to try/relearn: sparkup, snipmate, yankring, unite, vimshell
 
 " plugins for colorscheme dev (not tested yet):
 " https://github.com/shawncplus/Vim-toCterm
