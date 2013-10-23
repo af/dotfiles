@@ -34,37 +34,44 @@ var MAPPINGS = {
 };
 
 
-// Move a window, as specified by a given frame transformation function.
-// Note! the frame object passed to the given function is for the current
-// *screen*, not for the window itself!
-// This is a utility fn from the Zephyros docs
-function moveWindow(fn) {
-    var win = api.focusedWindow();
-    var frame = win.screen().frameWithoutDockOrMenu();
-    if (fn) fn(frame);
-    win.setFrame(frame);
-}
+var utils = {
+    // Run an AppleScript program in the shell via the osascript command
+    runAppleScript: function(script) {
+        shell('/usr/bin/env', ['osascript', '-e', script]);
+    },
 
-// Move a window to the given screen.
-// This is a utility fn from the Zephyros docs
-function moveToScreen(win, screen) {
-    if (!screen) return;
+    // Move a window, as specified by a given frame transformation function.
+    // Note! the frame object passed to the given function is for the current
+    // *screen*, not for the window itself!
+    // This is a utility fn from the Zephyros docs
+    moveWindow: function(fn) {
+        var win = api.focusedWindow();
+        var frame = win.screen().frameWithoutDockOrMenu();
+        if (fn) fn(frame);
+        win.setFrame(frame);
+    },
 
-    var frame = win.frame();
-    var oldScreenRect = win.screen().frameWithoutDockOrMenu();
-    var newScreenRect = screen.frameWithoutDockOrMenu();
+    // Move a window to the given screen.
+    // This is a utility fn from the Zephyros docs
+    moveToScreen: function(win, screen) {
+        if (!screen) return;
 
-    // Move window to other screen while preserving the relative w/h/x/y
-    // values from the old window:
-    var xRatio = newScreenRect.w  / oldScreenRect.w;
-    var yRatio = newScreenRect.h / oldScreenRect.h;
-    win.setFrame({
-      x: Math.round((frame.x - oldScreenRect.x) * xRatio) + newScreenRect.x,
-      y: Math.round((frame.y - oldScreenRect.y) * yRatio) + newScreenRect.y,
-      w: Math.round(frame.w * xRatio),
-      h: Math.round(frame.h * yRatio)
-    });
-}
+        var frame = win.frame();
+        var oldScreenRect = win.screen().frameWithoutDockOrMenu();
+        var newScreenRect = screen.frameWithoutDockOrMenu();
+
+        // Move window to other screen while preserving the relative w/h/x/y
+        // values from the old window:
+        var xRatio = newScreenRect.w  / oldScreenRect.w;
+        var yRatio = newScreenRect.h / oldScreenRect.h;
+        win.setFrame({
+          x: Math.round((frame.x - oldScreenRect.x) * xRatio) + newScreenRect.x,
+          y: Math.round((frame.y - oldScreenRect.y) * yRatio) + newScreenRect.y,
+          w: Math.round(frame.w * xRatio),
+          h: Math.round(frame.h * yRatio)
+        });
+    }
+};
 
 
 // A collection of actions, each suitable to be bound to a keystroke:
@@ -75,11 +82,11 @@ var actions = {
 
     toNextScreen: function() {
         var win = api.focusedWindow();
-        moveToScreen(win, win.screen().nextScreen());
+        utils.moveToScreen(win, win.screen().nextScreen());
     },
 
     rightSide: function() {
-        moveWindow(function(frame) {
+        utils.moveWindow(function(frame) {
             var leftWidth = frame.w*LEFT_TO_RIGHT_RATIO;
             frame.x += leftWidth;   // assume window was left-aligned previously
             frame.w = frame.w - leftWidth;
@@ -87,20 +94,20 @@ var actions = {
     },
 
     leftSide: function() {
-        moveWindow(function(frame) {
+        utils.moveWindow(function(frame) {
             frame.w = frame.w*LEFT_TO_RIGHT_RATIO;
         });
     },
 
     topLeft: function() {
-        moveWindow(function(frame) {
+        utils.moveWindow(function(frame) {
             frame.w = frame.w*LEFT_TO_RIGHT_RATIO;
             frame.h = frame.h/2;
         });
     },
 
     bottomLeft: function() {
-        moveWindow(function(frame) {
+        utils.moveWindow(function(frame) {
             var halfHeight = frame.h/2;
             frame.w = frame.w*LEFT_TO_RIGHT_RATIO;
             frame.y = halfHeight;
@@ -109,7 +116,7 @@ var actions = {
     },
 
     topRight: function() {
-        moveWindow(function(frame) {
+        utils.moveWindow(function(frame) {
             var leftWidth = frame.w*LEFT_TO_RIGHT_RATIO;
             frame.x += leftWidth;
             frame.w = frame.w - leftWidth;
@@ -118,7 +125,7 @@ var actions = {
     },
 
     bottomRight: function() {
-        moveWindow(function(frame) {
+        utils.moveWindow(function(frame) {
             var leftWidth = frame.w*LEFT_TO_RIGHT_RATIO;
             var halfHeight = frame.h/2;
             frame.x += leftWidth;
