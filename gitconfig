@@ -1,0 +1,38 @@
+[user]
+    name = Aaron Franks
+    email = aaron.franks@gmail.com
+[color]
+    diff = auto
+    ui = auto
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+[color "diff"]
+    meta = cyan bold
+    frag = yellow
+    old = red bold
+    new = green bold
+[color "status"]
+    added = yellow
+    changed = cyan
+    untracked = green
+[alias]
+  br = branch
+  co = checkout
+  changed = diff --name-only
+  d  = diff
+  hash = rev-parse HEAD
+  ls  = ls-files
+  mvhead = branch -f
+  s  = status
+  undo = reset --soft HEAD^
+  unstage = reset HEAD
+  latest = for-each-ref --sort=-committerdate refs/heads --format='%(committerdate:short) %(refname:short)'
+  resume = show --pretty="format:" --name-only      # List the files that were changed in a given commit (default: HEAD)
+[branch]
+    autosetupmerge = true
+[core]
+    editor = /usr/bin/vim       # Mac workaround for http://groups.google.com/group/vim_mac/browse_thread/thread/0d33e2f2130867b0
+[push]
+	default = current

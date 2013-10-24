@@ -14,6 +14,7 @@ import subprocess
 # Assume this script is located the root of the dotfiles repo:
 DOTFILES_ROOT = os.path.dirname(os.path.abspath(__file__))
 SYMLINK_MAP = {
+    'gitconfig':    '~/.gitconfig',
     'jshintrc':     '~/.jshintrc',
     'vim':          '~/.vim',
     'vim/vimrc':    '~/.vimrc',
