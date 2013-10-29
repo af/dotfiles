@@ -245,6 +245,7 @@ au BufNewFile,BufRead *.html map <leader>ft Vatzf
 " Filetype-specific settings
 "===============================================================================
 " filetype detection for syntax highlighting
+au BufNewFile,BufRead *.md set filetype=markdown
 au BufNewFile,BufRead *.mustache set filetype=mustache
 autocmd FileType mustache set ft=html.mustache
 
