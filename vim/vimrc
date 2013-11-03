@@ -201,8 +201,13 @@ nnoremap <leader>a :Ack
 "===============================================================================
 
 " (built-in)
-" <C-O> - move the cursor position back in the jump list
-" <C-I> - move the cursor position forward in the jump list
+" <C-o> - move the cursor position back in the jump list
+" <C-i> - move the cursor position forward in the jump list
+" g;    - move back in the change list
+" g,    - move forward in the change list
+" gi    - move to the last insert, and re-enter insert mode
+" {     - move back one paragraph
+" }     - move forward one paragraph
 
 " Navigating between buffers:
 map! <C-h> <esc>:bp<CR>
@@ -223,10 +228,6 @@ nnoremap <leader>v :e $MYVIMRC<CR>
 " Swap ` and ' for mark jumping:
 nnoremap ' `
 nnoremap ` '
-
-" Use tab key for jumping between brace pairs:
-nmap <tab> %
-vmap <tab> %
 
 
 "===============================================================================
