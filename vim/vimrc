@@ -22,6 +22,10 @@ NeoBundle 'tomtom/tcomment_vim', '3d0a9975'
 NeoBundle 'mileszs/ack.vim', 'f183a34'
 NeoBundle 'tpope/vim-surround', '42e9b46e'
 
+" Ultisnips and snippets-related plugins:
+NeoBundle 'UltiSnips', '2.1'
+NeoBundle 'af/vim-snippets'     " My custom snippets
+
 " theme/syntax related plugins:
 NeoBundle 'wavded/vim-stylus', '046ccf1d'
 NeoBundle 'scrooloose/syntastic', 'f92741d3'
@@ -195,6 +199,10 @@ nnoremap <leader><F2> :ColorToggle<CR>
 " ack.vim
 " Shortcut to drop to ex mode and prompt for a string to match:
 nnoremap <leader>a :Ack 
+
+" UltiSnips
+let g:UltiSnipsEditSplit = 'vertical'
+let g:UltiSnipsSnippetDirectories = ['bundle/vim-snippets/UltiSnips']
 
 "===============================================================================
 " Key Bindings: Moving around
