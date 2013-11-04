@@ -16,6 +16,8 @@
 var MOD_COMBO = ['cmd', 'alt', 'ctrl']; // Modifiers to use for all bindings
 var LEFT_TO_RIGHT_RATIO = 0.6;          // Make windows on the left side wider
 
+// Note: for keys to use, see:
+// https://github.com/sdegutis/zephyros/blob/master/Zephyros/SDKeyBindingTranslator.m#L148
 var MAPPINGS = {
     // Copied/adapted from SizeUp:
     'PAD1': 'bottomLeft',
@@ -26,6 +28,12 @@ var MAPPINGS = {
     'PAD7': 'topLeft',
     'PAD9': 'topRight',
     'PAD0': 'toNextScreen',
+
+    // For when the numpad is not available
+    // (note: tried to bind to '4', '5', '6', but got errors)
+    'F4': 'leftSide',
+    'F5': 'fullscreen',
+    'F6': 'rightSide',
 
     // Experimental:
     'c': 'showClipboard',
