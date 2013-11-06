@@ -150,6 +150,10 @@ endfunc
 "===============================================================================
 " Plugin customization
 "===============================================================================
+
+" Enable the built-in matchit plugin. This enhances % for xml tags and other stuff
+runtime macros/matchit.vim
+
 " Ctrl-P
 nnoremap T :CtrlPBuffer<CR>             " Search active buffers
 nnoremap <leader>r :CtrlPMRU<CR>        " Search recently accessed files
@@ -203,6 +207,7 @@ nnoremap <leader>a :Ack
 " UltiSnips
 let g:UltiSnipsEditSplit = 'vertical'
 let g:UltiSnipsSnippetDirectories = ['bundle/vim-snippets/UltiSnips']
+nnoremap <leader>s :UltiSnipsEdit<CR>
 
 "===============================================================================
 " Key Bindings: Moving around
@@ -230,12 +235,20 @@ nnoremap <silent> <C-u> :bd<CR>
 inoremap <esc> <esc>:w<CR>
 autocmd InsertLeave * nnoremap <esc> <esc>:w<CR>
 
-" Shortcut to edit current vimrc file
-nnoremap <leader>v :e $MYVIMRC<CR>
-
 " Swap ` and ' for mark jumping:
 nnoremap ' `
 nnoremap ` '
+
+" Global mark conventions
+" Uppercase marks persist between sessions, so they're useful for accessing
+" common files quickly. By convention, use the following global marks:
+"
+" V     - vimrc
+" Z     - zshrc
+" J     - jshintrc
+"
+" ProTip: After opening a file with a global mark, you can change vim's cwd to
+" the file's location with ":cd %:h"
 
 
 "===============================================================================
