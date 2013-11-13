@@ -5,12 +5,11 @@ Rebuilding my dotfiles from scratch and putting them online for future reference
 
 ## Setup
 * clone the repo
+* (OS X) Install homebrew
+* (OS X) Install homebrew dependencies with `./brew_installs.sh`
 * run `install.py`
 
 
-## Misc binaries that also need to be installed:
-* node.js
-* ngrok
-* tig
-* Zephyros (OS X only)
-* Quicksilver (OS X only)
+## Misc Mac-only binaries to install:
+* Zephyros
+* Quicksilver
