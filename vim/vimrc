@@ -21,6 +21,7 @@ NeoBundle 'tpope/vim-sleuth', '039e2cd'
 NeoBundle 'tomtom/tcomment_vim', '3d0a9975'
 NeoBundle 'mileszs/ack.vim', 'f183a34'
 NeoBundle 'tpope/vim-surround', '42e9b46e'
+NeoBundle 'justinmk/vim-sneak'
 
 " Ultisnips and snippets-related plugins:
 NeoBundle 'UltiSnips', '2.1'
