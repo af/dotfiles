@@ -16,6 +16,7 @@ DOTFILES_ROOT = os.path.dirname(os.path.abspath(__file__))
 SYMLINK_MAP = {
     'gitconfig':    '~/.gitconfig',
     'jshintrc':     '~/.jshintrc',
+    'psqlrc':       '~/.psqlrc',
     'vim':          '~/.vim',
     'vim/vimrc':    '~/.vimrc',
     'zephyros.js':     '~/.zephyros.js',
