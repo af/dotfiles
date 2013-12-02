@@ -1,6 +1,11 @@
 -- psql customizations
 -- most of them were swiped from:
 -- http://robots.thoughtbot.com/improving-the-command-line-postgres-experience/
+--
+-- Other good sources of info:
+-- http://www.craigkerstiens.com/2013/02/13/How-I-Work-With-Postgres/
+-- http://www.postgresql.org/docs/9.3/static/app-psql.html
+-- http://arjanvandergaag.nl/blog/working-with-postgresql-on-the-command-line.html
 
 
 -- Custom prompt
