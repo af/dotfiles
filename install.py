@@ -19,7 +19,8 @@ SYMLINK_MAP = {
     'psqlrc':       '~/.psqlrc',
     'vim':          '~/.vim',
     'vim/vimrc':    '~/.vimrc',
-    'zephyros.js':     '~/.zephyros.js',
+    'zephyros.js':  '~/.zephyros.js',
+    'zshrc':        '~/.zshrc',
 }
 
 # npm packages to install globally:
