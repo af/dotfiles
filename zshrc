@@ -85,6 +85,17 @@ source ~/.nvm/nvm.sh
 # Allow bash-style comments in an interactive shell:
 setopt interactivecomments
 
+# Shorthand function to create a new project with a git repo and README:
+function newproj () {
+    mkdir $1
+    cd $1
+    git init
+    touch README.md
+    git add README.md
+    git commit -m "First commit"
+    echo "\nYour new project is ready. Make something awesome!"
+}
+
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
