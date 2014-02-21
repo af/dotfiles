@@ -84,7 +84,7 @@ set ruler                   " line numbers at bottom of page
 set showcmd
 set title
 set wildmenu
-set wildignore=.svn,.git,.gitignore,*.pyc,*.so,*.swp,*.jpg,*.png,*.gif,node_modules
+set wildignore=.svn,.git,.gitignore,*.pyc,*.so,*.swp,*.jpg,*.png,*.gif,node_modules,_site
 set laststatus=2            " Always show a status line for lowest window in a split
 set cursorline              " highlight the full line that the cursor is currently on
 set colorcolumn=80,100      " Highlight these columns with a different bg
@@ -286,3 +286,6 @@ au BufRead,BufNewFile *.json setlocal syntax=javascript
 " But we need to update the encryption type to a more secure one.
 " See http://usevim.com/2013/11/01/vim-encryption/
 set cryptmethod=blowfish
+
+" TODO: function that sets vim's cwd to the closest ancestor dir that contains
+" a .git directory
