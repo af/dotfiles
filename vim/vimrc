@@ -23,6 +23,7 @@ NeoBundle 'mileszs/ack.vim', 'f183a34'
 NeoBundle 'tpope/vim-surround', '42e9b46e'
 NeoBundle 'tpope/vim-vinegar', '687aa868'
 NeoBundle 'tommcdo/vim-exchange', 'b82a774'
+NeoBundle '29decibel/vim-stringify', '614eb0c'
 
 " Ultisnips and snippets-related plugins:
 NeoBundle 'UltiSnips', '2.1'
@@ -210,6 +211,9 @@ nnoremap <leader>a :Ack
 let g:UltiSnipsEditSplit = 'vertical'
 let g:UltiSnipsSnippetDirectories = ['bundle/vim-snippets/UltiSnips']
 nnoremap <leader>s :UltiSnipsEdit<CR>
+
+" vim-stringify
+map <leader>' :call Stringify()<CR>
 
 "===============================================================================
 " Key Bindings: Moving around
