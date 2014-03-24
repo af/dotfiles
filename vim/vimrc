@@ -25,9 +25,8 @@ NeoBundle 'tpope/vim-vinegar', '687aa868'
 NeoBundle 'tommcdo/vim-exchange', 'b82a774'
 NeoBundle '29decibel/vim-stringify', '614eb0c'
 
-" Ultisnips and snippets-related plugins:
-NeoBundle 'UltiSnips', '2.1'
-NeoBundle 'af/vim-snippets'     " My custom snippets
+" Ultisnips (private snippets are stored in this repo)
+NeoBundle 'UltiSnips', '3.0'
 
 " theme/syntax related plugins:
 NeoBundle 'wavded/vim-stylus', '046ccf1d'
@@ -38,7 +37,7 @@ NeoBundle 'colorizer', 'aae6b518'
 NeoBundle 'tomasr/molokai', 'e7bcec7573'        " default
 NeoBundle 'junegunn/seoul256.vim', '340817d'    " softer, lower contrast
 
-" plugins to try/relearn: sparkup, snipmate, unite, vimshell, sneak.vim
+" plugins to try/relearn: sparkup, unite, vimshell, sneak.vim
 
 " plugins for colorscheme dev (not tested yet):
 " https://github.com/shawncplus/Vim-toCterm
@@ -209,7 +208,7 @@ nnoremap <leader>a :Ack
 
 " UltiSnips
 let g:UltiSnipsEditSplit = 'vertical'
-let g:UltiSnipsSnippetDirectories = ['bundle/vim-snippets/UltiSnips']
+let g:UltiSnipsSnippetDirectories = ["personal_snippets"]
 nnoremap <leader>s :UltiSnipsEdit<CR>
 
 " vim-stringify
