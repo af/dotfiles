@@ -40,26 +40,52 @@ snippet img "<img>" w
 <img src="${1:imgsrc}" alt="$2" $3/>
 endsnippet
 
+snippet section "<section>" w
+<section${1: class="${2:myclass}"}>
+	$0
+</section>
+endsnippet
+
+snippet article "<article>" w
+<article${1: class="${2:myclass}"}>
+	$0
+</article>
+endsnippet
+
+snippet time "<time>" w
+<time${1: datetime="${2:2000-01-15} ${3:19:00}"}>$4</time>
+endsnippet
+
 snippet div "<div>" w
-<div$1>
+<div${1: class="${2:myclass}"}>
 	$0
 </div>
 endsnippet
 
 snippet span "<span>" w
-<span$1>$2</span>
+<span${1: class="${2:myclass}"}>$3</span>
 endsnippet
 
 snippet p "<p>" w
-<p>
+<p${1: class="${2:myclass}"}>
 	$0
 </p>
 endsnippet
 
-snippet form "<form>" w
-<form action="$1" method="${2:get}"$3>
+snippet q "<q>" w
+<q>$1</q>
+endsnippet
+
+snippet blockquote "<blockquote>" w
+<blockquote${1: class="${2:myclass}"}>
 	$0
-	<button type="submit">${4:Submit}</button>
+</blockquote>
+endsnippet
+
+snippet form "<form>" w
+<form action="$1" method="${2:POST}"${3: class="${4:myclass}"}>
+	$0
+	<button type="submit">${5:Submit}</button>
 </form>
 endsnippet
 
@@ -126,17 +152,19 @@ snippet a "Link" w
 endsnippet
 
 snippet li "<li>" w
-<li>$0</li>
+<li>
+	$0
+</li>
 endsnippet
 
 snippet ul "<ul>" w
-<ul$1>
+<ul${1: class="${2:myclass}"}>
 	$0
 </ul>
 endsnippet
 
 snippet ol "<ol>" w
-<ol$1>
+<ol${1: class="${2:myclass}"}>
 	$0
 </ol>
 endsnippet

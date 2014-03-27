@@ -208,7 +208,8 @@ nnoremap <leader>a :Ack
 
 " UltiSnips
 let g:UltiSnipsEditSplit = 'vertical'
-let g:UltiSnipsSnippetDirectories = ["personal_snippets"]
+let g:UltiSnipsSnippetDirectories = ['personal_snippets']
+let g:UltiSnipsSnippetsDir = '~/.vim/personal_snippets'
 nnoremap <leader>s :UltiSnipsEdit<CR>
 
 " vim-stringify
