@@ -49,8 +49,8 @@ source $ZSH/oh-my-zsh.sh
 #bindkey -v
 
 # Customize to your needs...
-PATH="/Applications/Postgres.app/Contents/MacOS/bin:$PATH"
-export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/opt/X11/bin:/usr/local/git/bin:/usr/local/heroku/bin:/Users/aaron/.my_scripts:/usr/local/sbin
+PATH="/Applications/Postgres.app/Contents/Versions/9.3/bin:$PATH"
+export PATH=/usr/local/bin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/git/bin:/usr/local/heroku/bin:/Users/aaron/.my_scripts:/usr/local/sbin
 
 # Directory traversal:
 alias l='ls -alh'

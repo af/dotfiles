@@ -33,6 +33,6 @@
 [branch]
     autosetupmerge = true
 [core]
-    editor = /usr/bin/vim       # Mac workaround for http://groups.google.com/group/vim_mac/browse_thread/thread/0d33e2f2130867b0
+    editor = vim
 [push]
 	default = current
