@@ -306,5 +306,14 @@ au BufRead,BufNewFile *.json setlocal syntax=javascript
 " See http://usevim.com/2013/11/01/vim-encryption/
 set cryptmethod=blowfish
 
-" TODO: function that sets vim's cwd to the closest ancestor dir that contains
-" a .git directory
+" Set vim's cwd to the closest ancestor dir containing a .git directory
+" using "git rev-parse --show-toplevel"
+function! MoveToGitDir()
+  let filePath = fnamemodify(bufname("%"), ':p:h')
+  exe 'cd' fnameescape(filePath)
+  let repoPath = system("git rev-parse --show-toplevel")
+  let repoPath = substitute(repoPath, '\n$', '', '')    " Remove newline from system() output
+  exe 'cd' fnameescape(repoPath)
+  echo 'Changed dir to ' . repoPath
+endfunc
+nnoremap <leader>d :call MoveToGitDir()<CR>
