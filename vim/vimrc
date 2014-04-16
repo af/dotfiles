@@ -19,7 +19,6 @@ NeoBundle 'airblade/vim-gitgutter', '878c3422'
 NeoBundle 'bling/vim-airline', 'aef500c426'
 NeoBundle 'tpope/vim-sleuth', '039e2cd'
 NeoBundle 'tomtom/tcomment_vim', '3d0a9975'
-NeoBundle 'mileszs/ack.vim', 'f183a34'
 NeoBundle 'tpope/vim-surround', '42e9b46e'
 NeoBundle 'tpope/vim-vinegar', '687aa868'
 NeoBundle 'tommcdo/vim-exchange', 'b82a774'
@@ -27,7 +26,9 @@ NeoBundle '29decibel/vim-stringify', '614eb0c'
 
 " Unite.vim and related plugs
 NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/unite-outline'
 NeoBundle 'Shougo/neomru.vim'
+NeoBundle 'sgur/unite-git_grep'
 
 " Ultisnips (private snippets are stored in this repo)
 NeoBundle 'UltiSnips', '3.0'
@@ -41,7 +42,7 @@ NeoBundle 'colorizer', 'aae6b518'
 NeoBundle 'tomasr/molokai', 'e7bcec7573'        " default
 NeoBundle 'junegunn/seoul256.vim', '340817d'    " softer, lower contrast
 
-" plugins to try/relearn: sparkup, unite, vimshell, sneak.vim
+" plugins to try/relearn: sparkup, vimshell, sneak.vim
 
 " plugins for colorscheme dev (not tested yet):
 " https://github.com/shawncplus/Vim-toCterm
@@ -220,14 +221,22 @@ nnoremap <leader>s :UltiSnipsEdit<CR>
 map <leader>' :call Stringify()<CR>
 
 " Unite.vim
+" TODO: install vimproc and see if file_rec/async can replace CtrlP
 let g:unite_source_history_yank_enable = 1
+let g:unite_enable_short_source_names = 1
+let g:unite_enable_start_insert = 1
+let g:unite_split_rule = 'botright'
 "call unite#filters#matcher_default#use(['matcher_fuzzy'])
-nnoremap <leader>t :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec<cr>
-nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
-nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
-nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
-nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
-nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
+nnoremap <leader>t :<C-u>Unite file_rec<cr>
+nnoremap <leader>f :<C-u>Unite file<cr>
+nnoremap <leader>r :<C-u>Unite file_mru<cr>
+nnoremap <leader>o :<C-u>Unite outline<cr>
+nnoremap <leader>g :<C-u>Unite vcs_grep<cr>
+nnoremap <leader>e :<C-u>Unite buffer<cr>
+nnoremap <leader>y :<C-u>Unite history/yank<cr>
+autocmd filetype unite imap <buffer> <C-u> <Plug>(unite_exit)
+autocmd filetype unite imap <buffer> <C-j> <Plug>(unite_select_next_line)
+autocmd filetype unite imap <buffer> <C-k> <Plug>(unite_select_previous_line)
 
 "===============================================================================
 " Key Bindings: Moving around
@@ -252,6 +261,7 @@ nnoremap <silent> <C-u> :bd<CR>
 " Save current file every time we leave insert mode or hit <esc>:
 " Note that the autocmd repeats the mapping each time we leave insert mode,
 " this doesn't seem to be a problem in practice.
+" TODO: look into the autowrite setting as an alternative
 inoremap <esc> <esc>:w<CR>
 autocmd InsertLeave * nnoremap <esc> <esc>:w<CR>
 
