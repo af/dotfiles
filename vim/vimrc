@@ -23,6 +23,7 @@ NeoBundle 'tpope/vim-surround', '42e9b46e'
 NeoBundle 'tpope/vim-vinegar', '687aa868'
 NeoBundle 'tommcdo/vim-exchange', 'b82a774'
 NeoBundle '29decibel/vim-stringify', '614eb0c'
+NeoBundle 'Raimondi/delimitMate', '38487bb'
 
 " Unite.vim and related plugs
 NeoBundle 'Shougo/unite.vim'
