@@ -228,16 +228,17 @@ let g:unite_enable_short_source_names = 1
 let g:unite_enable_start_insert = 1
 let g:unite_split_rule = 'botright'
 "call unite#filters#matcher_default#use(['matcher_fuzzy'])
-nnoremap <leader>t :<C-u>Unite file_rec<cr>
-nnoremap <leader>f :<C-u>Unite file<cr>
-nnoremap <leader>r :<C-u>Unite file_mru<cr>
-nnoremap <leader>o :<C-u>Unite outline<cr>
-nnoremap <leader>g :<C-u>Unite vcs_grep<cr>
-nnoremap <leader>e :<C-u>Unite buffer<cr>
-nnoremap <leader>y :<C-u>Unite history/yank<cr>
+nnoremap <leader>t :<C-u>Unite -buffer-name=unite file_rec<cr>
+nnoremap <leader>f :<C-u>Unite -buffer-name=unite file<cr>
+nnoremap <leader>r :<C-u>Unite -buffer-name=unite file_mru<cr>
+nnoremap <leader>o :<C-u>Unite -buffer-name=unite outline<cr>
+nnoremap <leader>g :<C-u>Unite -buffer-name=unite vcs_grep<cr>
+nnoremap <leader>e :<C-u>Unite -buffer-name=unite buffer<cr>
+nnoremap <leader>y :<C-u>Unite -buffer-name=unite history/yank<cr>
 autocmd filetype unite imap <buffer> <C-u> <Plug>(unite_exit)
 autocmd filetype unite imap <buffer> <C-j> <Plug>(unite_select_next_line)
 autocmd filetype unite imap <buffer> <C-k> <Plug>(unite_select_previous_line)
+autocmd BufLeave \[unite\]* set bufhidden=wipe  " From https://github.com/Shougo/unite.vim/issues/278
 
 "===============================================================================
 " Key Bindings: Moving around
