@@ -18,18 +18,18 @@
     changed = cyan
     untracked = green
 [alias]
-  br = branch
-  co = checkout
-  changed = diff --name-only
-  d  = diff
-  hash = rev-parse HEAD
-  ls  = ls-files
-  mvhead = branch -f
-  s  = status
-  undo = reset --soft HEAD^
-  unstage = reset HEAD
-  latest = for-each-ref --sort=-committerdate refs/heads --format='%(committerdate:short) %(refname:short)'
-  resume = show --pretty="format:" --name-only      # List the files that were changed in a given commit (default: HEAD)
+    br = branch
+    co = checkout
+    changed = diff --name-only
+    d  = diff
+    hash = rev-parse HEAD
+    ls  = ls-files
+    mvhead = branch -f
+    s  = status
+    undo = reset --soft HEAD^
+    unstage = reset HEAD
+    latest = for-each-ref --sort=-committerdate refs/heads --format='%(committerdate:short) %(refname:short)'
+    resume = show --pretty="format:" --name-only      # List the files that were changed in a given commit (default: HEAD)
 [branch]
     autosetupmerge = true
 [core]
