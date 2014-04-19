@@ -22,8 +22,13 @@ NeoBundle 'tomtom/tcomment_vim', '3d0a9975'
 NeoBundle 'tpope/vim-surround', '42e9b46e'
 NeoBundle 'tpope/vim-vinegar', '687aa868'
 NeoBundle 'tommcdo/vim-exchange', 'b82a774'
-NeoBundle '29decibel/vim-stringify', '614eb0c'
 NeoBundle 'Raimondi/delimitMate', '38487bb'
+
+" Javascript and HTML-related plugins
+NeoBundleLazy '29decibel/vim-stringify', '614eb0c', {'autoload':{'filetypes':['javascript']}}
+NeoBundleLazy 'pangloss/vim-javascript', {'autoload':{'filetypes':['javascript']}}
+NeoBundleLazy 'othree/html5.vim', {'autoload':{'filetypes':['html']}}
+NeoBundleLazy 'tpope/vim-ragtag', {'autoload':{'filetypes':['html']}}   " Use <C-x>/ to close last open html tag
 
 " Unite.vim and related plugs
 NeoBundle 'Shougo/unite.vim'
@@ -208,9 +213,9 @@ let g:airline#extensions#tabline#enabled = 1    " Tab line at top of window
 " Colorizer
 nnoremap <leader><F2> :ColorToggle<CR>
 
-" ack.vim
-" Shortcut to drop to ex mode and prompt for a string to match:
-nnoremap <leader>a :Ack 
+" delimitMate
+let delimitMate_expand_cr = 1
+imap <C-e> <Plug>delimitMateJumpMany
 
 " UltiSnips
 let g:UltiSnipsEditSplit = 'vertical'
@@ -263,7 +268,10 @@ nnoremap <silent> <C-u> :bd<CR>
 " Save current file every time we leave insert mode or hit <esc>:
 " Note that the autocmd repeats the mapping each time we leave insert mode,
 " this doesn't seem to be a problem in practice.
-" TODO: look into the autowrite setting as an alternative
+"
+" Alternative approaches (which didn't seem to work as well for my needs):
+" set autowriteall   (couldn't get this to work)
+" :au FocusLost * :wa
 inoremap <esc> <esc>:w<CR>
 autocmd InsertLeave * nnoremap <esc> <esc>:w<CR>
 
