@@ -28,6 +28,7 @@ NeoBundle 'Raimondi/delimitMate', '38487bb'
 NeoBundleLazy '29decibel/vim-stringify', '614eb0c', {'autoload':{'filetypes':['javascript']}}
 NeoBundleLazy 'pangloss/vim-javascript', {'autoload':{'filetypes':['javascript']}}
 NeoBundleLazy 'othree/html5.vim', {'autoload':{'filetypes':['html']}}
+NeoBundleLazy 'tristen/vim-sparkup', {'autoload':{'filetypes':['html']}}
 NeoBundleLazy 'tpope/vim-ragtag', {'autoload':{'filetypes':['html']}}   " Use <C-x>/ to close last open html tag
 
 " Unite.vim and related plugs
@@ -48,7 +49,7 @@ NeoBundle 'colorizer', 'aae6b518'
 NeoBundle 'tomasr/molokai', 'e7bcec7573'        " default
 NeoBundle 'junegunn/seoul256.vim', '340817d'    " softer, lower contrast
 
-" plugins to try/relearn: sparkup, vimshell, sneak.vim
+" plugins to try/relearn: vimshell, sneak.vim
 
 " plugins for colorscheme dev (not tested yet):
 " https://github.com/shawncplus/Vim-toCterm
@@ -215,7 +216,11 @@ nnoremap <leader><F2> :ColorToggle<CR>
 
 " delimitMate
 let delimitMate_expand_cr = 1
-imap <C-e> <Plug>delimitMateJumpMany
+imap <C-f> <Plug>delimitMateJumpMany        " Jump forward past any auto-added delimiters
+
+"sparkup
+let g:sparkupExecuteMapping = '<C-e>'       " The default mapping
+let g:sparkupDoubleQuote = 1                " Use double quotes for html attrs
 
 " UltiSnips
 let g:UltiSnipsEditSplit = 'vertical'
