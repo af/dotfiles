@@ -49,8 +49,6 @@ NeoBundle 'colorizer', 'aae6b518'
 NeoBundle 'tomasr/molokai', 'e7bcec7573'        " default
 NeoBundle 'junegunn/seoul256.vim', '340817d'    " softer, lower contrast
 
-" plugins to try/relearn: vimshell, sneak.vim
-
 " plugins for colorscheme dev (not tested yet):
 " https://github.com/shawncplus/Vim-toCterm
 " https://github.com/guns/xterm-color-table.vim
@@ -232,12 +230,10 @@ nnoremap <leader>s :UltiSnipsEdit<CR>
 map <leader>' :call Stringify()<CR>
 
 " Unite.vim
-" TODO: install vimproc and see if file_rec/async can replace CtrlP
 let g:unite_source_history_yank_enable = 1
 let g:unite_enable_short_source_names = 1
 let g:unite_enable_start_insert = 1
 let g:unite_split_rule = 'botright'
-"call unite#filters#matcher_default#use(['matcher_fuzzy'])
 nnoremap <leader>t :<C-u>Unite -buffer-name=unite file_rec<cr>
 nnoremap <leader>f :<C-u>Unite -buffer-name=unite file<cr>
 nnoremap <leader>r :<C-u>Unite -buffer-name=unite file_mru<cr>
