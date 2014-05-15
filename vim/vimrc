@@ -66,7 +66,7 @@ NeoBundleCheck
 "===============================================================================
 set visualbell
 set history=500             " longer command history (default=20)
-let mapleader = ","         " <leader> is our personal modifier key (use ,)
+let mapleader = " "         " <leader> is our personal modifier key
 set noswapfile              " Disable swap files
 "set directory=~/.vim/swp    " where the .swp files go (if enabled)
 
@@ -111,8 +111,8 @@ set showmatch
 set hlsearch                " highlight searched items
 set gdefault                " use 'global' mode by default for substitutions
 
-" Clear search highlighting with ', ', use python-style search regexes:
-nnoremap <leader><space> :noh<cr>
+" Clear search highlighting with ' ,', use python-style search regexes:
+nnoremap <leader>, :noh<cr>
 nnoremap / /\v
 vnoremap / /\v
 nnoremap ? ?\v
@@ -300,8 +300,6 @@ cmap w!! w !sudo tee % >/dev/null
 
 " Folding
 set foldlevelstart=0
-nnoremap <Space> za
-vnoremap <Space> za
 au BufNewFile,BufRead *.html map <leader>ft Vatzf
 
 
