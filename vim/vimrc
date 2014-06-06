@@ -23,12 +23,11 @@ NeoBundle 'tpope/vim-surround', '42e9b46e'
 NeoBundle 'tpope/vim-vinegar', '687aa868'
 NeoBundle 'tommcdo/vim-exchange', 'b82a774'
 NeoBundle 'Raimondi/delimitMate', '38487bb'
+NeoBundle 'sheerun/vim-polyglot', 'e961fa8'     " syntax highlighting for many languages
 
 " Javascript and HTML-related plugins
 NeoBundleLazy '29decibel/vim-stringify', '614eb0c', {'autoload':{'filetypes':['javascript']}}
-NeoBundleLazy 'pangloss/vim-javascript', {'autoload':{'filetypes':['javascript']}}
-NeoBundleLazy 'othree/html5.vim', {'autoload':{'filetypes':['html']}}
-NeoBundleLazy 'tristen/vim-sparkup', {'autoload':{'filetypes':['html']}}
+NeoBundleLazy 'tristen/vim-sparkup', {'autoload':{'filetypes':['html', 'javascript']}}
 NeoBundleLazy 'tpope/vim-ragtag', {'autoload':{'filetypes':['html']}}   " Use <C-x>/ to close last open html tag
 
 " Unite.vim and related plugs
@@ -41,7 +40,6 @@ NeoBundle 'sgur/unite-git_grep'
 NeoBundle 'UltiSnips', '3.0'
 
 " theme/syntax related plugins:
-NeoBundle 'wavded/vim-stylus', '046ccf1d'
 NeoBundle 'scrooloose/syntastic', 'f92741d3'
 NeoBundle 'colorizer', 'aae6b518'
 
