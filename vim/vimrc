@@ -1,3 +1,7 @@
+" General Notes
+" * see ":h normal-index" or ":h insert-index" for a list of built-in mappings
+" * see ":verbose nmap <C-j>" (for example) for maps setup by plugins or .vimrc
+
 set nocompatible            " we're using Vim, not Vi
 
 "===============================================================================
@@ -24,6 +28,7 @@ NeoBundle 'tpope/vim-vinegar', '687aa868'
 NeoBundle 'tommcdo/vim-exchange', 'b82a774'
 NeoBundle 'Raimondi/delimitMate', '38487bb'
 NeoBundle 'sheerun/vim-polyglot', 'e961fa8'     " syntax highlighting for many languages
+NeoBundle 'vimwiki/vimwiki', '2c03d8'
 
 " Javascript and HTML-related plugins
 NeoBundleLazy '29decibel/vim-stringify', '614eb0c', {'autoload':{'filetypes':['javascript']}}
@@ -243,6 +248,13 @@ autocmd filetype unite imap <buffer> <C-u> <Plug>(unite_exit)
 autocmd filetype unite imap <buffer> <C-j> <Plug>(unite_select_next_line)
 autocmd filetype unite imap <buffer> <C-k> <Plug>(unite_select_previous_line)
 autocmd BufLeave \[unite\]* set bufhidden=wipe  " From https://github.com/Shougo/unite.vim/issues/278
+
+" VimWiki
+let g:vimwiki_ext2syntax = {}
+let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md',
+                    \  'diary_rel_path': 'journal/', 'diary_index': 'index',
+                    \  'diary_header': 'Journal', 'diary_sort': 'asc'},
+                    \ {'path': '~/code/reelhouse/wiki/', 'syntax': 'markdown', 'ext': '.md'}]
 
 "===============================================================================
 " Key Bindings: Moving around
