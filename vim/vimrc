@@ -30,6 +30,9 @@ NeoBundle 'Raimondi/delimitMate', '38487bb'
 NeoBundle 'sheerun/vim-polyglot', 'e961fa8'     " syntax highlighting for many languages
 NeoBundle 'vimwiki/vimwiki', '2c03d8'
 
+" vim-sneak: restrict filetypes b/c it appears to slow down Unite (need to test that hypothesis)
+NeoBundleLazy 'justinmk/vim-sneak', '9eb89e43', {'autoload':{'filetypes':['html', 'javascript', 'stylus', 'markdown']}}
+
 " Javascript and HTML-related plugins
 NeoBundleLazy '29decibel/vim-stringify', '614eb0c', {'autoload':{'filetypes':['javascript']}}
 NeoBundleLazy 'tristen/vim-sparkup', {'autoload':{'filetypes':['html', 'javascript']}}
@@ -170,8 +173,7 @@ endfunc
 runtime macros/matchit.vim
 
 " Ctrl-P
-nnoremap T :CtrlPBuffer<CR>             " Search active buffers
-nnoremap <leader>r :CtrlPMRU<CR>        " Search recently accessed files
+nnoremap <C-t> :CtrlPBuffer<CR>             " Search active buffers
 let g:ctrlp_map = '<leader><leader>'    " Search in current directory
 let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_open_multiple_files = 'i'
@@ -217,7 +219,7 @@ nnoremap <leader><F2> :ColorToggle<CR>
 
 " delimitMate
 let delimitMate_expand_cr = 1
-imap <C-f> <Plug>delimitMateJumpMany        " Jump forward past any auto-added delimiters
+imap <C-f> <Plug>delimitMateJumpMany
 
 "sparkup
 let g:sparkupExecuteMapping = '<C-e>'       " The default mapping
