@@ -52,6 +52,10 @@ source $ZSH/oh-my-zsh.sh
 PATH="/Applications/Postgres.app/Contents/Versions/9.3/bin:$PATH"
 export PATH=/usr/local/bin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/git/bin:/usr/local/heroku/bin:/Users/aaron/.my_scripts:/usr/local/sbin
 
+# Only auto-correct commands (not arguments):
+unsetopt correct_all
+setopt correct
+
 # Directory traversal:
 alias l='ls -alh'
 alias ..='cd ..; ls'
