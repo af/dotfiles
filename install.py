@@ -19,7 +19,7 @@ SYMLINK_MAP = {
     'psqlrc':       '~/.psqlrc',
     'vim':          '~/.vim',
     'vim/vimrc':    '~/.vimrc',
-    'zephyros.js':  '~/.zephyros.js',
+    'hydra':        '~/.hydra',
     'zshrc':        '~/.zshrc',
 }
 
