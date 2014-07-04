@@ -119,3 +119,36 @@ end
 function ext.grid.screenframe(win)
   return win:screen():frame_without_dock_or_menu()
 end
+
+
+
+-- Customized versions of lefthalf() and righthalf() that make the left side slightly wider:
+function ext.grid.leftchunk()
+  local win = window.focusedwindow()
+  if not win then return end
+
+  local screenframe = ext.grid.screenframe(win)
+  local newframe = {
+    x = screenframe.x,
+    y = screenframe.y,
+    w = screenframe.w * 0.6 - ext.grid.BORDER,
+    h = screenframe.h,
+  }
+
+  win:setframe(newframe)
+end
+
+function ext.grid.rightchunk()
+  local win = window.focusedwindow()
+  if not win then return end
+
+  local screenframe = ext.grid.screenframe(win)
+  local newframe = {
+    x = screenframe.x + screenframe.w * 0.6 + ext.grid.BORDER,
+    y = screenframe.y,
+    w = screenframe.w * 0.4 - ext.grid.BORDER,
+    h = screenframe.h,
+  }
+
+  win:setframe(newframe)
+end

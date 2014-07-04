@@ -9,8 +9,8 @@ local ctrlaltcmd = {"ctrl", "alt", "cmd"}
 local ctrlcmd = {"ctrl", "cmd"}
 
 hotkey.bind(ctrlcmd, 'K', ext.grid.fullscreen)
-hotkey.bind(ctrlcmd, 'H', ext.grid.lefthalf)
-hotkey.bind(ctrlcmd, 'L', ext.grid.righthalf)
+hotkey.bind(ctrlcmd, 'H', ext.grid.leftchunk)
+hotkey.bind(ctrlcmd, 'L', ext.grid.rightchunk)
 hotkey.bind(ctrlcmd, 'P', ext.grid.pushwindow)
 
 hotkey.bind(ctrlcmd, 'N', ext.grid.topleft)
