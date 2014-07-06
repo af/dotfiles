@@ -20,16 +20,16 @@ hotkey.bind(ctrlcmd, '.', ext.grid.bottomright)
 hotkey.bind(ctrlaltcmd, 'R', function() repl.open(); logger.show() end)
 
 -- Shortcut to launch/focus specific apps with one keystroke.
---
--- Note 1: you might need to change some conflicting Mission Control keyboard
--- shortcuts in SysPrefs > Keyboard > Shortcuts to get ^1 ^2 ^3 to work.
--- Note 2: using launchorfocus("Google Chrome") doesn't work, so use the raw version:
-hotkey.bind({"ctrl"}, '1', function() os.execute('open -a "Google Chrome"') end)
+-- Note: to get {^1,^2,^3} to work, you might need to change some conflicting
+-- Mission Control keyboard shortcuts in SysPrefs > Keyboard > Shortcuts
+hotkey.bind({"ctrl"}, '1', function() application.launchorfocus("Google Chrome") end)
 hotkey.bind({"ctrl"}, '2', function() application.launchorfocus("MacVim") end)
 hotkey.bind({"ctrl"}, '3', function() application.launchorfocus("iTerm") end)
 hotkey.bind({"ctrl"}, '4', function() application.launchorfocus("Slack") end)
 hotkey.bind({"ctrl"}, '0', function() application.launchorfocus("iTunes") end)
 
+-- TODO: replace Spark.app (volume ctrl w/ F13-15)
+-- See http://blog.coolaj86.com/articles/how-to-control-os-x-system-volume-with-applescript/
 
 -- simple customized menu for the OS X menubar:
 menu.show(function()
