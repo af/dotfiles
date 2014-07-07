@@ -1,4 +1,5 @@
 require "grid"
+require "itunes"
 
 hydra.alert("Hydra config loaded", 0.5)
 
@@ -17,7 +18,13 @@ hotkey.bind(ctrlcmd, 'N', ext.grid.topleft)
 hotkey.bind(ctrlcmd, 'M', ext.grid.bottomleft)
 hotkey.bind(ctrlcmd, ',', ext.grid.topright)
 hotkey.bind(ctrlcmd, '.', ext.grid.bottomright)
-hotkey.bind(ctrlaltcmd, 'R', function() repl.open(); logger.show() end)
+hotkey.bind(ctrlaltcmd, 'R', function() repl.open(); end)
+
+hotkey.bind(ctrlaltcmd, 'UP', ext.itunes.play)
+hotkey.bind(ctrlaltcmd, 'DOWN', ext.itunes.pause)
+hotkey.bind(ctrlaltcmd, 'LEFT', ext.itunes.previous)
+hotkey.bind(ctrlaltcmd, 'RIGHT', ext.itunes.next)
+hotkey.bind(ctrlaltcmd, '/', ext.itunes.currentTrack)
 
 -- Shortcut to launch/focus specific apps with one keystroke.
 -- Note: to get {^1,^2,^3} to work, you might need to change some conflicting
