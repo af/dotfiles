@@ -86,6 +86,10 @@ export NODE_PATH=/usr/local/lib/node_modules
 # NVM:
 source ~/.nvm/nvm.sh
 
+# config for autojump (https://github.com/joelthelion/autojump)
+[[ -s /Users/aaron/.autojump/etc/profile.d/autojump.sh ]] && source /Users/aaron/.autojump/etc/profile.d/autojump.sh
+autoload -U compinit && compinit -u
+
 # Allow bash-style comments in an interactive shell:
 setopt interactivecomments
 
