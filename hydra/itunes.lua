@@ -6,7 +6,7 @@
 ext.itunes = {}
 
 function ext.itunes.tell(cmd)
-  return os.execute('osascript -e \'tell application "iTunes" to ' .. cmd .. "'")
+  return hydra.exec('osascript -e \'tell application "iTunes" to ' .. cmd .. "'")
 end
 
 function ext.itunes.play()
@@ -27,19 +27,11 @@ function ext.itunes.previous()
 end
 
 function ext.itunes.currentTrack()
-  local artist = shellResult('artist of current track as string')
-  local track = shellResult('name of current track as string')
-  hydra.alert(track .. artist:gsub('\n', ''), 1.5);
+  local artist = ext.itunes.tell('artist of current track as string')
+  local album = ext.itunes.tell('album of current track as string')
+  local track = ext.itunes.tell('name of current track as string')
+  hydra.alert(track .. '\n' .. album .. '\n' .. artist, 1.5);
 end
-
-function shellResult(command)
-  command = 'osascript -e \'tell application "iTunes" to ' .. command .. "'"
-  local handle = io.popen(command)
-  local result = handle:read("*a")
-  handle:close()
-  return result
-end
-
 
 -- NOTE: shuffle API is broken in iTunes 11, so these bindings don't work.
 -- See https://discussions.apple.com/message/22870402
