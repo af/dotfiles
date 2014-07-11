@@ -1,5 +1,9 @@
 ext.grid = {}
-ext.grid.BORDER = 2
+ext.grid.BORDER = 1
+
+-- Describe the share of the screen that the L/R "chunks" take:
+ext.grid.L_CHUNK_SHARE = 0.6
+ext.grid.R_CHUNK_SHARE = 0.4
 
 function ext.grid.fullscreen()
   local win = window.focusedwindow()
@@ -47,7 +51,7 @@ function ext.grid.topleft()
   local newframe = {
     x = screenframe.x,
     y = screenframe.y,
-    w = screenframe.w / 2 - ext.grid.BORDER,
+    w = screenframe.w * ext.grid.L_CHUNK_SHARE - ext.grid.BORDER,
     h = screenframe.h / 2 - ext.grid.BORDER,
   }
 
@@ -62,7 +66,7 @@ function ext.grid.bottomleft()
   local newframe = {
     x = screenframe.x,
     y = screenframe.y + screenframe.h / 2 + ext.grid.BORDER,
-    w = screenframe.w / 2 - ext.grid.BORDER,
+    w = screenframe.w * ext.grid.L_CHUNK_SHARE - ext.grid.BORDER,
     h = screenframe.h / 2 - ext.grid.BORDER,
   }
 
@@ -75,9 +79,9 @@ function ext.grid.topright()
 
   local screenframe = ext.grid.screenframe(win)
   local newframe = {
-    x = screenframe.x + screenframe.w / 2 + ext.grid.BORDER,
+    x = screenframe.x + screenframe.w * ext.grid.L_CHUNK_SHARE + ext.grid.BORDER,
     y = screenframe.y,
-    w = screenframe.w / 2 - ext.grid.BORDER,
+    w = screenframe.w * ext.grid.R_CHUNK_SHARE - ext.grid.BORDER,
     h = screenframe.h / 2 - ext.grid.BORDER,
   }
 
@@ -90,9 +94,9 @@ function ext.grid.bottomright()
 
   local screenframe = ext.grid.screenframe(win)
   local newframe = {
-    x = screenframe.x + screenframe.w / 2 + ext.grid.BORDER,
+    x = screenframe.x + screenframe.w * ext.grid.L_CHUNK_SHARE + ext.grid.BORDER,
     y = screenframe.y + screenframe.h / 2 + ext.grid.BORDER,
-    w = screenframe.w / 2 - ext.grid.BORDER,
+    w = screenframe.w * ext.grid.R_CHUNK_SHARE - ext.grid.BORDER,
     h = screenframe.h / 2 - ext.grid.BORDER,
   }
 
@@ -131,7 +135,7 @@ function ext.grid.leftchunk()
   local newframe = {
     x = screenframe.x,
     y = screenframe.y,
-    w = screenframe.w * 0.6 - ext.grid.BORDER,
+    w = screenframe.w * ext.grid.L_CHUNK_SHARE - ext.grid.BORDER,
     h = screenframe.h,
   }
 
@@ -144,9 +148,9 @@ function ext.grid.rightchunk()
 
   local screenframe = ext.grid.screenframe(win)
   local newframe = {
-    x = screenframe.x + screenframe.w * 0.6 + ext.grid.BORDER,
+    x = screenframe.x + screenframe.w * ext.grid.L_CHUNK_SHARE + ext.grid.BORDER,
     y = screenframe.y,
-    w = screenframe.w * 0.4 - ext.grid.BORDER,
+    w = screenframe.w * ext.grid.R_CHUNK_SHARE - ext.grid.BORDER,
     h = screenframe.h,
   }
 
