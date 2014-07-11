@@ -1,13 +1,15 @@
 #!/bin/bash
 brew install \
 ack \
+fasd \
 nmap \
 nodejs \
 siege \
 tig \
 wget \
 lua \
-luajit
+luajit \
+ghi
 
 # Install macvim with lua support
 # Note: may need to install python via brew for this macvim to work
