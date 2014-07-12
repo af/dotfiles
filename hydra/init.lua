@@ -31,6 +31,7 @@ hotkey.bind(mash, 'DOWN', ext.itunes.pause)
 hotkey.bind(mash, 'LEFT', ext.itunes.previous)
 hotkey.bind(mash, 'RIGHT', ext.itunes.next)
 hotkey.bind(mash, '/', ext.itunes.currentTrack)
+hotkey.bind(mash, 'S', ext.itunes.toggleShuffle)
 
 
 -- Launch/focus specific apps with one keystroke.
@@ -41,7 +42,7 @@ hotkey.bind({"ctrl"}, '2', function() application.launchorfocus("MacVim") end)
 hotkey.bind({"ctrl"}, '3', function() application.launchorfocus("iTerm") end)
 hotkey.bind({"ctrl"}, '4', function() application.launchorfocus("Slack") end)
 hotkey.bind({"ctrl"}, '0', function() application.launchorfocus("iTunes") end)
-
+-- TODO: hotkey to bind to a new ^# mapping dynamically (eg. ^6 => "colloquy")
 
 -- simple customized menu for the OS X menubar:
 menu.show(function()

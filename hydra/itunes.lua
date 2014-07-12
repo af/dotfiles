@@ -33,13 +33,26 @@ function ext.itunes.currentTrack()
   hydra.alert(track .. '\n' .. album .. '\n' .. artist, 1.5);
 end
 
--- NOTE: shuffle API is broken in iTunes 11, so these bindings don't work.
+-- NOTE: iTunes 11's applescript shuffle API is broken, so we have to do crazy
+-- gymnastics just to toggle the shuffle setting on/off
 -- See https://discussions.apple.com/message/22870402
-function ext.itunes.shuffle()
-  ext.itunes.tell('set shuffle of current playlist to 1')
-end
+function ext.itunes.toggleShuffle()
+  -- TODO: read the new shuffle setting and use hydra.alert to output it
+  -- (rather than the applescript "display dialog" used currently)
+  hydra.exec([[osascript -e 'tell application "System Events"
+              tell application process "iTunes"
+                tell menu 1 of menu item "Shuffle" of menu "Controls" of menu bar 1
+                  set menuitems to name of menu items
 
-function ext.itunes.unshuffle()
-  ext.itunes.tell('set shuffle of current playlist to 0')
+                  if item 1 of menuitems is "Turn On Shuffle" then
+                    click menu item 1
+                    display dialog "Shuffle is on"
+                  end if
+                  if item 1 of menuitems is "Turn Off Shuffle" then
+                    click menu item 1
+                    display dialog "Shuffle is off"
+                  end if
+                end tell
+              end tell
+              end tell']])
 end
-
