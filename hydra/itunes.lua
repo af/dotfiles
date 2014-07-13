@@ -37,22 +37,23 @@ end
 -- gymnastics just to toggle the shuffle setting on/off
 -- See https://discussions.apple.com/message/22870402
 function ext.itunes.toggleShuffle()
-  -- TODO: read the new shuffle setting and use hydra.alert to output it
-  -- (rather than the applescript "display dialog" used currently)
-  hydra.exec([[osascript -e 'tell application "System Events"
+  local shuffleStatus = hydra.exec([[osascript -e 'tell application "System Events"
+              set output to ""
               tell application process "iTunes"
                 tell menu 1 of menu item "Shuffle" of menu "Controls" of menu bar 1
                   set menuitems to name of menu items
 
                   if item 1 of menuitems is "Turn On Shuffle" then
                     click menu item 1
-                    display dialog "Shuffle is on"
+                    set output to "Shuffle is ON"
                   end if
                   if item 1 of menuitems is "Turn Off Shuffle" then
                     click menu item 1
-                    display dialog "Shuffle is off"
+                    set output to "Shuffle is OFF"
                   end if
                 end tell
               end tell
-              end tell']])
+              end tell
+              return output']])
+  hydra.alert(shuffleStatus, 1.0)
 end
