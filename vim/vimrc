@@ -29,9 +29,7 @@ NeoBundle 'tommcdo/vim-exchange', 'b82a774'
 NeoBundle 'Raimondi/delimitMate', '38487bb'
 NeoBundle 'sheerun/vim-polyglot', 'e961fa8'     " syntax highlighting for many languages
 NeoBundle 'vimwiki/vimwiki', '2c03d8'
-
-" vim-sneak: restrict filetypes b/c it appears to slow down Unite (need to test that hypothesis)
-NeoBundleLazy 'justinmk/vim-sneak', '9eb89e43', {'autoload':{'filetypes':['html', 'javascript', 'stylus', 'markdown']}}
+NeoBundle 'justinmk/vim-sneak', '9eb89e43'
 
 " Javascript and HTML-related plugins
 NeoBundleLazy '29decibel/vim-stringify', '614eb0c', {'autoload':{'filetypes':['javascript']}}
