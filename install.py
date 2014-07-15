@@ -20,7 +20,9 @@ SYMLINK_MAP = {
     'vim':          '~/.vim',
     'vim/vimrc':    '~/.vimrc',
     'hydra':        '~/.hydra',
+    'tmux.conf':    '~/.tmux.conf',
     'zshrc':        '~/.zshrc',
+    'karabiner.xml':'~/Library/Application Support/Karabiner/private.xml',
 }
 
 # npm packages to install globally:

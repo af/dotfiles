@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<!-- custom keyboard mappings for https://pqrs.org/osx/karabiner/ -->
+<root>
+     <item>
+        <name>Ctrl-; maps to Ctrl-@</name>
+        <appendix>Ctrl-; is not a valid control key, so turn it into one</appendix>
+        <identifier>af.ctrl_semicolon</identifier>
+        <autogen>
+          __KeyToKey__
+          KeyCode::SEMICOLON, ModifierFlag::CONTROL_L,
+          KeyCode::KEY_2,     ModifierFlag::CONTROL_L | ModifierFlag::SHIFT_L
+        </autogen>
+    </item>
+</root>
