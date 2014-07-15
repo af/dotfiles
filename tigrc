@@ -1,0 +1,4 @@
+bind generic <Ctrl-f> scroll-page-down
+bind generic <Ctrl-b> scroll-page-up
+bind generic H move-first-line
+bind generic L move-last-line

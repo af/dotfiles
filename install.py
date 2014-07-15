@@ -22,6 +22,7 @@ SYMLINK_MAP = {
     'hydra':        '~/.hydra',
     'tmux.conf':    '~/.tmux.conf',
     'zshrc':        '~/.zshrc',
+    'tigrc':        '~/.tigrc',
     'karabiner.xml':'~/Library/Application Support/Karabiner/private.xml',
 }
 
