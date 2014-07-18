@@ -67,6 +67,8 @@ alias gl='git log'
 alias gc='git checkout'
 alias gb='git branch'
 alias gr='git remote'
+alias gpr='git pull --rebase'
+alias t='tig --all'
 
 # Commonly used tools:
 alias p='python'

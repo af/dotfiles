@@ -20,7 +20,8 @@
 [alias]
     br = branch
     co = checkout
-    changed = diff --name-only
+    changed = !git --no-pager diff --name-only
+    resume = !git --no-pager show --pretty="format:" --name-only      # List files changed in a given commit (default: HEAD)
     d  = diff
     hash = rev-parse HEAD
     ls  = ls-files
@@ -29,7 +30,6 @@
     undo = reset --soft HEAD^
     unstage = reset HEAD
     latest = for-each-ref --sort=-committerdate refs/heads --format='%(committerdate:short) %(refname:short)'
-    resume = show --pretty="format:" --name-only      # List the files that were changed in a given commit (default: HEAD)
 [branch]
     autosetupmerge = true
 [core]
