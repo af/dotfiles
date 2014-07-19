@@ -9,7 +9,9 @@ tig \
 wget \
 lua \
 luajit \
-ghi
+ghi \
+tmux \
+reattach-to-user-namespace
 
 # Install macvim with lua support
 # Note: may need to install python via brew for this macvim to work
