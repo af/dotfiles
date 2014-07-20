@@ -1,3 +1,44 @@
 priority -50
 
-# TODO
+snippet r "require" w
+var ${2:$1} = require('${1:moduleName}');
+endsnippet
+
+snippet for "for loop" w
+for (var i=0; i<$1; i++) {
+	$0
+}
+endsnippet
+
+snippet fn "function" w
+function($1) { $0 }
+endsnippet
+
+snippet meth "method" w
+${1:methodName}: function($2) {
+	$0
+},
+endsnippet
+
+
+# Testing stuff!
+
+snippet describe "mocha describe" w
+describe('$1', function($2) {
+	$0
+});
+endsnippet
+
+snippet it "mocha it" w
+it('$1', function($2) {
+	$0
+});
+endsnippet
+
+snippet ase "assert.strictEqual()" w
+assert.strictEqual($1,$2);
+endsnippet
+
+snippet aok "assert.ok()" w
+assert.ok($1);
+endsnippet
