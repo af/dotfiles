@@ -1,7 +1,14 @@
+# config file for tig
+# See http://jonas.nitro.dk/tig/tigrc.5.html for config details
+
 bind generic <Ctrl-f> scroll-page-down
 bind generic <Ctrl-b> scroll-page-up
 bind generic H move-first-line
 bind generic L move-last-line
+bind generic y !@zsh -c "echo -n %(commit) | pbcopy"    # copy selected commit's SHA
+bind generic s view-stash                               # regular mapping for this is 'y'
 
 set refresh-mode = periodic
 set refresh-interval = 3
+
+color cursor black green
