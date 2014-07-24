@@ -24,7 +24,7 @@ NeoBundle 'bling/vim-airline', 'aef500c426'
 NeoBundle 'tpope/vim-sleuth', '039e2cd'
 NeoBundle 'tomtom/tcomment_vim', '3d0a9975'
 NeoBundle 'tpope/vim-surround', '42e9b46e'
-NeoBundle 'tpope/vim-vinegar', '687aa868'
+NeoBundle 'tpope/vim-vinegar', 'ac893960c'
 NeoBundle 'tommcdo/vim-exchange', 'b82a774'
 NeoBundle 'Raimondi/delimitMate', '38487bb'
 NeoBundle 'sheerun/vim-polyglot', 'e961fa8'     " syntax highlighting for many languages
