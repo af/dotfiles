@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 
 <!-- custom keyboard mappings for https://pqrs.org/osx/karabiner/ -->
+<!-- full list of keycodes:
+     https://github.com/tekezo/Karabiner/blob/master/src/bridge/generator/keycode/data/KeyCode.data -->
 <root>
     <item>
         <name>Ctrl-; maps to Ctrl-@</name>
@@ -13,7 +15,7 @@
         </autogen>
     </item>
 
-     <item>
+    <item>
         <name>Ctrl-' maps to Ctrl-^</name>
         <appendix>Ctrl-' is not a valid control key, so turn it into one</appendix>
         <identifier>af.ctrl_singlequote</identifier>
