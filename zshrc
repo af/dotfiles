@@ -50,6 +50,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 PATH="/Applications/Postgres.app/Contents/Versions/9.3/bin:$PATH"
+export PATH=$(brew --prefix ruby)/bin:$PATH     # For ruby gems
 export PATH=/usr/local/bin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/git/bin:/usr/local/heroku/bin:/Users/aaron/.my_scripts:/usr/local/sbin
 
 # Only auto-correct commands (not arguments):
@@ -90,7 +91,7 @@ source ~/.nvm/nvm.sh
 
 # fasd (https://github.com/clvv/fasd):
 eval "$(fasd --init posix-alias zsh-hook)"
-alias j='z'     # jumping to autocompleted directory
+alias j='fasd_cd -d'     # jumping to autocompleted directory
 
 # Allow bash-style comments in an interactive shell:
 setopt interactivecomments
@@ -104,6 +105,21 @@ function newproj () {
     git add README.md
     git commit -m "First commit"
     echo "\nYour new project is ready. Make something awesome!"
+}
+
+# Script tmux to set up a window in my (currently) preferred custom layout:
+function workspace () {
+    # Main pane for vim on the left:
+    tmux send-keys 'vim' 'C-m'
+    tmux splitw -h -p 50
+
+    # tig running in the bottom right:
+    tmux splitw -v -p 30
+    tmux send-keys 'tig --all' 'C-m'
+
+    tmux select-pane -U
+    tmux splitw -v -p 30
+    tmux select-pane -L     # End up on the main (left) pane
 }
 
 ### Added by the Heroku Toolbelt
