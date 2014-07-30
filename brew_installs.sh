@@ -11,6 +11,7 @@ lua \
 luajit \
 ghi \
 tmux \
+hydra-cli \
 reattach-to-user-namespace
 
 # Install macvim with lua support

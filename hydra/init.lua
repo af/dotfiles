@@ -8,6 +8,7 @@ require "itunes"
 hydra.alert("Hydra is locked and loaded", 1)
 pathwatcher.new(os.getenv("HOME") .. "/.hydra/", hydra.reload):start()
 hydra.autolaunch.set(true)
+hydra.dockicon.hide()
 
 local mash = {"ctrl", "alt", "cmd"}
 
@@ -22,7 +23,7 @@ hotkey.bind(mash, 'N', ext.grid.topleft)
 hotkey.bind(mash, 'M', ext.grid.bottomleft)
 hotkey.bind(mash, ',', ext.grid.topright)
 hotkey.bind(mash, '.', ext.grid.bottomright)
-hotkey.bind(mash, 'R', function() repl.open(); end)
+hotkey.bind(mash, 'R', repl.open)
 
 
 -- iTunes control
@@ -38,12 +39,11 @@ hotkey.bind(mash, 'S', ext.itunes.toggleShuffle)
 -- Note: to get {^1,^2,^3} to work, you might need to change some conflicting
 -- Mission Control keyboard shortcuts in SysPrefs > Keyboard > Shortcuts
 hotkey.bind({"ctrl"}, '1', function() application.launchorfocus("Google Chrome") end)
---hotkey.bind({"ctrl"}, '2', function() application.launchorfocus("MacVim") end)
 hotkey.bind({"ctrl"}, '2', function() application.launchorfocus("iTerm") end)
-hotkey.bind({"ctrl"}, '3', function() application.launchorfocus("iTerm") end)
+hotkey.bind({"ctrl"}, '3', function() application.launchorfocus("Colloquy") end)
 hotkey.bind({"ctrl"}, '4', function() application.launchorfocus("Slack") end)
 hotkey.bind({"ctrl"}, '0', function() application.launchorfocus("iTunes") end)
--- TODO: hotkey to bind to a new ^# mapping dynamically (eg. ^6 => "colloquy")
+-- TODO: hotkey to bind to a new ^# mapping dynamically (eg. ^6 => "preview")
 
 -- simple customized menu for the OS X menubar:
 hydra.menu.show(function()
