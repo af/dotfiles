@@ -152,9 +152,9 @@ elseif $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == 
     set t_Co=256            " Richer colours if our terminal can handle it.
 endif
 
-" Show syntax highlighting groups for word under cursor with ,s
+" Show syntax highlighting groups for word under cursor with <leader>s
 " From Vimcasts #25: http://vimcasts.org/episodes/creating-colorschemes-for-vim/
-nnoremap <leader>s :call <SID>SynStack()<CR>
+nnoremap <leader>h :call <SID>SynStack()<CR>
 function! <SID>SynStack()
   if !exists("*synstack")
     return
@@ -308,9 +308,9 @@ nnoremap ` '
 " Use ':w!!' to save a root-owned file using sudo:
 cmap w!! w !sudo tee % >/dev/null
 
-" Folding
-set foldlevelstart=0
-au BufNewFile,BufRead *.html map <leader>ft Vatzf
+" pastetoggle didn't work for some reason, but this does:
+nnoremap <F2> :set invpaste paste?<CR>
+set foldlevelstart=10
 
 
 "===============================================================================
