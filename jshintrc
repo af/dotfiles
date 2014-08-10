@@ -9,6 +9,7 @@
     // Predefined globals that JSHint will ignore.
     "browser"       : true,   // Standard browser globals e.g. `window`, `document`.
     "node"          : true,
+    "esnext"        : true,
     "predef"        : [       // tolerable globals (for mocha)
         "describe", "it", "before", "beforeEach", "after", "afterEach"
     ],
