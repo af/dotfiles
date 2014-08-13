@@ -20,6 +20,7 @@
 [alias]
     br = branch
     co = checkout
+    ci = commit
     changed = !git --no-pager diff --name-only
     resume = !git --no-pager show --pretty="format:" --name-only      # List files changed in a given commit (default: HEAD)
     d  = diff
