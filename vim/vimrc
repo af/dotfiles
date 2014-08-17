@@ -303,9 +303,18 @@ nnoremap ` '
 " Use ':w!!' to save a root-owned file using sudo:
 cmap w!! w !sudo tee % >/dev/null
 
-" pastetoggle didn't work for some reason, but this does:
-nnoremap <F2> :set invpaste paste?<CR>
 set foldlevelstart=10
+
+" pastetoggle didn't work for some reason, but this does:
+nnoremap <leader>c :set invpaste paste?<CR>
+
+" copy/paste with system clipboard:
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
 
 
 "===============================================================================
