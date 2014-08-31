@@ -110,7 +110,7 @@ function newproj () {
 # Script tmux to set up a window in my (currently) preferred custom layout:
 function workspace () {
     # Main pane for vim on the left:
-    tmux send-keys 'vim' 'C-m'
+    tmux send-keys 'vim -S' 'C-m'
     tmux splitw -h -p 50
 
     # tig running in the bottom right:
@@ -118,7 +118,6 @@ function workspace () {
     tmux send-keys 'tig --all' 'C-m'
 
     tmux select-pane -U
-    tmux splitw -v -p 30
     tmux select-pane -L     # End up on the main (left) pane
 }
 

@@ -29,6 +29,7 @@ NeoBundle 'tommcdo/vim-exchange', 'b82a774'
 NeoBundle 'sheerun/vim-polyglot', 'e961fa8'     " syntax highlighting for many languages
 NeoBundle 'vimwiki/vimwiki', '2c03d8'
 NeoBundle 'justinmk/vim-sneak', '9eb89e43'
+NeoBundle 'tpope/vim-obsession', '4ab72e07ec'   " start a session file with :Obsession
 
 " Javascript and HTML-related plugins
 NeoBundleLazy '29decibel/vim-stringify', '614eb0c', {'autoload':{'filetypes':['javascript']}}
