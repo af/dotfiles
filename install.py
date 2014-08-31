@@ -15,6 +15,7 @@ import subprocess
 DOTFILES_ROOT = os.path.dirname(os.path.abspath(__file__))
 SYMLINK_MAP = {
     'gitconfig':    '~/.gitconfig',
+    'gitignore_global':    '~/.gitignore_global',
     'jshintrc':     '~/.jshintrc',
     'psqlrc':       '~/.psqlrc',
     'vim':          '~/.vim',
