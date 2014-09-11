@@ -29,6 +29,7 @@ NeoBundle 'tommcdo/vim-exchange', 'b82a774'
 NeoBundle 'sheerun/vim-polyglot', 'e961fa8'     " syntax highlighting for many languages
 NeoBundle 'vimwiki/vimwiki', '2c03d8'
 NeoBundle 'justinmk/vim-sneak', '9eb89e43'
+NeoBundle 'vim-scripts/YankRing.vim', 'a884f3a1'
 NeoBundle 'tpope/vim-obsession', '4ab72e07ec'   " start a session file with :Obsession
 
 " Javascript and HTML-related plugins
@@ -229,7 +230,6 @@ nnoremap <leader>s :UltiSnipsEdit<CR>
 map <leader>' :call Stringify()<CR>
 
 " Unite.vim
-let g:unite_source_history_yank_enable = 1
 let g:unite_enable_short_source_names = 1
 let g:unite_enable_start_insert = 1
 let g:unite_split_rule = 'botright'
@@ -239,7 +239,6 @@ nnoremap <leader>r :<C-u>Unite -buffer-name=unite file_mru<cr>
 nnoremap <leader>o :<C-u>Unite -buffer-name=unite outline<cr>
 nnoremap <leader>g :<C-u>Unite -buffer-name=unite vcs_grep<cr>
 nnoremap <leader>e :<C-u>Unite -buffer-name=unite buffer<cr>
-nnoremap <leader>y :<C-u>Unite -buffer-name=unite history/yank<cr>
 autocmd filetype unite imap <buffer> <C-u> <Plug>(unite_exit)
 autocmd filetype unite imap <buffer> <C-j> <Plug>(unite_select_next_line)
 autocmd filetype unite imap <buffer> <C-k> <Plug>(unite_select_previous_line)
