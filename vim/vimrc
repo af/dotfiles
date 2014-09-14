@@ -304,9 +304,7 @@ nnoremap ` '
 cmap w!! w !sudo tee % >/dev/null
 
 set foldlevelstart=10
-
-" pastetoggle didn't work for some reason, but this does:
-nnoremap <leader>c :set invpaste paste?<CR>
+set pastetoggle=<C-y>   " Had problems with <F2>, see http://stackoverflow.com/q/7885198/351433
 
 " copy/paste with system clipboard:
 vmap <Leader>y "+y
