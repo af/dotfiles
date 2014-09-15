@@ -38,10 +38,9 @@ NeoBundleLazy 'tristen/vim-sparkup', {'autoload':{'filetypes':['html', 'javascri
 NeoBundleLazy 'tpope/vim-ragtag', {'autoload':{'filetypes':['html']}}   " Use <C-x>/ to close last open html tag
 
 " Unite.vim and related plugs
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/unite-outline'
-NeoBundle 'Shougo/neomru.vim'
-NeoBundle 'sgur/unite-git_grep'
+NeoBundle 'Shougo/unite.vim', '126633ab'
+NeoBundle 'Shougo/neomru.vim', 'f70be81d'
+NeoBundle 'sgur/unite-git_grep', 'a8246b7f'
 
 " Ultisnips (private snippets are stored in this repo)
 NeoBundle 'UltiSnips', '3.0'
@@ -236,7 +235,6 @@ let g:unite_split_rule = 'botright'
 nnoremap <leader>t :<C-u>Unite -buffer-name=unite file_rec<cr>
 nnoremap <leader>f :<C-u>Unite -buffer-name=unite file<cr>
 nnoremap <leader>r :<C-u>Unite -buffer-name=unite file_mru<cr>
-nnoremap <leader>o :<C-u>Unite -buffer-name=unite outline<cr>
 nnoremap <leader>g :<C-u>Unite -buffer-name=unite vcs_grep<cr>
 nnoremap <leader>e :<C-u>Unite -buffer-name=unite buffer<cr>
 autocmd filetype unite imap <buffer> <C-u> <Plug>(unite_exit)
