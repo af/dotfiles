@@ -242,6 +242,7 @@ nnoremap <leader>e :<C-u>Unite -buffer-name=unite buffer<cr>
 autocmd filetype unite imap <buffer> <C-u> <Plug>(unite_exit)
 autocmd filetype unite imap <buffer> <C-j> <Plug>(unite_select_next_line)
 autocmd filetype unite imap <buffer> <C-k> <Plug>(unite_select_previous_line)
+autocmd filetype unite imap <buffer> , <Plug>(unite_toggle_mark_current_candidate)
 autocmd BufLeave \[unite\]* set bufhidden=wipe  " From https://github.com/Shougo/unite.vim/issues/278
 
 " VimWiki
