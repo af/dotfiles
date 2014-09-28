@@ -1,4 +1,4 @@
-;; Set up package management
+;; Package management
 ;; Note: wanted to use "melpa-stable", but the evil installation failed
 (require 'package)
 (add-to-list 'package-archives
@@ -19,13 +19,20 @@ re-downloaded in order to locate PACKAGE."
 
 (package-initialize)
 
+(require-package 'color-theme-approximate)
 (require-package 'evil)
 
+;; Evil mode configuration
 (setq evil-search-module 'evil-search
       evil-want-C-u-scroll t
       evil-want-C-w-in-emacs-state t)
-
 (require 'evil)
 (evil-mode t)
+
+;; Color themes
+;; switching: "M-x load-theme RET molokai"
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+(load-theme 'molokai t)
+(color-theme-approximate-on)
 
 (global-linum-mode t)       ;; Show line numbers globally
