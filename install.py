@@ -18,6 +18,7 @@ SYMLINK_MAP = {
     'gitignore_global':    '~/.gitignore_global',
     'jshintrc':     '~/.jshintrc',
     'psqlrc':       '~/.psqlrc',
+    'emacs':        '~/.emacs.d',
     'vim':          '~/.vim',
     'vim/vimrc':    '~/.vimrc',
     'hydra':        '~/.hydra',
