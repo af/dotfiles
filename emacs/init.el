@@ -19,10 +19,21 @@ re-downloaded in order to locate PACKAGE."
 
 (package-initialize)
 
-(require-package 'color-theme-approximate)
-(require-package 'evil)
+;; js2-mode for javascript
+;; More tips and tricks: https://github.com/cjohansen/.emacs.d/blob/master/setup-js2-mode.el
+(require-package 'js2-mode)
+(setq-default js2-strict-missing-semi-warning nil)
+(setq-default js2-global-externs '("require" "process" "$" "JSON"))
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+
+(require-package 'helm)
+(global-set-key (kbd "C-c h") 'helm-mini)
+
+(require-package 'company)
+(add-hook 'after-init-hook 'global-company-mode)
 
 ;; Evil mode configuration
+(require-package 'evil)
 (setq evil-search-module 'evil-search
       evil-want-C-u-scroll t
       evil-want-C-w-in-emacs-state t)
@@ -31,6 +42,7 @@ re-downloaded in order to locate PACKAGE."
 
 ;; Color themes
 ;; switching: "M-x load-theme RET molokai"
+(require-package 'color-theme-approximate)
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 (load-theme 'molokai t)
 (color-theme-approximate-on)
