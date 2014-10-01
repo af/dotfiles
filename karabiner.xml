@@ -25,4 +25,16 @@
           KeyCode::KEY_6,     ModifierFlag::CONTROL_L | ModifierFlag::SHIFT_L
         </autogen>
     </item>
+
+    <item>
+        <name>Holding ; acts as Alt/Option</name>
+        <identifier>af.hold_semicolon</identifier>
+        <autogen>
+          --KeyOverlaidModifier--
+          KeyCode::SEMICOLON, ModifierFlag::NONE,
+          KeyCode::OPTION_L,
+          ModifierFlag::OPTION_L,
+          KeyCode::SEMICOLON, ModifierFlag::NONE
+        </autogen>
+    </item>
 </root>
