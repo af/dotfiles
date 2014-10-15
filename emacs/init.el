@@ -35,8 +35,14 @@ re-downloaded in order to locate PACKAGE."
 (require-package 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
+(require-package 'projectile)
+(projectile-global-mode)
+
 (require-package 'helm)
+(require-package 'helm-projectile)
 (global-set-key (kbd "C-c h") 'helm-mini)
+(global-set-key (kbd "M-x") 'helm-M-x)
+(setq helm-buffers-fuzzy-matching t)
 
 (require-package 'company)
 (add-hook 'after-init-hook 'global-company-mode)
@@ -60,3 +66,4 @@ re-downloaded in order to locate PACKAGE."
 (global-linum-mode t)         ;; Show line numbers globally
 (setq make-backup-files nil)
 (setq auto-save-default nil)  ;; TODO: "real" autosave
+
