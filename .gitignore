@@ -1,3 +1,4 @@
 *.swp
 vim/bundle
 vim/.netrwhist
+emacs
