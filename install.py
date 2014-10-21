@@ -2,7 +2,7 @@
 '''
 Install script for dotfiles:
     * symlinks a bunch of files to ~.
-    * installs npm packages globally
+    * installs npm modules globally
 
 Dependencies:
     * python (obviously)
@@ -28,8 +28,8 @@ SYMLINK_MAP = {
     'karabiner.xml':'~/Library/Application Support/Karabiner/private.xml',
 }
 
-# npm packages to install globally:
-NPM_GLOBALS = ['jshint', 'jsonlint', 'jsontool', 'gist-cli', 'stylus']
+# npm modules to install globally:
+NPM_GLOBALS = ['jshint', 'jsonlint', 'json', 'gist-cli', 'stylus']
 
 
 # Output a generic header for a section of the install script:
@@ -60,10 +60,15 @@ for source, dest in linked:
 
 
 
-section('Installing global npm packages...')
-cmd = 'npm install -g ' + ' '.join(NPM_GLOBALS)
-output = subprocess.check_output(cmd, shell=True)
-print output
+section('Installing global npm modules...')
+check_cmd = 'npm ls -g --parseable ' + ' '.join(NPM_GLOBALS)
+install_list = subprocess.check_output(check_cmd, shell=True)
+if not install_list:
+    cmd = 'npm install -g ' + ' '.join(NPM_GLOBALS)
+    output = subprocess.check_output(cmd, shell=True)
+    print output
+else:
+    print 'npm modules have been installed\n'
 
 
 print('Done!')
