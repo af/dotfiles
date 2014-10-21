@@ -11,5 +11,5 @@ Rebuilding my dotfiles from scratch and putting them online for future reference
 
 
 ## Misc Mac-only binaries to install:
-* Zephyros
+* Hydra (or whatever I eventually replace it with)
 * Quicksilver

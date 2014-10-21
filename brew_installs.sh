@@ -1,7 +1,9 @@
 #!/bin/bash
 brew install \
 ack \
+ag \
 fasd \
+ngrok \
 nmap \
 nodejs \
 siege \
