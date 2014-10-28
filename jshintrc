@@ -44,7 +44,7 @@
 
     // Relaxing Options
     // These options allow you to suppress certain types of warnings.
-    "asi"           : false,  // Allows statements without semicolons
+    "asi"           : true,   // Allows statements without semicolons
     "boss"          : false,  // Tolerates assignments inside if, for & while.
     "eqnull"        : true,   // Tolerates use of `== null`.
     "evil"          : false,  // Tolerates use of `eval`.
