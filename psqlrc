@@ -6,7 +6,10 @@
 -- http://www.craigkerstiens.com/2013/02/13/How-I-Work-With-Postgres/
 -- http://www.postgresql.org/docs/9.3/static/app-psql.html
 -- http://arjanvandergaag.nl/blog/working-with-postgresql-on-the-command-line.html
-
+-- https://www.periscope.io/blog/optimizing-your-psql.html
+--
+-- Note: <C-r> should work for searching query history (like bash), but doesn't
+-- currently work with Postgres.app. See https://github.com/PostgresApp/PostgresApp/issues/144
 
 -- Custom prompt
 -- Note: %# is # if you're a superuser, otherwise >
@@ -30,7 +33,12 @@
 -- If a command is run more than once in a row, only store it once in the
 -- history.
 \set HISTCONTROL ignoredups
+\set HISTSIZE 20000
+\set HISTFILE ~/.psql_history_ :DBNAME
 
 -- Autocomplete keywords (like SELECT) in upper-case, even if you started
 -- typing them in lower case.
 \set COMP_KEYWORD_CASE upper
+
+-- Show query runtime information
+\timing on
