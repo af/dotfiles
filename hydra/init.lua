@@ -40,7 +40,6 @@ hotkey.bind(mash, 'S', ext.itunes.toggleShuffle)
 -- Mission Control keyboard shortcuts in SysPrefs > Keyboard > Shortcuts
 hotkey.bind({"ctrl"}, '1', function() application.launchorfocus("Google Chrome") end)
 hotkey.bind({"ctrl"}, '2', function() application.launchorfocus("iTerm") end)
-hotkey.bind({"ctrl"}, '3', function() application.launchorfocus("Colloquy") end)
 hotkey.bind({"ctrl"}, '4', function() application.launchorfocus("Slack") end)
 hotkey.bind({"ctrl"}, '0', function() application.launchorfocus("iTunes") end)
 -- TODO: hotkey to bind to a new ^# mapping dynamically (eg. ^6 => "preview")

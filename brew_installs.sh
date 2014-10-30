@@ -3,18 +3,19 @@ brew install \
 ack \
 ag \
 fasd \
+ghi \
+hydra-cli \
+lua \
+luajit \
 ngrok \
 nmap \
 nodejs \
+reattach-to-user-namespace \
 siege \
 tig \
-wget \
-lua \
-luajit \
-ghi \
 tmux \
-hydra-cli \
-reattach-to-user-namespace
+weechat \
+wget
 
 # Install macvim with lua support
 # Note: may need to install python via brew for this macvim to work
