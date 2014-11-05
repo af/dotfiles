@@ -167,8 +167,10 @@ endfunc
 " Plugin customization
 "===============================================================================
 
-" Enable the built-in matchit plugin. This enhances % for xml tags and other stuff
-runtime macros/matchit.vim
+" Load matchit.vim, but only if the user hasn't installed a newer version.
+if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+    runtime! macros/matchit.vim
+endif
 
 " Ctrl-P
 nnoremap <C-t> :CtrlPBuffer<CR>             " Search active buffers
