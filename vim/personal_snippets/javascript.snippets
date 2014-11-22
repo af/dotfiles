@@ -1,7 +1,28 @@
 priority -50
 
-snippet r "require" w
-var ${2:$1} = require('${1:moduleName}');
+# TODO
+# if/elseif/else (with/without braces)
+# See this file for further ideas:
+# https://github.com/honza/vim-snippets/blob/master/UltiSnips/javascript.snippets
+
+snippet cl "console.log" b
+console.log($1
+endsnippet
+
+snippet d "debugger" b
+debugger
+endsnippet
+
+snippet v "var" b
+var ${1:varname} = 
+endsnippet
+
+snippet r "require" b
+var ${1:varname} = require('${2:$1}');
+endsnippet
+
+snippet th "throw" b
+throw new ${1:Error($2)}
 endsnippet
 
 snippet for "for loop" w
@@ -10,8 +31,8 @@ for (var i=0; i<$1; i++) {
 }
 endsnippet
 
-snippet fn "function" w
-function($1) { $0 }
+snippet f "function" w
+function($1) { $2 }
 endsnippet
 
 snippet meth "method" w
@@ -21,8 +42,10 @@ ${1:methodName}: function($2) {
 endsnippet
 
 
-# Testing stuff!
 
+#===================
+# Testing snippets
+#===================
 snippet describe "mocha describe" w
 describe('$1', function($2) {
 	$0
@@ -31,6 +54,30 @@ endsnippet
 
 snippet it "mocha it" w
 it('$1', function($2) {
+	$0
+});
+endsnippet
+
+snippet before "mocha before" w
+before(function($1) {
+	$0
+});
+endsnippet
+
+snippet after "mocha after" w
+after(function($1) {
+	$0
+});
+endsnippet
+
+snippet beforeEach "mocha beforeEach" w
+beforeEach(function($1) {
+	$0
+});
+endsnippet
+
+snippet afterEach "mocha afterEach" w
+afterEach(function($1) {
 	$0
 });
 endsnippet
