@@ -6,12 +6,12 @@
 ext.itunes = {}
 
 function ext.itunes.tell(cmd)
-  return hydra.exec('osascript -e \'tell application "iTunes" to ' .. cmd .. "'")
+  return hs.applescript('tell application "iTunes" to ' .. cmd)
 end
 
 function ext.itunes.play()
   ext.itunes.tell('playpause')  -- works better than 'play' if iTunes is not yet open
-  hydra.alert(' ▶', 0.5)
+  hs.alert.show(' ▶', 0.5)
 end
 
 function ext.itunes.pause()
@@ -30,14 +30,14 @@ function ext.itunes.currentTrack()
   local artist = ext.itunes.tell('artist of current track as string')
   local album = ext.itunes.tell('album of current track as string')
   local track = ext.itunes.tell('name of current track as string')
-  hydra.alert(track .. '\n' .. album .. '\n' .. artist, 1.5);
+  hs.alert.show(track .. '\n' .. album .. '\n' .. artist, 1.5);
 end
 
 -- NOTE: iTunes 11's applescript shuffle API is broken, so we have to do crazy
 -- gymnastics just to toggle the shuffle setting on/off
 -- See https://discussions.apple.com/message/22870402
 function ext.itunes.toggleShuffle()
-  local shuffleStatus = hydra.exec([[osascript -e 'tell application "System Events"
+  local shuffleStatus = hs.applescript([[tell application "System Events"
               set output to ""
               tell application process "iTunes"
                 tell menu 1 of menu item "Shuffle" of menu "Controls" of menu bar 1
@@ -54,6 +54,6 @@ function ext.itunes.toggleShuffle()
                 end tell
               end tell
               end tell
-              return output']])
-  hydra.alert(shuffleStatus, 1.0)
+              return output]])
+  hs.alert.show(shuffleStatus, 1.0)
 end
