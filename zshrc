@@ -135,6 +135,16 @@ fancy-ctrl-z () {
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
+# Command to view man pages using vim.
+# Found at https://news.ycombinator.com/item?id=8781621
+function m {
+vim \
+-c "source \$VIMRUNTIME/ftplugin/man.vim" \
+-c "Man $*" \
+-c "set number readonly|only" \
+}
+
+
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
