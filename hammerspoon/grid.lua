@@ -110,7 +110,7 @@ function ext.grid.pushwindow()
 
   local winframe = win:frame()
   local nextscreen = win:screen():next()
-  local screenframe = nextscreen:frame_without_dock_or_menu()
+  local screenframe = nextscreen:frame()
   local newframe = {
     x = screenframe.x,
     y = screenframe.y,

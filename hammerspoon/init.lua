@@ -1,9 +1,6 @@
 require "grid"
 require "itunes"
 
--- TODO: review docs at http://www.hammerspoon.org/docs/
--- TODO: repl shortcut?
-
 -- TODO: replace Spark.app (volume ctrl w/ F13-15)
 -- TODO: iTunes shuffle/playlist control
 
@@ -15,6 +12,8 @@ hs.window.animationDuration = 0     -- Disable window animations (janky for iTer
 
 local mash = {"ctrl", "alt", "cmd"}
 
+-- Hammerspoon repl:
+hs.hotkey.bind(mash, 'C', hs.openConsole)
 
 -- Window management
 hs.hotkey.bind(mash, 'K', ext.grid.fullscreen)
