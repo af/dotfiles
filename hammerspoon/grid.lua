@@ -1,110 +1,109 @@
-ext = {}
-ext.grid = {}
-ext.grid.BORDER = 1
+Grid = {}
+Grid.BORDER = 1
 
 -- Describe the share of the screen that the L/R "chunks" take:
-ext.grid.L_CHUNK_SHARE = 0.6
-ext.grid.R_CHUNK_SHARE = 0.4
+Grid.L_CHUNK_SHARE = 0.6
+Grid.R_CHUNK_SHARE = 0.4
 
-function ext.grid.fullscreen()
+function Grid.fullscreen()
   local win = hs.window.focusedWindow()
   if not win then return end
 
-  local screenframe = ext.grid.screenframe(win)
+  local screenframe = Grid.screenframe(win)
   win:setFrame(screenframe)
 end
 
-function ext.grid.lefthalf()
+function Grid.lefthalf()
   local win = hs.window.focusedWindow()
   if not win then return end
 
-  local screenframe = ext.grid.screenframe(win)
+  local screenframe = Grid.screenframe(win)
   local newframe = {
     x = screenframe.x,
     y = screenframe.y,
-    w = screenframe.w / 2 - ext.grid.BORDER,
+    w = screenframe.w / 2 - Grid.BORDER,
     h = screenframe.h,
   }
 
   win:setFrame(newframe)
 end
 
-function ext.grid.righthalf()
+function Grid.righthalf()
   local win = hs.window.focusedWindow()
   if not win then return end
 
-  local screenframe = ext.grid.screenframe(win)
+  local screenframe = Grid.screenframe(win)
   local newframe = {
-    x = screenframe.x + screenframe.w / 2 + ext.grid.BORDER,
+    x = screenframe.x + screenframe.w / 2 + Grid.BORDER,
     y = screenframe.y,
-    w = screenframe.w / 2 - ext.grid.BORDER,
+    w = screenframe.w / 2 - Grid.BORDER,
     h = screenframe.h,
   }
 
   win:setFrame(newframe)
 end
 
-function ext.grid.topleft()
+function Grid.topleft()
   local win = hs.window.focusedWindow()
   if not win then return end
 
-  local screenframe = ext.grid.screenframe(win)
+  local screenframe = Grid.screenframe(win)
   local newframe = {
     x = screenframe.x,
     y = screenframe.y,
-    w = screenframe.w * ext.grid.L_CHUNK_SHARE - ext.grid.BORDER,
-    h = screenframe.h / 2 - ext.grid.BORDER,
+    w = screenframe.w * Grid.L_CHUNK_SHARE - Grid.BORDER,
+    h = screenframe.h / 2 - Grid.BORDER,
   }
 
   win:setFrame(newframe)
 end
 
-function ext.grid.bottomleft()
+function Grid.bottomleft()
   local win = hs.window.focusedWindow()
   if not win then return end
 
-  local screenframe = ext.grid.screenframe(win)
+  local screenframe = Grid.screenframe(win)
   local newframe = {
     x = screenframe.x,
-    y = screenframe.y + screenframe.h / 2 + ext.grid.BORDER,
-    w = screenframe.w * ext.grid.L_CHUNK_SHARE - ext.grid.BORDER,
-    h = screenframe.h / 2 - ext.grid.BORDER,
+    y = screenframe.y + screenframe.h / 2 + Grid.BORDER,
+    w = screenframe.w * Grid.L_CHUNK_SHARE - Grid.BORDER,
+    h = screenframe.h / 2 - Grid.BORDER,
   }
 
   win:setFrame(newframe)
 end
 
-function ext.grid.topright()
+function Grid.topright()
   local win = hs.window.focusedWindow()
   if not win then return end
 
-  local screenframe = ext.grid.screenframe(win)
+  local screenframe = Grid.screenframe(win)
   local newframe = {
-    x = screenframe.x + screenframe.w * ext.grid.L_CHUNK_SHARE + ext.grid.BORDER,
+    x = screenframe.x + screenframe.w * Grid.L_CHUNK_SHARE + Grid.BORDER,
     y = screenframe.y,
-    w = screenframe.w * ext.grid.R_CHUNK_SHARE - ext.grid.BORDER,
-    h = screenframe.h / 2 - ext.grid.BORDER,
+    w = screenframe.w * Grid.R_CHUNK_SHARE - Grid.BORDER,
+    h = screenframe.h / 2 - Grid.BORDER,
   }
 
   win:setFrame(newframe)
 end
 
-function ext.grid.bottomright()
+function Grid.bottomright()
   local win = hs.window.focusedWindow()
   if not win then return end
 
-  local screenframe = ext.grid.screenframe(win)
+  local screenframe = Grid.screenframe(win)
   local newframe = {
-    x = screenframe.x + screenframe.w * ext.grid.L_CHUNK_SHARE + ext.grid.BORDER,
-    y = screenframe.y + screenframe.h / 2 + ext.grid.BORDER,
-    w = screenframe.w * ext.grid.R_CHUNK_SHARE - ext.grid.BORDER,
-    h = screenframe.h / 2 - ext.grid.BORDER,
+    x = screenframe.x + screenframe.w * Grid.L_CHUNK_SHARE + Grid.BORDER,
+    y = screenframe.y + screenframe.h / 2 + Grid.BORDER,
+    w = screenframe.w * Grid.R_CHUNK_SHARE - Grid.BORDER,
+    h = screenframe.h / 2 - Grid.BORDER,
   }
 
   win:setFrame(newframe)
 end
 
-function ext.grid.pushwindow()
+function Grid.pushwindow()
   local win = hs.window.focusedWindow()
   if not win then return end
 
@@ -121,39 +120,41 @@ function ext.grid.pushwindow()
   win:setFrame(newframe)
 end
 
-function ext.grid.screenframe(win)
+function Grid.screenframe(win)
   return win:screen():frame()
 end
 
 
 
 -- Customized versions of lefthalf() and righthalf() that make the left side slightly wider:
-function ext.grid.leftchunk()
+function Grid.leftchunk()
   local win = hs.window.focusedWindow()
   if not win then return end
 
-  local screenframe = ext.grid.screenframe(win)
+  local screenframe = Grid.screenframe(win)
   local newframe = {
     x = screenframe.x,
     y = screenframe.y,
-    w = screenframe.w * ext.grid.L_CHUNK_SHARE - ext.grid.BORDER,
+    w = screenframe.w * Grid.L_CHUNK_SHARE - Grid.BORDER,
     h = screenframe.h,
   }
 
   win:setFrame(newframe)
 end
 
-function ext.grid.rightchunk()
+function Grid.rightchunk()
   local win = hs.window.focusedWindow()
   if not win then return end
 
-  local screenframe = ext.grid.screenframe(win)
+  local screenframe = Grid.screenframe(win)
   local newframe = {
-    x = screenframe.x + screenframe.w * ext.grid.L_CHUNK_SHARE + ext.grid.BORDER,
+    x = screenframe.x + screenframe.w * Grid.L_CHUNK_SHARE + Grid.BORDER,
     y = screenframe.y,
-    w = screenframe.w * ext.grid.R_CHUNK_SHARE - ext.grid.BORDER,
+    w = screenframe.w * Grid.R_CHUNK_SHARE - Grid.BORDER,
     h = screenframe.h,
   }
 
   win:setFrame(newframe)
 end
+
+return Grid
