@@ -31,7 +31,7 @@ hs.hotkey.bind(mash, 'UP', hs.itunes.play)
 hs.hotkey.bind(mash, 'DOWN', hs.itunes.pause)
 hs.hotkey.bind(mash, 'LEFT', hs.itunes.previous)
 hs.hotkey.bind(mash, 'RIGHT', hs.itunes.next)
-hs.hotkey.bind(mash, '/', hs.itunes.currentTrack)
+hs.hotkey.bind(mash, '/', hs.itunes.displayCurrentTrack)
 hs.hotkey.bind(mash, 'S', itunes_custom.toggleShuffle)
 
 
@@ -40,6 +40,5 @@ hs.hotkey.bind(mash, 'S', itunes_custom.toggleShuffle)
 -- Mission Control keyboard shortcuts in SysPrefs > Keyboard > Shortcuts
 hs.hotkey.bind({"ctrl"}, '1', function() hs.application.launchOrFocus("Google Chrome") end)
 hs.hotkey.bind({"ctrl"}, '2', function() hs.application.launchOrFocus("iTerm") end)
+hs.hotkey.bind({"ctrl"}, '3', function() hs.application.launchOrFocus("iTunes") end)
 hs.hotkey.bind({"ctrl"}, '4', function() hs.application.launchOrFocus("Slack") end)
-hs.hotkey.bind({"ctrl"}, '0', function() hs.application.launchOrFocus("iTunes") end)
--- TODO: hotkey to bind to a new ^# mapping dynamically (eg. ^6 => "preview")
