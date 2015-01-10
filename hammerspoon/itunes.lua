@@ -3,6 +3,7 @@ itunes = {}
 
 -- New shuffle implementation for iTunes 12 (the menu is different from prev. versions)
 -- adapted from https://discussions.apple.com/thread/6573883
+-- Note: appears to only work while music is playing?
 function itunes.toggleShuffle()
   local success, shuffleStatus = hs.applescript([[tell application "System Events"
     tell application process "iTunes"
@@ -17,7 +18,7 @@ function itunes.toggleShuffle()
     end tell
     end tell
   ]])
-  hs.alert.show(shuffleStatus, 1.0)
+  hs.alert(shuffleStatus, 1.0)
 end
 
 return itunes

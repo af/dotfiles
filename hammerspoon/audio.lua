@@ -10,7 +10,7 @@ local showVolumeAlert = function(volume)
   local numBars = math.floor(volume/5)
   local numSpaces = 20 - numBars
   local volumeBar = string.rep('⣿', numBars) .. string.rep('⣀', numSpaces)
-  hs.alert.show(volumeBar)
+  hs.alert(volumeBar)
 end
 
 Audio.toggleMute = function()

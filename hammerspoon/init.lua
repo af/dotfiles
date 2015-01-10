@@ -1,15 +1,15 @@
-local Audio = require "audio"
-local Grid = require "grid"
-local Music = require "itunes"
+local Audio = require 'audio'
+local Grid = require 'grid'
+local Music = require 'itunes'
 
 
 -- Reload automatically on config changes
-hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", hs.reload):start()
-hs.alert.show("Hammerspoon is locked and loaded", 1)
+hs.pathwatcher.new(os.getenv('HOME') .. '/.hammerspoon/', hs.reload):start()
+hs.alert('Hammerspoon is locked and loaded', 1)
 
 hs.window.animationDuration = 0     -- Disable window animations (janky for iTerm)
 
-local mash = {"ctrl", "alt", "cmd"}
+local mash = {'ctrl', 'alt', 'cmd'}
 
 -- Hammerspoon repl:
 hs.hotkey.bind(mash, 'C', hs.openConsole)
@@ -38,10 +38,10 @@ hs.hotkey.bind(mash, 'S', Music.toggleShuffle)
 -- Launch/focus specific apps with one keystroke.
 -- Note: to get {^1,^2,^3} to work, you might need to change some conflicting
 -- Mission Control keyboard shortcuts in SysPrefs > Keyboard > Shortcuts
-hs.hotkey.bind({"ctrl"}, '1', function() hs.application.launchOrFocus("Google Chrome") end)
-hs.hotkey.bind({"ctrl"}, '2', function() hs.application.launchOrFocus("iTerm") end)
-hs.hotkey.bind({"ctrl"}, '3', function() hs.application.launchOrFocus("iTunes") end)
-hs.hotkey.bind({"ctrl"}, '4', function() hs.application.launchOrFocus("Slack") end)
+hs.hotkey.bind({'ctrl'}, '1', function() hs.application.launchOrFocus('Google Chrome') end)
+hs.hotkey.bind({'ctrl'}, '2', function() hs.application.launchOrFocus('iTerm') end)
+hs.hotkey.bind({'ctrl'}, '3', function() hs.application.launchOrFocus('iTunes') end)
+hs.hotkey.bind({'ctrl'}, '4', function() hs.application.launchOrFocus('Slack') end)
 
 
 -- Audio volume control
