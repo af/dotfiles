@@ -21,7 +21,6 @@ NeoBundle 'kien/ctrlp.vim', 'b5d3fe66'
 NeoBundle 'tpope/vim-fugitive', '124550'
 NeoBundle 'airblade/vim-gitgutter', '878c3422'
 NeoBundle 'bling/vim-airline', 'aef500c426'
-NeoBundle 'tpope/vim-sleuth', '039e2cd'
 NeoBundle 'tomtom/tcomment_vim', '3d0a9975'
 NeoBundle 'tpope/vim-surround', '42e9b46e'
 NeoBundle 'jeetsukumaran/vim-filebeagle', '942bb313614'
@@ -31,6 +30,10 @@ NeoBundle 'vimwiki/vimwiki', '2c03d8'
 NeoBundle 'justinmk/vim-sneak', '9eb89e43'
 NeoBundle 'vim-scripts/YankRing.vim', 'a884f3a1'
 NeoBundle 'tpope/vim-obsession', '4ab72e07ec'   " start a session file with :Obsession
+
+" Indentation, etc. Autodetect, but override with .editorconfig if present:
+NeoBundle 'tpope/vim-sleuth', '039e2cd'
+NeoBundle 'editorconfig/editorconfig-vim', '77875eff51'
 
 " Javascript and HTML-related plugins
 NeoBundleLazy '29decibel/vim-stringify', '614eb0c', {'autoload':{'filetypes':['javascript']}}
