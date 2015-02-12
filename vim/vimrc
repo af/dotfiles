@@ -49,7 +49,7 @@ NeoBundle 'sgur/unite-git_grep', 'a8246b7f'
 NeoBundle 'UltiSnips', '3.0'
 
 " theme/syntax related plugins:
-NeoBundle 'scrooloose/syntastic', 'f92741d3'
+NeoBundle 'scrooloose/syntastic', 'c1a209895'
 NeoBundle 'colorizer', 'aae6b518'
 
 " Colour schemes:
@@ -196,10 +196,15 @@ endif
 " Syntastic display customizations:
 " TODO: update colors so they work in console vim also
 let syntastic_mode_map = { 'passive_filetypes': ['html'] }  " disable html checking by default
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_sq = 0
 let g:syntastic_error_symbol = '!!'
 let g:syntastic_warning_symbol = '!!'
 hi SyntasticErrorSign guifg=#ff0000
 hi SyntasticWarningSign guifg=#ff0000
+map <C-e> :lnext<CR>
 
 " Syntastic checker config:
 let g:syntastic_python_checkers=['pyflakes']
