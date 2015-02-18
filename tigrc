@@ -12,3 +12,6 @@ set refresh-mode = periodic
 set refresh-interval = 3
 
 color cursor black green
+
+# Override default main-view settings to show commit ids (hashes):
+set main-view = id:yes date:default author:full commit-title:graph=yes,refs=yes
