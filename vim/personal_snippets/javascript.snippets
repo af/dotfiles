@@ -31,6 +31,15 @@ for (var i=0; i<$1; i++) {
 }
 endsnippet
 
+snippet sw "switch" w
+switch ($1) {
+	case $2:
+		$3
+		break
+	$0
+}
+endsnippet
+
 snippet f "function" w
 function($1) { $2 }
 endsnippet
@@ -46,6 +55,14 @@ endsnippet
 #===================
 # Testing snippets
 #===================
+
+snippet t "tape test" w
+test('$1', function(t) {
+	$2
+	t.end()
+});
+endsnippet
+
 snippet describe "mocha describe" w
 describe('$1', function($2) {
 	$0
@@ -88,4 +105,16 @@ endsnippet
 
 snippet aok "assert.ok()" w
 assert.ok($1);
+endsnippet
+
+
+# React
+snippet rcc "React.createClass" w
+React.createClass({
+	displayName: '$1',
+
+	render: function() {
+		return $0
+	}
+})
 endsnippet
