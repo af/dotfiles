@@ -63,10 +63,16 @@ alias ..='cd ..; ls'
 alias ...='cd ../..; ls'
 
 # Aliases for git:
+alias ci='git commit -v'
+alias cia='git commit -v --amend'
+alias ga='git add'
 alias gs='git status'
+alias gss='git stash save'
+alias gsp='git stash pop'
 alias gl='git log'
 alias gc='git checkout'
 alias gb='git branch'
+alias gdc='git diff --cached'
 alias gr='git remote'
 alias gpr='git pull --rebase'
 alias t='tig --all'
@@ -110,7 +116,7 @@ function newproj () {
 # Script tmux to set up a window in my (currently) preferred custom layout:
 function workspace () {
     # Main pane for vim on the left:
-    tmux send-keys 'vim -S' 'C-m'
+    tmux send-keys 'git status' 'C-m'
     tmux splitw -h -p 50
 
     # tig running in the bottom right:

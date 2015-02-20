@@ -42,6 +42,7 @@ hs.hotkey.bind({'ctrl'}, '1', function() hs.application.launchOrFocus('Google Ch
 hs.hotkey.bind({'ctrl'}, '2', function() hs.application.launchOrFocus('iTerm') end)
 hs.hotkey.bind({'ctrl'}, '3', function() hs.application.launchOrFocus('iTunes') end)
 hs.hotkey.bind({'ctrl'}, '4', function() hs.application.launchOrFocus('Slack') end)
+hs.hotkey.bind({'ctrl'}, '5', function() hs.application.launchOrFocus('Finder') end)
 
 
 -- Audio volume control

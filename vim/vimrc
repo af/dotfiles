@@ -23,13 +23,14 @@ NeoBundle 'airblade/vim-gitgutter', '878c3422'
 NeoBundle 'bling/vim-airline', 'aef500c426'
 NeoBundle 'tomtom/tcomment_vim', '3d0a9975'
 NeoBundle 'tpope/vim-surround', '42e9b46e'
-NeoBundle 'jeetsukumaran/vim-filebeagle', '942bb313614'
+NeoBundle 'jeetsukumaran/vim-filebeagle', 'abfb7f9d2'
 NeoBundle 'tommcdo/vim-exchange', 'b82a774'
 NeoBundle 'sheerun/vim-polyglot', 'e961fa8'     " syntax highlighting for many languages
 NeoBundle 'vimwiki/vimwiki', '2c03d8'
 NeoBundle 'justinmk/vim-sneak', '9eb89e43'
 NeoBundle 'vim-scripts/YankRing.vim', 'a884f3a1'
 NeoBundle 'tpope/vim-obsession', '4ab72e07ec'   " start a session file with :Obsession
+NeoBundle 'ashisha/image.vim', 'ae15d1c5'       " view images in vim (requires `pip install Pillow`)
 
 " Indentation, etc. Autodetect, but override with .editorconfig if present:
 NeoBundle 'tpope/vim-sleuth', '039e2cd'
@@ -106,7 +107,7 @@ set wildignore=.svn,.git,.gitignore,*.pyc,*.so,*.swp,*.jpg,*.png,*.gif,node_modu
 set laststatus=2            " Always show a status line for lowest window in a split
 set cursorline              " highlight the full line that the cursor is currently on
 set colorcolumn=80,100      " Highlight these columns with a different bg
-
+set helpheight=99999        " Hack to make help pages open "fullscreen"
 
 "===============================================================================
 " Searching & Replacing
@@ -169,6 +170,9 @@ endfunc
 "===============================================================================
 " Plugin customization
 "===============================================================================
+
+" FileBeagle
+let g:filebeagle_show_hidden = 1        " Use 'gh' to toggle- FileBeagle hides lots by default
 
 " Load matchit.vim, but only if the user hasn't installed a newer version.
 if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
@@ -287,6 +291,8 @@ nnoremap <silent> <C-u> :bd<CR>
 " Alternative approaches (which didn't seem to work as well for my needs):
 " set autowriteall   (couldn't get this to work)
 " :au FocusLost * :wa
+" autocmd InsertLeave * if expand('%') != '' | update | endif
+" (last one via http://blog.unixphilosopher.com/2015/02/five-weird-vim-tricks.html)
 inoremap <esc> <esc>:w<CR>
 autocmd InsertLeave * nnoremap <esc> <esc>:w<CR>
 

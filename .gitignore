@@ -1,4 +1,5 @@
 *.swp
+init-tmux-session
 vim/bundle
 vim/.netrwhist
 emacs
