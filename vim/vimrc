@@ -31,6 +31,7 @@ NeoBundle 'justinmk/vim-sneak', '9eb89e43'
 NeoBundle 'vim-scripts/YankRing.vim', 'a884f3a1'
 NeoBundle 'tpope/vim-obsession', '4ab72e07ec'   " start a session file with :Obsession
 NeoBundle 'ashisha/image.vim', 'ae15d1c5'       " view images in vim (requires `pip install Pillow`)
+NeoBundle 'wikitopian/hardmode', '110513d'
 
 " Indentation, etc. Autodetect, but override with .editorconfig if present:
 NeoBundle 'tpope/vim-sleuth', '039e2cd'
@@ -170,6 +171,9 @@ endfunc
 "===============================================================================
 " Plugin customization
 "===============================================================================
+
+"autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()   " Enable 'hardmode' by default:
+nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
 
 " FileBeagle
 let g:filebeagle_show_hidden = 1        " Use 'gh' to toggle- FileBeagle hides lots by default
