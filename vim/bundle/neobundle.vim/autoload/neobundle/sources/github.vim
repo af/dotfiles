@@ -1,7 +1,6 @@
 "=============================================================================
 " FILE: github.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 02 Mar 2013.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -37,10 +36,10 @@ let s:source = {
       \ }
 
 function! s:source.gather_candidates(args, context) "{{{
-  if !executable('curl') && !executable('wget')
+  if !executable('wget')
     call unite#print_error(
           \ '[neobundle/search:github] '.
-          \ 'curl or wget command is not available!')
+          \ 'wget command is not available!')
     return []
   endif
 
@@ -59,13 +58,15 @@ function! s:source.gather_candidates(args, context) "{{{
 endfunction"}}}
 
 " Misc.
+" @vimlint(EVL102, 1, l:true)
+" @vimlint(EVL102, 1, l:false)
+" @vimlint(EVL102, 1, l:null)
 function! s:get_github_searches(string) "{{{
   let path = 'https://api.github.com/legacy/repos/search/'
         \ . a:string . '*?language=VimL'
   let temp = neobundle#util#substitute_path_separator(tempname())
 
-  let cmd = printf('%s "%s" "%s"', (executable('curl') ?
-          \ 'curl --fail -s -o' : 'wget -q -O '), temp, path)
+  let cmd = printf('%s "%s" "%s"', 'wget -q -O ', temp, path)
 
   call unite#print_message(
         \ '[neobundle/search:github] Searching plugins from github...')
@@ -75,7 +76,7 @@ function! s:get_github_searches(string) "{{{
 
   if unite#util#get_last_status()
     call unite#print_message('[neobundle/search:github] ' . cmd)
-    call unite#print_error('[neobundle/search:github] Error occured!')
+    call unite#print_error('[neobundle/search:github] Error occurred!')
     call unite#print_error(result)
     return []
   elseif !filereadable(temp)
@@ -95,6 +96,9 @@ function! s:get_github_searches(string) "{{{
 
   return data.repositories
 endfunction"}}}
+" @vimlint(EVL102, 0, l:true)
+" @vimlint(EVL102, 0, l:false)
+" @vimlint(EVL102, 0, l:null)
 
 function! s:convert_vim_scripts_data(data) "{{{
   return map(copy(a:data), "{

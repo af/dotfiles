@@ -1,7 +1,6 @@
 "=============================================================================
 " FILE: neobundle/install.vim
 " AUTHOR:  Shougo Matsushita <Shougo.Matsu@gmail.com>
-" Last Modified: 26 Jun 2013.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -44,16 +43,7 @@ function! s:source_install.hooks.on_init(args, context) "{{{
   let a:context.source__bang =
         \ index(a:args, '!') >= 0 || !empty(bundle_names)
   let a:context.source__not_fuzzy = 0
-
   call s:init(a:context, bundle_names)
-
-  if empty(a:context.source__bundles)
-    let a:context.is_async = 0
-    call neobundle#installer#log(
-          \ '[neobundle/install] Bundles not found.', 1)
-    call neobundle#installer#log(
-          \ '[neobundle/install] You may use wrong bundle name.', 1)
-  endif
 endfunction"}}}
 
 function! s:source_install.hooks.on_syntax(args, context) "{{{
@@ -74,15 +64,19 @@ function! s:source_install.hooks.on_close(args, context) "{{{
 endfunction"}}}
 
 function! s:source_install.async_gather_candidates(args, context) "{{{
-  let old_msgs = copy(neobundle#installer#get_log())
+  let old_msgs = copy(neobundle#installer#get_updates_log())
 
   if a:context.source__number < a:context.source__max_bundles
     while a:context.source__number < a:context.source__max_bundles
         \ && len(a:context.source__processes) <
         \      g:neobundle#install_max_processes
-      call neobundle#installer#sync(
-            \ a:context.source__bundles[a:context.source__number],
-            \ a:context, 1)
+      let bundle = a:context.source__bundles[a:context.source__number]
+      call neobundle#installer#sync(bundle, a:context, 1)
+
+      call neobundle#util#redraw_echo(
+            \ neobundle#installer#get_progress_message(bundle,
+            \ a:context.source__number,
+            \ a:context.source__max_bundles))
     endwhile
   endif
 
@@ -108,21 +102,21 @@ function! s:source_install.async_gather_candidates(args, context) "{{{
       let messages += ['[neobundle/install] Errored bundles:']
             \ + map(copy(a:context.source__errored_bundles),
             \        'v:val.name')
-      call neobundle#installer#log(
+      call neobundle#installer#error(
             \ 'Please read error message log by :message command.')
     endif
 
-    call neobundle#installer#log(messages, 1)
+    call neobundle#installer#update_log(messages, 1)
     call neobundle#installer#update(
           \ a:context.source__synced_bundles)
 
     " Finish.
-    call neobundle#installer#log('[neobundle/install] Completed.', 1)
+    call neobundle#installer#update_log('[neobundle/install] Completed.', 1)
 
     let a:context.is_async = 0
   endif
 
-  return map(neobundle#installer#get_log()[len(old_msgs) :], "{
+  return map(neobundle#installer#get_updates_log()[len(old_msgs) :], "{
         \ 'word' : substitute(v:val, '^\\[.\\{-}\\]\\s*', '', ''),
         \ 'is_multiline' : 1,
         \}")
@@ -130,7 +124,7 @@ endfunction"}}}
 
 function! s:source_install.complete(args, context, arglead, cmdline, cursorpos) "{{{
   return ['!'] +
-        \ neobundle#complete_bundles(a:arglead, a:cmdline, a:cursorpos)
+        \ neobundle#commands#complete_bundles(a:arglead, a:cmdline, a:cursorpos)
 endfunction"}}}
 
 let s:source_update = deepcopy(s:source_install)
@@ -175,6 +169,17 @@ function! s:init(context, bundle_names)
         \ len(a:context.source__bundles)
 
   call neobundle#installer#clear_log()
+
+  if empty(a:context.source__bundles)
+    let a:context.is_async = 0
+    call neobundle#installer#error(
+          \ '[neobundle/install] Target bundles not found.' .
+          \ ' You may use wrong bundle name.', 1)
+  else
+    call neobundle#installer#update_log(
+          \ '[neobundle/install] Update started: ' .
+          \     strftime('(%Y/%m/%d %H:%M:%S)'))
+  endif
 endfunction
 
 let &cpo = s:save_cpo

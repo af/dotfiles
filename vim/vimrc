@@ -13,7 +13,7 @@ if has('vim_starting')
    set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
-call neobundle#rc(expand('~/.vim/bundle/'))
+call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " vim plugins, managed by NeoBundle
@@ -62,6 +62,7 @@ NeoBundle 'junegunn/seoul256.vim', '340817d'    " softer, lower contrast
 " https://github.com/shawncplus/Vim-toCterm
 " https://github.com/guns/xterm-color-table.vim
 
+call neobundle#end()
 filetype plugin indent on
 NeoBundleCheck
 "===============================================================================
