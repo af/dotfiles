@@ -78,6 +78,7 @@ alias gpr='git pull --rebase'
 alias t='tig --all'
 
 # Commonly used tools:
+alias v='nvim'
 alias p='python'
 alias quickweb='python -c "import SimpleHTTPServer as a; a.test()"'
 alias pypath='p -c "import sys, pprint; pprint.pprint(sys.path)"'
@@ -144,7 +145,7 @@ bindkey '^Z' fancy-ctrl-z
 # Command to view man pages using vim.
 # Found at https://news.ycombinator.com/item?id=8781621
 function m {
-vim \
+v \
 -c "source \$VIMRUNTIME/ftplugin/man.vim" \
 -c "Man $*" \
 -c "set number readonly|only" \

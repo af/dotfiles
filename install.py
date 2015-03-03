@@ -21,6 +21,8 @@ SYMLINK_MAP = {
     'emacs':        '~/.emacs.d',
     'vim':          '~/.vim',
     'vim/vimrc':    '~/.vimrc',
+    'vim':          '~/.nvim',
+    'vim/vimrc':    '~/.nvimrc',
     'hammerspoon':  '~/.hammerspoon',
     'tmux.conf':    '~/.tmux.conf',
     'zshrc':        '~/.zshrc',

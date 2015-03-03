@@ -354,7 +354,8 @@ au BufRead,BufNewFile *.json setlocal syntax=javascript
 " Vim supports encryption! Just enter :X before saving.
 " But we need to update the encryption type to a more secure one.
 " See http://usevim.com/2013/11/01/vim-encryption/
-set cryptmethod=blowfish
+" Note: disabled because Neovim does not support cryptmethod (https://github.com/neovim/neovim/issues/701)
+"set cryptmethod=blowfish
 
 " Set vim's cwd to the closest ancestor dir containing a .git directory
 " using "git rev-parse --show-toplevel"
