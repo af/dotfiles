@@ -18,6 +18,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " vim plugins, managed by NeoBundle
 NeoBundle 'kien/ctrlp.vim', 'b5d3fe66'
+NeoBundle 'FelikZ/ctrlp-py-matcher', '799f37b'
 NeoBundle 'tpope/vim-fugitive', '124550'
 NeoBundle 'airblade/vim-gitgutter', '878c3422'
 NeoBundle 'bling/vim-airline', 'aef500c426'
@@ -189,7 +190,14 @@ nnoremap <C-t> :CtrlPBuffer<CR>             " Search active buffers
 let g:ctrlp_map = '<leader><leader>'    " Search in current directory
 let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_open_multiple_files = 'i'
-let g:ctrlp_clear_cache_on_exit = 1
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden --ignore .git --ignore node_modules -g ""'
+" PyMatcher for CtrlP:
+if !has('python')
+    echo 'In order to use pymatcher plugin, you need +python compiled vim'
+else
+    let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+endif
 
 " gitgutter
 " OS X's default vim doesn't have signs support, so disable it for that editor.
