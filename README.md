@@ -5,6 +5,7 @@ Rebuilding my dotfiles from scratch and putting them online for future reference
 
 ## Setup
 * clone the repo
+* `git submodule init && git submodule update`
 * (OS X) Install homebrew
 * (OS X) Install homebrew dependencies with `./brew_installs.sh`
 * run `install.py`
