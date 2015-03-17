@@ -19,6 +19,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 " vim plugins, managed by NeoBundle
 NeoBundle 'kien/ctrlp.vim', 'b5d3fe66'
 NeoBundle 'FelikZ/ctrlp-py-matcher', '799f37b'
+NeoBundle 'mileszs/ack.vim', '6a57bc0'
 NeoBundle 'tpope/vim-fugitive', '124550'
 NeoBundle 'airblade/vim-gitgutter', '878c3422'
 NeoBundle 'bling/vim-airline', 'aef500c426'
@@ -26,27 +27,21 @@ NeoBundle 'tomtom/tcomment_vim', '3d0a9975'
 NeoBundle 'tpope/vim-surround', '42e9b46e'
 NeoBundle 'jeetsukumaran/vim-filebeagle', 'abfb7f9d2'
 NeoBundle 'tommcdo/vim-exchange', 'b82a774'
-NeoBundle 'sheerun/vim-polyglot', 'e961fa8'     " syntax highlighting for many languages
+NeoBundle 'sheerun/vim-polyglot', '1c21231'     " syntax highlighting for many languages
 NeoBundle 'vimwiki/vimwiki', '2c03d8'
 NeoBundle 'justinmk/vim-sneak', '9eb89e43'
 NeoBundle 'vim-scripts/YankRing.vim', 'a884f3a1'
 NeoBundle 'tpope/vim-obsession', '4ab72e07ec'   " start a session file with :Obsession
 NeoBundle 'ashisha/image.vim', 'ae15d1c5'       " view images in vim (requires `pip install Pillow`)
-NeoBundle 'wikitopian/hardmode', '110513d'
 
 " Indentation, etc. Autodetect, but override with .editorconfig if present:
 NeoBundle 'tpope/vim-sleuth', '039e2cd'
 NeoBundle 'editorconfig/editorconfig-vim', '77875eff51'
 
 " Javascript and HTML-related plugins
-NeoBundleLazy '29decibel/vim-stringify', '614eb0c', {'autoload':{'filetypes':['javascript']}}
-NeoBundleLazy 'tristen/vim-sparkup', {'autoload':{'filetypes':['html', 'javascript']}}
+NeoBundle 'moll/vim-node', '07a5e9f91'      " Lazy loading doesn't work for some reason
+NeoBundleLazy 'tristen/vim-sparkup', '1375ce1e7', {'autoload':{'filetypes':['html']}}
 NeoBundleLazy 'tpope/vim-ragtag', {'autoload':{'filetypes':['html']}}   " Use <C-x>/ to close last open html tag
-
-" Unite.vim and related plugs
-NeoBundle 'Shougo/unite.vim', '126633ab'
-NeoBundle 'Shougo/neomru.vim', 'f70be81d'
-NeoBundle 'sgur/unite-git_grep', 'a8246b7f'
 
 " Ultisnips (private snippets are stored in this repo)
 NeoBundle 'UltiSnips', '3.0'
@@ -58,6 +53,7 @@ NeoBundle 'colorizer', 'aae6b518'
 " Colour schemes:
 NeoBundle 'tomasr/molokai', 'e7bcec7573'        " default
 NeoBundle 'junegunn/seoul256.vim', '340817d'    " softer, lower contrast
+NeoBundle 'morhetz/gruvbox', 'ffe202e4'         " brown/retro. :set bg=dark
 
 " plugins for colorscheme dev (not tested yet):
 " https://github.com/shawncplus/Vim-toCterm
@@ -79,6 +75,7 @@ set visualbell
 set history=500             " longer command history (default=20)
 let mapleader = " "         " <leader> is our personal modifier key
 set noswapfile              " Disable swap files
+set backspace=indent,eol,start
 "set directory=~/.vim/swp    " where the .swp files go (if enabled)
 
 " File/buffer settings
@@ -111,6 +108,13 @@ set laststatus=2            " Always show a status line for lowest window in a s
 set cursorline              " highlight the full line that the cursor is currently on
 set colorcolumn=80,100      " Highlight these columns with a different bg
 set helpheight=99999        " Hack to make help pages open "fullscreen"
+
+" Automatically set quickfix height
+" http://vim.wikia.com/wiki/Automatically_fitting_a_quickfix_window_height
+au FileType qf call AdjustWindowHeight(3, 30)       " 2nd arg=> max height
+function! AdjustWindowHeight(minheight, maxheight)
+    exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
+endfunction
 
 "===============================================================================
 " Searching & Replacing
@@ -174,9 +178,6 @@ endfunc
 " Plugin customization
 "===============================================================================
 
-"autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()   " Enable 'hardmode' by default:
-nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
-
 " FileBeagle
 let g:filebeagle_show_hidden = 1        " Use 'gh' to toggle- FileBeagle hides lots by default
 
@@ -187,6 +188,7 @@ endif
 
 " Ctrl-P
 nnoremap <C-t> :CtrlPBuffer<CR>             " Search active buffers
+nnoremap <C-m> :CtrlPMRUFiles<cr>
 let g:ctrlp_map = '<leader><leader>'    " Search in current directory
 let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_open_multiple_files = 'i'
@@ -244,7 +246,6 @@ nnoremap <leader><F2> :ColorToggle<CR>
 
 " Sparkup
 let g:sparkupExecuteMapping = '<C-e>'       " The default mapping
-let g:sparkupDoubleQuote = 1                " Use double quotes for html attrs
 
 " UltiSnips
 let g:UltiSnipsEditSplit = 'vertical'
@@ -255,20 +256,14 @@ nnoremap <leader>s :UltiSnipsEdit<CR>
 " vim-stringify
 map <leader>' :call Stringify()<CR>
 
-" Unite.vim
-let g:unite_enable_short_source_names = 1
-let g:unite_enable_start_insert = 1
-let g:unite_split_rule = 'botright'
-nnoremap <leader>t :<C-u>Unite -buffer-name=unite file_rec<cr>
-nnoremap <leader>f :<C-u>Unite -buffer-name=unite file<cr>
-nnoremap <leader>r :<C-u>Unite -buffer-name=unite file_mru<cr>
-nnoremap <leader>g :<C-u>Unite -buffer-name=unite vcs_grep<cr>
-nnoremap <leader>e :<C-u>Unite -buffer-name=unite buffer<cr>
-autocmd filetype unite imap <buffer> <C-u> <Plug>(unite_exit)
-autocmd filetype unite imap <buffer> <C-j> <Plug>(unite_select_next_line)
-autocmd filetype unite imap <buffer> <C-k> <Plug>(unite_select_previous_line)
-autocmd filetype unite imap <buffer> , <Plug>(unite_toggle_mark_current_candidate)
-autocmd BufLeave \[unite\]* set bufhidden=wipe  " From https://github.com/Shougo/unite.vim/issues/278
+" Ack.vim
+nnoremap <leader>g :Ack 
+set shellpipe=>             " Prevents results from flashing during search
+let g:ackhighlight = 1      " Highlight results
+if executable('ag')
+    let g:ackprg = 'ag'
+    let g:ack_default_options = '--nocolor --nogroup --hidden --ignore .git --ignore node_modules -g ""'
+endif
 
 " VimWiki
 let g:vimwiki_ext2syntax = {}
@@ -291,11 +286,10 @@ let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md',
 " }     - move forward one paragraph
 
 " Navigating between buffers:
-map! <C-h> <esc>:bp<CR>
-map <C-h> :bp<CR>
-map! <C-l> <esc>:bn<CR>
-map <C-l> :bn<CR>
+nmap <C-h> :bp<CR>
+nmap <C-l> :bn<CR>
 nnoremap <silent> <C-u> :bd<CR>
+nmap <C-q> :1,100bd<CR>
 
 " Save current file every time we leave insert mode or hit <esc>:
 " Note that the autocmd repeats the mapping each time we leave insert mode,
