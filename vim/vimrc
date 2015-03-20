@@ -18,21 +18,28 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " vim plugins, managed by NeoBundle
 NeoBundle 'kien/ctrlp.vim', 'b5d3fe66'
-NeoBundle 'FelikZ/ctrlp-py-matcher', '799f37b'
-NeoBundle 'mileszs/ack.vim', '6a57bc0'
-NeoBundle 'tpope/vim-fugitive', '124550'
-NeoBundle 'airblade/vim-gitgutter', '878c3422'
 NeoBundle 'bling/vim-airline', 'aef500c426'
 NeoBundle 'tomtom/tcomment_vim', '3d0a9975'
 NeoBundle 'tpope/vim-surround', '42e9b46e'
 NeoBundle 'jeetsukumaran/vim-filebeagle', 'abfb7f9d2'
 NeoBundle 'tommcdo/vim-exchange', 'b82a774'
+NeoBundle 'AndrewRadev/splitjoin.vim', '208689' " gS and gJ to split/join lines
 NeoBundle 'sheerun/vim-polyglot', '1c21231'     " syntax highlighting for many languages
 NeoBundle 'vimwiki/vimwiki', '2c03d8'
 NeoBundle 'justinmk/vim-sneak', '9eb89e43'
 NeoBundle 'af/YankRing.vim', '0e4235b1'         " using fork, as v18 isn't officially on GH
 NeoBundle 'tpope/vim-obsession', '4ab72e07ec'   " start a session file with :Obsession
 NeoBundle 'ashisha/image.vim', 'ae15d1c5'       " view images in vim (requires `pip install Pillow`)
+NeoBundle 'gabesoft/vim-ags', 'e5016ea0'
+
+" Git/VCS related plugins
+NeoBundle 'tpope/vim-fugitive', '124550'
+NeoBundle 'airblade/vim-gitgutter', '878c3422'
+" NeoBundle 'jaxbot/github-issues.vim'          " TODO: configure this
+
+" Disabled for now:
+" NeoBundle 'mileszs/ack.vim', '6a57bc0'
+" NeoBundle 'FelikZ/ctrlp-py-matcher', '799f37b'    " Prefer the built-in CtrlP ordering
 
 " Indentation, etc. Autodetect, but override with .editorconfig if present:
 NeoBundle 'tpope/vim-sleuth', '039e2cd'
@@ -71,12 +78,13 @@ NeoBundleCheck
 "===============================================================================
 " General Vim settings
 "===============================================================================
+let mapleader = " "         " <leader> is our personal modifier key
 set visualbell
 set history=500             " longer command history (default=20)
-let mapleader = " "         " <leader> is our personal modifier key
-set noswapfile              " Disable swap files
 set backspace=indent,eol,start
+set noswapfile              " Disable swap files
 "set directory=~/.vim/swp    " where the .swp files go (if enabled)
+"set shellpipe=>             " Prevents results from flashing during Ack.vim searches
 
 " File/buffer settings
 autocmd BufWinEnter,BufNewFile * silent tabo    " Ensure only one tab is open
@@ -188,18 +196,12 @@ endif
 
 " Ctrl-P
 nnoremap <C-t> :CtrlPBuffer<CR>             " Search active buffers
-nnoremap <C-m> :CtrlPMRUFiles<cr>
+nnoremap <C-m> :CtrlPMRUFiles<CR>
 let g:ctrlp_map = '<leader><leader>'    " Search in current directory
 let g:ctrlp_open_new_file = 'r'
 let g:ctrlp_open_multiple_files = 'i'
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden --ignore .git --ignore node_modules -g ""'
-" PyMatcher for CtrlP:
-if !has('python')
-    echo 'In order to use pymatcher plugin, you need +python compiled vim'
-else
-    let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-endif
 
 " gitgutter
 " OS X's default vim doesn't have signs support, so disable it for that editor.
@@ -256,14 +258,17 @@ nnoremap <leader>s :UltiSnipsEdit<CR>
 " vim-stringify
 map <leader>' :call Stringify()<CR>
 
-" Ack.vim
-nnoremap <leader>g :Ack 
-set shellpipe=>             " Prevents results from flashing during search
-let g:ackhighlight = 1      " Highlight results
-if executable('ag')
-    let g:ackprg = 'ag'
-    let g:ack_default_options = '--nocolor --nogroup --hidden --ignore .git --ignore node_modules -g ""'
-endif
+" Ags.vim
+nnoremap <C-g> :Ags 
+autocmd FileType agsv nnoremap <C-o> :call AgsOpenItemCloseResults()<CR>
+let g:ags_agcontext = 1     " Show one line above and below the match
+
+" Hack to open the current result and close the results window in one keystroke:
+autocmd FileType agsv nnoremap <C-o> :call AgsOpenItemCloseResults()<CR>
+function! AgsOpenItemCloseResults()
+  call ags#openFile(line('.'), 'u', 1)
+  call ags#quit()
+endfunction
 
 " VimWiki
 let g:vimwiki_ext2syntax = {}
