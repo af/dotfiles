@@ -272,10 +272,10 @@ endfunction
 
 " VimWiki
 let g:vimwiki_ext2syntax = {}
+let g:vimwiki_global_ext = 0
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md',
                     \  'diary_rel_path': 'journal/', 'diary_index': 'index',
-                    \  'diary_header': 'Journal', 'diary_sort': 'asc'},
-                    \ {'path': '~/code/reelhouse/wiki/', 'syntax': 'markdown', 'ext': '.md'}]
+                    \  'diary_header': 'Journal', 'diary_sort': 'asc'}]
 
 "===============================================================================
 " Key Bindings: Moving around
