@@ -59,8 +59,8 @@ NeoBundle 'colorizer', 'aae6b518'
 
 " Colour schemes:
 NeoBundle 'tomasr/molokai', 'e7bcec7573'        " default
-NeoBundle 'junegunn/seoul256.vim', '340817d'    " softer, lower contrast
 NeoBundle 'morhetz/gruvbox', 'ffe202e4'         " brown/retro. :set bg=dark
+NeoBundle 'whatyouhide/vim-gotham', '6486e10'
 
 " plugins for colorscheme dev (not tested yet):
 " https://github.com/shawncplus/Vim-toCterm
@@ -171,6 +171,26 @@ elseif $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == 
     set t_Co=256            " Richer colours if our terminal can handle it.
 endif
 
+if has('nvim')
+    " Neovim True Color experimentation
+    " Needs a nightly iTerm build and a tmux workaround
+    " Run with: NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim
+    let &t_8b="\e[48;2;%ld;%ld;%ldm"
+    color gruvbox
+    set bg=dark
+
+    " Nicer navigation for Neovim's terminal buffers
+    " via https://github.com/neovim/neovim/pull/2076#issuecomment-76998265
+    tnoremap <esc> <c-\><c-n>
+    tnoremap <A-j> <c-\><c-n><c-w>j
+    tnoremap <A-k> <c-\><c-n><c-w>k
+    tnoremap <A-h> <c-\><c-n><c-w>h
+    tnoremap <A-l> <c-\><c-n><c-w>l
+    tnoremap <A-v> <c-\><c-n><c-w><c-v>
+    tnoremap <A-s> <c-\><c-n><c-w><c-s>
+    au WinEnter term://* call feedkeys('i')
+endif
+
 " Show syntax highlighting groups for word under cursor with <leader>s
 " From Vimcasts #25: http://vimcasts.org/episodes/creating-colorschemes-for-vim/
 nnoremap <leader>h :call <SID>SynStack()<CR>
@@ -255,9 +275,6 @@ let g:UltiSnipsSnippetDirectories = ['personal_snippets']
 let g:UltiSnipsSnippetsDir = '~/.vim/personal_snippets'
 nnoremap <leader>s :UltiSnipsEdit<CR>
 
-" vim-stringify
-map <leader>' :call Stringify()<CR>
-
 " Ags.vim
 nnoremap <C-g> :Ags 
 autocmd FileType agsv nnoremap <C-o> :call AgsOpenItemCloseResults()<CR>
@@ -295,6 +312,24 @@ nmap <C-h> :bp<CR>
 nmap <C-l> :bn<CR>
 nnoremap <silent> <C-u> :bd<CR>
 nmap <C-q> :1,100bd<CR>
+
+" Easier movement between windows (Neovim only?):
+nnoremap <A-j> <c-w>j
+nnoremap <A-k> <c-w>k
+nnoremap <A-h> <c-w>h
+nnoremap <A-l> <c-w>l
+vnoremap <A-j> <c-\><c-n><c-w>j
+vnoremap <A-k> <c-\><c-n><c-w>k
+vnoremap <A-h> <c-\><c-n><c-w>h
+vnoremap <A-l> <c-\><c-n><c-w>l
+inoremap <A-j> <c-\><c-n><c-w>j
+inoremap <A-k> <c-\><c-n><c-w>k
+inoremap <A-h> <c-\><c-n><c-w>h
+inoremap <A-l> <c-\><c-n><c-w>l
+cnoremap <A-j> <c-\><c-n><c-w>j
+cnoremap <A-k> <c-\><c-n><c-w>k
+cnoremap <A-h> <c-\><c-n><c-w>h
+cnoremap <A-l> <c-\><c-n><c-w>l
 
 " Save current file every time we leave insert mode or hit <esc>:
 " Note that the autocmd repeats the mapping each time we leave insert mode,
@@ -347,8 +382,9 @@ vmap <Leader>P "+P
 "===============================================================================
 " filetype detection for syntax highlighting
 au BufNewFile,BufRead *.md set filetype=markdown
-au BufNewFile,BufRead *.mustache set filetype=mustache
-autocmd FileType mustache set ft=html.mustache
+" Disabled mustache for now, since the polyglot plugin adds ^F when using ragtag:
+" au BufNewFile,BufRead *.mustache set filetype=mustache
+" autocmd FileType mustache set ft=html.mustache
 
 " JSON files: set filetype to json for syntastic, use js highlighting:
 au BufRead,BufNewFile *.json set filetype=json
@@ -358,12 +394,6 @@ au BufRead,BufNewFile *.json setlocal syntax=javascript
 "===============================================================================
 " Misc
 "===============================================================================
-
-" Vim supports encryption! Just enter :X before saving.
-" But we need to update the encryption type to a more secure one.
-" See http://usevim.com/2013/11/01/vim-encryption/
-" Note: disabled because Neovim does not support cryptmethod (https://github.com/neovim/neovim/issues/701)
-"set cryptmethod=blowfish
 
 " Set vim's cwd to the closest ancestor dir containing a .git directory
 " using "git rev-parse --show-toplevel"
