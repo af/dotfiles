@@ -151,33 +151,11 @@ set formatoptions=qrn1
 nnoremap j gj
 nnoremap k gk
 
-
-"===============================================================================
-" Colorscheme
-"===============================================================================
-color molokai
-
-" Molokai overrides for commit preview highlighting (eg. after "git commit"):
-hi link diffAdded Function
-hi diffRemoved guifg=#960050 ctermfg=162
-hi link diffLine Define
-hi link diffFile Define
-hi link diffSubname Constant
-
-" MacVim/GVIM and 256-colour term overrides
-if has('gui_running')
-    set guifont=Monaco:h14      " gvim/mvim: Bump up the default fontsize
-elseif $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
-    set t_Co=256            " Richer colours if our terminal can handle it.
-endif
-
 if has('nvim')
     " Neovim True Color experimentation
     " Needs a nightly iTerm build and a tmux workaround
     " Run with: NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim
     let &t_8b="\e[48;2;%ld;%ld;%ldm"
-    color gruvbox
-    set bg=dark
 
     " Nicer navigation for Neovim's terminal buffers
     " via https://github.com/neovim/neovim/pull/2076#issuecomment-76998265
@@ -190,6 +168,21 @@ if has('nvim')
     tnoremap <A-s> <c-\><c-n><c-w><c-s>
     au WinEnter term://* call feedkeys('i')
 endif
+
+
+"===============================================================================
+" Colorscheme
+"===============================================================================
+color gruvbox
+set bg=dark
+
+" MacVim/GVIM and 256-colour term overrides
+if has('gui_running')
+    set guifont=Monaco:h14      " gvim/mvim: Bump up the default fontsize
+elseif $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
+    set t_Co=256            " Richer colours if our terminal can handle it.
+endif
+
 
 " Show syntax highlighting groups for word under cursor with <leader>s
 " From Vimcasts #25: http://vimcasts.org/episodes/creating-colorschemes-for-vim/
