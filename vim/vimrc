@@ -34,12 +34,7 @@ NeoBundle 'gabesoft/vim-ags', 'e5016ea0'
 
 " Git/VCS related plugins
 NeoBundle 'tpope/vim-fugitive', '124550'
-NeoBundle 'airblade/vim-gitgutter', '878c3422'
-" NeoBundle 'jaxbot/github-issues.vim'          " TODO: configure this
-
-" Disabled for now:
-" NeoBundle 'mileszs/ack.vim', '6a57bc0'
-" NeoBundle 'FelikZ/ctrlp-py-matcher', '799f37b'    " Prefer the built-in CtrlP ordering
+NeoBundle 'airblade/vim-gitgutter', '937930e6'
 
 " Indentation, etc. Autodetect, but override with .editorconfig if present:
 NeoBundle 'tpope/vim-sleuth', '039e2cd'
@@ -65,6 +60,11 @@ NeoBundle 'whatyouhide/vim-gotham', '6486e10'
 " plugins for colorscheme dev (not tested yet):
 " https://github.com/shawncplus/Vim-toCterm
 " https://github.com/guns/xterm-color-table.vim
+
+" Try later:
+" NeoBundle 'zefei/vim-colortuner'
+" NeoBundle 'mattn/emmet-vim'
+" NeoBundle 'jaxbot/github-issues.vim'          " TODO: configure this
 
 call neobundle#end()
 filetype plugin indent on
@@ -140,7 +140,6 @@ nnoremap / /\v
 vnoremap / /\v
 nnoremap ? ?\v
 vnoremap ? ?\v
-
 
 "===============================================================================
 " Line wrapping
@@ -219,9 +218,9 @@ let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden --ignore .git 
 " gitgutter
 " OS X's default vim doesn't have signs support, so disable it for that editor.
 if has('signs')
-    map! <C-j> <esc>:GitGutterNextHunk<CR>
+    imap <C-j> <esc>:GitGutterNextHunk<CR>
     map <C-j> :GitGutterNextHunk<CR>
-    map! <C-k> <esc>:GitGutterPrevHunk<CR>
+    imap <C-k> <esc>:GitGutterPrevHunk<CR>
     map <C-k> :GitGutterPrevHunk<CR>
 else
     let g:gitgutter_enabled = 0
@@ -286,6 +285,22 @@ let g:vimwiki_global_ext = 0
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md',
                     \  'diary_rel_path': 'journal/', 'diary_index': 'index',
                     \  'diary_header': 'Journal', 'diary_sort': 'asc'}]
+
+
+"===============================================================================
+" Key Bindings: Indentation levels
+"===============================================================================
+
+" Tab indenting in normal & visual modes
+nnoremap <Tab> >>
+nnoremap <S-Tab> <<
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
+
+" make < > shifts keep selection
+vnoremap < <gv
+vnoremap > >gv
+
 
 "===============================================================================
 " Key Bindings: Moving around
@@ -357,6 +372,9 @@ nnoremap ` '
 "===============================================================================
 " Use ':w!!' to save a root-owned file using sudo:
 cmap w!! w !sudo tee % >/dev/null
+
+cnoremap <C-j> <down>
+cnoremap <C-k> <up>
 
 set foldlevelstart=10
 set pastetoggle=<C-y>   " Had problems with <F2>, see http://stackoverflow.com/q/7885198/351433
