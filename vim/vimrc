@@ -151,10 +151,14 @@ nnoremap j gj
 nnoremap k gk
 
 if has('nvim')
-    " Neovim True Color experimentation
-    " Needs a nightly iTerm build and a tmux workaround
-    " Run with: NVIM_TUI_ENABLE_TRUE_COLOR=1 nvim
+    " Neovim True Color support
+    " For this to work, need:
+    " * a nightly iTerm build
+    " * a patched tmux: https://gist.github.com/choppsv1/dd00858d4f7f356ce2cf
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
     let &t_8b="\e[48;2;%ld;%ld;%ldm"
+
+    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1     " See https://github.com/neovim/neovim/wiki/FAQ
 
     " Nicer navigation for Neovim's terminal buffers
     " via https://github.com/neovim/neovim/pull/2076#issuecomment-76998265
