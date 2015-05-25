@@ -20,6 +20,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'kien/ctrlp.vim', 'b5d3fe66'
 NeoBundle 'bling/vim-airline', 'aef500c426'
 NeoBundle 'tomtom/tcomment_vim', '3d0a9975'
+NeoBundle 'tpope/vim-repeat', '7a6675f09'       " Enable . repeat for plugin operations (eg. gitgutter)
 NeoBundle 'tpope/vim-surround', '42e9b46e'
 NeoBundle 'jeetsukumaran/vim-filebeagle', 'abfb7f9d2'
 NeoBundle 'tommcdo/vim-exchange', 'b82a774'
@@ -33,8 +34,8 @@ NeoBundle 'ashisha/image.vim', 'ae15d1c5'       " view images in vim (requires `
 NeoBundle 'gabesoft/vim-ags', 'e5016ea0'
 
 " Git/VCS related plugins
-NeoBundle 'tpope/vim-fugitive', '124550'
-NeoBundle 'airblade/vim-gitgutter', '937930e6'
+NeoBundle 'tpope/vim-fugitive', '935a2ccc'
+NeoBundle 'airblade/vim-gitgutter', '339f8ba0'
 
 " Indentation, etc. Autodetect, but override with .editorconfig if present:
 NeoBundle 'tpope/vim-sleuth', '039e2cd'
@@ -220,15 +221,10 @@ let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden --ignore .git --ignore node_modules -g ""'
 
 " gitgutter
-" OS X's default vim doesn't have signs support, so disable it for that editor.
-if has('signs')
-    imap <C-j> <esc>:GitGutterNextHunk<CR>
-    map <C-j> :GitGutterNextHunk<CR>
-    imap <C-k> <esc>:GitGutterPrevHunk<CR>
-    map <C-k> :GitGutterPrevHunk<CR>
-else
-    let g:gitgutter_enabled = 0
-endif
+nmap <leader>a <Plug>GitGutterStageHunk
+nmap <leader>r <Plug>GitGutterRevertHunk
+nmap <C-j> :GitGutterNextHunk<CR>
+nmap <C-k> :GitGutterPrevHunk<CR>
 
 " Syntastic display customizations:
 " TODO: update colors so they work in console vim also
