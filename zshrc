@@ -70,7 +70,9 @@ alias cim='git commit -v --amend'
 alias ciam='git commit -va --amend'
 alias ga='git add'
 alias gap='git add --patch'
-alias gri='git rebase -i HEAD~15'
+alias gra='git rebase --abort'
+alias grc='git rebase --continue'
+alias gri='git rebase -i HEAD~10'
 alias gs='git status'
 alias gsl='git stash list'
 alias gss='git stash save'
@@ -111,14 +113,14 @@ alias j='fasd_cd -d'     # jumping to autocompleted directory
 setopt interactivecomments
 
 # Shorthand function to create a new project with a git repo and README:
-function newproj () {
+function initproject () {
     mkdir $1
     cd $1
     git init
     touch README.md
     git add README.md
     git commit -m "First commit"
-    echo "\nYour new project is ready. Make something awesome!"
+    echo "\nYour new project is ready. Have fun."
 }
 
 # Script tmux to set up a window in my (currently) preferred custom layout:
