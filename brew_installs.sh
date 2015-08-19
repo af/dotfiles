@@ -15,5 +15,5 @@ siege \
 tig \
 tmux \
 vim \
-weechat \
+weechat --with-perl --with-python \
 wget
