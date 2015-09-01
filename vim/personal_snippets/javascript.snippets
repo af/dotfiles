@@ -5,12 +5,18 @@ priority -50
 # See this file for further ideas:
 # https://github.com/honza/vim-snippets/blob/master/UltiSnips/javascript.snippets
 
-snippet cl "console.log" b
-console.log($1
+snippet cl "console.log" w
+console.log($1)
 endsnippet
 
 snippet d "debugger" b
 debugger
+endsnippet
+
+snippet jd "jsdoc" b
+/**
+ * $1
+ */
 endsnippet
 
 snippet v "var" b
