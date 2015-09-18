@@ -46,12 +46,15 @@ function! neobundle#installer#update(bundles)
 
   call s:save_install_info(all_bundles)
 
-  if !empty(a:bundles)
-    let lazy_bundles = filter(copy(all_bundles), 'v:val.lazy')
-    call neobundle#util#copy_bundle_files(
-          \ lazy_bundles, 'ftdetect')
-    call neobundle#util#copy_bundle_files(
-          \ lazy_bundles, 'after/ftdetect')
+  let lazy_bundles = filter(copy(all_bundles), 'v:val.lazy')
+  call neobundle#util#copy_bundle_files(
+        \ lazy_bundles, 'ftdetect')
+  call neobundle#util#copy_bundle_files(
+        \ lazy_bundles, 'after/ftdetect')
+
+  if has('nvim')
+    " For neovim remote plugins
+    UpdateRemotePlugins
   endif
 endfunction
 
@@ -115,7 +118,9 @@ function! neobundle#installer#build(bundle)
 endfunction
 
 function! neobundle#installer#reinstall(bundles)
-  for bundle in a:bundles
+  let bundles = neobundle#util#uniq(a:bundles)
+
+  for bundle in bundles
     " Reinstall.
     call neobundle#installer#log(
           \ printf('[neobundle/install] |%s| Reinstalling...', bundle.name))
@@ -133,9 +138,9 @@ function! neobundle#installer#reinstall(bundles)
 
   " Install.
   call neobundle#commands#install(0,
-        \ join(map(copy(a:bundles), 'v:val.name')))
+        \ join(map(copy(bundles), 'v:val.name')))
 
-  call neobundle#installer#update(a:bundles)
+  call neobundle#installer#update(bundles)
 endfunction
 
 function! neobundle#installer#get_reinstall_bundles(bundles)
@@ -150,8 +155,8 @@ function! neobundle#installer#get_reinstall_bundles(bundles)
         \     v:val.path ==# v:val.installed_path &&
         \     v:val.uri !=# v:val.installed_uri")
   if !empty(reinstall_bundles)
-    call unite#util#print_error(
-          \ '[neobundle] Reinstall bundles are detected!')
+    call neobundle#util#print_error(
+          \ 'Reinstall bundles are detected!')
 
     for bundle in reinstall_bundles
       echomsg printf('%s: %s -> %s',
@@ -162,8 +167,9 @@ function! neobundle#installer#get_reinstall_bundles(bundles)
     let warning_bundles = map(filter(copy(reinstall_bundles),
         \     'v:val.path ==# cwd'), 'v:val.path')
     if !empty(warning_bundles)
-      call neobundle#util#print_error('Warning: current directory is the
-            \ reinstall bundles directory! ' . string(warning_bundles))
+      call neobundle#util#print_error(
+            \ 'Warning: current directory is the
+            \  reinstall bundles directory! ' . string(warning_bundles))
     endif
     let ret = confirm('Reinstall bundles now?', "yes\nNo", 2)
     redraw
@@ -187,7 +193,9 @@ function! neobundle#installer#get_sync_command(bang, bundle, number, max)
 
   if cmd == ''
     return ['', 'Not supported sync action.']
-  elseif (is_directory && !a:bang)
+  elseif (is_directory && !a:bang
+        \ && a:bundle.install_rev ==#
+        \      neobundle#installer#get_revision_number(a:bundle))
     return ['', 'Already installed.']
   endif
 
@@ -231,8 +239,16 @@ function! neobundle#installer#get_revision_number(bundle)
 
     let rev = neobundle#util#system(cmd)
 
-    " If rev contains spaces, it is error message
-    return (rev !~ '\s') ? rev : ''
+    if type.name ==# 'vba' || type.name ==# 'raw'
+      " If rev is ok, the output is the checksum followed by the filename
+      " separated by two spaces.
+      let pat = '^[0-9a-f]\+  ' . a:bundle.path . '/' .
+            \ fnamemodify(a:bundle.uri, ':t') . '$'
+      return (rev =~# pat) ? matchstr(rev, '^[0-9a-f]\+') : ''
+    else
+      " If rev contains spaces, it is error message
+      return (rev !~ '\s') ? rev : ''
+    endif
   finally
     if isdirectory(cwd)
       call neobundle#util#cd(cwd)
@@ -349,7 +365,8 @@ function! neobundle#installer#sync(bundle, context, is_unite)
           \ }
 
     if isdirectory(a:bundle.path)
-          \ && (a:bundle.rev != '' || !a:bundle.local)
+          \ && !a:bundle.local
+          \ && (a:bundle.rev != '' || !a:context.source__bang)
       let rev_save = a:bundle.rev
       try
         " Checkout HEAD revision.
@@ -362,7 +379,15 @@ function! neobundle#installer#sync(bundle, context, is_unite)
       endtry
     endif
 
-    if neobundle#util#has_vimproc()
+    if has('nvim') && a:is_unite
+      " Use neovim async jobs
+      let process.proc = jobstart(
+            \          iconv(cmd, &encoding, 'char'), {
+            \ 'on_stdout' : function('s:job_handler'),
+            \ 'on_stderr' : function('s:job_handler'),
+            \ 'on_exit' : function('s:job_handler'),
+            \ })
+    elseif neobundle#util#has_vimproc()
       let process.proc = vimproc#pgroup_open(vimproc#util#iconv(
             \            cmd, &encoding, 'char'), 0, 2)
 
@@ -384,9 +409,32 @@ function! neobundle#installer#sync(bundle, context, is_unite)
 endfunction
 
 function! neobundle#installer#check_output(context, process, is_unite)
-  if neobundle#util#has_vimproc() && has_key(a:process, 'proc')
+  if has('nvim') && a:is_unite && has_key(a:process, 'proc')
     let is_timeout = (localtime() - a:process.start_time)
-          \             >= g:neobundle#install_process_timeout
+          \             >= a:process.bundle.install_process_timeout
+
+    if !has_key(s:job_info, a:process.proc)
+      return
+    endif
+
+    let job = s:job_info[a:process.proc]
+
+    if !job.eof && !is_timeout
+      let a:process.output .= join(job.candidates[: -2], "\n")
+      let job.candidates = job.candidates[-1:]
+      return
+    else
+      if is_timeout
+        call jobstop(a:process.proc)
+      endif
+      let a:process.output .= join(job.candidates, "\n")
+      let job.candidates = []
+    endif
+
+    let status = job.status
+  elseif neobundle#util#has_vimproc() && has_key(a:process, 'proc')
+    let is_timeout = (localtime() - a:process.start_time)
+          \             >= a:process.bundle.install_process_timeout
     let a:process.output .= vimproc#util#iconv(
           \ a:process.proc.stdout.read(-1, 300), 'char', &encoding)
     if !a:process.proc.stdout.eof && !is_timeout
@@ -502,7 +550,7 @@ function! neobundle#installer#lock_revision(process, context, is_unite)
         \ neobundle#installer#get_revision_lock_command(
         \ a:context.source__bang, bundle, num, max)
 
-  if cmd == ''
+  if cmd == '' || bundle.new_rev ==# bundle.rev
     " Skipped.
     return 0
   elseif cmd =~# '^E: '
@@ -728,11 +776,34 @@ function! s:reload(bundles) "{{{
   call neobundle#call_hook('on_post_source', a:bundles)
 endfunction"}}}
 
-function! s:redir(cmd) "{{{
-  redir => res
-  silent! execute a:cmd
-  redir END
-  return res
+let s:job_info = {}
+function! s:job_handler(job_id, data, event) abort "{{{
+  if !has_key(s:job_info, a:job_id)
+    let s:job_info[a:job_id] = {
+          \ 'candidates' : [],
+          \ 'eof' : 0,
+          \ 'status' : -1,
+          \ }
+  endif
+
+  let job = s:job_info[a:job_id]
+
+  if a:event ==# 'exit'
+    let job.eof = 1
+    let job.status = a:data
+    return
+  endif
+
+  let lines = a:data
+
+  let candidates = job.candidates
+  if !empty(lines) && lines[0] != "\n" && !empty(job.candidates)
+    " Join to the previous line
+    let candidates[-1] .= lines[0]
+    call remove(lines, 0)
+  endif
+
+  let candidates += map(lines, "iconv(v:val, 'char', &encoding)")
 endfunction"}}}
 
 let &cpo = s:save_cpo

@@ -58,7 +58,11 @@ endfunction"}}}
 function! s:source_install.hooks.on_close(args, context) "{{{
   if !empty(a:context.source__processes)
     for process in a:context.source__processes
-      call process.proc.waitpid()
+      if has('nvim')
+        call jobstop(process.proc)
+      else
+        call process.proc.waitpid()
+      endif
     endfor
   endif
 endfunction"}}}
@@ -149,7 +153,7 @@ function! s:init(context, bundle_names)
   let a:context.source__number = 0
 
   let a:context.source__bundles = !a:context.source__bang ?
-        \ neobundle#get_not_installed_bundles(a:bundle_names) :
+        \ neobundle#get_force_not_installed_bundles(a:bundle_names) :
         \ empty(a:bundle_names) ?
         \ neobundle#config#get_neobundles() :
         \ a:context.source__not_fuzzy ?

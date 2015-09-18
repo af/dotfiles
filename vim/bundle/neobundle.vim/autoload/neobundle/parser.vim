@@ -32,6 +32,13 @@ function! neobundle#parser#bundle(arg, ...) "{{{
   let is_parse_only = get(a:000, 0, 0)
   if !is_parse_only
     call neobundle#config#add(bundle)
+
+    if !neobundle#config#within_block()
+          \ && !bundle.lazy && has('vim_starting')
+      call neobundle#util#print_error(
+            \ '`NeoBundle` commands must be executed within' .
+            \ ' a neobundle#begin/end block.  Please check your usage.')
+    endif
   endif
 
   return bundle
@@ -64,6 +71,7 @@ function! neobundle#parser#fetch(arg) "{{{
   endif
 
   " Clear runtimepath.
+  let bundle.fetch = 1
   let bundle.rtp = ''
 
   call neobundle#config#add(bundle)
@@ -168,13 +176,16 @@ function! neobundle#parser#_init_bundle(name, opts) "{{{
   return bundle
 endfunction"}}}
 
-function! neobundle#parser#local(localdir, options, names) "{{{
+function! neobundle#parser#local(localdir, options, includes) "{{{
   let base = fnamemodify(neobundle#util#expand(a:localdir), ':p')
-  for dir in filter(map(filter(split(glob(
-        \ base . '*'), '\n'), "isdirectory(v:val)"),
-        \ "substitute(neobundle#util#substitute_path_separator(
-        \   fnamemodify(v:val, ':p')), '/$', '', '')"),
-        \ "empty(a:names) || index(a:names, fnamemodify(v:val, ':t')) >= 0")
+  let directories = []
+  for glob in a:includes
+    let directories += map(filter(split(glob(base . glob), '\n'),
+          \ "isdirectory(v:val)"), "
+          \ substitute(neobundle#util#substitute_path_separator(
+          \   fnamemodify(v:val, ':p')), '/$', '', '')")
+  endfor
+  for dir in neobundle#util#uniq(directories)
     let options = extend({ 'local' : 1, 'base' : base }, a:options)
     let name = fnamemodify(dir, ':t')
     let bundle = neobundle#get(name)
@@ -198,13 +209,13 @@ function! neobundle#parser#load_toml(filename, default) "{{{
     let toml = neobundle#TOML#parse_file(neobundle#util#expand(a:filename))
   catch /vital: Text.TOML:/
     call neobundle#util#print_error(
-          \ '[neobundle] Invalid toml format: ' . a:filename)
+          \ 'Invalid toml format: ' . a:filename)
     call neobundle#util#print_error(v:exception)
     return 1
   endtry
   if type(toml) != type({}) || !has_key(toml, 'plugins')
     call neobundle#util#print_error(
-          \ '[neobundle] Invalid toml file: ' . a:filename)
+          \ 'Invalid toml file: ' . a:filename)
     return 1
   endif
 
@@ -212,8 +223,29 @@ function! neobundle#parser#load_toml(filename, default) "{{{
   for plugin in toml.plugins
     if !has_key(plugin, 'repository')
       call neobundle#util#print_error(
-            \ '[neobundle] No repository plugin data: ' . a:filename)
+            \ 'No repository plugin data: ' . a:filename)
       return 1
+    endif
+
+    if has_key(plugin, 'depends')
+      let _ = []
+      for depend in neobundle#util#convert2list(plugin.depends)
+        if type(depend) == type('') || type(depend) == type([])
+          call add(_, depend)
+        elseif type(depend) == type({})
+          if !has_key(depend, 'repository')
+            call neobundle#util#print_error(
+                  \ 'No repository plugin data: ' . a:filename)
+            return 1
+          endif
+
+          call add(_, [depend.repository, depend])
+        endif
+
+        unlet depend
+      endfor
+
+      let plugin.depends = _
     endif
 
     let options = extend(plugin, a:default, 'keep')
@@ -264,16 +296,6 @@ function! neobundle#parser#path(path, ...) "{{{
   endif
 
   return detect
-endfunction"}}}
-
-function! neobundle#parser#_function_prefix(name) "{{{
-  let function_prefix = tolower(fnamemodify(a:name, ':r'))
-  let function_prefix = substitute(function_prefix,
-        \'^vim-', '','')
-  let function_prefix = substitute(function_prefix,
-        \'^unite-', 'unite#sources#','')
-  let function_prefix = tr(function_prefix, '-', '_')
-  return function_prefix
 endfunction"}}}
 
 function! s:parse_options(opts) "{{{
@@ -346,7 +368,7 @@ function! neobundle#parser#_parse_recipe(recipe) "{{{
 
   if !filereadable(path)
     call neobundle#util#print_error(printf(
-          \ '[neobundle] The recipe file "%s" is not found.', a:recipe))
+          \ 'The recipe file "%s" is not found.', a:recipe))
     return {}
   endif
 
@@ -354,10 +376,9 @@ function! neobundle#parser#_parse_recipe(recipe) "{{{
           \ "v:val !~ '^\\s*\\%(#.*\\)\\?$'"), ''))
 
   if !has_key(data, 'name') || !has_key(data, 'path')
+    call neobundle#util#print_error(path)
     call neobundle#util#print_error(
-          \ '[neobundle] ' . path)
-    call neobundle#util#print_error(
-          \ '[neobundle] The recipe file format is wrong.')
+          \ 'The recipe file format is wrong.')
     return {}
   endif
 

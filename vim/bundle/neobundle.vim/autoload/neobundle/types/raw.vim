@@ -81,7 +81,7 @@ function! s:type.get_sync_command(bundle) "{{{
   if executable('curl')
     let cmd = printf('curl --fail -s -o "%s" "%s"', filename, a:bundle.uri)
   elseif executable('wget')
-    let cmd = printf('wget -q -O "%s" "%s", ', filename, a:bundle.uri)
+    let cmd = printf('wget -q -O "%s" "%s"', filename, a:bundle.uri)
   else
     return 'E: curl or wget command is not available!'
   endif

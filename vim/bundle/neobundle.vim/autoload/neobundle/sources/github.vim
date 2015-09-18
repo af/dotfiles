@@ -35,6 +35,18 @@ let s:source = {
       \ 'short_name' : 'github',
       \ }
 
+" sorter
+let s:filter = {
+\   "name" : "sorter_stars",
+\}
+
+function! s:filter.filter(candidates, context)
+    return unite#util#sort_by(a:candidates, 'v:val.source__stars')
+endfunction
+
+call unite#define_filter(s:filter)
+unlet s:filter
+
 function! s:source.gather_candidates(args, context) "{{{
   if !executable('wget')
     call unite#print_error(
@@ -45,15 +57,16 @@ function! s:source.gather_candidates(args, context) "{{{
 
   let plugins = s:get_github_searches(a:context.source__input)
 
+
   return map(copy(plugins), "{
-        \ 'word' : v:val.username.'/'.v:val.name . ' ' . v:val.description,
+        \ 'word' : v:val.full_name. ' ' . v:val.description,
         \ 'source__name' : (v:val.fork ? '| ' : '') .
-        \          v:val.username.'/'.v:val.name,
-        \ 'source__path' : v:val.username.'/'.v:val.name,
+        \          v:val.full_name,
+        \ 'source__path' : v:val.full_name,
         \ 'source__description' : v:val.description,
+        \ 'source__stars' : v:val.stargazers_count,
         \ 'source__options' : [],
-        \ 'action__uri' : 'https://github.com/' .
-        \        v:val.username.'/'.v:val.name,
+        \ 'action__uri' : v:val.html_url,
         \ }")
 endfunction"}}}
 
@@ -62,8 +75,8 @@ endfunction"}}}
 " @vimlint(EVL102, 1, l:false)
 " @vimlint(EVL102, 1, l:null)
 function! s:get_github_searches(string) "{{{
-  let path = 'https://api.github.com/legacy/repos/search/'
-        \ . a:string . '*?language=VimL'
+  let path = 'https://api.github.com/search/repositories?q='
+        \ . a:string . '+language:VimL'.'\&sort=stars'.'\&order=desc'
   let temp = neobundle#util#substitute_path_separator(tempname())
 
   let cmd = printf('%s "%s" "%s"', 'wget -q -O ', temp, path)
@@ -89,36 +102,18 @@ function! s:get_github_searches(string) "{{{
 
   let [true, false, null] = [1,0,"''"]
   sandbox let data = eval(join(readfile(temp)))
-  call filter(data.repositories,
-        \ "stridx(v:val.username.'/'.v:val.name, a:string) >= 0")
+  call filter(data.items,
+        \ "stridx(v:val.full_name, a:string) >= 0")
 
   call delete(temp)
 
-  return data.repositories
+  return data.items
 endfunction"}}}
 " @vimlint(EVL102, 0, l:true)
 " @vimlint(EVL102, 0, l:false)
 " @vimlint(EVL102, 0, l:null)
 
-function! s:convert_vim_scripts_data(data) "{{{
-  return map(copy(a:data), "{
-        \ 'name' : v:val.n,
-        \ 'raw_type' : v:val.t,
-        \ 'repository' : v:val.rv,
-        \ 'description' : printf('%-5s %s', v:val.rv, v:val.s),
-        \ 'uri' : 'https://github.com/vim-scripts/' . v:val.n,
-        \ }")
-endfunction"}}}
-
-function! s:convert2script_type(type) "{{{
-  if a:type ==# 'utility'
-    return 'plugin'
-  elseif a:type ==# 'color scheme'
-    return 'colors'
-  else
-    return a:type
-  endif
-endfunction"}}}
+call unite#custom_source('neobundle/search', 'sorters', 'sorters_stars')
 
 let &cpo = s:save_cpo
 unlet s:save_cpo

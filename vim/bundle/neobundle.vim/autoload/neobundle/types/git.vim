@@ -134,12 +134,7 @@ function! s:type.get_revision_number_command(bundle) "{{{
     return ''
   endif
 
-  let rev = a:bundle.rev
-  if rev == ''
-    let rev = 'HEAD'
-  endif
-
-  return g:neobundle#types#git#command_path .' rev-parse ' . rev
+  return g:neobundle#types#git#command_path .' rev-parse HEAD'
 endfunction"}}}
 function! s:type.get_revision_pretty_command(bundle) "{{{
   if !executable(g:neobundle#types#git#command_path)
@@ -184,7 +179,7 @@ function! s:type.get_revision_lock_command(bundle) "{{{
   let rev = a:bundle.rev
   if rev == ''
     " Fix detach HEAD.
-    let rev = 'HEAD'
+    let rev = 'master'
   endif
 
   return g:neobundle#types#git#command_path . ' checkout ' . rev

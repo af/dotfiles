@@ -54,7 +54,8 @@ Refer to `:help neobundle` for more examples and for a full list of commands.
 1. Run below script.
 
      ```
-     $ curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh | sh
+     $ curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh > install.sh
+     $ sh ./install.sh
      ```
 Complete.
 
@@ -73,7 +74,7 @@ Complete.
 
      ```vim
      " Note: Skip initialization for vim-tiny or vim-small.
-     if !1 | finish | endif
+     if 0 | endif
 
      if has('vim_starting')
        if &compatible

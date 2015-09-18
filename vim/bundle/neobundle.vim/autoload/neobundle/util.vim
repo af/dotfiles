@@ -221,7 +221,8 @@ function! neobundle#util#redraw_echo(expr) "{{{
 endfunction"}}}
 
 function! s:echo(expr, is_error) "{{{
-  let msg = neobundle#util#convert2list(a:expr)
+  let msg = map(neobundle#util#convert2list(a:expr),
+        \ "'[neobundle] ' .  v:val")
 
   if has('vim_starting')
     let m = join(msg, "\n")
@@ -326,6 +327,19 @@ function! neobundle#util#sort_by(list, expr) "{{{
   let pairs = map(a:list, printf('[v:val, %s]', a:expr))
   return map(s:sort(pairs,
   \      'a:a[1] ==# a:b[1] ? 0 : a:a[1] ># a:b[1] ? 1 : -1'), 'v:val[0]')
+endfunction"}}}
+
+" Executes a command and returns its output.
+" This wraps Vim's `:redir`, and makes sure that the `verbose` settings have
+" no influence.
+function! neobundle#util#redir(cmd) abort "{{{
+  let [save_verbose, save_verbosefile] = [&verbose, &verbosefile]
+  set verbose=0 verbosefile=
+  redir => res
+    silent! execute a:cmd
+  redir END
+  let [&verbose, &verbosefile] = [save_verbose, save_verbosefile]
+  return res
 endfunction"}}}
 
 " Sorts a list with expression to compare each two values.
