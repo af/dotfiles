@@ -4,13 +4,12 @@ Rebuilding my dotfiles from scratch and putting them online for future reference
 
 
 ## Setup
-* clone the repo
+
+* (OS X) [Install homebrew](http://brew.sh/)
+* Install homebrew dependencies with `./brew_installs.sh`
+    * if not on a Mac, install the deps listed in that script
+* (OS X) Install GUI apps with `./cask_installs.sh`
+* clone this repo (to `~/dotfiles` or similar)
+* `nvm install <current nodejs version>`
 * `git submodule init && git submodule update`
-* (OS X) Install homebrew
-* (OS X) Install homebrew dependencies with `./brew_installs.sh`
-* run `install.py`
-
-
-## Misc Mac-only binaries to install:
-* Hydra (or whatever I eventually replace it with)
-* Quicksilver
+* `./install.py`
