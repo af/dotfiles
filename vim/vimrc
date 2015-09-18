@@ -17,21 +17,21 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " vim plugins, managed by NeoBundle
-NeoBundle 'kien/ctrlp.vim', 'b5d3fe66'
+NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'bling/vim-airline', 'aef500c426'
 NeoBundle 'tomtom/tcomment_vim', '3d0a9975'
 NeoBundle 'tpope/vim-repeat', '7a6675f09'       " Enable . repeat for plugin operations (eg. gitgutter)
 NeoBundle 'tpope/vim-surround', '42e9b46e'
 NeoBundle 'jeetsukumaran/vim-filebeagle', 'abfb7f9d2'
 NeoBundle 'tommcdo/vim-exchange', 'b82a774'
-NeoBundle 'AndrewRadev/splitjoin.vim', '208689' " gS and gJ to split/join lines
+NeoBundle 'AndrewRadev/splitjoin.vim', '4b062a' " gS and gJ to split/join lines
 NeoBundle 'sheerun/vim-polyglot', '1c21231'     " syntax highlighting for many languages
 NeoBundle 'vimwiki/vimwiki', '2c03d8'
 NeoBundle 'justinmk/vim-sneak', '9eb89e43'
 NeoBundle 'af/YankRing.vim', '0e4235b1'         " using fork, as v18 isn't officially on GH
 NeoBundle 'tpope/vim-obsession', '4ab72e07ec'   " start a session file with :Obsession
 NeoBundle 'ashisha/image.vim', 'ae15d1c5'       " view images in vim (requires `pip install Pillow`)
-NeoBundle 'gabesoft/vim-ags', 'e5016ea0'
+NeoBundle 'gabesoft/vim-ags', '3b95ee73'
 
 " Git/VCS related plugins
 NeoBundle 'tpope/vim-fugitive', '935a2ccc'
@@ -63,9 +63,14 @@ NeoBundle 'whatyouhide/vim-gotham', '6486e10'
 " https://github.com/guns/xterm-color-table.vim
 
 " Try later:
+" NeoBundle 'tpope/vim-unimpaired'
 " NeoBundle 'zefei/vim-colortuner'
 " NeoBundle 'mattn/emmet-vim'
 " NeoBundle 'jaxbot/github-issues.vim'          " TODO: configure this
+
+" Tried but disabled for now:
+" NeoBundle 'ervandew/supertab', 'c8bfeceb'
+" NeoBundle 'Raimondi/delimitMate'       " disabled because of https://github.com/Raimondi/delimitMate/issues/138
 
 call neobundle#end()
 filetype plugin indent on
@@ -215,8 +220,8 @@ endif
 nnoremap <C-t> :CtrlPBuffer<CR>             " Search active buffers
 nnoremap <C-m> :CtrlPMRUFiles<CR>
 let g:ctrlp_map = '<leader><leader>'    " Search in current directory
-let g:ctrlp_open_new_file = 'r'
-let g:ctrlp_open_multiple_files = 'i'
+let g:ctrlp_open_new_file = 'r'         " Open files in the current window
+let g:ctrlp_open_multiple_files = 'i'   " Open each of multiple files in new hidden buffers
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden --ignore .git --ignore node_modules -g ""'
 
@@ -240,6 +245,7 @@ hi SyntasticWarningSign guifg=#ff0000
 map <C-e> :lnext<CR>
 
 " Syntastic checker config:
+let g:syntastic_javascript_checkers=['jshint', 'jscs']
 let g:syntastic_python_checkers=['pyflakes']
 
 " vim-airline:
@@ -255,11 +261,20 @@ let g:airline_linecolumn_prefix = '⭡'
 let g:airline_theme = 'murmur'
 let g:airline#extensions#tabline#enabled = 1    " Tab line at top of window
 
+" Supertab
+" let g:SuperTabDefaultCompletionType = 'context'
+" let g:SuperTabContextDefaultCompletionType = '<c-n>'
+" let g:SuperTabNoCompleteAfter = ['^', ',', ';', '\s']
+
 " Colorizer
 nnoremap <leader><F2> :ColorToggle<CR>
 
 " Sparkup
 let g:sparkupExecuteMapping = '<C-e>'       " The default mapping
+
+" Splitjoin (javascript setting)
+" see https://github.com/AndrewRadev/splitjoin.vim/issues/67#issuecomment-91582205
+let g:splitjoin_javascript_if_clause_curly_braces = 'Sj'
 
 " UltiSnips
 let g:UltiSnipsEditSplit = 'vertical'
@@ -292,15 +307,14 @@ let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md',
 "===============================================================================
 
 " Tab indenting in normal & visual modes
-nnoremap <Tab> >>
-nnoremap <S-Tab> <<
-vnoremap <Tab> >gv
-vnoremap <S-Tab> <gv
+" nnoremap <Tab> >>
+" nnoremap <S-Tab> <<
+xnoremap <Tab> >gv
+xnoremap <S-Tab> <gv
 
 " make < > shifts keep selection
 vnoremap < <gv
 vnoremap > >gv
-
 
 "===============================================================================
 " Key Bindings: Moving around
