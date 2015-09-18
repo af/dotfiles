@@ -1,15 +1,17 @@
 #!/bin/bash
 
-# Additional things to install manually:
-# iTerm 2 nightly
-
 brew cask install \
+daisydisk \
+caskroom/versions/dash2 \
 dropbox \
 firefox \
 gimp \
 google-chrome \
 hammerspoon \
+karabiner \
+openra \
 quicksilver \
+robomongo \
 shortcat \
 skype \
 vlc
