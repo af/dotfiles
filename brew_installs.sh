@@ -2,9 +2,10 @@
 brew install \
 ack \
 ag \
+caskroom/cask/brew-cask \
 fasd \
 ghi \
-hydra-cli \
+hub \
 lua \
 luajit \
 ngrok \
