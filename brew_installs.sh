@@ -11,6 +11,7 @@ git \
 hub \
 lua \
 luajit \
+ngrep \
 ngrok \
 nmap \
 nvm \
@@ -23,4 +24,5 @@ weechat --with-perl --with-python \
 wget \
 zsh
 
+brew tap neovim/neovim
 brew install --HEAD neovim

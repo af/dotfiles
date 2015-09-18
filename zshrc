@@ -103,7 +103,7 @@ source $HOME/code/reelhouse/reelhouse_init.sh
 export NODE_PATH=/usr/local/lib/node_modules
 
 # NVM:
-source ~/.nvm/nvm.sh
+source $(brew --prefix nvm)/nvm.sh
 
 # fasd (https://github.com/clvv/fasd):
 eval "$(fasd --init posix-alias zsh-hook)"

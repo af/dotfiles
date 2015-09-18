@@ -14,20 +14,20 @@ import subprocess
 # Assume this script is located the root of the dotfiles repo:
 DOTFILES_ROOT = os.path.dirname(os.path.abspath(__file__))
 SYMLINK_MAP = {
-    'gitconfig':    '~/.gitconfig',
-    'gitignore_global':    '~/.gitignore_global',
-    'jshintrc':     '~/.jshintrc',
-    'psqlrc':       '~/.psqlrc',
-    'emacs':        '~/.emacs.d',
-    'vim':          '~/.vim',
-    'vim/vimrc':    '~/.vimrc',
-    'vim':          '~/.nvim',
-    'vim/vimrc':    '~/.nvimrc',
-    'hammerspoon':  '~/.hammerspoon',
-    'tmux.conf':    '~/.tmux.conf',
-    'zshrc':        '~/.zshrc',
-    'tigrc':        '~/.tigrc',
-    'karabiner.xml':'~/Library/Application Support/Karabiner/private.xml',
+    '~/.gitconfig':         'gitconfig',
+    '~/.gitignore_global':  'gitignore_global',
+    '~/.jshintrc':          'jshintrc',
+    '~/.psqlrc':            'psqlrc',
+    '~/.emacs.d':           'emacs',
+    '~/.vim':               'vim',
+    '~/.vimrc':             'vim/vimrc',
+    '~/.nvim':              'vim',
+    '~/.nvimrc':            'vim/vimrc',
+    '~/.hammerspoon':       'hammerspoon',
+    '~/.tmux.conf':         'tmux.conf',
+    '~/.zshrc':             'zshrc':,
+    '~/.tigrc':             'tigrc':,
+    '~/Library/Application Support/Karabiner/private.xml': 'karabiner.xml',
 }
 
 # npm modules to install globally:
@@ -43,7 +43,7 @@ def section(name):
 section('Symlinking config files to ~')
 linked = []
 skipped = []
-for source, dest in SYMLINK_MAP.iteritems():
+for dest, source in SYMLINK_MAP.iteritems():
     source = os.path.join(DOTFILES_ROOT, source)
     dest = os.path.abspath(os.path.expanduser(dest))
 
