@@ -25,8 +25,8 @@ SYMLINK_MAP = {
     '~/.nvimrc':            'vim/vimrc',
     '~/.hammerspoon':       'hammerspoon',
     '~/.tmux.conf':         'tmux.conf',
-    '~/.zshrc':             'zshrc':,
-    '~/.tigrc':             'tigrc':,
+    '~/.zshrc':             'zshrc',
+    '~/.tigrc':             'tigrc',
     '~/Library/Application Support/Karabiner/private.xml': 'karabiner.xml',
 }
 
