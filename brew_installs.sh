@@ -1,20 +1,26 @@
 #!/bin/bash
+
 brew install \
 ack \
 ag \
 caskroom/cask/brew-cask \
+curl \
 fasd \
 ghi \
+git \
 hub \
 lua \
 luajit \
 ngrok \
 nmap \
-nodejs \
+nvm \
+redis \
 reattach-to-user-namespace \
 siege \
 tig \
 tmux \
-vim \
 weechat --with-perl --with-python \
-wget
+wget \
+zsh
+
+brew install --HEAD neovim
