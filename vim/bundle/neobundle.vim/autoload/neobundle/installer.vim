@@ -38,7 +38,7 @@ function! neobundle#installer#update(bundles)
     return
   endif
 
-  let all_bundles = neobundle#config#get_neobundles()
+  let all_bundles = neobundle#config#get_enabled_bundles()
 
   call neobundle#commands#helptags(all_bundles)
   call s:reload(filter(copy(a:bundles),
@@ -527,13 +527,7 @@ function! neobundle#installer#check_output(context, process, is_unite)
     let bundle.installed_uri = bundle.uri
     let bundle.revisions[updated_time] = rev
 
-    if neobundle#config#is_sourced(bundle.name)
-      " Already sourced.
-      call neobundle#config#rtp_add(bundle)
-    endif
-
-    call add(a:context.source__synced_bundles,
-          \ bundle)
+    call add(a:context.source__synced_bundles, bundle)
   endif
 
   let a:process.eof = 1
