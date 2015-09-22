@@ -19,7 +19,7 @@ redis \
 reattach-to-user-namespace \
 siege \
 tig \
-tmux \
+# tmux \        # Note: use patched version with 24-bit colour instead (see Readme)
 weechat --with-perl --with-python \
 wget \
 zsh
