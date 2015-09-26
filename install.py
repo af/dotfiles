@@ -14,19 +14,20 @@ import subprocess
 # Assume this script is located the root of the dotfiles repo:
 DOTFILES_ROOT = os.path.dirname(os.path.abspath(__file__))
 SYMLINK_MAP = {
+    '~/.emacs.d':           'emacs',
     '~/.gitconfig':         'gitconfig',
     '~/.gitignore_global':  'gitignore_global',
+    '~/.hammerspoon':       'hammerspoon',
     '~/.jshintrc':          'jshintrc',
     '~/.psqlrc':            'psqlrc',
-    '~/.emacs.d':           'emacs',
-    '~/.vim':               'vim',
-    '~/.vimrc':             'vim/vimrc',
     '~/.nvim':              'vim',
     '~/.nvimrc':            'vim/vimrc',
-    '~/.hammerspoon':       'hammerspoon',
+    '~/.vim':               'vim',
+    '~/.vimrc':             'vim/vimrc',
     '~/.tmux.conf':         'tmux.conf',
-    '~/.zshrc':             'zshrc',
     '~/.tigrc':             'tigrc',
+    '~/.weechat':           'weechat',
+    '~/.zshrc':             'zshrc',
     '~/Library/Application Support/Karabiner/private.xml': 'karabiner.xml',
 }
 
