@@ -1,6 +1,7 @@
 # dotfiles
 
-Rebuilding my dotfiles from scratch and putting them online for future reference.
+My configuration for (neo)vim, tmux, hammerspoon, zsh, etc. Some things are
+Mac-specific, but most should work on any unix-ish OS.
 
 
 ## Setup
@@ -17,3 +18,9 @@ Rebuilding my dotfiles from scratch and putting them online for future reference
 * `nvm install <current nodejs version>`
 * `git submodule init && git submodule update`
 * `./install.py`
+
+
+# Misc hacks
+
+* iTerm2/Neovim don't play together well for my ctrl-h mappings. [Workaround
+  here](https://github.com/neovim/neovim/issues/2048#issuecomment-78045837)
