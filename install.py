@@ -20,7 +20,6 @@ SYMLINK_MAP = {
     '~/.hammerspoon':       'hammerspoon',
     '~/.jshintrc':          'jshintrc',
     '~/.psqlrc':            'psqlrc',
-    '~/.npmrc':             'npmrc',
     '~/.nvim':              'vim',
     '~/.nvimrc':            'vim/vimrc',
     '~/.vim':               'vim',
