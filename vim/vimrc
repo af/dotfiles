@@ -31,7 +31,7 @@ NeoBundle 'justinmk/vim-sneak', '9eb89e43'
 NeoBundle 'af/YankRing.vim', '0e4235b1'         " using fork, as v18 isn't officially on GH
 NeoBundle 'tpope/vim-obsession', '4ab72e07ec'   " start a session file with :Obsession
 NeoBundle 'ashisha/image.vim', 'ae15d1c5'       " view images in vim (requires `pip install Pillow`)
-NeoBundle 'gabesoft/vim-ags', '3b95ee73'
+NeoBundle 'gabesoft/vim-ags', '1856e93'
 
 " Git/VCS related plugins
 NeoBundle 'tpope/vim-fugitive', '935a2ccc'
