@@ -15,8 +15,21 @@ endsnippet
 
 snippet jd "jsdoc" b
 /**
- * $1
- */
+* $3
+* @return {${1:type}} - $2
+*/
+endsnippet
+
+snippet ja "jsdoc arg" w
+@arg {${1:type}} ${2:name} - 
+endsnippet
+
+snippet jr "jsdoc return" w
+@return {${1:type}} - 
+endsnippet
+
+snippet jt "jsdoc throws" w
+@throws {${1:type}}
 endsnippet
 
 snippet v "var" b
