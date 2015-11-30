@@ -1,6 +1,7 @@
 *.swp
 init-tmux-session
 vim/bundle
+vim/plugged
 vim/.netrwhist
 emacs
 weechat/logs

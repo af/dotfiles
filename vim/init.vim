@@ -7,7 +7,7 @@ set nocompatible            " we're using Vim, not Vi
 "===============================================================================
 " Plugin setup
 "===============================================================================
-call plug#begin()
+call plug#begin('~/.vim/plugged')
 
 " vim plugins, managed by vim-plug
 Plug 'ctrlpvim/ctrlp.vim'
@@ -21,9 +21,8 @@ Plug 'AndrewRadev/splitjoin.vim', { 'commit': '4b062a' } " gS and gJ to split/jo
 Plug 'sheerun/vim-polyglot', { 'commit': '1c21231' }     " syntax highlighting for many languages
 Plug 'vimwiki/vimwiki', { 'commit': '2c03d8' }
 Plug 'justinmk/vim-sneak', { 'commit': '9eb89e43' }
-Plug 'af/YankRing.vim', { 'commit': '0e4235b1' }         " using fork, as v18 isn't officially on GH
+Plug 'af/YankRing.vim', { 'commit': '0e4235b1', 'on': [] }         " using fork, as v18 isn't officially on GH
 Plug 'tpope/vim-obsession', { 'commit': '4ab72e07ec' }   " start a session file with :Obsession
-Plug 'ashisha/image.vim', { 'commit': 'ae15d1c5' }       " view images in vim (requires `pip install Pillow`)
 Plug 'gabesoft/vim-ags', { 'commit': '182c472' }
 
 " Git/VCS related plugins
@@ -32,7 +31,7 @@ Plug 'airblade/vim-gitgutter', { 'commit': '339f8ba0' }
 
 " Indentation, etc. Autodetect, but override with .editorconfig if present:
 Plug 'tpope/vim-sleuth', { 'commit': '039e2cd' }
-Plug 'editorconfig/editorconfig-vim', { 'commit': '77875eff51' }
+Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' } " TODO: load lazily, w/o input lag
 
 " Javascript and HTML-related plugins
 Plug 'moll/vim-node', { 'commit': '07a5e9f91' }      " Lazy loading doesn't work for some reason
@@ -40,7 +39,7 @@ Plug 'tristen/vim-sparkup', { 'commit': '1375ce1e7', 'for': 'html' }
 Plug 'tpope/vim-ragtag', { 'for': 'html' }
 
 " Ultisnips (private snippets are stored in this repo)
-Plug 'UltiSnips', { 'tag': '3.0' }
+Plug 'UltiSnips', { 'tag': '3.0', 'on': [] }
 
 " theme/syntax related plugins:
 Plug 'scrooloose/syntastic', { 'commit': 'c1a209895' }
@@ -50,6 +49,9 @@ Plug 'colorizer', { 'commit': 'aae6b518' }
 Plug 'tomasr/molokai', { 'commit': 'e7bcec7573' }        " default
 Plug 'morhetz/gruvbox', { 'commit': 'ffe202e4' }         " brown/retro. :set bg=dark
 Plug 'whatyouhide/vim-gotham', { 'commit': '6486e10' }
+
+" Cool plugins that are disabled because they add to startup time:
+" Plug 'ashisha/image.vim', { 'commit': 'ae15d1c5' }       " view images in vim (requires `pip install Pillow`)
 
 " plugins for colorscheme dev (not tested yet):
 " https://github.com/shawncplus/Vim-toCterm
@@ -64,6 +66,13 @@ Plug 'whatyouhide/vim-gotham', { 'commit': '6486e10' }
 " Tried but disabled for now:
 " Plug 'ervandew/supertab', 'c8bfeceb'
 " Plug 'Raimondi/delimitMate'       " disabled because of https://github.com/Raimondi/delimitMate/issues/138
+
+" Load some of the more sluggish plugins on first insert mode enter,
+" to improve startup time:
+augroup load_on_insert
+  autocmd!
+  autocmd InsertEnter * call plug#load('UltiSnips', 'YankRing.vim') | autocmd! load_on_insert
+augroup END
 
 call plug#end()
 "===============================================================================
