@@ -42,7 +42,7 @@ Plug 'tpope/vim-ragtag', { 'for': 'html' }
 Plug 'UltiSnips', { 'tag': '3.0', 'on': [] }
 
 " theme/syntax related plugins:
-Plug 'scrooloose/syntastic', { 'commit': 'c1a209895' }
+Plug 'benekastah/neomake', { 'commit': 'c1de90f' }
 Plug 'colorizer', { 'commit': 'aae6b518' }
 
 " Colour schemes:
@@ -231,22 +231,15 @@ nmap <leader>r <Plug>GitGutterRevertHunk
 nmap <C-j> :GitGutterNextHunk<CR>
 nmap <C-k> :GitGutterPrevHunk<CR>
 
-" Syntastic display customizations:
-" TODO: update colors so they work in console vim also
-let syntastic_mode_map = { 'passive_filetypes': ['html'] }  " disable html checking by default
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_sq = 0
-let g:syntastic_error_symbol = '!!'
-let g:syntastic_warning_symbol = '!!'
-hi SyntasticErrorSign guifg=#ff0000
-hi SyntasticWarningSign guifg=#ff0000
+
+" Neomake
 map <C-e> :lnext<CR>
 
-" Syntastic checker config:
-let g:syntastic_javascript_checkers=['jshint', 'jscs']
-let g:syntastic_python_checkers=['pyflakes']
+let g:neomake_open_list = 2
+autocmd! BufWritePost,BufWinEnter * Neomake
+let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_error_sign = { 'text': '!>', 'texthl': 'ErrorMsg' }
+let g:neomake_warning_sign = { 'text': '❯❯', 'texthl': 'MyWarningMsg' }
 
 " vim-airline:
 " Note: the following symbols require a patched font.
@@ -411,7 +404,7 @@ au BufNewFile,BufRead *.md set filetype=markdown
 " au BufNewFile,BufRead *.mustache set filetype=mustache
 " autocmd FileType mustache set ft=html.mustache
 
-" JSON files: set filetype to json for syntastic, use js highlighting:
+" JSON files
 au BufRead,BufNewFile *.json set filetype=json
 au BufRead,BufNewFile *.json setlocal syntax=javascript
 
