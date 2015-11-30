@@ -5,78 +5,69 @@
 set nocompatible            " we're using Vim, not Vi
 
 "===============================================================================
-" NeoBundle setup
+" Plugin setup
 "===============================================================================
-" Besides the bundles to install, assume that everything until the end of this
-" section is required for NeoBundle's setup process.
-if has('vim_starting')
-   set runtimepath+=~/.vim/bundle/neobundle.vim/
-endif
+call plug#begin()
 
-call neobundle#begin(expand('~/.vim/bundle/'))
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-" vim plugins, managed by NeoBundle
-NeoBundle 'ctrlpvim/ctrlp.vim'
-NeoBundle 'bling/vim-airline', 'aef500c426'
-NeoBundle 'tomtom/tcomment_vim', '3d0a9975'
-NeoBundle 'tpope/vim-repeat', '7a6675f09'       " Enable . repeat for plugin operations (eg. gitgutter)
-NeoBundle 'tpope/vim-surround', '42e9b46e'
-NeoBundle 'jeetsukumaran/vim-filebeagle', 'abfb7f9d2'
-NeoBundle 'tommcdo/vim-exchange', 'b82a774'
-NeoBundle 'AndrewRadev/splitjoin.vim', '4b062a' " gS and gJ to split/join lines
-NeoBundle 'sheerun/vim-polyglot', '1c21231'     " syntax highlighting for many languages
-NeoBundle 'vimwiki/vimwiki', '2c03d8'
-NeoBundle 'justinmk/vim-sneak', '9eb89e43'
-NeoBundle 'af/YankRing.vim', '0e4235b1'         " using fork, as v18 isn't officially on GH
-NeoBundle 'tpope/vim-obsession', '4ab72e07ec'   " start a session file with :Obsession
-NeoBundle 'ashisha/image.vim', 'ae15d1c5'       " view images in vim (requires `pip install Pillow`)
-NeoBundle 'gabesoft/vim-ags', '182c472'
+" vim plugins, managed by vim-plug
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'bling/vim-airline', { 'commit': 'aef500c426' }
+Plug 'tomtom/tcomment_vim', { 'commit': '3d0a9975' }
+Plug 'tpope/vim-repeat', { 'commit': '7a6675f09' }  " Enable . repeat for plugin operations (eg. gitgutter)
+Plug 'tpope/vim-surround', { 'commit': '42e9b46e' }
+Plug 'jeetsukumaran/vim-filebeagle', { 'commit': 'abfb7f9d2' }
+Plug 'tommcdo/vim-exchange', { 'commit': 'b82a774' }
+Plug 'AndrewRadev/splitjoin.vim', { 'commit': '4b062a' } " gS and gJ to split/join lines
+Plug 'sheerun/vim-polyglot', { 'commit': '1c21231' }     " syntax highlighting for many languages
+Plug 'vimwiki/vimwiki', { 'commit': '2c03d8' }
+Plug 'justinmk/vim-sneak', { 'commit': '9eb89e43' }
+Plug 'af/YankRing.vim', { 'commit': '0e4235b1' }         " using fork, as v18 isn't officially on GH
+Plug 'tpope/vim-obsession', { 'commit': '4ab72e07ec' }   " start a session file with :Obsession
+Plug 'ashisha/image.vim', { 'commit': 'ae15d1c5' }       " view images in vim (requires `pip install Pillow`)
+Plug 'gabesoft/vim-ags', { 'commit': '182c472' }
 
 " Git/VCS related plugins
-NeoBundle 'tpope/vim-fugitive', '935a2ccc'
-NeoBundle 'airblade/vim-gitgutter', '339f8ba0'
+Plug 'tpope/vim-fugitive', { 'commit': '935a2ccc' }
+Plug 'airblade/vim-gitgutter', { 'commit': '339f8ba0' }
 
 " Indentation, etc. Autodetect, but override with .editorconfig if present:
-NeoBundle 'tpope/vim-sleuth', '039e2cd'
-NeoBundle 'editorconfig/editorconfig-vim', '77875eff51'
+Plug 'tpope/vim-sleuth', { 'commit': '039e2cd' }
+Plug 'editorconfig/editorconfig-vim', { 'commit': '77875eff51' }
 
 " Javascript and HTML-related plugins
-NeoBundle 'moll/vim-node', '07a5e9f91'      " Lazy loading doesn't work for some reason
-NeoBundleLazy 'tristen/vim-sparkup', '1375ce1e7', {'autoload':{'filetypes':['html']}}
-NeoBundleLazy 'tpope/vim-ragtag', {'autoload':{'filetypes':['html']}}   " Use <C-x>/ to close last open html tag
+Plug 'moll/vim-node', { 'commit': '07a5e9f91' }      " Lazy loading doesn't work for some reason
+Plug 'tristen/vim-sparkup', { 'commit': '1375ce1e7', 'for': 'html' }
+Plug 'tpope/vim-ragtag', { 'for': 'html' }
 
 " Ultisnips (private snippets are stored in this repo)
-NeoBundle 'UltiSnips', '3.0'
+Plug 'UltiSnips', { 'tag': '3.0' }
 
 " theme/syntax related plugins:
-NeoBundle 'scrooloose/syntastic', 'c1a209895'
-NeoBundle 'colorizer', 'aae6b518'
+Plug 'scrooloose/syntastic', { 'commit': 'c1a209895' }
+Plug 'colorizer', { 'commit': 'aae6b518' }
 
 " Colour schemes:
-NeoBundle 'tomasr/molokai', 'e7bcec7573'        " default
-NeoBundle 'morhetz/gruvbox', 'ffe202e4'         " brown/retro. :set bg=dark
-NeoBundle 'whatyouhide/vim-gotham', '6486e10'
+Plug 'tomasr/molokai', { 'commit': 'e7bcec7573' }        " default
+Plug 'morhetz/gruvbox', { 'commit': 'ffe202e4' }         " brown/retro. :set bg=dark
+Plug 'whatyouhide/vim-gotham', { 'commit': '6486e10' }
 
 " plugins for colorscheme dev (not tested yet):
 " https://github.com/shawncplus/Vim-toCterm
 " https://github.com/guns/xterm-color-table.vim
 
 " Try later:
-" NeoBundle 'tpope/vim-unimpaired'
-" NeoBundle 'zefei/vim-colortuner'
-" NeoBundle 'mattn/emmet-vim'
-" NeoBundle 'jaxbot/github-issues.vim'          " TODO: configure this
+" Plug 'tpope/vim-unimpaired'
+" Plug 'zefei/vim-colortuner'
+" Plug 'mattn/emmet-vim'
+" Plug 'jaxbot/github-issues.vim'          " TODO: configure this
 
 " Tried but disabled for now:
-" NeoBundle 'ervandew/supertab', 'c8bfeceb'
-" NeoBundle 'Raimondi/delimitMate'       " disabled because of https://github.com/Raimondi/delimitMate/issues/138
+" Plug 'ervandew/supertab', 'c8bfeceb'
+" Plug 'Raimondi/delimitMate'       " disabled because of https://github.com/Raimondi/delimitMate/issues/138
 
-call neobundle#end()
-filetype plugin indent on
-NeoBundleCheck
+call plug#end()
 "===============================================================================
-" (End of NeoBundle setup)
+" (End of plugin setup)
 "===============================================================================
 
 
