@@ -235,12 +235,15 @@ nmap <C-j> :GitGutterNextHunk<CR>
 nmap <C-k> :GitGutterPrevHunk<CR>
 
 " Neomake
-map <C-e> :lnext<CR>
-autocmd! BufWritePost,BufWinEnter * Neomake
-let g:neomake_open_list = 2
-let g:neomake_javascript_enabled_makers = ['eslint', 'jshint']
-let g:neomake_error_sign = { 'text': '!>', 'texthl': 'ErrorMsg' }
-let g:neomake_warning_sign = { 'text': '❯❯', 'texthl': 'MyWarningMsg' }
+" Disabled for regular vim, since this plugin seems to crash it sometimes
+if has('nvim')
+    map <C-e> :lnext<CR>
+    autocmd! BufWritePost,BufWinEnter * Neomake
+    let g:neomake_open_list = 2
+    let g:neomake_javascript_enabled_makers = ['eslint', 'jshint']
+    let g:neomake_error_sign = { 'text': '!>', 'texthl': 'ErrorMsg' }
+    let g:neomake_warning_sign = { 'text': '❯❯', 'texthl': 'MyWarningMsg' }
+endif
 
 " vim-airline:
 " Note: the following symbols require a patched font.
