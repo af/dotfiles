@@ -35,7 +35,7 @@ Plug 'tpope/vim-sleuth',            { 'commit': '039e2cd' }
 Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' } " TODO: load lazily, w/o input lag
 
 " Javascript and HTML-related plugins
-Plug 'moll/vim-node',               { 'commit': '07a5e9f' }      " Lazy loading doesn't work for some reason
+Plug 'moll/vim-node',               { 'commit': '13b3121' }      " Lazy loading doesn't work for some reason
 Plug 'tristen/vim-sparkup',         { 'commit': '1375ce1', 'for': 'html' }
 Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': 'html' }
 
