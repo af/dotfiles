@@ -2,29 +2,30 @@
 " * see ":h normal-index" or ":h insert-index" for a list of built-in mappings
 " * see ":verbose nmap <C-j>" (for example) for maps setup by plugins or .vimrc
 
-set nocompatible            " we're using Vim, not Vi
+set nocompatible            " we're using (neo)vim, not Vi
 
 "===============================================================================
-" Plugin setup
-" Run :PlugInstall to install plugins via vim-plug
+" Plugin setup via vim-plug
+"
+" * Run :PlugInstall to install
+" * Run :PlugUpdate to update
 "===============================================================================
 call plug#begin('~/.vim/plugged')
 
 " vim plugins, managed by vim-plug
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim',          { 'commit': '7a80267' }
 Plug 'bling/vim-airline',           { 'commit': 'aef500c' }
 Plug 'tomtom/tcomment_vim',         { 'commit': '3d0a997' }
-Plug 'tpope/vim-repeat',            { 'commit': '7a6675f' }  " Enable . repeat for plugin operations (eg. gitgutter)
+Plug 'tpope/vim-repeat',            { 'commit': '7a6675f' }     " Enable . repeat for plugin operations (eg. gitgutter)
 Plug 'tpope/vim-surround',          { 'commit': '42e9b46' }
 Plug 'vimwiki/vimwiki',             { 'commit': '2c03d8' }
 Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'af/YankRing.vim',             { 'commit': '0e4235b', 'on': [] }   " using fork, as v18 isn't officially on GH
-Plug 'tpope/vim-obsession',         { 'commit': '4ab72e0' }   " start a session file with :Obsession
+Plug 'tpope/vim-obsession',         { 'commit': '4ab72e0' }     " start a session file with :Obsession
 Plug 'gabesoft/vim-ags',            { 'commit': '182c472' }
 Plug 'jeetsukumaran/vim-filebeagle',{ 'commit': 'abfb7f9' }
 Plug 'tommcdo/vim-exchange',        { 'commit': 'b82a774' }
-Plug 'AndrewRadev/splitjoin.vim',   { 'commit': '4b062a0' } " gS and gJ to split/join lines
-Plug 'sheerun/vim-polyglot',        { 'commit': '1c21231' }     " syntax highlighting for many languages
+Plug 'AndrewRadev/splitjoin.vim',   { 'commit': '4b062a0' }     " gS and gJ to split/join lines
 
 " Git/VCS related plugins
 Plug 'tpope/vim-fugitive',          { 'commit': '935a2cc' }
@@ -32,20 +33,21 @@ Plug 'airblade/vim-gitgutter',      { 'commit': '339f8ba' }
 
 " Indentation, etc. Autodetect, but override with .editorconfig if present:
 Plug 'tpope/vim-sleuth',            { 'commit': '039e2cd' }
-Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' } " TODO: load lazily, w/o input lag
+Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load lazily, w/o input lag
 
 " Javascript and HTML-related plugins
-Plug 'moll/vim-node',               { 'commit': '13b3121' }      " Lazy loading doesn't work for some reason
+Plug 'moll/vim-node',               { 'commit': '13b3121' }     " Lazy loading doesn't work for some reason
 Plug 'tristen/vim-sparkup',         { 'commit': '1375ce1', 'for': 'html' }
 Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': 'html' }
 
 " theme/syntax related plugins:
+Plug 'sheerun/vim-polyglot',        { 'commit': '1c21231' }     " syntax highlighting for many languages
 Plug 'benekastah/neomake',          { 'commit': 'c1de90f' }
 Plug 'colorizer',                   { 'commit': 'aae6b51', 'on': 'ColorToggle' }
 
 " Colour schemes:
-Plug 'tomasr/molokai',              { 'commit': 'e7bcec7' }        " default
-Plug 'morhetz/gruvbox',             { 'commit': 'ffe202e' }         " brown/retro. :set bg=dark
+Plug 'morhetz/gruvbox',             { 'commit': 'ffe202e' }     " default. brown/retro. :set bg=dark
+Plug 'tomasr/molokai',              { 'commit': 'e7bcec7' }
 Plug 'whatyouhide/vim-gotham',      { 'commit': '6486e10' }
 
 " Ultisnips (private snippets are stored in this dotfiles repo)
@@ -66,7 +68,6 @@ Plug 'UltiSnips',                   { 'tag': '3.0', 'on': [] }
 " Plug 'jaxbot/github-issues.vim'          " TODO: configure this
 
 " Tried but disabled for now:
-" Plug 'ervandew/supertab', 'c8bfeceb'
 " Plug 'Raimondi/delimitMate'       " disabled because of https://github.com/Raimondi/delimitMate/issues/138
 
 " Load some of the more sluggish plugins on first insert mode enter,
@@ -219,7 +220,7 @@ if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
 endif
 
 " Ctrl-P
-nnoremap <C-t> :CtrlPBuffer<CR>             " Search active buffers
+nnoremap <C-t> :CtrlPBuffer<CR>         " Search active buffers
 nnoremap <C-m> :CtrlPMRUFiles<CR>
 let g:ctrlp_map = '<leader><leader>'    " Search in current directory
 let g:ctrlp_open_new_file = 'r'         " Open files in the current window
@@ -233,12 +234,10 @@ nmap <leader>r <Plug>GitGutterRevertHunk
 nmap <C-j> :GitGutterNextHunk<CR>
 nmap <C-k> :GitGutterPrevHunk<CR>
 
-
 " Neomake
 map <C-e> :lnext<CR>
-
-let g:neomake_open_list = 2
 autocmd! BufWritePost,BufWinEnter * Neomake
+let g:neomake_open_list = 2
 let g:neomake_javascript_enabled_makers = ['eslint', 'jshint']
 let g:neomake_error_sign = { 'text': '!>', 'texthl': 'ErrorMsg' }
 let g:neomake_warning_sign = { 'text': '❯❯', 'texthl': 'MyWarningMsg' }
@@ -255,11 +254,6 @@ let g:airline_readonly_symbol   = '⭤'
 let g:airline_linecolumn_prefix = '⭡'
 let g:airline_theme = 'murmur'
 let g:airline#extensions#tabline#enabled = 1    " Tab line at top of window
-
-" Supertab
-" let g:SuperTabDefaultCompletionType = 'context'
-" let g:SuperTabContextDefaultCompletionType = '<c-n>'
-" let g:SuperTabNoCompleteAfter = ['^', ',', ';', '\s']
 
 " Colorizer
 nnoremap <leader><F2> :ColorToggle<CR>
