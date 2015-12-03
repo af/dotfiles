@@ -12,44 +12,45 @@ call plug#begin('~/.vim/plugged')
 
 " vim plugins, managed by vim-plug
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'bling/vim-airline', { 'commit': 'aef500c426' }
-Plug 'tomtom/tcomment_vim', { 'commit': '3d0a9975' }
-Plug 'tpope/vim-repeat', { 'commit': '7a6675f09' }  " Enable . repeat for plugin operations (eg. gitgutter)
-Plug 'tpope/vim-surround', { 'commit': '42e9b46e' }
-Plug 'jeetsukumaran/vim-filebeagle', { 'commit': 'abfb7f9d2' }
-Plug 'tommcdo/vim-exchange', { 'commit': 'b82a774' }
-Plug 'AndrewRadev/splitjoin.vim', { 'commit': '4b062a' } " gS and gJ to split/join lines
-Plug 'sheerun/vim-polyglot', { 'commit': '1c21231' }     " syntax highlighting for many languages
-Plug 'vimwiki/vimwiki', { 'commit': '2c03d8' }
-Plug 'justinmk/vim-sneak', { 'commit': '9eb89e43' }
-Plug 'af/YankRing.vim', { 'commit': '0e4235b1', 'on': [] }         " using fork, as v18 isn't officially on GH
-Plug 'tpope/vim-obsession', { 'commit': '4ab72e07ec' }   " start a session file with :Obsession
-Plug 'gabesoft/vim-ags', { 'commit': '182c472' }
+Plug 'bling/vim-airline',           { 'commit': 'aef500c' }
+Plug 'tomtom/tcomment_vim',         { 'commit': '3d0a997' }
+Plug 'tpope/vim-repeat',            { 'commit': '7a6675f' }  " Enable . repeat for plugin operations (eg. gitgutter)
+Plug 'tpope/vim-surround',          { 'commit': '42e9b46' }
+Plug 'vimwiki/vimwiki',             { 'commit': '2c03d8' }
+Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
+Plug 'af/YankRing.vim',             { 'commit': '0e4235b', 'on': [] }   " using fork, as v18 isn't officially on GH
+Plug 'tpope/vim-obsession',         { 'commit': '4ab72e0' }   " start a session file with :Obsession
+Plug 'gabesoft/vim-ags',            { 'commit': '182c472' }
+Plug 'jeetsukumaran/vim-filebeagle',{ 'commit': 'abfb7f9' }
+Plug 'tommcdo/vim-exchange',        { 'commit': 'b82a774' }
+Plug 'AndrewRadev/splitjoin.vim',   { 'commit': '4b062a0' } " gS and gJ to split/join lines
+Plug 'sheerun/vim-polyglot',        { 'commit': '1c21231' }     " syntax highlighting for many languages
 
 " Git/VCS related plugins
-Plug 'tpope/vim-fugitive', { 'commit': '935a2ccc' }
-Plug 'airblade/vim-gitgutter', { 'commit': '339f8ba0' }
+Plug 'tpope/vim-fugitive',          { 'commit': '935a2cc' }
+Plug 'airblade/vim-gitgutter',      { 'commit': '339f8ba' }
 
 " Indentation, etc. Autodetect, but override with .editorconfig if present:
-Plug 'tpope/vim-sleuth', { 'commit': '039e2cd' }
+Plug 'tpope/vim-sleuth',            { 'commit': '039e2cd' }
 Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' } " TODO: load lazily, w/o input lag
 
 " Javascript and HTML-related plugins
-Plug 'moll/vim-node', { 'commit': '07a5e9f91' }      " Lazy loading doesn't work for some reason
-Plug 'tristen/vim-sparkup', { 'commit': '1375ce1e7', 'for': 'html' }
-Plug 'tpope/vim-ragtag', { 'for': 'html' }
-
-" Ultisnips (private snippets are stored in this dotfiles repo)
-Plug 'UltiSnips', { 'tag': '3.0', 'on': [] }
+Plug 'moll/vim-node',               { 'commit': '07a5e9f' }      " Lazy loading doesn't work for some reason
+Plug 'tristen/vim-sparkup',         { 'commit': '1375ce1', 'for': 'html' }
+Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': 'html' }
 
 " theme/syntax related plugins:
-Plug 'benekastah/neomake', { 'commit': 'c1de90f' }
-Plug 'colorizer', { 'commit': 'aae6b518', 'on': 'ColorToggle' }
+Plug 'benekastah/neomake',          { 'commit': 'c1de90f' }
+Plug 'colorizer',                   { 'commit': 'aae6b51', 'on': 'ColorToggle' }
 
 " Colour schemes:
-Plug 'tomasr/molokai', { 'commit': 'e7bcec7573' }        " default
-Plug 'morhetz/gruvbox', { 'commit': 'ffe202e4' }         " brown/retro. :set bg=dark
-Plug 'whatyouhide/vim-gotham', { 'commit': '6486e10' }
+Plug 'tomasr/molokai',              { 'commit': 'e7bcec7' }        " default
+Plug 'morhetz/gruvbox',             { 'commit': 'ffe202e' }         " brown/retro. :set bg=dark
+Plug 'whatyouhide/vim-gotham',      { 'commit': '6486e10' }
+
+" Ultisnips (private snippets are stored in this dotfiles repo)
+Plug 'UltiSnips',                   { 'tag': '3.0', 'on': [] }
+
 
 " Cool plugins that are disabled because they add to startup time:
 " Plug 'ashisha/image.vim', { 'commit': 'ae15d1c5' }       " view images in vim (requires `pip install Pillow`)
