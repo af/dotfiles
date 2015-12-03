@@ -6,6 +6,7 @@ set nocompatible            " we're using Vim, not Vi
 
 "===============================================================================
 " Plugin setup
+" Run :PlugInstall to install plugins via vim-plug
 "===============================================================================
 call plug#begin('~/.vim/plugged')
 
@@ -38,12 +39,12 @@ Plug 'moll/vim-node', { 'commit': '07a5e9f91' }      " Lazy loading doesn't work
 Plug 'tristen/vim-sparkup', { 'commit': '1375ce1e7', 'for': 'html' }
 Plug 'tpope/vim-ragtag', { 'for': 'html' }
 
-" Ultisnips (private snippets are stored in this repo)
+" Ultisnips (private snippets are stored in this dotfiles repo)
 Plug 'UltiSnips', { 'tag': '3.0', 'on': [] }
 
 " theme/syntax related plugins:
 Plug 'benekastah/neomake', { 'commit': 'c1de90f' }
-Plug 'colorizer', { 'commit': 'aae6b518' }
+Plug 'colorizer', { 'commit': 'aae6b518', 'on': 'ColorToggle' }
 
 " Colour schemes:
 Plug 'tomasr/molokai', { 'commit': 'e7bcec7573' }        " default
@@ -237,7 +238,7 @@ map <C-e> :lnext<CR>
 
 let g:neomake_open_list = 2
 autocmd! BufWritePost,BufWinEnter * Neomake
-let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_javascript_enabled_makers = ['eslint', 'jshint']
 let g:neomake_error_sign = { 'text': '!>', 'texthl': 'ErrorMsg' }
 let g:neomake_warning_sign = { 'text': '❯❯', 'texthl': 'MyWarningMsg' }
 
