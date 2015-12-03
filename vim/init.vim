@@ -16,17 +16,20 @@ call plug#begin('~/.vim/plugged')
 " vim plugins, managed by vim-plug
 Plug 'ctrlpvim/ctrlp.vim',          { 'commit': '7a80267' }
 Plug 'bling/vim-airline',           { 'commit': 'aef500c' }
-Plug 'tomtom/tcomment_vim',         { 'commit': '3d0a997' }
 Plug 'tpope/vim-repeat',            { 'commit': '7a6675f' }     " Enable . repeat for plugin operations (eg. gitgutter)
-Plug 'tpope/vim-surround',          { 'commit': '42e9b46' }
 Plug 'vimwiki/vimwiki',             { 'commit': '2c03d8' }
 Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'af/YankRing.vim',             { 'commit': '0e4235b', 'on': [] }   " using fork, as v18 isn't officially on GH
 Plug 'tpope/vim-obsession',         { 'commit': '4ab72e0' }     " start a session file with :Obsession
 Plug 'gabesoft/vim-ags',            { 'commit': '182c472' }
 Plug 'jeetsukumaran/vim-filebeagle',{ 'commit': 'abfb7f9' }
+
+" Editing modifications
 Plug 'tommcdo/vim-exchange',        { 'commit': 'b82a774' }
 Plug 'AndrewRadev/splitjoin.vim',   { 'commit': '4b062a0' }     " gS and gJ to split/join lines
+Plug 'Raimondi/delimitMate',        { 'commit': '8bc47fd' }
+Plug 'tpope/vim-surround',          { 'commit': '42e9b46' }
+Plug 'tomtom/tcomment_vim',         { 'commit': '3d0a997' }
 
 " Git/VCS related plugins
 Plug 'tpope/vim-fugitive',          { 'commit': '935a2cc' }
@@ -39,7 +42,7 @@ Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load laz
 " Javascript and HTML-related plugins
 Plug 'moll/vim-node',               { 'commit': '13b3121' }     " Lazy loading doesn't work for some reason
 Plug 'tristen/vim-sparkup',         { 'commit': '1375ce1', 'for': 'html' }
-Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': 'html' }
+Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a' }
 
 " theme/syntax related plugins:
 Plug 'sheerun/vim-polyglot',        { 'commit': '1c21231' }     " syntax highlighting for many languages
@@ -67,9 +70,6 @@ Plug 'UltiSnips',                   { 'tag': '3.0', 'on': [] }
 " Plug 'zefei/vim-colortuner'
 " Plug 'mattn/emmet-vim'
 " Plug 'jaxbot/github-issues.vim'          " TODO: configure this
-
-" Tried but disabled for now:
-" Plug 'Raimondi/delimitMate'       " disabled because of https://github.com/Raimondi/delimitMate/issues/138
 
 " Load some of the more sluggish plugins on first insert mode enter,
 " to improve startup time:
@@ -280,6 +280,11 @@ nnoremap <C-g> :Ags
 autocmd FileType agsv nnoremap <C-o> :call AgsOpenItemCloseResults()<CR>
 let g:ags_agcontext = 1     " Show one line above and below the match
 
+" delimitMate
+let delimitMate_jump_expansion = 1
+let delimitMate_expand_cr = 1
+inoremap <expr> <C-l> delimitMate#JumpAny()
+
 " Hack to open the current result and close the results window in one keystroke:
 autocmd FileType agsv nnoremap <C-o> :call AgsOpenItemCloseResults()<CR>
 function! AgsOpenItemCloseResults()
@@ -395,15 +400,18 @@ nmap <Leader>P "+P
 vmap <Leader>p "+p
 vmap <Leader>P "+P
 
+" vim-ragtag
+let g:ragtag_global_maps = 1
+imap <C-k> <C-x>/
+
 
 "===============================================================================
 " Filetype-specific settings
 "===============================================================================
 " filetype detection for syntax highlighting
 au BufNewFile,BufRead *.md set filetype=markdown
-" Disabled mustache for now, since the polyglot plugin adds ^F when using ragtag:
-" au BufNewFile,BufRead *.mustache set filetype=mustache
-" autocmd FileType mustache set ft=html.mustache
+au BufNewFile,BufRead *.mustache set filetype=mustache
+autocmd FileType mustache set ft=html.mustache
 
 " JSON files
 au BufRead,BufNewFile *.json set filetype=json
