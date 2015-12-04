@@ -1,6 +1,7 @@
 " General Notes
 " * see ":h normal-index" or ":h insert-index" for a list of built-in mappings
 " * see ":verbose nmap <C-j>" (for example) for maps setup by plugins or .vimrc
+" * profile startup time with "vim --startuptime startup.log"
 
 set nocompatible            " we're using (neo)vim, not Vi
 
@@ -293,6 +294,7 @@ let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md',
                     \  'diary_rel_path': 'journal/', 'diary_index': 'index',
                     \  'diary_header': 'Journal', 'diary_sort': 'asc'}]
 
+let g:EditorConfig_core_mode = 'python_external'    " Speeds up load time by ~150ms
 
 "===============================================================================
 " Key Bindings: Indentation levels
