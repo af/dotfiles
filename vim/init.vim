@@ -50,7 +50,7 @@ Plug 'benekastah/neomake',          { 'commit': 'c1de90f' }
 Plug 'colorizer',                   { 'commit': 'aae6b51', 'on': 'ColorToggle' }
 
 " Colour schemes:
-Plug 'morhetz/gruvbox',             { 'commit': 'ffe202e' }     " default. brown/retro. :set bg=dark
+Plug 'morhetz/gruvbox',             { 'commit': 'e4ba7ab' }     " default. brown/retro. :set bg=dark
 Plug 'tomasr/molokai',              { 'commit': 'e7bcec7' }
 Plug 'whatyouhide/vim-gotham',      { 'commit': '6486e10' }
 
@@ -180,6 +180,8 @@ if has('nvim')
     tnoremap <A-v> <c-\><c-n><c-w><c-v>
     tnoremap <A-s> <c-\><c-n><c-w><c-s>
     au WinEnter term://* call feedkeys('i')
+elseif $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
+    set t_Co=256            " 256 colours for regular vim if the terminal can handle it.
 endif
 
 
@@ -188,13 +190,6 @@ endif
 "===============================================================================
 color gruvbox
 set bg=dark
-
-" MacVim/GVIM and 256-colour term overrides
-if has('gui_running')
-    set guifont=Monaco:h14      " gvim/mvim: Bump up the default fontsize
-elseif $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
-    set t_Co=256            " Richer colours if our terminal can handle it.
-endif
 
 
 " Show syntax highlighting groups for word under cursor with <leader>s
