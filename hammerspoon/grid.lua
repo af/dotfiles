@@ -5,7 +5,7 @@ Grid.BORDER = 1
 Grid.L_CHUNK_SHARE = 0.6
 Grid.R_CHUNK_SHARE = 0.4
 
-Grid.PEEK_PIXELS = 50
+Grid.PEEK_PIXELS = 70
 
 function Grid.fullscreen()
   local win = hs.window.focusedWindow()

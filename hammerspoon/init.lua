@@ -35,14 +35,25 @@ hs.hotkey.bind(mash, 'RIGHT', hs.itunes.next)
 hs.hotkey.bind(mash, '/', hs.itunes.displayCurrentTrack)
 hs.hotkey.bind(mash, 'S', Music.toggleShuffle)
 
+-- Slack-specific app launcher (since I keep it "peeked" to the side by default)
+function showSlack()
+  local appName = 'Slack'
+  local app = hs.application.find(appName)
+  hs.application.launchOrFocus(appName)
+
+  if (app and hs.application.isRunning(app)) then
+    Grid.topleft()
+  end
+end
 
 -- Launch/focus specific apps with one keystroke.
 -- Note: to get {^1,^2,^3} to work, you might need to change some conflicting
 -- Mission Control keyboard shortcuts in SysPrefs > Keyboard > Shortcuts
 hs.hotkey.bind({'ctrl'}, '1', function() hs.application.launchOrFocus('Google Chrome') end)
-hs.hotkey.bind({'ctrl'}, '2', function() hs.application.launchOrFocus('iTerm') end)
+hs.hotkey.bind({'ctrl'}, '2', function() hs.application.launchOrFocus('iTerm2') end)
 hs.hotkey.bind({'ctrl'}, '3', function() hs.application.launchOrFocus('iTunes') end)
-hs.hotkey.bind({'ctrl'}, '4', function() hs.application.launchOrFocus('Slack'); Grid.leftchunk(); end)
+hs.hotkey.bind({'ctrl'}, '4', showSlack)
+
 hs.hotkey.bind({'ctrl'}, '5', function() hs.application.launchOrFocus('Finder') end)
 
 
