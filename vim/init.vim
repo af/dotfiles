@@ -18,6 +18,7 @@ Plug 'ctrlpvim/ctrlp.vim',          { 'commit': '7a80267' }
 Plug 'bling/vim-airline',           { 'commit': 'aef500c' }
 Plug 'tpope/vim-repeat',            { 'commit': '7a6675f' }     " Enable . repeat for plugin operations (eg. gitgutter)
 Plug 'vimwiki/vimwiki',             { 'commit': '2c03d8' }
+Plug 'mhinz/vim-startify',          { 'commit': '438abff' }
 Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'af/YankRing.vim',             { 'commit': '0e4235b', 'on': [] }   " using fork, as v18 isn't officially on GH
 Plug 'tpope/vim-obsession',         { 'commit': '4ab72e0' }     " start a session file with :Obsession
@@ -42,7 +43,7 @@ Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load laz
 " Javascript and HTML-related plugins
 Plug 'moll/vim-node',               { 'commit': '13b3121' }     " Lazy loading doesn't work for some reason
 Plug 'tristen/vim-sparkup',         { 'commit': '1375ce1', 'for': 'html' }
-Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a' }
+Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': 'html' }
 
 " theme/syntax related plugins:
 Plug 'sheerun/vim-polyglot',        { 'commit': '1c21231' }     " syntax highlighting for many languages
@@ -397,7 +398,7 @@ vmap <Leader>P "+P
 
 " vim-ragtag
 let g:ragtag_global_maps = 1
-imap <C-k> <C-x>/
+imap <C-t> <C-x>/
 
 
 "===============================================================================
