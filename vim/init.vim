@@ -277,8 +277,8 @@ autocmd FileType agsv nnoremap <C-o> :call AgsOpenItemCloseResults()<CR>
 let g:ags_agcontext = 1     " Show one line above and below the match
 
 " delimitMate
-let delimitMate_jump_expansion = 1
 let delimitMate_expand_cr = 1
+let delimitMate_expand_space = 1
 inoremap <expr> <C-l> delimitMate#JumpAny()
 
 " Hack to open the current result and close the results window in one keystroke:
