@@ -17,9 +17,10 @@ call plug#begin('~/.vim/plugged')
 Plug 'ctrlpvim/ctrlp.vim',          { 'commit': '7a80267' }
 Plug 'bling/vim-airline',           { 'commit': 'aef500c' }
 Plug 'tpope/vim-repeat',            { 'commit': '7a6675f' }     " Enable . repeat for plugin operations (eg. gitgutter)
-Plug 'vimwiki/vimwiki',             { 'commit': '2c03d8' }
+Plug 'vimwiki/vimwiki',             { 'tag':    'v2.2.1'  }
 Plug 'mhinz/vim-startify',          { 'commit': '438abff' }
 Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
+Plug 'danro/rename.vim',            { 'commit': 'f133763' }
 Plug 'af/YankRing.vim',             { 'commit': '0e4235b', 'on': [] }   " using fork, as v18 isn't officially on GH
 Plug 'tpope/vim-obsession',         { 'commit': '4ab72e0' }     " start a session file with :Obsession
 Plug 'gabesoft/vim-ags',            { 'commit': '182c472' }
