@@ -18,6 +18,7 @@ nvm \
 redis \
 reattach-to-user-namespace \
 siege \
+tidy-html5 \
 tig \
 # tmux \        # Note: use patched version with 24-bit colour instead (see Readme)
 weechat --with-perl --with-python \
