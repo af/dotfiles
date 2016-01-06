@@ -43,6 +43,9 @@ DISABLE_LS_COLORS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git)
 
+setopt HIST_IGNORE_ALL_DUPS     # Ignore duplicate history items
+setopt HIST_FIND_NO_DUPS        # Don't surface duplicates
+
 source $ZSH/oh-my-zsh.sh
 
 # VI keybindings:
@@ -52,6 +55,8 @@ source $ZSH/oh-my-zsh.sh
 PATH="/Applications/Postgres.app/Contents/Versions/9.3/bin:$PATH"
 export PATH=$(brew --prefix ruby)/bin:$PATH     # For ruby gems
 export PATH=/usr/local/bin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/git/bin:/usr/local/heroku/bin:/Users/aaron/.my_scripts:/usr/local/sbin
+
+export EDITOR=nvim
 
 # Only auto-correct commands (not arguments):
 unsetopt correct_all
@@ -165,6 +170,14 @@ export FZF_DEFAULT_COMMAND='ag -g ""'               # Respect .gitignore
 export FZF_COMPLETION_OPTS='-m'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"    # Respect .gitignore for ^t
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Check out git branch with FZF:
+br() {
+  local branches branch
+  branches=$(git branch -vv) &&
+  branch=$(echo "$branches" | fzf +m) &&
+  git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
+}
 
 # Android SDK
 export ANDROID_HOME=/usr/local/opt/android-sdk
