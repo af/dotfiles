@@ -14,7 +14,7 @@ set nocompatible            " we're using (neo)vim, not Vi
 call plug#begin('~/.vim/plugged')
 
 " vim plugins, managed by vim-plug
-Plug 'ctrlpvim/ctrlp.vim',          { 'commit': '7a80267' }
+Plug 'kien/ctrlp.vim',              { 'commit': 'b5d3fe6' }
 Plug 'bling/vim-airline',           { 'commit': 'aef500c' }
 Plug 'tpope/vim-repeat',            { 'commit': '7a6675f' }     " Enable . repeat for plugin operations (eg. gitgutter)
 Plug 'vimwiki/vimwiki',             { 'tag':    'v2.2.1'  }
