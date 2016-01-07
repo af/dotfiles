@@ -43,9 +43,6 @@ DISABLE_LS_COLORS="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git)
 
-setopt HIST_IGNORE_ALL_DUPS     # Ignore duplicate history items
-setopt HIST_FIND_NO_DUPS        # Don't surface duplicates
-
 source $ZSH/oh-my-zsh.sh
 
 # VI keybindings:
@@ -117,6 +114,10 @@ alias j='fasd_cd -d'     # jumping to autocompleted directory
 # Allow bash-style comments in an interactive shell:
 setopt interactivecomments
 
+setopt hist_ignore_all_dups     # Ignore duplicate history items
+setopt hist_find_no_dups        # Don't surface duplicates
+
+
 # Shorthand function to create a new project with a git repo and README:
 function initproject () {
     mkdir $1
@@ -140,6 +141,13 @@ function workspace () {
 
     tmux select-pane -U
     tmux select-pane -L     # End up on the main (left) pane
+}
+
+# Helper to send a command to the right tmux pane.
+# Usage: 'ts echo "hello"'
+function ts {
+    args=$@
+    tmux send-keys -t right C-c "$args" C-m
 }
 
 # Toggle between zsh and vim with ^z (instead of entering 'fg<CR>' one way)
@@ -170,6 +178,16 @@ export FZF_DEFAULT_COMMAND='ag -g ""'               # Respect .gitignore
 export FZF_COMPLETION_OPTS='-m'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"    # Respect .gitignore for ^t
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Automatically accept selected history items from fzf
+# Via https://github.com/junegunn/fzf/issues/467#issuecomment-169695942
+fzf-history-widget-accept() {
+  fzf-history-widget
+  zle accept-line
+}
+zle     -N   fzf-history-widget-accept
+bindkey '^R' fzf-history-widget-accept
+
 
 # Check out git branch with FZF:
 br() {
