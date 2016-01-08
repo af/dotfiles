@@ -13,7 +13,7 @@
 
 -- Custom prompt
 -- Note: %# is # if you're a superuser, otherwise >
-\set PROMPT1 '%n@%M:%/%# '
+\set PROMPT1 '%[%033[1m%]%M %n@%/%#%[%033[0m%] '
 
 -- By default, NULL displays as an empty space. Is it actually an empty
 -- string, or is it null? This makes that distinction visible.
@@ -23,6 +23,10 @@
 -- expanded table format when there's a lot of data, which makes it much
 -- easier to read.
 \x auto
+
+-- Table display options
+\pset linestyle unicode
+\pset border 2
 
 -- Verbose error reports.
 \set VERBOSITY verbose
