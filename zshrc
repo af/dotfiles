@@ -90,6 +90,7 @@ alias t='tig --all'
 
 # Commonly used tools:
 alias v='nvim'
+alias vs='nvim -S'
 alias p='python'
 alias quickweb='python -c "import SimpleHTTPServer as a; a.test()"'
 alias pypath='p -c "import sys, pprint; pprint.pprint(sys.path)"'
@@ -190,11 +191,32 @@ bindkey '^R' fzf-history-widget-accept
 
 
 # Check out git branch with FZF:
-br() {
+b() {
   local branches branch
-  branches=$(git branch -vv) &&
-  branch=$(echo "$branches" | fzf +m) &&
-  git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
+  #branches=$(git branch -vv) &&        # Old version, via the fzf readme
+  # Sort branches by most recently used:
+  branches=$(git for-each-ref --sort=-committerdate refs/heads \
+                 --format='%(committerdate:short)|%(color:green)%(refname:short)%(color:reset)|%(subject)') &&
+  branch=$(echo "$branches" | column -t -s "|" | fzf --ansi +m) &&
+  git checkout $(echo "$branch" | awk '{print $2}' | sed "s/.* //")
+}
+
+# Check out a git commit with FZF:
+fco() {
+  local commits commit
+  commits=$(git log --pretty=format:"%h %<(15,trunc)%an %s" --reverse) &&
+  commit=$(echo "$commits" | fzf --tac +s +m -e) &&
+  git checkout $(echo "$commit" | sed "s/ .*//")
+}
+
+# Interactive process killing with FZF:
+fkill() {
+  pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+
+  if [ "x$pid" != "x" ]
+  then
+    kill -${1:-9} $pid
+  fi
 }
 
 # Android SDK
