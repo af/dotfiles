@@ -26,6 +26,9 @@ Plug 'tpope/vim-obsession',         { 'commit': '4ab72e0' }     " start a sessio
 Plug 'gabesoft/vim-ags',            { 'commit': '182c472' }
 Plug 'junegunn/fzf',                { 'commit': '661d06c', 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'jeetsukumaran/vim-filebeagle',{ 'commit': 'abfb7f9' }
+Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make' }
+Plug 'mbbill/undotree',             { 'commit': '39e5cf0' }
+
 
 " Editing modifications
 Plug 'tommcdo/vim-exchange',        { 'commit': 'b82a774' }
@@ -272,6 +275,10 @@ let g:airline#extensions#tabline#enabled = 1    " Tab line at top of window
 
 " Colorizer
 nnoremap <leader><F2> :ColorToggle<CR>
+
+" Undotree
+nnoremap <F3> :UndotreeToggle<CR>
+let g:undotree_SetFocusWhenToggle = 1
 
 " Sparkup
 let g:sparkupExecuteMapping = '<C-e>'       " The default mapping
