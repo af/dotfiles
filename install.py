@@ -31,7 +31,15 @@ SYMLINK_MAP = {
 }
 
 # npm modules to install globally:
-NPM_GLOBALS = ['jshint', 'jsonlint', 'json', 'gist-cli', 'stylus']
+NPM_GLOBALS = [
+    'diff-so-fancy'
+    'eslint',
+    'gist-cli',
+    'jshint',
+    'jsonlint',
+    'json',
+    'stylus'
+]
 
 
 # Output a generic header for a section of the install script:
