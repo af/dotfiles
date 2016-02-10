@@ -428,7 +428,7 @@ vmap <Leader>P "+P
 
 " vim-ragtag
 let g:ragtag_global_maps = 1
-imap <C-t> <C-x>/
+imap <C-r> <C-x>/
 
 
 "===============================================================================
