@@ -48,6 +48,9 @@ source $ZSH/oh-my-zsh.sh
 # VI keybindings:
 #bindkey -v
 
+bindkey '^k' up-line-or-search
+bindkey '^j' down-line-or-search
+
 # Customize to your needs...
 PATH="/Applications/Postgres.app/Contents/Versions/9.3/bin:$PATH"
 export PATH=$(brew --prefix ruby)/bin:$PATH     # For ruby gems
