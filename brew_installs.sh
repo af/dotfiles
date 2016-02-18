@@ -11,6 +11,7 @@ git \
 gnu-sed --with-default-names \
 heroku-toolbelt \
 hub \
+jq \
 lua \
 luajit \
 ngrep \

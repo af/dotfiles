@@ -37,7 +37,6 @@ NPM_GLOBALS = [
     'gist-cli',
     'jshint',
     'jsonlint',
-    'json',
     'stylus'
 ]
 
