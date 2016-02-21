@@ -18,7 +18,6 @@ Plug 'kien/ctrlp.vim',              { 'commit': 'b5d3fe6' }
 Plug 'bling/vim-airline',           { 'commit': 'aef500c' }
 Plug 'tpope/vim-repeat',            { 'commit': '7a6675f' }     " Enable . repeat for plugin operations (eg. gitgutter)
 Plug 'vimwiki/vimwiki',             { 'tag':    'v2.2.1'  }
-Plug 'mhinz/vim-startify',          { 'commit': '438abff' }
 Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'danro/rename.vim',            { 'commit': 'f133763' }
 Plug 'af/YankRing.vim',             { 'commit': '0e4235b', 'on': [] }   " using fork, as v18 isn't officially on GH
@@ -225,6 +224,7 @@ endif
 " More tips: https://github.com/junegunn/fzf/wiki/Examples-(vim)
 nmap <leader><leader> :FZF<CR>
 let g:fzf_action = { 'ctrl-s': 'split' }
+autocmd VimEnter * if @% == "" | :FZF | endif   " Open automatically if launching vim without a file
 
 command! FZFMru call fzf#run({
 \  'source':  v:oldfiles,
