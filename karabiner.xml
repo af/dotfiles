@@ -33,8 +33,8 @@
         <autogen>
           --KeyOverlaidModifier--
           KeyCode::SEMICOLON, ModifierFlag::NONE,
-          KeyCode::OPTION_R,
-          ModifierFlag::OPTION_R,
+          KeyCode::OPTION_L,
+          ModifierFlag::OPTION_L,
           KeyCode::SEMICOLON, ModifierFlag::NONE
         </autogen>
     </item>
