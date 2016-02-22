@@ -224,7 +224,14 @@ endif
 " More tips: https://github.com/junegunn/fzf/wiki/Examples-(vim)
 nmap <leader><leader> :FZF<CR>
 let g:fzf_action = { 'ctrl-s': 'split' }
-autocmd VimEnter * if @% == "" | :FZF | endif   " Open automatically if launching vim without a file
+
+" When launching vim, if no file was provided, launch FZF automatically
+function! s:fzf_on_launch()
+  if @% == ""
+    call fzf#run({'sink': 'e', 'window': 'rightbelow new'})
+  endif
+endfunction
+autocmd VimEnter * call <SID>fzf_on_launch()
 
 command! FZFMru call fzf#run({
 \  'source':  v:oldfiles,
