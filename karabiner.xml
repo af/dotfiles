@@ -29,7 +29,7 @@
     <item>
         <name>Holding ; acts as Alt/Option</name>
         <identifier>af.hold_semicolon</identifier>
-        <!-- note! in iTerm2, also need to set Right Option to work as "Esc" (Prefs->Profiles->Keys) -->
+        <!-- note! in iTerm2, may also need to set Left Option to work as "Esc" (Prefs->Profiles->Keys) -->
         <autogen>
           --KeyOverlaidModifier--
           KeyCode::SEMICOLON, ModifierFlag::NONE,
