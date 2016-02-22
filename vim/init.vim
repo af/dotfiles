@@ -27,6 +27,7 @@ Plug 'junegunn/fzf',                { 'commit': '661d06c', 'dir': '~/.fzf', 'do'
 Plug 'jeetsukumaran/vim-filebeagle',{ 'commit': 'abfb7f9' }
 Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make' }
 Plug 'mbbill/undotree',             { 'commit': '39e5cf0' }
+Plug 'troydm/zoomwintab.vim',       { 'commit': 'b7a940e' }
 
 
 " Editing modifications
@@ -364,10 +365,12 @@ nnoremap <A-j> <c-w>j
 nnoremap <A-k> <c-w>k
 nnoremap <A-h> <c-w>h
 nnoremap <A-l> <c-w>l
-vnoremap <A-j> <c-\><c-n><c-w>j
-vnoremap <A-k> <c-\><c-n><c-w>k
-vnoremap <A-h> <c-\><c-n><c-w>h
-vnoremap <A-l> <c-\><c-n><c-w>l
+nnoremap <A-c> <c-w>c
+nnoremap <A-s> <c-w>s
+nnoremap <A-v> <c-w>v
+nnoremap <A-o> <c-w>o
+nnoremap <A-z> :ZoomWinTabToggle<CR>
+nnoremap <A-p> <c-w>p       " most recently used window
 inoremap <A-j> <c-\><c-n><c-w>j
 inoremap <A-k> <c-\><c-n><c-w>k
 inoremap <A-h> <c-\><c-n><c-w>h
