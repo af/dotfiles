@@ -263,7 +263,7 @@ if has('nvim')
     map <C-e> :lnext<CR>
     autocmd! BufWritePost,BufWinEnter * Neomake
     let g:neomake_open_list = 2
-    let g:neomake_javascript_enabled_makers = ['eslint', 'jshint']
+    let g:neomake_javascript_enabled_makers = ['eslint']
     let g:neomake_error_sign = { 'text': '!>', 'texthl': 'ErrorMsg' }
     let g:neomake_warning_sign = { 'text': '❯❯', 'texthl': 'MyWarningMsg' }
 endif
