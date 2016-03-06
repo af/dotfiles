@@ -25,7 +25,7 @@ Plug 'tpope/vim-obsession',         { 'commit': '4ab72e0' }     " start a sessio
 Plug 'gabesoft/vim-ags',            { 'commit': '182c472' }
 Plug 'junegunn/fzf',                { 'commit': '661d06c', 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'jeetsukumaran/vim-filebeagle',{ 'commit': 'abfb7f9' }
-Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make' }
+Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 'markdown' }
 Plug 'mbbill/undotree',             { 'commit': '39e5cf0' }
 Plug 'troydm/zoomwintab.vim',       { 'commit': 'b7a940e' }
 
@@ -48,7 +48,7 @@ Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load laz
 " Javascript and HTML-related plugins
 Plug 'moll/vim-node',               { 'commit': '13b3121' }     " Lazy loading doesn't work for some reason
 Plug 'tristen/vim-sparkup',         { 'commit': '1375ce1', 'for': 'html' }
-Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': 'html' }
+Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml'] }
 
 " theme/syntax related plugins:
 Plug 'sheerun/vim-polyglot',        { 'commit': '1c21231' }     " syntax highlighting for many languages
@@ -131,7 +131,7 @@ set wildignore=.svn,.git,.gitignore,*.pyc,*.so,*.swp,*.jpg,*.png,*.gif,node_modu
 set laststatus=2            " Always show a status line for lowest window in a split
 set cursorline              " highlight the full line that the cursor is currently on
 set colorcolumn=80,100      " Highlight these columns with a different bg
-set helpheight=99999        " Hack to make help pages open "fullscreen"
+"set helpheight=99999        " Hack to make help pages open "fullscreen"
 
 " Automatically set quickfix height
 " http://vim.wikia.com/wiki/Automatically_fitting_a_quickfix_window_height
