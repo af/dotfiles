@@ -398,19 +398,23 @@ nnoremap ` '
 
 " Global mark conventions
 " Uppercase marks persist between sessions, so they're useful for accessing
-" common files quickly. By convention, use the following global marks:
-"
-" V     - vimrc
-" Z     - zshrc
+" common files quickly. Make the following dotfiles always accessible:
+autocmd BufLeave vimrc,init.vim     normal! mV
+autocmd BufLeave zshrc              normal! mZ
 
 " Leave a mark behind in the most recently accessed file of certain types.
 " via https://www.reddit.com/r/vim/comments/41wgqf/do_you_regularly_use_manual_marks_if_yes_how_do/cz5qfqr
 autocmd BufLeave *.css,*.styl       normal! mC
 autocmd BufLeave *.html,*.mustache  normal! mH
-autocmd BufLeave *.js               normal! mJ
-autocmd BufLeave test_*.js          normal! mT
 autocmd BufLeave README.md          normal! mR
 autocmd BufLeave package.json       normal! mP
+" if a js filename has "test" in it, mark it T. Otherwise J:
+autocmd BufLeave *.js
+    \ | if (expand("<afile>")) =~ "test.*"
+    \ | execute 'normal! mT'
+    \ | else
+    \ | execute 'normal! mJ'
+    \ | endif
 
 " ProTip: After opening a file with a global mark, you can change vim's cwd to
 " the file's location with ":cd %:h"
