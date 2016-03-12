@@ -179,6 +179,7 @@ v \
 
 # FZF
 export FZF_DEFAULT_COMMAND='ag -g ""'               # Respect .gitignore
+export FZF_DEFAULT_OPTS='-e'                        # Exact matching
 export FZF_COMPLETION_OPTS='-m'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"    # Respect .gitignore for ^t
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
