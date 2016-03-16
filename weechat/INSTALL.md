@@ -12,9 +12,12 @@ brew install weechat --with-perl --with-python
 
 * See item 6.1 at http://weechat.org/files/doc/weechat_faq.en.html
 * Needed to install certs from here: https://gist.github.com/1stvamp/2158128
+    * NOTE: As of El Capitan, you need to follow the instructions in this comment:
+      https://gist.github.com/1stvamp/2158128#gistcomment-1573222
 
 Then ran:
-/set weechat.network.gnutls_ca_file "/usr/share/curl/ca-bundle.crt"
+/set weechat.network.gnutls_ca_file "~/.weechat/certs/ca-bundle.crt"
+
 
 
 ## misc

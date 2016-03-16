@@ -4,6 +4,7 @@ vim/bundle
 vim/plugged
 vim/.netrwhist
 emacs
+weechat/certs
 weechat/logs
 weechat/script
 weechat/sec.conf
