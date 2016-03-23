@@ -15,7 +15,6 @@ jq \
 lua \
 luajit \
 ngrep \
-ngrok \
 nmap \
 nvm \
 redis \
