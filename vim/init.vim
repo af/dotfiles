@@ -225,7 +225,7 @@ endif
 " FZF
 " More tips: https://github.com/junegunn/fzf/wiki/Examples-(vim)
 nmap <leader><leader> :FZF<CR>
-let g:fzf_action = { 'ctrl-s': 'split' }
+let g:fzf_action = { 'ctrl-s': 'split', 'ctrl-v': 'vertical split' }
 
 " When launching vim, if no file was provided, launch FZF automatically
 function! s:fzf_on_launch()
