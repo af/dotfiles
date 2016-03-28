@@ -15,7 +15,8 @@ call plug#begin('~/.vim/plugged')
 
 " vim plugins, managed by vim-plug
 Plug 'kien/ctrlp.vim',              { 'commit': 'b5d3fe6' }
-Plug 'bling/vim-airline',           { 'commit': 'aef500c' }
+Plug 'vim-airline/vim-airline',     { 'commit': '842e562' }
+Plug 'vim-airline/vim-airline-themes', { 'commit': '13bad30' }
 Plug 'tpope/vim-repeat',            { 'commit': '7a6675f' }     " Enable . repeat for plugin operations (eg. gitgutter)
 Plug 'vimwiki/vimwiki',             { 'tag':    'v2.2.1'  }
 Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
