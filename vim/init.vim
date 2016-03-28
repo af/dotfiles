@@ -28,7 +28,7 @@ Plug 'jeetsukumaran/vim-filebeagle',{ 'commit': 'abfb7f9' }
 Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 'markdown' }
 Plug 'mbbill/undotree',             { 'commit': '39e5cf0' }
 Plug 'troydm/zoomwintab.vim',       { 'commit': 'b7a940e' }
-
+Plug 'wellle/targets.vim',          { 'commit': 'f6f2d66' }
 
 " Editing modifications
 Plug 'tommcdo/vim-exchange',        { 'commit': 'b82a774' }
