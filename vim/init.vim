@@ -444,6 +444,11 @@ vmap <Leader>P "+P
 let g:ragtag_global_maps = 1
 imap <C-r> <C-x>/
 
+" Resize window with arrow keys
+nnoremap <Left> :vertical resize -4<CR>
+nnoremap <Right> :vertical resize +4<CR>
+nnoremap <Up> :resize -2<CR>
+nnoremap <Down> :resize +2<CR>
 
 "===============================================================================
 " Filetype-specific settings
