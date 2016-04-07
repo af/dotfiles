@@ -20,15 +20,15 @@ snippet jd "jsdoc" b
 */
 endsnippet
 
-snippet ja "jsdoc arg" w
+snippet ja "jsdoc arg" b
 @arg {${1:type}} ${2:name} - 
 endsnippet
 
-snippet jr "jsdoc return" w
+snippet jr "jsdoc return" b
 @return {${1:type}} - 
 endsnippet
 
-snippet jt "jsdoc throws" w
+snippet jt "jsdoc throws" b
 @throws {${1:type}}
 endsnippet
 
@@ -44,13 +44,13 @@ snippet th "throw" b
 throw new ${1:Error($2)}
 endsnippet
 
-snippet for "for loop" w
+snippet for "for loop" b
 for (var i=0; i<$1; i++) {
 	$0
 }
 endsnippet
 
-snippet sw "switch" w
+snippet sw "switch" b
 switch ($1) {
 	case $2:
 		$3
@@ -59,11 +59,11 @@ switch ($1) {
 }
 endsnippet
 
-snippet f "function" w
+snippet fn "function" b
 function($1) { $2 }
 endsnippet
 
-snippet meth "method" w
+snippet meth "method" b
 ${1:methodName}: function($2) {
 	$0
 },
