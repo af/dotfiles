@@ -63,7 +63,9 @@ Plug 'tomasr/molokai',              { 'commit': 'e7bcec7' }
 Plug 'whatyouhide/vim-gotham',      { 'commit': '6486e10' }
 
 " Ultisnips (private snippets are stored in this dotfiles repo)
-Plug 'UltiSnips',                   { 'tag': '3.0', 'on': [] }
+Plug 'UltiSnips',                   { 'tag': '3.1', 'on': [] }
+
+Plug 'ervandew/supertab',           { 'commit': '6651177' }
 
 
 " Cool plugins that are disabled because they add to startup time:
@@ -191,6 +193,18 @@ if has('nvim')
 elseif $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
     set t_Co=256            " 256 colours for regular vim if the terminal can handle it.
 endif
+
+" Autocompletion
+set completeopt-=preview
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabContextDefaultCompletionType = "<c-p>"
+let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
+let g:SuperTabContextDiscoverDiscovery = ["&omnifunc:<c-x><c-o>"]
+autocmd FileType *
+      \if &omnifunc != '' |
+      \call SuperTabChain(&omnifunc, "<c-p>") |
+      \call SuperTabSetDefaultCompletionType("<c-x><c-u>") |
+      \endif
 
 
 "===============================================================================
