@@ -1,5 +1,11 @@
 priority -50
 
+# Note: see snippet docs here:
+# https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+#
+# w - trigger on word boundary
+# b - trigger only at beginning of line
+#
 # TODO
 # if/elseif/else (with/without braces)
 # See this file for further ideas:
@@ -45,7 +51,7 @@ throw new ${1:Error($2)}
 endsnippet
 
 snippet for "for loop" b
-for (var i=0; i<$1; i++) {
+for (var i = 0; i < $1; i++) {
 	$0
 }
 endsnippet
@@ -59,12 +65,12 @@ switch ($1) {
 }
 endsnippet
 
-snippet fn "function" b
-function($1) { $2 }
+snippet ar "arrow function" w
+($1) => {$2}
 endsnippet
 
-snippet meth "method" b
-${1:methodName}: function($2) {
+snippet me "class method" b
+${1:methodName}() {
 	$0
 },
 endsnippet
@@ -128,12 +134,43 @@ endsnippet
 
 
 # React
-snippet rcc "React.createClass" w
-React.createClass({
-	displayName: '$1',
+snippet fc "React functional component" b
+const $1 = ({ $2 }) => {
+	return $3
+}
 
-	render: function() {
-		return $0
+$1.propTypes = {
+
+}
+endsnippet
+
+snippet cc "React class component" b
+class $1 extends React.Component {
+	render() {
+		return $2
 	}
-})
+}
+
+$1.propTypes = {
+
+}
+endsnippet
+
+snippet sc "React class component w/ state" b
+class ${1:MyComponent} extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			$3
+		}
+	}
+
+	render() {
+		return $2
+	}
+}
+
+$1.propTypes = {
+
+}
 endsnippet
