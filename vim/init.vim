@@ -196,14 +196,15 @@ endif
 
 " Autocompletion
 set completeopt-=preview
-let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabContextDefaultCompletionType = "<c-p>"
+let g:SuperTabDefaultCompletionType = 'context'
+let g:SuperTabContextDefaultCompletionType = '<c-p>'
 let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
-let g:SuperTabContextDiscoverDiscovery = ["&omnifunc:<c-x><c-o>"]
+let g:SuperTabContextDiscoverDiscovery = ['&omnifunc:<c-x><c-o>']
+let g:SuperTabNoCompleteAfter = ['^', '\s', ':', ',']
 autocmd FileType *
       \if &omnifunc != '' |
-      \call SuperTabChain(&omnifunc, "<c-p>") |
-      \call SuperTabSetDefaultCompletionType("<c-x><c-u>") |
+      \call SuperTabChain(&omnifunc, '<c-p>') |
+      \call SuperTabSetDefaultCompletionType('<c-x><c-u>') |
       \endif
 
 
