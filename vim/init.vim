@@ -194,19 +194,6 @@ elseif $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == 
     set t_Co=256            " 256 colours for regular vim if the terminal can handle it.
 endif
 
-" Autocompletion
-set completeopt-=preview
-let g:SuperTabDefaultCompletionType = 'context'
-let g:SuperTabContextDefaultCompletionType = '<c-p>'
-let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
-let g:SuperTabContextDiscoverDiscovery = ['&omnifunc:<c-x><c-o>']
-let g:SuperTabNoCompleteAfter = ['^', '\s', ':', ',']
-autocmd FileType *
-      \if &omnifunc != '' |
-      \call SuperTabChain(&omnifunc, '<c-p>') |
-      \call SuperTabSetDefaultCompletionType('<c-x><c-u>') |
-      \endif
-
 
 "===============================================================================
 " Colorscheme
@@ -224,6 +211,26 @@ function! <SID>SynStack()
   endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
+
+
+"===============================================================================
+" Autocompletion and Tab behavior
+"===============================================================================
+set completeopt-=preview
+nnoremap <S-Tab> <<
+inoremap <S-Tab> <C-d>
+vnoremap <S-Tab> <<
+vnoremap <Tab> >>
+let g:SuperTabDefaultCompletionType = 'context'
+let g:SuperTabContextDefaultCompletionType = '<c-p>'
+let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
+let g:SuperTabContextDiscoverDiscovery = ['&omnifunc:<c-x><c-o>']
+let g:SuperTabNoCompleteAfter = ['^', '\s', ':', ',', '{', '}', ')']
+autocmd FileType *
+      \if &omnifunc != '' |
+      \call SuperTabChain(&omnifunc, '<c-p>') |
+      \call SuperTabSetDefaultCompletionType('<c-x><c-u>') |
+      \endif
 
 
 "===============================================================================
@@ -391,6 +398,7 @@ nnoremap <A-v> <c-w>v
 nnoremap <A-o> <c-w>o
 nnoremap <A-z> :ZoomWinTabToggle<CR>
 nnoremap <A-p> <c-w>p       " most recently used window
+nnoremap <Tab> <c-w>p       " more convenient alias
 inoremap <A-j> <c-\><c-n><c-w>j
 inoremap <A-k> <c-\><c-n><c-w>k
 inoremap <A-h> <c-\><c-n><c-w>h
