@@ -40,7 +40,7 @@ Plug 'tomtom/tcomment_vim',         { 'commit': '3d0a997' }
 
 " Git/VCS related plugins
 Plug 'tpope/vim-fugitive',          { 'commit': '935a2cc' }
-Plug 'airblade/vim-gitgutter',      { 'commit': '339f8ba' }
+Plug 'airblade/vim-gitgutter',      { 'commit': '78d83c7' }
 
 " Indentation, etc. Autodetect, but override with .editorconfig if present:
 Plug 'tpope/vim-sleuth',            { 'commit': '039e2cd' }
@@ -278,8 +278,9 @@ let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden --ignore .git 
 " gitgutter
 nmap <leader>a <Plug>GitGutterStageHunk
 nmap <leader>r <Plug>GitGutterRevertHunk
-nmap <C-j> :GitGutterNextHunk<CR>
-nmap <C-k> :GitGutterPrevHunk<CR>
+" Deprecated; use [c and ]c instead, since they're bound by gitgutter automatically:
+"nmap <C-j> :GitGutterNextHunk<CR>
+"nmap <C-k> :GitGutterPrevHunk<CR>
 
 " Neomake
 " Disabled for regular vim, since this plugin seems to crash it sometimes
