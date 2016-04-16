@@ -48,8 +48,8 @@ Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load laz
 
 " Javascript and HTML-related plugins
 Plug 'moll/vim-node',               { 'commit': '13b3121' }     " Lazy loading doesn't work for some reason
-Plug 'tristen/vim-sparkup',         { 'commit': '1375ce1', 'for': 'html' }
-Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml'] }
+Plug 'rstacruz/sparkup',            { 'commit': 'd400a57', 'for': ['html', 'xml', 'mustache'] }
+Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml', 'mustache'] }
 
 " theme/syntax related plugins:
 Plug 'sheerun/vim-polyglot',        { 'commit': '1c21231' }     " syntax highlighting for many languages
