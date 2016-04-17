@@ -24,12 +24,16 @@ Plug 'danro/rename.vim',            { 'commit': 'f133763' }
 Plug 'af/YankRing.vim',             { 'commit': '0e4235b', 'on': [] }   " using fork, as v18 isn't officially on GH
 Plug 'tpope/vim-obsession',         { 'commit': '4ab72e0' }     " start a session file with :Obsession
 Plug 'gabesoft/vim-ags',            { 'commit': '182c472' }
-Plug 'junegunn/fzf',                { 'commit': '661d06c', 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'jeetsukumaran/vim-filebeagle',{ 'commit': 'abfb7f9' }
 Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 'markdown' }
 Plug 'mbbill/undotree',             { 'commit': '39e5cf0' }
 Plug 'troydm/zoomwintab.vim',       { 'commit': 'b7a940e' }
 Plug 'wellle/targets.vim',          { 'commit': 'f6f2d66' }
+
+" FZF and friends
+Plug 'junegunn/fzf',                { 'commit': 'b28c14b', 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim',            { 'commit': 'a148f78' }
+Plug 'tweekmonster/fzf-filemru',    { 'commit': '2fbe89e' }
 
 " Editing modifications
 Plug 'tommcdo/vim-exchange',        { 'commit': 'b82a774' }
@@ -258,17 +262,12 @@ function! s:fzf_on_launch()
 endfunction
 autocmd VimEnter * call <SID>fzf_on_launch()
 
-command! FZFMru call fzf#run({
-\  'source':  v:oldfiles,
-\  'sink':    'e',
-\  'options': '-m -x +s',
-\  'down':    '40%'})
-nnoremap <C-m> :FZFMru<CR>
-
+nnoremap <C-m> :FilesMru<CR>
+"nnoremap <C-m> :History<CR>    " Also might do the trick (part of fzf.vim)
 
 " Ctrl-P
 nnoremap <C-t> :CtrlPBuffer<CR>         " Search active buffers
-"nnoremap <C-m> :CtrlPMRUFiles<CR>
+"nnoremap <C-m> :CtrlPMRUFiles<CR>      " My former MRU tool
 "let g:ctrlp_map = '<leader><leader>'    " Search in current directory
 let g:ctrlp_open_new_file = 'r'         " Open files in the current window
 let g:ctrlp_open_multiple_files = 'i'   " Open each of multiple files in new hidden buffers
