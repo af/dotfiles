@@ -98,7 +98,6 @@ call plug#end()
 "===============================================================================
 
 
-
 "===============================================================================
 " General Vim settings
 "===============================================================================
@@ -143,7 +142,7 @@ set colorcolumn=80,100      " Highlight these columns with a different bg
 
 " Automatically set quickfix height
 " http://vim.wikia.com/wiki/Automatically_fitting_a_quickfix_window_height
-au FileType qf call AdjustWindowHeight(3, 30)       " 2nd arg=> max height
+au FileType qf call AdjustWindowHeight(3, 7)       " 2nd arg=> max height
 function! AdjustWindowHeight(minheight, maxheight)
     exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
@@ -229,7 +228,7 @@ let g:SuperTabDefaultCompletionType = 'context'
 let g:SuperTabContextDefaultCompletionType = '<c-p>'
 let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
 let g:SuperTabContextDiscoverDiscovery = ['&omnifunc:<c-x><c-o>']
-let g:SuperTabNoCompleteAfter = ['^', '\s', ':', ',', '{', '}', ')']
+let g:SuperTabNoCompleteAfter = ['^', '\s', ':', ';', ',', '{', '}', ')', '>']
 autocmd FileType *
       \if &omnifunc != '' |
       \call SuperTabChain(&omnifunc, '<c-p>') |
