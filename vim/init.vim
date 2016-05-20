@@ -35,6 +35,10 @@ Plug 'junegunn/fzf',                { 'commit': 'b28c14b', 'dir': '~/.fzf', 'do'
 Plug 'junegunn/fzf.vim',            { 'commit': 'a148f78' }
 Plug 'tweekmonster/fzf-filemru',    { 'commit': '2fbe89e' }
 
+" For ]l binding (loclist jumping)
+Plug 'ingo-library',                { 'tag': '1.024' }
+Plug 'QuickFixCurrentNumber',       { 'tag': '1.11' }
+
 " Editing modifications
 Plug 'tommcdo/vim-exchange',        { 'commit': 'b82a774' }
 Plug 'AndrewRadev/splitjoin.vim',   { 'commit': '4b062a0' }     " gS and gJ to split/join lines
@@ -58,7 +62,7 @@ Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml'
 " theme/syntax related plugins:
 Plug 'sheerun/vim-polyglot',        { 'commit': '1c21231' }     " syntax highlighting for many languages
 Plug 'fatih/vim-go',                { 'commit': '5c282de', 'for': ['go'] }
-Plug 'benekastah/neomake',          { 'commit': 'c1de90f' }
+Plug 'benekastah/neomake',          { 'commit': '1b37b69' }
 Plug 'colorizer',                   { 'commit': 'aae6b51', 'on': 'ColorToggle' }
 
 " Colour schemes:
