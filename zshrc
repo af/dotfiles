@@ -109,6 +109,14 @@ alias fastnet="sudo ipfw flush"
 source $HOME/code/reelhouse/reelhouse_init.sh
 export NODE_PATH=/usr/local/lib/node_modules
 
+# NPM:
+export NPM_CONFIG_SAVE=true
+export NPM_CONFIG_SAVE_EXACT=true
+export NPM_CONFIG_LOGLEVEL='warn'
+export NPM_CONFIG_INIT_LICENSE='MIT'
+export NPM_CONFIG_INIT_AUTHOR_NAME='Aaron Franks'
+export NPM_CONFIG_INIT_AUTHOR_URL='http://aaronfranks.com/'
+
 # NVM:
 source $(brew --prefix nvm)/nvm.sh
 
