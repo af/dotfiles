@@ -28,7 +28,7 @@ Plug 'jeetsukumaran/vim-filebeagle',{ 'commit': 'abfb7f9' }
 Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 'markdown' }
 Plug 'mbbill/undotree',             { 'commit': '39e5cf0' }
 Plug 'troydm/zoomwintab.vim',       { 'commit': 'b7a940e' }
-Plug 'wellle/targets.vim',          { 'commit': 'f6f2d66' }
+Plug 'blueyed/vim-diminactive',     { 'commit': '5cb27ae' }
 
 " FZF and friends
 Plug 'junegunn/fzf',                { 'commit': 'b28c14b', 'dir': '~/.fzf', 'do': './install --all' }
@@ -243,6 +243,9 @@ autocmd FileType *
 "===============================================================================
 " Plugin customization
 "===============================================================================
+
+" vim-diminactive
+let g:diminactive_enable_focus = 1
 
 " FileBeagle
 let g:filebeagle_show_hidden = 1        " Use 'gh' to toggle- FileBeagle hides lots by default
