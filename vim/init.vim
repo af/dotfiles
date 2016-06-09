@@ -66,7 +66,7 @@ Plug 'benekastah/neomake',          { 'commit': '1b37b69' }
 Plug 'colorizer',                   { 'commit': 'aae6b51', 'on': 'ColorToggle' }
 
 " Colour schemes:
-Plug 'morhetz/gruvbox',             { 'commit': 'e4ba7ab' }     " default. brown/retro. :set bg=dark
+Plug 'morhetz/gruvbox',             { 'commit': '2ea3298' }     " default. brown/retro. :set bg=dark
 Plug 'tomasr/molokai',              { 'commit': 'e7bcec7' }
 Plug 'whatyouhide/vim-gotham',      { 'commit': '6486e10' }
 
@@ -311,7 +311,7 @@ let g:airline_right_alt_sep     = '⮃'
 let g:airline_symbols.branch    = '⭠'
 let g:airline_symbols.readonly  = '⭤'
 let g:airline_symbols.linenr    = '⭡'
-let g:airline_theme = 'murmur'
+let g:airline_theme = 'gruvbox'
 let g:airline#extensions#tabline#enabled = 1    " Tab line at top of window
 
 " Colorizer
