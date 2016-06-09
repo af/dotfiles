@@ -22,7 +22,7 @@ reattach-to-user-namespace \
 siege \
 tidy-html5 \
 tig \
-# tmux \        # Note: use patched version with 24-bit colour instead (see Readme)
+tmux \
 weechat --with-perl --with-python \
 wget \
 zsh
