@@ -407,9 +407,13 @@ cnoremap <A-k> <c-\><c-n><c-w>k
 cnoremap <A-h> <c-\><c-n><c-w>h
 cnoremap <A-l> <c-\><c-n><c-w>l
 
-" Save current file every time we leave insert mode, leave vim, or hit <esc>
-autocmd InsertLeave !acwrite write
-autocmd FocusLost * write
+" Save current file every time we leave insert mode or leave vim
+" Note: "nested" ensures that BufWritePost is triggered (for neomake)
+"       "acwrite" check prevents errors with CtrlSF buffers
+autocmd InsertLeave,FocusLost * nested if &l:buftype != 'acwrite' | update | endif
+
+" <escape> in normal mode also saves
+nmap <esc> :w<cr>
 
 " Swap ` and ' for mark jumping:
 nnoremap ' `
