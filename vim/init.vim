@@ -23,7 +23,7 @@ Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'danro/rename.vim',            { 'commit': 'f133763' }
 Plug 'af/YankRing.vim',             { 'commit': '0e4235b', 'on': [] }   " using fork, as v18 isn't officially on GH
 Plug 'tpope/vim-obsession',         { 'commit': '4ab72e0' }     " start a session file with :Obsession
-Plug 'gabesoft/vim-ags',            { 'commit': '182c472' }
+Plug 'dyng/ctrlsf.vim',             { 'commit': '1e896e5' }
 Plug 'jeetsukumaran/vim-filebeagle',{ 'commit': 'abfb7f9' }
 Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 'markdown' }
 Plug 'mbbill/undotree',             { 'commit': '39e5cf0' }
@@ -268,7 +268,7 @@ function! s:fzf_on_launch()
 endfunction
 autocmd VimEnter * call <SID>fzf_on_launch()
 
-nnoremap <C-m> :FilesMru<CR>
+"nnoremap <C-m> :FilesMru<CR>
 "nnoremap <C-m> :History<CR>    " Also might do the trick (part of fzf.vim)
 
 " Ctrl-P
@@ -334,22 +334,15 @@ let g:UltiSnipsSnippetDirectories = ['personal_snippets']
 let g:UltiSnipsSnippetsDir = '~/.vim/personal_snippets'
 nnoremap <leader>s :UltiSnipsEdit<CR>
 
-" Ags.vim
-nnoremap <C-g> :Ags 
-autocmd FileType agsv nnoremap <C-o> :call AgsOpenItemCloseResults()<CR>
-let g:ags_agcontext = 1     " Show one line above and below the match
+" CtrlSF.vim
+let g:ctrlsf_context = '-B 2 -A 2'
+let g:ctrlsf_position = 'right'
+nnoremap <C-g> :CtrlSF 
 
 " delimitMate
 let delimitMate_expand_cr = 1
 let delimitMate_expand_space = 1
 inoremap <expr> <C-l> delimitMate#JumpAny()
-
-" Hack to open the current result and close the results window in one keystroke:
-autocmd FileType agsv nnoremap <C-o> :call AgsOpenItemCloseResults()<CR>
-function! AgsOpenItemCloseResults()
-  call ags#openFile(line('.'), 'u', 1)
-  call ags#quit()
-endfunction
 
 " VimWiki
 let g:vimwiki_ext2syntax = {}
