@@ -414,17 +414,9 @@ cnoremap <A-k> <c-\><c-n><c-w>k
 cnoremap <A-h> <c-\><c-n><c-w>h
 cnoremap <A-l> <c-\><c-n><c-w>l
 
-" Save current file every time we leave insert mode or hit <esc>:
-" Note that the autocmd repeats the mapping each time we leave insert mode,
-" this doesn't seem to be a problem in practice.
-"
-" Alternative approaches (which didn't seem to work as well for my needs):
-" set autowriteall   (couldn't get this to work)
-" :au FocusLost * :wa
-" autocmd InsertLeave * if expand('%') != '' | update | endif
-" (last one via http://blog.unixphilosopher.com/2015/02/five-weird-vim-tricks.html)
-inoremap <esc> <esc>:w<CR>
-autocmd InsertLeave * nnoremap <esc> <esc>:w<CR>
+" Save current file every time we leave insert mode, leave vim, or hit <esc>
+autocmd InsertLeave !acwrite write
+autocmd FocusLost * write
 
 " Swap ` and ' for mark jumping:
 nnoremap ' `
