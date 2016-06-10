@@ -35,10 +35,6 @@ Plug 'junegunn/fzf',                { 'commit': 'b28c14b', 'dir': '~/.fzf', 'do'
 Plug 'junegunn/fzf.vim',            { 'commit': 'a148f78' }
 Plug 'tweekmonster/fzf-filemru',    { 'commit': '2fbe89e' }
 
-" For ]l binding (loclist jumping)
-Plug 'ingo-library',                { 'tag': '1.024' }
-Plug 'QuickFixCurrentNumber',       { 'tag': '1.11' }
-
 " Editing modifications
 Plug 'tommcdo/vim-exchange',        { 'commit': 'b82a774' }
 Plug 'AndrewRadev/splitjoin.vim',   { 'commit': '4b062a0' }     " gS and gJ to split/join lines
@@ -442,6 +438,31 @@ autocmd BufLeave *.js
 " ProTip: After opening a file with a global mark, you can change vim's cwd to
 " the file's location with ":cd %:h"
 
+
+"===============================================================================
+" Cyclical location list jumping (mostly used for neomake errors/warnings)
+" found via http://superuser.com/a/990621
+"===============================================================================
+function! <SID>LocationPrevious()
+  try
+    lprev
+  catch /^Vim\%((\a\+)\)\=:E553/
+    llast
+  endtry
+endfunction
+
+function! <SID>LocationNext()
+  try
+    lnext
+  catch /^Vim\%((\a\+)\)\=:E553/
+    lfirst
+  endtry
+endfunction
+
+nnoremap <silent> <Plug>LocationPrevious    :<C-u>exe 'call <SID>LocationPrevious()'<CR>
+nnoremap <silent> <Plug>LocationNext        :<C-u>exe 'call <SID>LocationNext()'<CR>
+nmap <silent> [l  <Plug>LocationPrevious
+nmap <silent> ]l  <Plug>LocationNext
 
 "===============================================================================
 " Key Bindings: Misc
