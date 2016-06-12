@@ -23,7 +23,7 @@ Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'danro/rename.vim',            { 'commit': 'f133763' }
 Plug 'af/YankRing.vim',             { 'commit': '0e4235b', 'on': [] }   " using fork, as v18 isn't officially on GH
 Plug 'tpope/vim-obsession',         { 'commit': '4ab72e0' }     " start a session file with :Obsession
-Plug 'dyng/ctrlsf.vim',             { 'commit': '1e896e5' }
+Plug 'dyng/ctrlsf.vim',             { 'commit': 'dd22207' }
 Plug 'jeetsukumaran/vim-filebeagle',{ 'commit': 'abfb7f9' }
 Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 'markdown' }
 Plug 'mbbill/undotree',             { 'commit': '39e5cf0' }
@@ -172,6 +172,8 @@ set textwidth=99
 set formatoptions=qrn1
 nnoremap j gj
 nnoremap k gk
+autocmd WinEnter * set wrap     " Only wrap the current file (works nice with ctrlsf)
+autocmd WinLeave * set nowrap
 
 if has('nvim')
     " Neovim True Color support
@@ -333,7 +335,11 @@ nnoremap <leader>s :UltiSnipsEdit<CR>
 " CtrlSF.vim
 let g:ctrlsf_context = '-B 2 -A 2'
 let g:ctrlsf_position = 'right'
-nnoremap <C-g> :CtrlSF 
+let g:ctrlsf_winsize = '65%'
+let g:ctrlsf_indent = 1
+let g:ctrlsf_ignore_dir = ['node_modules', '.git']
+nmap <C-g> :CtrlSF ""<left>
+nmap gr <Plug>CtrlSFCwordExec
 
 " delimitMate
 let delimitMate_expand_cr = 1
