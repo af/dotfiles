@@ -222,10 +222,6 @@ endfunc
 " Autocompletion and Tab behavior
 "===============================================================================
 set completeopt-=preview
-nnoremap <S-Tab> <<
-inoremap <S-Tab> <C-d>
-vnoremap <S-Tab> <<
-vnoremap <Tab> >>
 let g:SuperTabDefaultCompletionType = 'context'
 let g:SuperTabContextDefaultCompletionType = '<c-p>'
 let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
@@ -359,11 +355,9 @@ let g:EditorConfig_core_mode = 'python_external'    " Speeds up load time by ~15
 " Key Bindings: Indentation levels
 "===============================================================================
 
-" Tab indenting in normal & visual modes
-" nnoremap <Tab> >>
-" nnoremap <S-Tab> <<
-xnoremap <Tab> >gv
-xnoremap <S-Tab> <gv
+" Tab modifies indent in visual mode
+vnoremap <S-Tab> <<
+vnoremap <Tab> >>
 
 " make < > shifts keep selection
 vnoremap < <gv
