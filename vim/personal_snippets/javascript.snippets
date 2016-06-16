@@ -15,6 +15,10 @@ snippet cl "console.log" w
 console.log($1)
 endsnippet
 
+snippet c "const" b
+const ${1:$name} = ${0}
+endsnippet
+
 snippet d "debugger" b
 debugger
 endsnippet
@@ -26,7 +30,7 @@ snippet jd "jsdoc" b
 */
 endsnippet
 
-snippet ja "jsdoc arg" b
+snippet ja "jsdoc arg" w
 @arg {${1:type}} ${2:name} - 
 endsnippet
 
@@ -38,12 +42,14 @@ snippet jt "jsdoc throws" b
 @throws {${1:type}}
 endsnippet
 
-snippet v "var" b
-var ${1:varname} = 
+snippet r "require" b
+const ${1:$name} = require('${2:$1}');
 endsnippet
 
-snippet r "require" b
-var ${1:varname} = require('${2:$1}');
+snippet oi "object item" b
+${1:$key}: {
+	$2
+},$0
 endsnippet
 
 snippet th "throw" b
@@ -51,7 +57,7 @@ throw new ${1:Error($2)}
 endsnippet
 
 snippet for "for loop" b
-for (var i = 0; i < $1; i++) {
+for (const i = 0; i < $1; i++) {
 	$0
 }
 endsnippet
@@ -81,14 +87,13 @@ endsnippet
 # Testing snippets
 #===================
 
-snippet t "tape test" w
-test('$1', function(t) {
+snippet t "painless test" w
+test('$1', () => {
 	$2
-	t.end()
 });
 endsnippet
 
-snippet describe "mocha describe" w
+snippet desc "mocha describe" w
 describe('$1', function($2) {
 	$0
 });
