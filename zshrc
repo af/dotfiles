@@ -105,17 +105,15 @@ alias slownet="sudo ipfw pipe 1 config bw 100Kbit/s"
 alias fastnet="sudo ipfw flush"
 # For ipfw info see http://blog.tcs.de/simulate-slow-network-connection-on-mac-os-x/
 
-# Reelhouse:
-source $HOME/code/reelhouse/reelhouse_init.sh
-export NODE_PATH=/usr/local/lib/node_modules
-
-# NPM:
+# NPM & Node:
 export NPM_CONFIG_SAVE=true
 export NPM_CONFIG_SAVE_EXACT=true
 export NPM_CONFIG_LOGLEVEL='warn'
 export NPM_CONFIG_INIT_LICENSE='MIT'
 export NPM_CONFIG_INIT_AUTHOR_NAME='Aaron Franks'
 export NPM_CONFIG_INIT_AUTHOR_URL='http://aaronfranks.com/'
+export NODE_PATH=/usr/local/lib/node_modules
+ulimit -S -n 5000
 
 # NVM:
 source $(brew --prefix nvm)/nvm.sh
