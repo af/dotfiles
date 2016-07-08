@@ -29,6 +29,7 @@ Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 
 Plug 'mbbill/undotree',             { 'commit': '39e5cf0' }
 Plug 'troydm/zoomwintab.vim',       { 'commit': 'b7a940e' }
 Plug 'blueyed/vim-diminactive',     { 'commit': '5cb27ae' }
+Plug 'takac/vim-hardtime',          { 'commit': 'acf59c8' }
 
 " FZF and friends
 Plug 'junegunn/fzf',                { 'commit': 'b28c14b', 'dir': '~/.fzf', 'do': './install --all' }
@@ -237,6 +238,11 @@ autocmd FileType *
 "===============================================================================
 " Plugin customization
 "===============================================================================
+
+" vim-hardtime: discourage repeat usage of hjkl
+let g:hardtime_default_on = 1
+let g:hardtime_allow_different_key = 1
+let g:hardtime_maxcount = 2    " (slightly less punishing mode)
 
 " vim-diminactive
 let g:diminactive_enable_focus = 1
