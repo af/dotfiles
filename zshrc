@@ -53,7 +53,7 @@ bindkey '^k' up-line-or-search
 bindkey '^j' down-line-or-search
 
 # Customize to your needs...
-PATH="/Applications/Postgres.app/Contents/Versions/9.3/bin:$PATH"
+PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 export PATH=$(brew --prefix ruby)/bin:$PATH     # For ruby gems
 export PATH=/usr/local/bin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/git/bin:/usr/local/heroku/bin:/Users/aaron/.my_scripts:/usr/local/sbin
 export PATH=node_modules/.bin:$PATH     # Handy for using locally-installed versions of eslint, etc
