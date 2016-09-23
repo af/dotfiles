@@ -23,7 +23,7 @@ Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'danro/rename.vim',            { 'commit': 'f133763' }
 Plug 'af/YankRing.vim',             { 'commit': '0e4235b', 'on': [] }   " using fork, as v18 isn't officially on GH
 Plug 'tpope/vim-obsession',         { 'commit': '4ab72e0' }     " start a session file with :Obsession
-Plug 'dyng/ctrlsf.vim',             { 'commit': 'dd22207' }
+Plug 'dyng/ctrlsf.vim',             { 'commit': 'b48ed49' }
 Plug 'jeetsukumaran/vim-filebeagle',{ 'commit': 'abfb7f9' }
 Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 'markdown' }
 Plug 'mbbill/undotree',             { 'commit': '39e5cf0' }
@@ -32,9 +32,8 @@ Plug 'blueyed/vim-diminactive',     { 'commit': '5cb27ae' }
 Plug 'takac/vim-hardtime',          { 'commit': 'acf59c8' }
 
 " FZF and friends
-Plug 'junegunn/fzf',                { 'commit': 'b28c14b', 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim',            { 'commit': 'a148f78' }
-Plug 'tweekmonster/fzf-filemru',    { 'commit': '2fbe89e' }
+Plug 'junegunn/fzf',                { 'commit': '7fa5e6c', 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim',            { 'commit': '687f5e2' }
 
 " Editing modifications
 Plug 'tommcdo/vim-exchange',        { 'commit': 'b82a774' }
