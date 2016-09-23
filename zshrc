@@ -131,7 +131,7 @@ setopt hist_find_no_dups        # Don't surface duplicates
 
 
 # Shorthand function to create a new project with a git repo and README:
-function initproject () {
+function af-initproject () {
     mkdir $1
     cd $1
     git init
@@ -142,7 +142,7 @@ function initproject () {
 }
 
 # Script tmux to set up a window in my (currently) preferred custom layout:
-function workspace () {
+function af-workspace () {
     # Main pane for vim on the left:
     tmux send-keys 'git status' 'C-m'
     tmux splitw -h -p 50
