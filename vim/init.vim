@@ -242,6 +242,9 @@ autocmd FileType *
 let g:hardtime_default_on = 1
 let g:hardtime_allow_different_key = 1
 let g:hardtime_maxcount = 2    " (slightly less punishing mode)
+let g:list_of_normal_keys = ['h', 'j', 'k', 'l', 'w']
+let g:list_of_visual_keys = ['h', 'j', 'k', 'l', 'w']
+let g:list_of_insert_keys = []
 
 " vim-diminactive
 let g:diminactive_enable_focus = 1
@@ -392,6 +395,7 @@ vnoremap > >gv
 " Navigating between buffers:
 nmap <C-h> :bp<CR>
 nmap <C-l> :bn<CR>
+nnoremap <Backspace> <C-^>
 nnoremap <silent> <C-u> :bd<CR>
 nmap <C-q> :1,100bd<CR>
 
@@ -406,7 +410,7 @@ nnoremap <A-v> <c-w>v
 nnoremap <A-o> <c-w>o
 nnoremap <A-z> :ZoomWinTabToggle<CR>
 nnoremap <A-p> <c-w>p       " most recently used window
-nnoremap <Tab> <c-w>p       " more convenient alias
+nnoremap <Tab> <c-w>p       " more convenient alias    NOTE: this breaks C-i!
 inoremap <A-j> <c-\><c-n><c-w>j
 inoremap <A-k> <c-\><c-n><c-w>k
 inoremap <A-h> <c-\><c-n><c-w>h
@@ -486,8 +490,15 @@ cmap w!! w !sudo tee % >/dev/null
 cnoremap <C-j> <down>
 cnoremap <C-k> <up>
 
+" Make n/N always go in consistent directions:
+noremap <silent> n /<CR>
+noremap <silent> N ?<CR>
+
 set foldlevelstart=10
 set pastetoggle=<C-y>   " Had problems with <F2>, see http://stackoverflow.com/q/7885198/351433
+
+" console.log convenience mapping
+nmap <Leader>cl yiwoconsole.log('<c-r>":', <c-r>")<Esc>^
 
 " copy/paste with system clipboard:
 vmap <Leader>y "+y
