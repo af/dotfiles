@@ -267,10 +267,18 @@ function! s:fzf_on_launch()
 endfunction
 autocmd VimEnter * call <SID>fzf_on_launch()
 
-"nnoremap <C-m> :FilesMru<CR>
-"nnoremap <C-m> :History<CR>    " Also might do the trick (part of fzf.vim)
+" Custom MRU using FZF
+" Based on the example here: https://github.com/junegunn/fzf/wiki/Examples-(vim)
+command! FZFMru call fzf#run({
+\ 'source':  filter(copy(v:oldfiles), "v:val !~ 'fugitive:\\|__CtrlSF\\|^/tmp/\\|.git/'"),
+\ 'sink':    'edit',
+\ 'options': '-m -x +s',
+\ 'down':    '40%' })
+nnoremap gm :FZFMru<CR>
 
 " Ctrl-P
+" TODO: Replace :CtrlPBuffer (the last thing I'm using it for) with a FZF version.
+" Need to figure out how to get a sorted MRU buffer list in vimscript to accomplish this
 nnoremap <C-t> :CtrlPBuffer<CR>         " Search active buffers
 "nnoremap <C-m> :CtrlPMRUFiles<CR>      " My former MRU tool
 "let g:ctrlp_map = '<leader><leader>'    " Search in current directory
