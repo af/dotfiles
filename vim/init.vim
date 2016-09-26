@@ -40,6 +40,7 @@ Plug 'tommcdo/vim-exchange',        { 'commit': 'b82a774' }
 Plug 'AndrewRadev/splitjoin.vim',   { 'commit': '4b062a0' }     " gS and gJ to split/join lines
 Plug 'Raimondi/delimitMate',        { 'commit': '8bc47fd' }
 Plug 'tpope/vim-surround',          { 'commit': '42e9b46' }
+Plug 'tpope/vim-unimpaired',        { 'commit': '11dc568' }
 Plug 'tomtom/tcomment_vim',         { 'commit': '3d0a997' }
 
 " Git/VCS related plugins
@@ -80,7 +81,6 @@ Plug 'ervandew/supertab',           { 'commit': '6651177' }
 " https://github.com/guns/xterm-color-table.vim
 
 " Try later:
-" Plug 'tpope/vim-unimpaired'
 " Plug 'zefei/vim-colortuner'
 " Plug 'mattn/emmet-vim'
 " Plug 'jaxbot/github-issues.vim'          " TODO: configure this
@@ -291,11 +291,9 @@ let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden --ignore .git --ignore node_modules -g ""'
 
 " gitgutter
+" use [c and ]c to jump to next/previous changed "hunk"
 nmap <leader>a <Plug>GitGutterStageHunk
 nmap <leader>r <Plug>GitGutterRevertHunk
-" Deprecated; use [c and ]c instead, since they're bound by gitgutter automatically:
-"nmap <C-j> :GitGutterNextHunk<CR>
-"nmap <C-k> :GitGutterPrevHunk<CR>
 
 " Neomake
 " Disabled for regular vim, since this plugin seems to crash it sometimes
@@ -441,6 +439,7 @@ autocmd BufLeave zshrc              normal! mZ
 " Leave a mark behind in the most recently accessed file of certain types.
 " via https://www.reddit.com/r/vim/comments/41wgqf/do_you_regularly_use_manual_marks_if_yes_how_do/cz5qfqr
 autocmd BufLeave *.css,*.styl       normal! mC
+autocmd BufLeave *.styl             normal! mS
 autocmd BufLeave *.html,*.mustache  normal! mH
 autocmd BufLeave README.md          normal! mR
 autocmd BufLeave package.json       normal! mP
