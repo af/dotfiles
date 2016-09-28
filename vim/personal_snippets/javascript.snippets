@@ -43,7 +43,7 @@ snippet jt "jsdoc throws" b
 endsnippet
 
 snippet r "require" b
-const ${1:$name} = require('${2:$1}');
+const ${1:$name} = require('${2:$1}')
 endsnippet
 
 snippet oi "object item" b
@@ -57,7 +57,7 @@ throw new ${1:Error($2)}
 endsnippet
 
 snippet for "for loop" b
-for (const i = 0; i < $1; i++) {
+for (let i = 0; i < $1; i++) {
 	$0
 }
 endsnippet
@@ -90,51 +90,51 @@ endsnippet
 snippet t "painless test" w
 test('$1', () => {
 	$2
-});
+})
 endsnippet
 
 snippet desc "mocha describe" w
 describe('$1', function($2) {
 	$0
-});
+})
 endsnippet
 
 snippet it "mocha it" w
 it('$1', function($2) {
 	$0
-});
+})
 endsnippet
 
 snippet before "mocha before" w
 before(function($1) {
 	$0
-});
+})
 endsnippet
 
 snippet after "mocha after" w
 after(function($1) {
 	$0
-});
+})
 endsnippet
 
 snippet beforeEach "mocha beforeEach" w
 beforeEach(function($1) {
 	$0
-});
+})
 endsnippet
 
 snippet afterEach "mocha afterEach" w
 afterEach(function($1) {
 	$0
-});
+})
 endsnippet
 
 snippet ase "assert.strictEqual()" w
-assert.strictEqual($1,$2);
+assert.strictEqual($1)
 endsnippet
 
 snippet aok "assert.ok()" w
-assert.ok($1);
+assert.ok($1)
 endsnippet
 
 
