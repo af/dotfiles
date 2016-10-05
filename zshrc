@@ -42,7 +42,7 @@ DISABLE_LS_COLORS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Note: zsh-syntax-highlighting needs to be cloned to oh-my-zsh's custom/plugins directory first:
-plugins=(git zsh-syntax-highlighting)
+plugins=(brew git npm nvm zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
