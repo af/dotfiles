@@ -67,10 +67,9 @@ Plug 'morhetz/gruvbox',             { 'commit': '2ea3298' }     " default. brown
 Plug 'tomasr/molokai',              { 'commit': 'e7bcec7' }
 Plug 'whatyouhide/vim-gotham',      { 'commit': '6486e10' }
 
-" Ultisnips (private snippets are stored in this dotfiles repo)
-Plug 'UltiSnips',                   { 'tag': '3.1', 'on': [] }
-
-Plug 'ervandew/supertab',           { 'commit': '6651177' }
+" Snippets and tab completion
+Plug 'UltiSnips',                   { 'tag': '3.1', 'on': [] }  " personal snippets are in this dotfiles repo
+Plug 'rstacruz/vim-hyperstyle',     { 'commit': '7ac893e', 'for': ['css', 'stylus'] }
 
 
 " Cool plugins that are disabled because they add to startup time:
