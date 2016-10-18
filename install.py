@@ -14,6 +14,7 @@ import subprocess
 # Assume this script is located the root of the dotfiles repo:
 DOTFILES_ROOT = os.path.dirname(os.path.abspath(__file__))
 SYMLINK_MAP = {
+    '~/.ctags':             'ctags',
     '~/.emacs.d':           'emacs',
     '~/.gitconfig':         'gitconfig',
     '~/.gitignore_global':  'gitignore_global',

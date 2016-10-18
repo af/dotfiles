@@ -4,6 +4,7 @@ brew install \
 ack \
 ag \
 caskroom/cask/brew-cask \
+ctags \
 curl \
 fasd \
 ghi \
