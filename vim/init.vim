@@ -259,7 +259,7 @@ endif
 " FZF
 " More tips: https://github.com/junegunn/fzf/wiki/Examples-(vim)
 nmap <leader><leader> :FZF<CR>
-let g:fzf_action = { 'ctrl-s': 'split', 'ctrl-v': 'vertical split' }
+let g:fzf_action = { 'ctrl-s': 'split', 'ctrl-v': 'vertical split', ':': 'close' }
 
 " When launching vim, if no file was provided, launch FZF automatically
 function! s:fzf_on_launch()
@@ -542,6 +542,9 @@ autocmd FileType mustache set ft=html.mustache
 " JSON files
 au BufRead,BufNewFile *.json set filetype=json
 au BufRead,BufNewFile *.json setlocal syntax=javascript
+
+" Vim files (use K to look up the current word in vim's help files)
+au FileType vim setlocal keywordprg=:help
 
 
 "===============================================================================
