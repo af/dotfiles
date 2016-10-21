@@ -15,8 +15,7 @@ call plug#begin('~/.vim/plugged')
 
 " vim plugins, managed by vim-plug
 Plug 'kien/ctrlp.vim',              { 'commit': 'b5d3fe6' }
-Plug 'vim-airline/vim-airline',     { 'commit': '842e562' }
-Plug 'vim-airline/vim-airline-themes', { 'commit': '13bad30' }
+Plug 'vim-airline/vim-airline',     { 'commit': '64d9166' }
 Plug 'tpope/vim-repeat',            { 'commit': '7a6675f' }     " Enable . repeat for plugin operations (eg. gitgutter)
 Plug 'vimwiki/vimwiki',             { 'tag':    'v2.2.1'  }
 Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
@@ -59,7 +58,7 @@ Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml'
 " theme/syntax related plugins:
 Plug 'sheerun/vim-polyglot',        { 'commit': '1c21231' }     " syntax highlighting for many languages
 Plug 'fatih/vim-go',                { 'commit': '5c282de', 'for': ['go'] }
-Plug 'benekastah/neomake',          { 'commit': '1b37b69' }
+Plug 'w0rp/ale',                    { 'commit': '7a06d27' }
 Plug 'colorizer',                   { 'commit': 'aae6b51', 'on': 'ColorToggle' }
 
 " Colour schemes:
@@ -294,17 +293,6 @@ let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden --ignore .git 
 nmap <leader>a <Plug>GitGutterStageHunk
 nmap <leader>r <Plug>GitGutterRevertHunk
 
-" Neomake
-" Disabled for regular vim, since this plugin seems to crash it sometimes
-if has('nvim')
-    map <C-e> :lnext<CR>
-    autocmd! BufWritePost,BufWinEnter * Neomake
-    let g:neomake_open_list = 2
-    let g:neomake_javascript_enabled_makers = ['eslint']
-    let g:neomake_error_sign = { 'text': '!>', 'texthl': 'ErrorMsg' }
-    let g:neomake_warning_sign = { 'text': '❯❯', 'texthl': 'MyWarningMsg' }
-endif
-
 " vim-airline:
 " Note: the following symbols require a patched font.
 " For Monaco, I used https://github.com/fromonesrc/monaco-powerline-vim
@@ -433,9 +421,8 @@ cnoremap <A-h> <c-\><c-n><c-w>h
 cnoremap <A-l> <c-\><c-n><c-w>l
 
 " Save current file every time we leave insert mode or leave vim
-" Note: "nested" ensures that BufWritePost is triggered (for neomake)
-"       "acwrite" check prevents errors with CtrlSF buffers
-autocmd InsertLeave,FocusLost * nested if &l:buftype != 'acwrite' | update | endif
+" Note: "acwrite" check prevents errors with CtrlSF buffers
+autocmd InsertLeave,FocusLost * if &l:buftype != 'acwrite' | update | endif
 
 " <escape> in normal mode also saves
 nmap <esc> :w<cr>
