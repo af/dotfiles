@@ -14,7 +14,6 @@ set nocompatible            " we're using (neo)vim, not Vi
 call plug#begin('~/.vim/plugged')
 
 " vim plugins, managed by vim-plug
-Plug 'kien/ctrlp.vim',              { 'commit': 'b5d3fe6' }
 Plug 'vim-airline/vim-airline',     { 'commit': '64d9166' }
 Plug 'tpope/vim-repeat',            { 'commit': '7a6675f' }     " Enable . repeat for plugin operations (eg. gitgutter)
 Plug 'vimwiki/vimwiki',             { 'tag':    'v2.2.1'  }
@@ -258,7 +257,12 @@ endif
 " FZF
 " More tips: https://github.com/junegunn/fzf/wiki/Examples-(vim)
 nmap <leader><leader> :FZF<CR>
-let g:fzf_action = { 'ctrl-s': 'split', 'ctrl-v': 'vertical split', ':': 'close' }
+nmap <C-t> :Buffers<CR>
+let g:fzf_action = {
+  \'ctrl-s': 'split',
+  \'ctrl-v': 'vertical split',
+  \'ctrl-t': 'tab split',
+  \':': 'close' }
 
 " When launching vim, if no file was provided, launch FZF automatically
 function! s:fzf_on_launch()
@@ -276,17 +280,6 @@ command! FZFMru call fzf#run({
 \ 'options': '-m -x +s',
 \ 'down':    '40%' })
 nnoremap gm :FZFMru<CR>
-
-" Ctrl-P
-" TODO: Replace :CtrlPBuffer (the last thing I'm using it for) with a FZF version.
-" Need to figure out how to get a sorted MRU buffer list in vimscript to accomplish this
-nnoremap <C-t> :CtrlPBuffer<CR>         " Search active buffers
-"nnoremap <C-m> :CtrlPMRUFiles<CR>      " My former MRU tool
-"let g:ctrlp_map = '<leader><leader>'    " Search in current directory
-let g:ctrlp_open_new_file = 'r'         " Open files in the current window
-let g:ctrlp_open_multiple_files = 'i'   " Open each of multiple files in new hidden buffers
-let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden --ignore .git --ignore node_modules -g ""'
 
 " gitgutter
 " use [c and ]c to jump to next/previous changed "hunk"
