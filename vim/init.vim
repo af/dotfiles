@@ -57,7 +57,7 @@ Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml'
 " theme/syntax related plugins:
 Plug 'sheerun/vim-polyglot',        { 'commit': '1c21231' }     " syntax highlighting for many languages
 Plug 'fatih/vim-go',                { 'commit': '5c282de', 'for': ['go'] }
-Plug 'w0rp/ale',                    { 'commit': '7a06d27' }
+Plug 'w0rp/ale',                    { 'commit': 'ec2845e' }
 Plug 'colorizer',                   { 'commit': 'aae6b51', 'on': 'ColorToggle' }
 
 " Colour schemes:
@@ -448,31 +448,9 @@ autocmd BufLeave *.js
 " ProTip: After opening a file with a global mark, you can change vim's cwd to
 " the file's location with ":cd %:h"
 
-
-"===============================================================================
-" Cyclical location list jumping (mostly used for neomake errors/warnings)
-" found via http://superuser.com/a/990621
-"===============================================================================
-function! <SID>LocationPrevious()
-  try
-    lprev
-  catch /^Vim\%((\a\+)\)\=:E553/
-    llast
-  endtry
-endfunction
-
-function! <SID>LocationNext()
-  try
-    lnext
-  catch /^Vim\%((\a\+)\)\=:E553/
-    lfirst
-  endtry
-endfunction
-
-nnoremap <silent> <Plug>LocationPrevious    :<C-u>exe 'call <SID>LocationPrevious()'<CR>
-nnoremap <silent> <Plug>LocationNext        :<C-u>exe 'call <SID>LocationNext()'<CR>
-nmap <silent> [l  <Plug>LocationPrevious
-nmap <silent> ]l  <Plug>LocationNext
+" Move between errors (using ale)
+nmap <silent> [l  <Plug>(ale_previous_wrap)
+nmap <silent> ]l  <Plug>(ale_next_wrap)
 
 "===============================================================================
 " Key Bindings: Misc
