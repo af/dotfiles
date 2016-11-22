@@ -107,7 +107,7 @@ set noswapfile              " Disable swap files
 "set shellpipe=>             " Prevents results from flashing during Ack.vim searches
 
 " File/buffer settings
-autocmd BufWinEnter,BufNewFile * silent tabo    " Ensure only one tab is open
+"autocmd BufWinEnter,BufNewFile * silent tabo    " Ensure only one tab is open
 set hidden                  " TODO: revisit this. Hides instead of unloads buffers
 set autoread                " reload files on changes (ie. changing git branches)
 set encoding=utf-8
@@ -303,6 +303,10 @@ let g:airline_theme = 'gruvbox'
 let g:airline#extensions#tabline#enabled = 1    " Tab line at top of window
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline#extensions#tabline#buffers_label = 'bufs'
+let g:airline#extensions#tabline#show_buffers = 2  " Show buffers no matter how many tabs are open
+let g:airline#extensions#tabline#show_tabs = 1
+let g:airline#extensions#tabline#show_tab_type = 0
+let g:airline#extensions#tabline#tab_nr_type = 2    " show both splits and tab number
 let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 nmap <leader>1 <Plug>AirlineSelectTab1
@@ -403,7 +407,8 @@ nnoremap <A-v> <c-w>v
 nnoremap <A-o> <c-w>o
 nnoremap <A-z> :ZoomWinTabToggle<CR>
 nnoremap <A-p> <c-w>p       " most recently used window
-nnoremap <Tab> <c-w>p       " more convenient alias    NOTE: this breaks C-i!
+nnoremap <Tab> <c-w>w       " more convenient alias    NOTE: this breaks C-i!
+nnoremap <S-Tab> <c-w>W
 inoremap <A-j> <c-\><c-n><c-w>j
 inoremap <A-k> <c-\><c-n><c-w>k
 inoremap <A-h> <c-\><c-n><c-w>h
