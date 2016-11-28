@@ -180,6 +180,8 @@ if has('nvim')
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
     let &t_8b="\e[48;2;%ld;%ld;%ldm"
 
+    set inccommand=split
+
     let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1     " See https://github.com/neovim/neovim/wiki/FAQ
 
     " Nicer navigation for Neovim's terminal buffers
