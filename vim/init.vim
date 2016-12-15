@@ -422,7 +422,7 @@ cnoremap <A-l> <c-\><c-n><c-w>l
 
 " Save current file every time we leave insert mode or leave vim
 " Note: "acwrite" check prevents errors with CtrlSF buffers
-autocmd InsertLeave,FocusLost * if &l:buftype != 'acwrite' | update | endif
+autocmd InsertLeave,FocusLost * nested if &l:buftype != 'acwrite' | update | endif
 
 " <escape> in normal mode also saves
 nmap <esc> :w<cr>
