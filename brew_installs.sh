@@ -18,6 +18,8 @@ luajit \
 ngrep \
 nmap \
 nvm \
+pip3 \
+python3 \
 redis \
 reattach-to-user-namespace \
 siege \

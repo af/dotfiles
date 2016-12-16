@@ -17,6 +17,7 @@ Mac-specific, but most should work on any unix-ish OS.
 * `nvm install <current nodejs version>`
 * `git submodule init && git submodule update`
 * `./install.py`
+* For neovim plugin support, run `pip install neovim --user` and `pip3 install neovim --user`
 
 
 # Misc hacks
