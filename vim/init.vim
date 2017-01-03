@@ -57,7 +57,7 @@ Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml'
 " theme/syntax related plugins:
 Plug 'sheerun/vim-polyglot',        { 'commit': '1c21231' }     " syntax highlighting for many languages
 Plug 'fatih/vim-go',                { 'commit': '5c282de', 'for': ['go'] }
-Plug 'w0rp/ale',                    { 'commit': 'ec2845e' }
+Plug 'w0rp/ale',                    { 'commit': '3e1486f' }
 Plug 'colorizer',                   { 'commit': 'aae6b51', 'on': 'ColorToggle' }
 
 " Colour schemes:
