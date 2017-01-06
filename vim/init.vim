@@ -66,7 +66,7 @@ Plug 'tomasr/molokai',              { 'commit': 'e7bcec7' }
 Plug 'whatyouhide/vim-gotham',      { 'commit': '6486e10' }
 
 " Snippets and tab completion
-Plug 'UltiSnips',                   { 'tag': '3.1', 'on': [] }  " personal snippets are in this dotfiles repo
+Plug 'SirVer/UltiSnips',            { 'commit': '71c3972', 'on': [] }  " personal snippets are in this dotfiles repo
 Plug 'rstacruz/vim-hyperstyle',     { 'commit': '7ac893e', 'for': ['css', 'stylus'] }
 
 
@@ -493,8 +493,12 @@ imap <C-r> <C-x>/
 " Resize window with arrow keys
 nnoremap <Left> :vertical resize -4<CR>
 nnoremap <Right> :vertical resize +4<CR>
-nnoremap <Up> :resize -2<CR>
-nnoremap <Down> :resize +2<CR>
+nnoremap <Up> :resize -4<CR>
+nnoremap <Down> :resize +4<CR>
+
+" Home row left/right bindings for command mode:
+cmap <C-h> <Left>
+cmap <C-l> <Right>
 
 "===============================================================================
 " Filetype-specific settings
