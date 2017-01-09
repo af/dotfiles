@@ -186,7 +186,7 @@ v \
 }
 
 # FZF
-export FZF_DEFAULT_COMMAND='ag -g ""'               # Respect .gitignore
+export FZF_DEFAULT_COMMAND='ag -g "" --hidden --ignore .git'  # Respect .gitignore, show hidden files
 # Notes on FZF_DEFAULT_OPTS:
 #  * -e is for exact matching
 #  * ':' is mapped to "abort", mostly to use with vim.
