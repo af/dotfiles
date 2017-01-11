@@ -49,25 +49,22 @@ Plug 'airblade/vim-gitgutter',      { 'commit': '78d83c7' }
 Plug 'tpope/vim-sleuth',            { 'commit': '039e2cd' }
 Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load lazily, w/o input lag
 
-" Javascript and HTML-related plugins
+" Javascript/CSS/HTML-related plugins
 Plug 'moll/vim-node',               { 'commit': '13b3121' }     " Lazy loading doesn't work for some reason
 Plug 'rstacruz/sparkup',            { 'commit': 'd400a57', 'for': ['html', 'xml', 'mustache'] }
 Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml', 'mustache', 'jsx'] }
+Plug 'rstacruz/vim-hyperstyle',     { 'commit': '7ac893e', 'for': ['css', 'stylus'] }
 
-" theme/syntax related plugins:
+" theme/syntax related plugins
 Plug 'sheerun/vim-polyglot',        { 'commit': '1c21231' }     " syntax highlighting for many languages
-Plug 'fatih/vim-go',                { 'commit': '5c282de', 'for': ['go'] }
 Plug 'w0rp/ale',                    { 'commit': '3e1486f' }
 Plug 'colorizer',                   { 'commit': 'aae6b51', 'on': 'ColorToggle' }
 
-" Colour schemes:
+" Colour schemes
 Plug 'morhetz/gruvbox',             { 'commit': '2ea3298' }     " default. brown/retro. :set bg=dark
-Plug 'tomasr/molokai',              { 'commit': 'e7bcec7' }
-Plug 'whatyouhide/vim-gotham',      { 'commit': '6486e10' }
 
 " Snippets and tab completion
 Plug 'SirVer/UltiSnips',            { 'commit': '71c3972', 'on': [] }  " personal snippets are in this dotfiles repo
-Plug 'rstacruz/vim-hyperstyle',     { 'commit': '7ac893e', 'for': ['css', 'stylus'] }
 
 
 " Cool plugins that are disabled because they add to startup time:
