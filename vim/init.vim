@@ -52,7 +52,7 @@ Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load laz
 " Javascript and HTML-related plugins
 Plug 'moll/vim-node',               { 'commit': '13b3121' }     " Lazy loading doesn't work for some reason
 Plug 'rstacruz/sparkup',            { 'commit': 'd400a57', 'for': ['html', 'xml', 'mustache'] }
-Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml', 'mustache'] }
+Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml', 'mustache', 'jsx'] }
 
 " theme/syntax related plugins:
 Plug 'sheerun/vim-polyglot',        { 'commit': '1c21231' }     " syntax highlighting for many languages
@@ -488,7 +488,7 @@ vmap <Leader>P "+P
 
 " vim-ragtag
 let g:ragtag_global_maps = 1
-imap <C-r> <C-x>/
+imap <C-t> <C-x>/
 
 " Resize window with arrow keys
 nnoremap <Left> :vertical resize -4<CR>
@@ -507,6 +507,10 @@ cmap <C-l> <Right>
 au BufNewFile,BufRead *.md set filetype=markdown
 au BufNewFile,BufRead *.mustache set filetype=mustache
 autocmd FileType mustache set ft=html.mustache
+
+" JSX
+au BufNewFile,BufRead *.jsx set filetype=jsx
+autocmd FileType jsx set ft=javascript.jsx
 
 " JSON files
 au BufRead,BufNewFile *.json set filetype=json
