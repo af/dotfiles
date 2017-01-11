@@ -475,8 +475,8 @@ noremap <silent> N ?<CR>
 set foldlevelstart=10
 set pastetoggle=<C-y>   " Had problems with <F2>, see http://stackoverflow.com/q/7885198/351433
 
-" console.log convenience mapping
-nmap <Leader>cl yiwoconsole.log('<c-r>":', <c-r>")<Esc>^
+" console.log convenience mapping. Inserts a console.log() call with the variable under the cursor
+autocmd FileType javascript nmap <Leader>cl yiwoconsole.log(`<c-r>": ${<c-r>"}`)<Esc>hh
 
 " copy/paste with system clipboard:
 vmap <Leader>y "+y
