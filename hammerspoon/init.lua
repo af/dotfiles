@@ -8,6 +8,9 @@ local Music = require 'itunes'
 -- https://github.com/tekezo/Karabiner-Elements/issues/8
 require 'ctrl_escape'
 
+-- Remap some chorded Ctrl bindings for ergonomics:
+require 'ctrl_remaps'
+
 -- Reload automatically on config changes
 hs.pathwatcher.new(os.getenv('HOME') .. '/.hammerspoon/', hs.reload):start()
 hs.alert('Hammerspoon is locked and loaded', 1)
