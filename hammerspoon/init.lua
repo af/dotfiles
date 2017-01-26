@@ -2,6 +2,11 @@ local Audio = require 'audio'
 local Grid = require 'grid'
 local Music = require 'itunes'
 
+-- Enable dual-mapping of Ctrl to Escape
+-- I used to use karabiner for this but it isn't supported on OS X Sierra
+-- See this link for more discussion, context, and workarounds:
+-- https://github.com/tekezo/Karabiner-Elements/issues/8
+require 'ctrl_escape'
 
 -- Reload automatically on config changes
 hs.pathwatcher.new(os.getenv('HOME') .. '/.hammerspoon/', hs.reload):start()
@@ -13,6 +18,7 @@ local mash = {'ctrl', 'alt', 'cmd'}
 
 -- Hammerspoon repl:
 hs.hotkey.bind(mash, 'C', hs.openConsole)
+hs.hotkey.bind(mash, 'R', hs.reload)
 
 -- Window management
 hs.hotkey.bind(mash, 'K', Grid.fullscreen)
