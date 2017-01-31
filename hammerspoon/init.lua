@@ -11,6 +11,12 @@ require 'ctrl_escape'
 -- Remap some chorded Ctrl bindings for ergonomics:
 require 'ctrl_remaps'
 
+-- WIP pomodoro app
+require 'pomodoro'
+
+-- For more crazy remapping shenanigans and ideas, see this file:
+-- https://github.com/wincent/wincent/blob/master/roles/dotfiles/files/.hammerspoon/eventtap.lua
+
 -- Reload automatically on config changes
 hs.pathwatcher.new(os.getenv('HOME') .. '/.hammerspoon/', hs.reload):start()
 hs.alert('Hammerspoon is locked and loaded', 1)
