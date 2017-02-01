@@ -16,7 +16,7 @@ local completedPomos = {}
 local currentPomo = nil
 
 local TIMER_INTERVAL = 60       -- 60 (one minute) for real use; set lower for debugging
-local POMO_LENGTH = 25
+local POMO_LENGTH = 25          -- Length in minutes of one work interval
 local LOG_FILE = '~/.pomo'
 
 -- Namespace tables
@@ -34,6 +34,19 @@ Pomo.startNew = function()
     App.updateUI()
 end
 
+Pomo.togglePaused = function()
+    hs.alert(currentPomo)
+    if not currentPomo then return end
+    currentPomo.paused = not currentPomo.paused
+    App.updateUI()
+end
+
+Pomo.showLatest = function()
+    local logs = hs.execute('tail -10 ' .. LOG_FILE)
+    local displayDuration = 4
+    hs.alert(logs, displayDuration)
+end
+
 Pomo.complete = function(pomo)
     local timestamp = os.date('%Y-%m-%d %T')
     table.insert(completedPomos, pomo)
@@ -44,6 +57,7 @@ end
 
 App.timerCallback = function()
     if not currentPomo then return end
+    if currentPomo.paused then return end
     currentPomo.minutesLeft = currentPomo.minutesLeft - 1
     if (currentPomo.minutesLeft <= 0) then
         Pomo.complete(currentPomo)
@@ -66,9 +80,14 @@ App.showDialog = function(prompt, defaultText)
 end
 
 App.getMenubarTitle = function(pomo)
-    if (pomo == nil) then return '🍅-'
-    else return '🍅0:' .. string.format('%02d', pomo.minutesLeft)
+    local title = '🍅'
+    if pomo then
+        title = title .. ('0:' .. string.format('%02d', pomo.minutesLeft))
+        if pomo.paused then
+            title = title .. ' (paused)'
+        end
     end
+    return title
 end
 
 App.updateUI = function()
@@ -93,4 +112,4 @@ end
 
 App.init()
 
-hs.hotkey.bind({}, 'F16', Pomo.startNew)
+return Pomo

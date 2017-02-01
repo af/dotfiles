@@ -12,7 +12,10 @@ require 'ctrl_escape'
 require 'ctrl_remaps'
 
 -- WIP pomodoro app
-require 'pomodoro'
+local Pomo = require 'pomodoro'
+hs.hotkey.bind({}, 'F16', Pomo.startNew)
+hs.hotkey.bind({}, 'F17', Pomo.togglePaused)
+hs.hotkey.bind({}, 'F19', Pomo.showLatest)
 
 -- For more crazy remapping shenanigans and ideas, see this file:
 -- https://github.com/wincent/wincent/blob/master/roles/dotfiles/files/.hammerspoon/eventtap.lua
