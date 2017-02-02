@@ -11,11 +11,13 @@ require 'ctrl_escape'
 -- Remap some chorded Ctrl bindings for ergonomics:
 require 'ctrl_remaps'
 
+local mash = {'ctrl', 'alt', 'cmd'}
+
 -- WIP pomodoro app
 local Pomo = require 'pomodoro'
-hs.hotkey.bind({}, 'F16', Pomo.startNew)
-hs.hotkey.bind({}, 'F17', Pomo.togglePaused)
-hs.hotkey.bind({}, 'F19', Pomo.showLatest)
+hs.hotkey.bind(mash, 'F8', Pomo.startNew)
+hs.hotkey.bind(mash, 'F9', Pomo.togglePaused)
+hs.hotkey.bind(mash, 'F10', Pomo.showLatest)
 
 -- For more crazy remapping shenanigans and ideas, see this file:
 -- https://github.com/wincent/wincent/blob/master/roles/dotfiles/files/.hammerspoon/eventtap.lua
@@ -26,7 +28,6 @@ hs.alert('Hammerspoon is locked and loaded', 1)
 
 hs.window.animationDuration = 0     -- Disable window animations (janky for iTerm)
 
-local mash = {'ctrl', 'alt', 'cmd'}
 
 -- Hammerspoon repl:
 hs.hotkey.bind(mash, 'C', hs.openConsole)

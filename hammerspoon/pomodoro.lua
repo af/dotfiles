@@ -52,6 +52,8 @@ end
 
 Log.getLastTask = function()
     local taskWithTimestamp = Log.getLatestItems(1)[1]
+    if not taskWithTimestamp then return '' end
+
     local taskStartPosition = string.find(taskWithTimestamp, ']') + 2
     return string.sub(taskWithTimestamp, taskStartPosition)
 end
