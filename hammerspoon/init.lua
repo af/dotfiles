@@ -17,7 +17,7 @@ local mash = {'ctrl', 'alt', 'cmd'}
 local Pomo = require 'pomodoro'
 hs.hotkey.bind(mash, 'F8', Pomo.startNew)
 hs.hotkey.bind(mash, 'F9', Pomo.togglePaused)
-hs.hotkey.bind(mash, 'F10', Pomo.showLatest)
+hs.hotkey.bind(mash, 'F10', Pomo.toggleLatestDisplay)
 
 -- For more crazy remapping shenanigans and ideas, see this file:
 -- https://github.com/wincent/wincent/blob/master/roles/dotfiles/files/.hammerspoon/eventtap.lua

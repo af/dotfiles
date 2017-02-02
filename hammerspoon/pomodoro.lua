@@ -1,16 +1,17 @@
 -- WIP pomodoro menubar timer
 --
+-- Notes:
+-- * You want to set your Hammerspoon notification settings to Alert
+--   if you wish to make the notifications dismissable
+--
 -- Resources:
 -- https://learnxinyminutes.com/docs/lua/
 -- http://www.hammerspoon.org/docs/hs.menubar.html
 -- http://www.hammerspoon.org/docs/hs.timer.html#doEvery
---
--- TODO:
--- * setup timer for break time
--- * make latest tasks alert styleable and toggleable
 
 local menu = hs.menubar.new()
 local currentPomo = nil
+local alertId = nil
 
 local TIMER_INTERVAL = 60       -- 60 (one minute) for real use; set lower for debugging
 local POMO_LENGTH = 25          -- Length in minutes of one work interval
@@ -27,7 +28,7 @@ Log.read = function(count)
 end
 
 Log.writeItem = function(pomo)
-    local timestamp = os.date('%Y-%m-%d %T')
+    local timestamp = os.date('%Y-%m-%d %H:%M')
     local isFirstToday = #(Log.getCompletedToday()) == 0
 
     if (isFirstToday) then hs.execute('echo "" >> ' .. LOG_FILE) end  -- Add linebreak between days
@@ -74,10 +75,15 @@ Commands.togglePaused = function()
     App.updateUI()
 end
 
-Commands.showLatest = function()
+Commands.toggleLatestDisplay = function()
     local logs = Log.read(10)
-    local displayDuration = 5
-    hs.alert('LATEST ACTIVITY\n\n' .. logs, displayDuration)
+    local displayDuration = 500
+    if alertId then
+        hs.alert.closeSpecific(alertId)
+        alertId = nil
+    else
+        alertId = hs.alert('LATEST ACTIVITY\n\n' .. logs, {textFont='Courier'}, displayDuration)
+    end
 end
 
 App.complete = function(pomo)
@@ -90,9 +96,16 @@ App.timerCallback = function()
     if currentPomo.paused then return end
     currentPomo.minutesLeft = currentPomo.minutesLeft - 1
     if (currentPomo.minutesLeft <= 0) then
+        local n = hs.notify.new({
+            title='Pomodoro complete',
+            subTitle=currentPomo.name,
+            informativeText='Completed at ' .. os.date('%H:%M'),
+            soundName='Hero'
+        })
+        n:autoWithdraw(false)
+        n:hasActionButton(false)
+        n:send()
         App.complete(currentPomo)
-        hs.alert('You are done!')
-        hs.execute('say "done zo"')
     end
     App.updateUI()
 end
