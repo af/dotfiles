@@ -22,9 +22,37 @@ local Commands = {}
 local Log = {}
 local App = {}
 
+-- (ab)use hs.chooser as a text input with the possibility of using other options
+local showChooserPrompt = function(options, callback)
+    local chooser = hs.chooser.new(function(item)
+        callback(item.text)
+        chooser:delete()
+    end)
+
+    -- The table of choices to present to the user. It's comprised of one empty
+    -- item (which we update as the user types), and those passed in as options
+    local choiceList = { {text=''} }
+    for i=1, #options do
+        choiceList[#choiceList+1] = {text=options[i]}
+    end
+
+    chooser:choices(function()
+        choiceList[1]['text'] = chooser:query()
+        return choiceList
+    end)
+
+    -- Re-compute the choices every time a key is pressed, to ensure that the top
+    -- choice is always the entered text:
+    chooser:queryChangedCallback(function() chooser:refreshChoicesCallback() end)
+
+    chooser:show()
+end
+
+-- Read the last {count} lines of the log file, ordered with the most recent one first
 Log.read = function(count)
     if not count then count = 10 end
-    return hs.execute('tail -' .. count .. ' ' .. LOG_FILE)
+    -- Note the funky sed command at the end is to reverse the ordering of the lines:
+    return hs.execute('tail -' .. count .. ' ' .. LOG_FILE .. " | sed '1!G;h;$!d' ${inputfile}")
 end
 
 Log.writeItem = function(pomo)
@@ -51,22 +79,27 @@ Log.getCompletedToday = function()
     return todayItems
 end
 
-Log.getLastTask = function()
-    local taskWithTimestamp = Log.getLatestItems(1)[1]
-    if not taskWithTimestamp then return '' end
+-- Return a table of recent task names, most recent first
+Log.getRecentTaskNames = function()
+    local tasks = Log.getLatestItems(10)
+    local nonEmptyTasks = hs.fnutils.filter(tasks, function(t) return t ~= '' end)
+    local names = hs.fnutils.map(nonEmptyTasks, function(taskWithTimestamp)
+        local taskStartPosition = string.find(taskWithTimestamp, ']') + 2
+        return string.sub(taskWithTimestamp, taskStartPosition)
+    end)
 
-    local taskStartPosition = string.find(taskWithTimestamp, ']') + 2
-    return string.sub(taskWithTimestamp, taskStartPosition)
+    -- TODO: dedupe these items before returning
+    return names
 end
 
 Commands.startNew = function()
-    local defaultName = Log.getLastTask()
-    if currentPomo then defaultName = currentPomo.name end
-    taskName = App.showDialog('What are you working on?', defaultName)
-    if taskName then
-        currentPomo = {minutesLeft=POMO_LENGTH, name=taskName}
-    end
-    App.updateUI()
+    local options = Log.getRecentTaskNames()
+    showChooserPrompt(options, function(taskName)
+        if taskName then
+            currentPomo = {minutesLeft=POMO_LENGTH, name=taskName}
+        end
+        App.updateUI()
+    end)
 end
 
 Commands.togglePaused = function()
@@ -76,7 +109,7 @@ Commands.togglePaused = function()
 end
 
 Commands.toggleLatestDisplay = function()
-    local logs = Log.read(10)
+    local logs = Log.read(15)
     local displayDuration = 500
     if alertId then
         hs.alert.closeSpecific(alertId)
@@ -108,18 +141,6 @@ App.timerCallback = function()
         App.complete(currentPomo)
     end
     App.updateUI()
-end
-
-App.showDialog = function(prompt, defaultText)
-    defaultText = defaultText or ''
-    local success, text = hs.applescript([[
-      display dialog "]] .. prompt .. [[" default answer "]] .. defaultText .. [["
-      return (text returned of result)
-    ]])
-    if not success then
-        return nil
-    end
-    return text
 end
 
 App.getMenubarTitle = function(pomo)
