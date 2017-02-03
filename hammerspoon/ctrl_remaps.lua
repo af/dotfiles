@@ -10,16 +10,16 @@ override_handler = function(evt)
     return false
   end
 
-  -- map ctrl-; to ctrl-@
+  -- map ctrl-; to Home (used for tmux)
   if keyCode == KEY_CODES[";"] then
-    evt:setFlags({shift=true, ctrl=true})
-    evt:setKeyCode(KEY_CODES["2"])
+    evt:setFlags({ctrl=false})
+    evt:setKeyCode(KEY_CODES['home'])
   end
 
-  -- map ctrl-' to ctrl-^
+  -- map ctrl-' to End (again used for tmux)
   if keyCode == KEY_CODES["'"] then
-    evt:setFlags({shift=true, ctrl=true})
-    evt:setKeyCode(KEY_CODES["6"])
+    evt:setFlags({ctrl=false})
+    evt:setKeyCode(KEY_CODES['end'])
   end
 end
 ctrl_overrides = hs.eventtap.new({hs.eventtap.event.types.keyDown}, override_handler)
