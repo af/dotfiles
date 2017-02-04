@@ -26,7 +26,7 @@ local App = {}
 local showChooserPrompt = function(options, callback)
     local chooser = hs.chooser.new(function(item)
         callback(item.text)
-        chooser:delete()
+        if chooser then chooser:delete() end
     end)
 
     -- The table of choices to present to the user. It's comprised of one empty

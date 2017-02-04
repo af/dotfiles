@@ -15,16 +15,16 @@ local mash = {'ctrl', 'alt', 'cmd'}
 
 -- WIP pomodoro app
 local Pomo = require 'pomodoro'
-hs.hotkey.bind(mash, 'F8', Pomo.startNew)
-hs.hotkey.bind(mash, 'F9', Pomo.togglePaused)
-hs.hotkey.bind(mash, 'F10', Pomo.toggleLatestDisplay)
+hs.hotkey.bind(mash, 'U', Pomo.startNew)
+hs.hotkey.bind(mash, 'I', Pomo.togglePaused)
+hs.hotkey.bind(mash, 'O', Pomo.toggleLatestDisplay)
 
 -- For more crazy remapping shenanigans and ideas, see this file:
 -- https://github.com/wincent/wincent/blob/master/roles/dotfiles/files/.hammerspoon/eventtap.lua
 
 -- Reload automatically on config changes
 hs.pathwatcher.new(os.getenv('HOME') .. '/.hammerspoon/', hs.reload):start()
-hs.alert('Hammerspoon is locked and loaded', 1)
+hs.alert('🔨🥄')
 
 hs.window.animationDuration = 0     -- Disable window animations (janky for iTerm)
 
