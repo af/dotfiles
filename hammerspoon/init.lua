@@ -1,6 +1,6 @@
 local Audio = require 'audio'
 local Grid = require 'grid'
-local Music = require 'itunes'
+local Utils = require 'utils'   -- miscellaneous commands
 
 -- Enable dual-mapping of Ctrl to Escape
 -- I used to use karabiner for this but it isn't supported on OS X Sierra
@@ -52,7 +52,7 @@ hs.hotkey.bind(mash, 'DOWN', hs.itunes.pause)
 hs.hotkey.bind(mash, 'LEFT', hs.itunes.previous)
 hs.hotkey.bind(mash, 'RIGHT', hs.itunes.next)
 hs.hotkey.bind(mash, '/', hs.itunes.displayCurrentTrack)
-hs.hotkey.bind(mash, 'S', Music.toggleShuffle)
+hs.hotkey.bind(mash, 'S', Utils.toggleItunesShuffle)
 
 -- Slack-specific app launcher (since I keep it "peeked" to the side by default)
 function showSlack()
@@ -81,3 +81,6 @@ hs.hotkey.bind({'ctrl'}, '0', function() hs.application.launchOrFocus('iTunes') 
 hs.hotkey.bind({}, 'F13', Audio.toggleMute)
 hs.hotkey.bind({}, 'F14', Audio.decVolume)
 hs.hotkey.bind({}, 'F15', Audio.incVolume)
+
+-- dismiss all OS X notifications
+hs.hotkey.bind({}, 'F16', Utils.dismissAllNotifications)
