@@ -1,24 +1,20 @@
 -- Grab bag of useful commands and applescript
 local utils = {}
 
--- New shuffle implementation for iTunes 12 (the menu is different from prev. versions)
+-- New shuffle implementation for iTunes 12.5+
+--
+-- Note: previous implementation had to scrape the menus, and was
 -- adapted from https://discussions.apple.com/thread/6573883
--- Note: appears to only work while music is playing?
 utils.toggleItunesShuffle = function()
-  local success, shuffleStatus = hs.applescript([[tell application "System Events"
-    tell application process "iTunes"
-      set shuffleOn to (value of attribute "AXMenuItemMarkChar" of menu item "On" of menu "Shuffle" of menu item "Shuffle" of menu "Controls" of menu bar 1) as string
-      if shuffleOn is "✓" then
-        click menu item "Off" of menu "Shuffle" of menu item "Shuffle" of menu "Controls" of menu bar 1
-        return "Shuffle is OFF"
-      else
-        click menu item "On" of menu "Shuffle" of menu item "Shuffle" of menu "Controls" of menu bar 1
-        return "Shuffle is ON"
-      end if
-    end tell
-    end tell
-  ]])
-  hs.alert(shuffleStatus, 1.0)
+    local tell = function(cmd) return hs.applescript('tell application "iTunes" to ' .. cmd) end
+    local success, shuffleStatus = tell('get shuffle enabled')
+    if shuffleStatus then
+        tell('set shuffle enabled to false')
+        hs.alert('shuffle disabled')
+    else
+        tell('set shuffle enabled to true')
+        hs.alert('shuffle enabled')
+    end
 end
 
 
