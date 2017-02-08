@@ -93,6 +93,10 @@ alias gpr='git pull --rebase'
 alias lat='git latest'
 alias t='tig --all'
 
+alias ys='yarn start'
+alias yt='yarn test'
+alias yl='yarn lint'
+
 # Commonly used tools:
 alias v='nvim'
 alias vs='nvim -S'
@@ -118,6 +122,7 @@ ulimit -S -n 5000
 
 # NVM:
 source $(brew --prefix nvm)/nvm.sh
+export PATH=$(yarn global bin):$PATH       # Add yarn global binaries to PATH
 
 # fasd (https://github.com/clvv/fasd):
 eval "$(fasd --init posix-alias zsh-hook)"
