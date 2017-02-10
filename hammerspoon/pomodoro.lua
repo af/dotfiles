@@ -15,8 +15,9 @@ local menu = hs.menubar.new()
 local currentPomo = nil
 local alertId = nil
 
-local TIMER_INTERVAL = 60       -- 60 (one minute) for real use; set lower for debugging
-local POMO_LENGTH = 25          -- Length in minutes of one work interval
+local INTERVAL_SECONDS = 60     -- Set to 60 (one minute) for real use; set lower for debugging
+local POMO_LENGTH = 25          -- Number of intervals (minutes) in one work pomodoro
+local BREAK_LENGTH = 5          -- Number of intervals (minutes) in one break time
 local LOG_FILE = '~/.pomo'
 
 -- Namespace tables
@@ -111,19 +112,15 @@ Commands.togglePaused = function()
 end
 
 Commands.toggleLatestDisplay = function()
-    local logs = Log.read(15)
-    local displayDuration = 500
+    local logs = Log.read(30)
     if alertId then
         hs.alert.closeSpecific(alertId)
         alertId = nil
     else
-        alertId = hs.alert('LATEST ACTIVITY\n\n' .. logs, {textFont='Courier'}, displayDuration)
+        local msg = 'LATEST ACTIVITY\n\n' .. logs
+        if currentPomo then msg = 'NOW: ' .. currentPomo.name .. '\n==========\n\n' .. msg end
+        alertId = hs.alert(msg, {textSize=17, textFont='Courier'}, 'indefinite')
     end
-end
-
-App.complete = function(pomo)
-    Log.writeItem(pomo)
-    currentPomo = nil
 end
 
 App.timerCallback = function()
@@ -134,19 +131,35 @@ App.timerCallback = function()
     if not currentPomo then return end
     if currentPomo.paused then return end
     currentPomo.minutesLeft = currentPomo.minutesLeft - 1
-    if (currentPomo.minutesLeft <= 0) then
+    if (currentPomo.minutesLeft <= 0) then App.completePomo(currentPomo) end
+    App.updateUI()
+end
+
+App.completePomo = function(pomo)
+    local n = hs.notify.new({
+        title='Pomodoro complete',
+        subTitle=pomo.name,
+        informativeText='Completed at ' .. os.date('%H:%M'),
+        soundName='Hero'
+    })
+    n:autoWithdraw(false)
+    n:hasActionButton(false)
+    n:send()
+
+    Log.writeItem(pomo)
+    currentPomo = nil
+
+    hs.timer.doAfter(INTERVAL_SECONDS * BREAK_LENGTH, function()
         local n = hs.notify.new({
-            title='Pomodoro complete',
-            subTitle=currentPomo.name,
-            informativeText='Completed at ' .. os.date('%H:%M'),
+            title='Get back to work',
+            subTitle='Break time is over',
+            informativeText='Sent at ' .. os.date('%H:%M'),
             soundName='Hero'
         })
         n:autoWithdraw(false)
         n:hasActionButton(false)
         n:send()
-        App.complete(currentPomo)
-    end
-    App.updateUI()
+    end)
 end
 
 App.getMenubarTitle = function(pomo)
@@ -165,7 +178,7 @@ App.updateUI = function()
 end
 
 App.init = function()
-    hs.timer.doEvery(TIMER_INTERVAL, App.timerCallback)
+    hs.timer.doEvery(INTERVAL_SECONDS, App.timerCallback)
 
     menu:setMenu(function()
         local completedCount = #(Log.getCompletedToday())
