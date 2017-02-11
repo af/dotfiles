@@ -12,6 +12,7 @@
 hs.logger.defaultLogLevel = 4   -- Enable debug logging
 local hsLog = hs.logger.new('pomo')
 local menu = hs.menubar.new()
+local timer = nil
 local currentPomo = nil
 local alertId = nil
 
@@ -100,6 +101,8 @@ Commands.startNew = function()
     showChooserPrompt(options, function(taskName)
         if taskName then
             currentPomo = {minutesLeft=POMO_LENGTH, name=taskName}
+            if timer then timer:stop() end
+            timer = hs.timer.doEvery(INTERVAL_SECONDS, App.timerCallback)
         end
         App.updateUI()
     end)
@@ -149,7 +152,8 @@ App.completePomo = function(pomo)
     Log.writeItem(pomo)
     currentPomo = nil
 
-    hs.timer.doAfter(INTERVAL_SECONDS * BREAK_LENGTH, function()
+    if timer then timer:stop() end
+    timer = hs.timer.doAfter(INTERVAL_SECONDS * BREAK_LENGTH, function()
         local n = hs.notify.new({
             title='Get back to work',
             subTitle='Break time is over',
@@ -178,8 +182,6 @@ App.updateUI = function()
 end
 
 App.init = function()
-    hs.timer.doEvery(INTERVAL_SECONDS, App.timerCallback)
-
     menu:setMenu(function()
         local completedCount = #(Log.getCompletedToday())
         return {
