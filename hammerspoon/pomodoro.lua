@@ -9,8 +9,6 @@
 -- http://www.hammerspoon.org/docs/hs.menubar.html
 -- http://www.hammerspoon.org/docs/hs.timer.html#doEvery
 
-hs.logger.defaultLogLevel = 4   -- Enable debug logging
-local hsLog = hs.logger.new('pomo')
 local menu = hs.menubar.new()
 local timer = nil
 local currentPomo = nil
@@ -127,10 +125,6 @@ Commands.toggleLatestDisplay = function()
 end
 
 App.timerCallback = function()
-    if currentPomo then hsLog.d('tick', currentPomo.name, currentPomo.minutesLeft)
-    else hsLog.d('tick (none)')
-    end
-
     if not currentPomo then return end
     if currentPomo.paused then return end
     currentPomo.minutesLeft = currentPomo.minutesLeft - 1
