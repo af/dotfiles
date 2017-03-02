@@ -505,6 +505,9 @@ au BufNewFile,BufRead *.md set filetype=markdown
 au BufNewFile,BufRead *.mustache set filetype=mustache
 autocmd FileType mustache set ft=html.mustache
 
+" html
+iabbrev target="_blank" target="_blank" rel="noopener"
+
 " JSX
 au BufNewFile,BufRead *.jsx set filetype=jsx
 autocmd FileType jsx set ft=javascript.jsx
