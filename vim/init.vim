@@ -235,7 +235,7 @@ autocmd FileType *
 "===============================================================================
 
 " vim-hardtime: discourage repeat usage of hjkl
-let g:hardtime_default_on = 1
+let g:hardtime_default_on = 0
 let g:hardtime_allow_different_key = 1
 let g:hardtime_maxcount = 2    " (slightly less punishing mode)
 let g:list_of_normal_keys = ['h', 'j', 'k', 'l', 'w']
