@@ -31,6 +31,7 @@
     undo = reset --soft HEAD^
     unstage = reset HEAD
     latest = for-each-ref --sort=-committerdate refs/heads --format='%(committerdate:short) %(refname:short)'
+    trim = !sh -c 'git branch --merged master | grep -v master | xargs -n 1 git branch -d'
 [branch]
     autosetupmerge = true
 [core]
