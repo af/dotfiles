@@ -51,7 +51,7 @@ hs.hotkey.bind(mash, 'UP', hs.itunes.play)
 hs.hotkey.bind(mash, 'DOWN', hs.itunes.pause)
 hs.hotkey.bind(mash, 'LEFT', hs.itunes.previous)
 hs.hotkey.bind(mash, 'RIGHT', hs.itunes.next)
-hs.hotkey.bind(mash, '/', hs.itunes.displayCurrentTrack)
+hs.hotkey.bind(mash, '/', Utils.itunesTrackAlert)
 hs.hotkey.bind(mash, 'S', Utils.toggleItunesShuffle)
 
 -- Slack-specific app launcher (since I keep it "peeked" to the side by default)

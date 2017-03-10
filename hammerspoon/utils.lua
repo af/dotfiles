@@ -1,6 +1,33 @@
 -- Grab bag of useful commands and applescript
 local utils = {}
 
+local function tellItunes(cmd)
+    local _cmd = 'tell application "iTunes" to ' .. cmd
+    local ok, result = hs.applescript(_cmd)
+    if ok then
+        return result
+    else
+        return nil
+    end
+end
+
+-- Use OS X notifications for a more pleasant current track alert
+-- TODO: figure out how to show the album art in this alert as well
+utils.itunesTrackAlert = function()
+    local artist = tellItunes('artist of the current track as string') or "Unknown artist"
+    local album  = tellItunes('album of the current track as string') or "Unknown album"
+    local track  = tellItunes('name of the current track as string') or "Unknown track"
+    local n = hs.notify.new({title=track, subTitle=artist, informativeText=album})
+    n:hasActionButton(false)
+    n:send()
+
+    -- Withdraw the notification after a few seconds.
+    -- n:autoWithdraw(true) would suffice in theory, but if Hammerspoon notifications are set to
+    -- "Alert" in OS X, autoWithdraw will not work.
+    hs.timer.doAfter(3, function() n:withdraw() end)
+end
+
+
 -- New shuffle implementation for iTunes 12.5+
 --
 -- Note: previous implementation had to scrape the menus, and was
