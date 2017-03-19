@@ -100,6 +100,7 @@ set visualbell
 set history=500             " longer command history (default=20)
 set backspace=indent,eol,start
 set noswapfile              " Disable swap files
+set lazyredraw              " Speeds up macros by avoiding excessive redraws
 "set directory=~/.vim/swp    " where the .swp files go (if enabled)
 "set shellpipe=>             " Prevents results from flashing during Ack.vim searches
 
