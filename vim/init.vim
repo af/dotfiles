@@ -407,8 +407,8 @@ nnoremap <A-v> <c-w>v
 nnoremap <A-o> <c-w>o
 nnoremap <A-z> :ZoomWinTabToggle<CR>
 nnoremap <A-p> <c-w>p       " most recently used window
-nnoremap <Tab> <c-w>w       " more convenient alias    NOTE: this breaks C-i!
-nnoremap <S-Tab> <c-w>W
+nnoremap <C-k> <c-w>w       " more convenient alias    NOTE: this breaks C-i!
+nnoremap <C-S-k> <c-w>W
 inoremap <A-j> <c-\><c-n><c-w>j
 inoremap <A-k> <c-\><c-n><c-w>k
 inoremap <A-h> <c-\><c-n><c-w>h
