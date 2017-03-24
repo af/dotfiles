@@ -172,9 +172,7 @@ autocmd WinLeave * set nowrap
 
 if has('nvim')
     " Neovim True Color support
-    " For this to work, need:
-    " * a nightly iTerm build
-    " * a patched tmux: https://gist.github.com/choppsv1/dd00858d4f7f356ce2cf
+    " For this to work, you need recent versions of iTerm2 and tmux (2.2+)
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
     let &t_8b="\e[48;2;%ld;%ld;%ldm"
 
@@ -202,6 +200,7 @@ endif
 "===============================================================================
 color gruvbox
 set bg=dark
+highlight Comment cterm=italic
 
 
 " Show syntax highlighting groups for word under cursor with <leader>s
