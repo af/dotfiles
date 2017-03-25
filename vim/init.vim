@@ -51,6 +51,7 @@ Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load laz
 
 " Javascript/CSS/HTML-related plugins
 Plug 'moll/vim-node',               { 'commit': '13b3121' }     " Lazy loading doesn't work for some reason
+Plug '1995eaton/vim-better-javascript-completion',  { 'for': ['javascript', 'jsx'] }
 Plug 'rstacruz/sparkup',            { 'commit': 'd400a57', 'for': ['html', 'xml', 'mustache'] }
 Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml', 'mustache', 'jsx'] }
 Plug 'rstacruz/vim-hyperstyle',     { 'commit': '7ac893e', 'for': ['css', 'stylus'] }
@@ -65,6 +66,7 @@ Plug 'morhetz/gruvbox',             { 'commit': '2ea3298' }     " default. brown
 
 " Snippets and tab completion
 Plug 'SirVer/UltiSnips',            { 'commit': '71c3972', 'on': [] }  " personal snippets are in this dotfiles repo
+Plug 'ajh17/VimCompletesMe',        { 'commit': '146f000' }
 
 
 " Cool plugins that are disabled because they add to startup time:
@@ -217,17 +219,15 @@ endfunc
 "===============================================================================
 " Autocompletion and Tab behavior
 "===============================================================================
-set completeopt-=preview
-let g:SuperTabDefaultCompletionType = 'context'
-let g:SuperTabContextDefaultCompletionType = '<c-p>'
-let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
-let g:SuperTabContextDiscoverDiscovery = ['&omnifunc:<c-x><c-o>']
-let g:SuperTabNoCompleteAfter = ['^', '\s', ':', ';', ',', '{', '}', ')', '>']
-autocmd FileType *
-      \if &omnifunc != '' |
-      \call SuperTabChain(&omnifunc, '<c-p>') |
-      \call SuperTabSetDefaultCompletionType('<c-x><c-u>') |
-      \endif
+" May want to consider replacing "menuone" with "menu" (see vim help)
+set completeopt=menuone,preview,longest
+
+" Use omnicompletion with <Tab> by default:
+autocmd FileType * let b:vcm_tab_complete = "omni"
+
+" Make <Enter> select the currently highlighted item in the pop up menu:
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
 
 
 "===============================================================================
@@ -335,6 +335,7 @@ let g:sparkupExecuteMapping = '<C-e>'       " The default mapping
 let g:splitjoin_javascript_if_clause_curly_braces = 'Sj'
 
 " UltiSnips
+let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsEditSplit = 'vertical'
 let g:UltiSnipsSnippetDirectories = ['personal_snippets']
 let g:UltiSnipsSnippetsDir = '~/.vim/personal_snippets'
@@ -470,7 +471,7 @@ noremap <silent> n /<CR>
 noremap <silent> N ?<CR>
 
 set foldlevelstart=10
-set pastetoggle=<C-y>   " Had problems with <F2>, see http://stackoverflow.com/q/7885198/351433
+set pastetoggle=<F2>   " Have had problems with <F2>, see http://stackoverflow.com/q/7885198/351433
 
 " console.log convenience mapping. Inserts a console.log() call with the variable under the cursor
 autocmd FileType javascript nmap <Leader>cl yiwoconsole.log(`<c-r>": ${<c-r>"}`)<Esc>hh
