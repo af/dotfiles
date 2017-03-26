@@ -52,6 +52,7 @@ Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load laz
 " Javascript/CSS/HTML-related plugins
 Plug 'moll/vim-node',               { 'commit': '13b3121' }     " Lazy loading doesn't work for some reason
 Plug '1995eaton/vim-better-javascript-completion',  { 'for': ['javascript', 'jsx'] }
+Plug 'heavenshell/vim-jsdoc',       { 'for': ['javascript', 'jsx'] }
 Plug 'rstacruz/sparkup',            { 'commit': 'd400a57', 'for': ['html', 'xml', 'mustache'] }
 Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml', 'mustache', 'jsx'] }
 Plug 'rstacruz/vim-hyperstyle',     { 'commit': '7ac893e', 'for': ['css', 'stylus'] }
@@ -333,6 +334,16 @@ let g:sparkupExecuteMapping = '<C-e>'       " The default mapping
 " Splitjoin (javascript setting)
 " see https://github.com/AndrewRadev/splitjoin.vim/issues/67#issuecomment-91582205
 let g:splitjoin_javascript_if_clause_curly_braces = 'Sj'
+
+" vim-jsdoc
+nmap <silent> <C-d> <Plug>(jsdoc)
+let g:jsdoc_enable_es6 = 1
+let g:jsdoc_tags = {}
+let g:jsdoc_tags['param'] = 'arg'
+let g:jsdoc_allow_input_prompt = 1
+let g:jsdoc_input_description = 1
+let g:jsdoc_return_description = 0
+let g:jsdoc_param_description_separator = ' - '
 
 " UltiSnips
 let g:UltiSnipsExpandTrigger="<C-j>"
