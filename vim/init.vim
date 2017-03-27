@@ -49,6 +49,8 @@ Plug 'airblade/vim-gitgutter',      { 'commit': '78d83c7' }
 Plug 'tpope/vim-sleuth',            { 'commit': '039e2cd' }
 Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load lazily, w/o input lag
 
+Plug 'reasonml/vim-reason-loader'
+
 " Javascript/CSS/HTML-related plugins
 Plug 'moll/vim-node',               { 'commit': '13b3121' }     " Lazy loading doesn't work for some reason
 Plug '1995eaton/vim-better-javascript-completion',  { 'for': ['javascript', 'jsx'] }
@@ -335,6 +337,12 @@ let g:deoplete#omni#input_patterns = {}
 let g:deoplete#omni#input_patterns.stylus = '.*'
 let g:deoplete#sources.stylus = ['omni', 'buffer', 'tags']
 
+" For OCaml/Reason, ensure Merlin takes precedence:
+let g:deoplete#sources.ocaml = ['omni', 'buffer']
+let g:deoplete#sources.reason = ['omni', 'buffer']
+let g:deoplete#omni#input_patterns.ocaml = '.*'
+let g:deoplete#omni#input_patterns.reason = '.*'
+
 " Colorizer
 nnoremap <leader><F2> :ColorToggle<CR>
 
@@ -547,6 +555,9 @@ au BufRead,BufNewFile *.json setlocal syntax=javascript
 
 " Vim files (use K to look up the current word in vim's help files)
 au FileType vim setlocal keywordprg=:help
+
+" Reason
+let g:ale_linter_aliases = {'reason': 'ocaml'}
 
 
 "===============================================================================
