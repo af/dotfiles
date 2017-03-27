@@ -53,9 +53,9 @@ Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load laz
 Plug 'moll/vim-node',               { 'commit': '13b3121' }     " Lazy loading doesn't work for some reason
 Plug '1995eaton/vim-better-javascript-completion',  { 'for': ['javascript', 'jsx'] }
 Plug 'heavenshell/vim-jsdoc',       { 'for': ['javascript', 'jsx'] }
+Plug 'othree/csscomplete.vim',      { 'for': ['css', 'stylus'] }
 Plug 'rstacruz/sparkup',            { 'commit': 'd400a57', 'for': ['html', 'xml', 'mustache'] }
 Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml', 'mustache', 'jsx'] }
-Plug 'rstacruz/vim-hyperstyle',     { 'commit': '7ac893e', 'for': ['css', 'stylus'] }
 
 " theme/syntax related plugins
 Plug 'sheerun/vim-polyglot',        { 'commit': 'e404a65' }     " syntax highlighting for many languages
@@ -67,7 +67,8 @@ Plug 'morhetz/gruvbox',             { 'commit': '2ea3298' }     " default. brown
 
 " Snippets and tab completion
 Plug 'SirVer/UltiSnips',            { 'commit': '71c3972', 'on': [] }  " personal snippets are in this dotfiles repo
-Plug 'ajh17/VimCompletesMe',        { 'commit': '146f000' }
+Plug 'Shougo/deoplete.nvim',        { 'commit': 'f1e3724', 'do': ':UpdateRemotePlugins' }
+"Plug 'ajh17/VimCompletesMe',        { 'commit': '146f000' }    " More minimal alternative to deoplete
 
 
 " Cool plugins that are disabled because they add to startup time:
@@ -226,8 +227,13 @@ set completeopt=menuone,preview,longest
 " Use omnicompletion with <Tab> by default:
 autocmd FileType * let b:vcm_tab_complete = "omni"
 
+" Traverse completions with <Tab>
+imap <expr> <TAB> pumvisible() ? '<C-n>' : '<TAB>'
+imap <expr> <S-TAB> pumvisible() ? '<C-p>' : '<S-TAB>'
+
 " Make <Enter> select the currently highlighted item in the pop up menu:
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" This is not necessary with deoplete
+"inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 
 
@@ -320,6 +326,14 @@ nmap <leader>8 <Plug>AirlineSelectTab8
 nmap <leader>9 <Plug>AirlineSelectTab9
 nmap <leader>- <Plug>AirlineSelectPrevTab
 nmap <leader>+ <Plug>AirlineSelectNextTab
+
+" Deoplete
+let g:deoplete#enable_at_startup = 1
+
+let g:deoplete#sources = {}
+let g:deoplete#omni#input_patterns = {}
+let g:deoplete#omni#input_patterns.stylus = '.*'
+let g:deoplete#sources.stylus = ['omni', 'buffer', 'tags']
 
 " Colorizer
 nnoremap <leader><F2> :ColorToggle<CR>
@@ -519,6 +533,9 @@ autocmd FileType mustache set ft=html.mustache
 
 " html
 iabbrev target="_blank" target="_blank" rel="noopener"
+
+" CSS-like autocomplete for preprocessor files:
+autocmd FileType css,sass,scss,stylus,less set omnifunc=csscomplete#CompleteCSS
 
 " JSX
 au BufNewFile,BufRead *.jsx set filetype=jsx
