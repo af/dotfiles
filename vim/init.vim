@@ -257,6 +257,8 @@ let g:diminactive_enable_focus = 1
 
 " FileBeagle
 let g:filebeagle_show_hidden = 1        " Use 'gh' to toggle- FileBeagle hides lots by default
+au FileType filebeagle nmap <C-v> <Plug>(FileBeagleBufferSplitVerticalVisitTarget)
+au FileType filebeagle nmap <C-s> <Plug>(FileBeagleBufferSplitVisitTarget)
 
 " Load matchit.vim, but only if the user hasn't installed a newer version.
 if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
