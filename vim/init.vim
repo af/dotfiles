@@ -28,6 +28,7 @@ Plug 'mbbill/undotree',             { 'commit': '39e5cf0' }
 Plug 'troydm/zoomwintab.vim',       { 'commit': 'b7a940e' }
 Plug 'blueyed/vim-diminactive',     { 'commit': '5cb27ae' }
 Plug 'takac/vim-hardtime',          { 'commit': 'acf59c8' }
+Plug 'Valloric/ListToggle',         { 'commit': '2bc7857' }
 
 " FZF and friends
 Plug 'junegunn/fzf',                { 'commit': '7fa5e6c', 'dir': '~/.fzf', 'do': './install --all' }
@@ -261,6 +262,10 @@ let g:filebeagle_show_hidden = 1        " Use 'gh' to toggle- FileBeagle hides l
 if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
     runtime! macros/matchit.vim
 endif
+
+" ListToggle
+let g:lt_location_list_toggle_map = '<leader>l'
+let g:lt_quickfix_list_toggle_map = '<leader>q'
 
 " FZF
 " More tips: https://github.com/junegunn/fzf/wiki/Examples-(vim)
