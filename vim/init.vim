@@ -31,7 +31,7 @@ Plug 'takac/vim-hardtime',          { 'commit': 'acf59c8' }
 Plug 'Valloric/ListToggle',         { 'commit': '2bc7857' }
 
 " FZF and friends
-Plug 'junegunn/fzf',                { 'commit': '7fa5e6c', 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf',                { 'tag': '0.16.6', 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim',            { 'commit': '687f5e2' }
 
 " Editing modifications
