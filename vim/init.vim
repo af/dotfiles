@@ -557,6 +557,12 @@ au BufRead,BufNewFile *.json setlocal syntax=javascript
 au FileType vim setlocal keywordprg=:help
 
 " Reason
+" There are a bunch of <localleader> bindings that are handy (eg \t), and gd to
+" jump to a variable's definition (:MerlinLocate)
+" For more on Merlin and vim, see:
+"   https://github.com/ocaml/merlin/wiki/vim-from-scratch
+"   https://github.com/ocaml/merlin/blob/master/vim/merlin/doc/merlin.txt
+map <LocalLeader>f :ReasonPrettyPrint<CR>
 let g:ale_linter_aliases = {'reason': 'ocaml'}
 
 
