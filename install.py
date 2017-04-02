@@ -36,9 +36,9 @@ NPM_GLOBALS = [
     'diff-so-fancy'
     'eslint',
     'gist-cli',
-    'jshint',
     'jsonlint',
-    'stylus'
+    'stylus',
+    'yarn'
 ]
 
 

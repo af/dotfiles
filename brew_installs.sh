@@ -1,7 +1,6 @@
 #!/bin/bash
 
 brew install \
-ack \
 ag \
 caskroom/cask/brew-cask \
 ctags \
@@ -13,14 +12,11 @@ gnu-sed --with-default-names \
 heroku-toolbelt \
 hub \
 jq \
-lua \
-luajit \
 ngrep \
 nmap \
 nvm \
 pip3 \
 python3 \
-redis \
 reattach-to-user-namespace \
 siege \
 tidy-html5 \
