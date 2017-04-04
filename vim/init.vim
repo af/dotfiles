@@ -273,6 +273,7 @@ let g:lt_quickfix_list_toggle_map = '<leader>q'
 " More tips: https://github.com/junegunn/fzf/wiki/Examples-(vim)
 nmap <leader><leader> :FZF<CR>
 nmap <C-t> :Buffers<CR>
+nmap gh :History:<CR>
 let g:fzf_action = {
   \'ctrl-s': 'split',
   \'ctrl-v': 'vertical split',
@@ -447,7 +448,7 @@ nnoremap <A-v> <c-w>v
 nnoremap <A-o> <c-w>o
 nnoremap <A-z> :ZoomWinTabToggle<CR>
 nnoremap <A-p> <c-w>p       " most recently used window
-nnoremap <C-k> <c-w>w       " more convenient alias    NOTE: this breaks C-i!
+nnoremap <CR> <c-w>w        " more convenient alias
 nnoremap <C-S-k> <c-w>W
 inoremap <A-j> <c-\><c-n><c-w>j
 inoremap <A-k> <c-\><c-n><c-w>k
