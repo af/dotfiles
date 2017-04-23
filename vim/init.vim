@@ -589,3 +589,6 @@ function! MoveToGitDir()
   echo 'Changed dir to ' . repoPath
 endfunc
 nnoremap <leader>d :call MoveToGitDir()<CR>
+
+" Treat Ctrl-C like <Esc>, to prevent weird Neovim plugin errors
+imap <C-c> <Esc>
