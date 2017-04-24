@@ -21,7 +21,7 @@ Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'danro/rename.vim',            { 'commit': 'f133763' }
 Plug 'af/YankRing.vim',             { 'commit': '0e4235b', 'on': [] }   " using fork, as v18 isn't officially on GH
 Plug 'tpope/vim-obsession',         { 'commit': '4ab72e0' }     " start a session file with :Obsession
-Plug 'dyng/ctrlsf.vim',             { 'commit': 'b48ed49' }
+Plug 'dyng/ctrlsf.vim',             { 'commit': '881dfbf' }
 Plug 'jeetsukumaran/vim-filebeagle',{ 'commit': 'abfb7f9' }
 Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 'markdown' }
 Plug 'mbbill/undotree',             { 'commit': '39e5cf0' }
