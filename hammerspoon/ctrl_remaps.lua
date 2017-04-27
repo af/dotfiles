@@ -8,10 +8,10 @@ keyStroke = function(modifiers, key)
   event.newKeyEvent(modifiers, key, false):post()
 end
 
-hs.hotkey.bind({'ctrl'}, KEY_CODES[';'], nil, (function()
+hs.hotkey.bind({'ctrl'}, KEY_CODES[';'], function()
   keyStroke({}, KEY_CODES['home'])
-end), nil)
+end)
 
-hs.hotkey.bind({'ctrl'}, KEY_CODES["'"], nil, (function()
+hs.hotkey.bind({'ctrl'}, KEY_CODES["'"], nil, function()
   keyStroke({}, KEY_CODES['end'])
-end), nil)
+end)
