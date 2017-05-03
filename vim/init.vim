@@ -406,7 +406,7 @@ let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md',
 let g:EditorConfig_core_mode = 'python_external'    " Speeds up load time by ~150ms
 
 "===============================================================================
-" Key Bindings: Indentation levels
+" Key Bindings: Visual mode
 "===============================================================================
 
 " Tab modifies indent in visual mode
@@ -416,6 +416,11 @@ vnoremap <Tab> >>
 " make < > shifts keep selection
 vnoremap < <gv
 vnoremap > >gv
+
+" make . and macros work on visual selections (via https://www.reddit.com/r/vim/comments/3y2mgt/)
+" Note: the . command must take effect at the start of each line
+vnoremap . :norm.<CR>
+xnoremap @ :normal @
 
 "===============================================================================
 " Key Bindings: Moving around
@@ -458,6 +463,9 @@ cnoremap <A-j> <c-\><c-n><c-w>j
 cnoremap <A-k> <c-\><c-n><c-w>k
 cnoremap <A-h> <c-\><c-n><c-w>h
 cnoremap <A-l> <c-\><c-n><c-w>l
+" Open new vsplit and move to it:
+nnoremap <silent> vv <C-w>v<C-w>l
+nnoremap <leader>o :only<CR>
 
 " Save current file every time we leave insert mode or leave vim
 " Note: "acwrite" check prevents errors with CtrlSF buffers
