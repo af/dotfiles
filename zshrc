@@ -196,7 +196,7 @@ export FZF_DEFAULT_COMMAND='ag -g "" --hidden --ignore .git'  # Respect .gitigno
 #  * -e is for exact matching
 #  * ':' is mapped to "abort", mostly to use with vim.
 #  * for a full list of available actions to bind to, see "man fzf" and search for "action"
-export FZF_DEFAULT_OPTS='-e --bind ctrl-f:page-down,ctrl-b:page-up,::abort'
+export FZF_DEFAULT_OPTS='-e --bind ctrl-l:select-all,ctrl-n:toggle+up,ctrl-f:page-down,ctrl-b:page-up,::abort'
 export FZF_COMPLETION_OPTS='-m'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"    # Respect .gitignore for ^t
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

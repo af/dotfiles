@@ -273,7 +273,7 @@ let g:lt_quickfix_list_toggle_map = '<leader>q'
 " More tips: https://github.com/junegunn/fzf/wiki/Examples-(vim)
 nmap <leader><leader> :FZF<CR>
 nmap <C-t> :Buffers<CR>
-nmap gh :History:<CR>
+nmap <leader>h :History:<CR>
 let g:fzf_action = {
   \'ctrl-s': 'split',
   \'ctrl-v': 'vertical split',
@@ -283,7 +283,7 @@ let g:fzf_action = {
 " When launching vim, if no file was provided, launch FZF automatically
 function! s:fzf_on_launch()
   if @% == ""
-    call fzf#run({'sink': 'e', 'window': 'rightbelow new'})
+    call fzf#run({'sink': 'e', 'options': '-m -x +s', 'window': 'rightbelow new'})
   endif
 endfunction
 autocmd VimEnter * call <SID>fzf_on_launch()
