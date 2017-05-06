@@ -46,6 +46,17 @@ Plug 'tomtom/tcomment_vim',         { 'commit': '3d0a997' }
 Plug 'tpope/vim-fugitive',          { 'commit': '935a2cc' }
 Plug 'airblade/vim-gitgutter',      { 'commit': '78d83c7' }
 
+" Text objects
+" They're basically all based on vim-textobj-user. For more, see https://github.com/kana/vim-textobj-user/wiki
+Plug 'kana/vim-textobj-user'
+Plug 'jceb/vim-textobj-uri'
+Plug 'kana/vim-textobj-indent'
+Plug 'kana/vim-textobj-line'
+Plug 'kana/vim-textobj-function'
+Plug 'thinca/vim-textobj-function-javascript'   " eg. vif
+Plug 'Julian/vim-textobj-variable-segment'      " eg. viv
+Plug 'whatyouhide/vim-textobj-xmlattr'          " eg. vix
+
 " Indentation, etc. Autodetect, but override with .editorconfig if present:
 Plug 'tpope/vim-sleuth',            { 'commit': '039e2cd' }
 Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load lazily, w/o input lag
