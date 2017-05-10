@@ -336,17 +336,6 @@ let g:airline#extensions#tabline#show_tab_type = 0
 let g:airline#extensions#tabline#tab_nr_type = 2    " show both splits and tab number
 let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#tabline#buffer_idx_mode = 1
-nmap <leader>1 <Plug>AirlineSelectTab1
-nmap <leader>2 <Plug>AirlineSelectTab2
-nmap <leader>3 <Plug>AirlineSelectTab3
-nmap <leader>4 <Plug>AirlineSelectTab4
-nmap <leader>5 <Plug>AirlineSelectTab5
-nmap <leader>6 <Plug>AirlineSelectTab6
-nmap <leader>7 <Plug>AirlineSelectTab7
-nmap <leader>8 <Plug>AirlineSelectTab8
-nmap <leader>9 <Plug>AirlineSelectTab9
-nmap <leader>- <Plug>AirlineSelectPrevTab
-nmap <leader>+ <Plug>AirlineSelectNextTab
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
@@ -503,7 +492,7 @@ autocmd BufLeave *.html,*.mustache  normal! mH
 autocmd BufLeave README.md          normal! mR
 autocmd BufLeave package.json       normal! mP
 " if a js filename has "test" in it, mark it T. Otherwise J:
-autocmd BufLeave *.js
+autocmd BufLeave *.js,*.jsx
     \ | if (expand("<afile>")) =~ "test.*"
     \ | execute 'normal! mT'
     \ | else
@@ -591,23 +580,6 @@ au FileType vim setlocal keywordprg=:help
 "   https://github.com/ocaml/merlin/blob/master/vim/merlin/doc/merlin.txt
 map <LocalLeader>f :ReasonPrettyPrint<CR>
 let g:ale_linter_aliases = {'reason': 'ocaml'}
-
-
-"===============================================================================
-" Misc
-"===============================================================================
-
-" Set vim's cwd to the closest ancestor dir containing a .git directory
-" using "git rev-parse --show-toplevel"
-function! MoveToGitDir()
-  let filePath = fnamemodify(bufname("%"), ':p:h')
-  exe 'cd' fnameescape(filePath)
-  let repoPath = system("git rev-parse --show-toplevel")
-  let repoPath = substitute(repoPath, '\n$', '', '')    " Remove newline from system() output
-  exe 'cd' fnameescape(repoPath)
-  echo 'Changed dir to ' . repoPath
-endfunc
-nnoremap <leader>d :call MoveToGitDir()<CR>
 
 " Treat Ctrl-C like <Esc>, to prevent weird Neovim plugin errors
 imap <C-c> <Esc>
