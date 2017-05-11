@@ -155,7 +155,7 @@ set colorcolumn=80,100      " Highlight these columns with a different bg
 
 " Automatically set quickfix height
 " http://vim.wikia.com/wiki/Automatically_fitting_a_quickfix_window_height
-au FileType qf call AdjustWindowHeight(3, 7)       " 2nd arg=> max height
+autocmd FileType qf call AdjustWindowHeight(3, 7)       " 2nd arg=> max height
 function! AdjustWindowHeight(minheight, maxheight)
     exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
@@ -207,7 +207,7 @@ if has('nvim')
     tnoremap <A-l> <c-\><c-n><c-w>l
     tnoremap <A-v> <c-\><c-n><c-w><c-v>
     tnoremap <A-s> <c-\><c-n><c-w><c-s>
-    au WinEnter term://* call feedkeys('i')
+    autocmd WinEnter term://* call feedkeys('i')
 elseif $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
     set t_Co=256            " 256 colours for regular vim if the terminal can handle it.
 endif
@@ -242,8 +242,8 @@ set completeopt=menuone,preview,longest
 autocmd FileType * let b:vcm_tab_complete = "omni"
 
 " Traverse completions with <Tab>
-imap <expr> <TAB> pumvisible() ? '<C-n>' : '<TAB>'
-imap <expr> <S-TAB> pumvisible() ? '<C-p>' : '<S-TAB>'
+inoremap <expr> <TAB> pumvisible() ? '<C-n>' : '<TAB>'
+inoremap <expr> <S-TAB> pumvisible() ? '<C-p>' : '<S-TAB>'
 
 " Make <Enter> select the currently highlighted item in the pop up menu:
 " This is not necessary with deoplete
@@ -268,8 +268,8 @@ let g:diminactive_enable_focus = 1
 
 " FileBeagle
 let g:filebeagle_show_hidden = 1        " Use 'gh' to toggle- FileBeagle hides lots by default
-au FileType filebeagle nmap <C-v> <Plug>(FileBeagleBufferSplitVerticalVisitTarget)
-au FileType filebeagle nmap <C-s> <Plug>(FileBeagleBufferSplitVisitTarget)
+autocmd FileType filebeagle nmap <buffer> <C-v> <Plug>(FileBeagleBufferSplitVerticalVisitTarget)
+autocmd FileType filebeagle nmap <buffer> <C-s> <Plug>(FileBeagleBufferSplitVisitTarget)
 
 " Load matchit.vim, but only if the user hasn't installed a newer version.
 if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
@@ -282,9 +282,9 @@ let g:lt_quickfix_list_toggle_map = '<leader>q'
 
 " FZF
 " More tips: https://github.com/junegunn/fzf/wiki/Examples-(vim)
-nmap <leader><leader> :FZF<CR>
-nmap <C-t> :Buffers<CR>
-nmap <leader>h :History:<CR>
+nnoremap <leader><leader> :FZF<CR>
+nnoremap <C-t> :Buffers<CR>
+nnoremap <leader>h :History:<CR>
 let g:fzf_action = {
   \'ctrl-s': 'split',
   \'ctrl-v': 'vertical split',
@@ -310,8 +310,8 @@ nnoremap gm :FZFMru<CR>
 
 " gitgutter
 " use [c and ]c to jump to next/previous changed "hunk"
-nmap <leader>a <Plug>GitGutterStageHunk
-nmap <leader>r <Plug>GitGutterRevertHunk
+nnoremap <leader>a <Plug>GitGutterStageHunk
+nnoremap <leader>r <Plug>GitGutterRevertHunk
 
 " vim-airline:
 " Note: the following symbols require a patched font.
@@ -366,7 +366,7 @@ let g:sparkupExecuteMapping = '<C-e>'       " The default mapping
 let g:splitjoin_javascript_if_clause_curly_braces = 'Sj'
 
 " vim-jsdoc
-nmap <silent> <C-d> <Plug>(jsdoc)
+nnoremap <silent> <C-d> <Plug>(jsdoc)
 let g:jsdoc_enable_es6 = 1
 let g:jsdoc_tags = {}
 let g:jsdoc_tags['param'] = 'arg'
@@ -388,8 +388,8 @@ let g:ctrlsf_position = 'right'
 let g:ctrlsf_winsize = '65%'
 let g:ctrlsf_indent = 1
 let g:ctrlsf_ignore_dir = ['node_modules', '.git']
-nmap <C-g> :CtrlSF ""<left>
-nmap gr <Plug>CtrlSFCwordExec
+nnoremap <C-g> :CtrlSF ""<left>
+nnoremap gr <Plug>CtrlSFCwordExec
 
 " delimitMate
 let delimitMate_expand_cr = 1
@@ -436,11 +436,11 @@ xnoremap @ :normal @
 " }     - move forward one paragraph
 
 " Navigating between buffers:
+" These first bindings don't work with nnoremap for some reason (?)
 nmap <C-h> <Plug>AirlineSelectPrevTab
 nmap <C-l> <Plug>AirlineSelectNextTab
 nnoremap <Backspace> <C-^>
 nnoremap <silent> <C-u> :bd<CR>
-nmap <C-q> :1,100bd<CR>
 
 " Easier movement between windows (Neovim only?):
 nnoremap <A-j> <c-w>j
@@ -503,14 +503,14 @@ autocmd BufLeave *.js,*.jsx
 " the file's location with ":cd %:h"
 
 " Move between errors (using ale)
-nmap <silent> [l  <Plug>(ale_previous_wrap)
-nmap <silent> ]l  <Plug>(ale_next_wrap)
+nnoremap <silent> [l  <Plug>(ale_previous_wrap)
+nnoremap <silent> ]l  <Plug>(ale_next_wrap)
 
 "===============================================================================
 " Key Bindings: Misc
 "===============================================================================
 " Use ':w!!' to save a root-owned file using sudo:
-cmap w!! w !sudo tee % >/dev/null
+cnoremap w!! w !sudo tee % >/dev/null
 
 cnoremap <C-j> <down>
 cnoremap <C-k> <up>
@@ -523,19 +523,19 @@ set foldlevelstart=10
 set pastetoggle=<F2>   " Have had problems with <F2>, see http://stackoverflow.com/q/7885198/351433
 
 " console.log convenience mapping. Inserts a console.log() call with the variable under the cursor
-autocmd FileType javascript nmap <Leader>cl yiwoconsole.log(`<c-r>": ${<c-r>"}`)<Esc>hh
+autocmd FileType javascript nnoremap <Leader>cl yiwoconsole.log(`<c-r>": ${<c-r>"}`)<Esc>hh
 
 " copy/paste with system clipboard:
-vmap <Leader>y "+y
-vmap <Leader>d "+d
-nmap <Leader>p "+p
-nmap <Leader>P "+P
-vmap <Leader>p "+p
-vmap <Leader>P "+P
+vnoremap <Leader>y "+y
+vnoremap <Leader>d "+d
+nnoremap <Leader>p "+p
+nnoremap <Leader>P "+P
+vnoremap <Leader>p "+p
+vnoremap <Leader>P "+P
 
 " vim-ragtag
 let g:ragtag_global_maps = 1
-imap <C-t> <C-x>/
+inoremap <C-t> <C-x>/
 
 " Resize window with arrow keys
 nnoremap <Left> :vertical resize -4<CR>
@@ -544,15 +544,15 @@ nnoremap <Up> :resize -4<CR>
 nnoremap <Down> :resize +4<CR>
 
 " Home row left/right bindings for command mode:
-cmap <C-h> <Left>
-cmap <C-l> <Right>
+cnoremap <C-h> <Left>
+cnoremap <C-l> <Right>
 
 "===============================================================================
 " Filetype-specific settings
 "===============================================================================
 " filetype detection for syntax highlighting
-au BufNewFile,BufRead *.md set filetype=markdown
-au BufNewFile,BufRead *.mustache set filetype=mustache
+autocmd BufNewFile,BufRead *.md set filetype=markdown
+autocmd BufNewFile,BufRead *.mustache set filetype=mustache
 autocmd FileType mustache set ft=html.mustache
 
 " html
@@ -562,15 +562,15 @@ iabbrev target="_blank" target="_blank" rel="noopener"
 autocmd FileType css,sass,scss,stylus,less set omnifunc=csscomplete#CompleteCSS
 
 " JSX
-au BufNewFile,BufRead *.jsx set filetype=jsx
+autocmd BufNewFile,BufRead *.jsx set filetype=jsx
 autocmd FileType jsx set ft=javascript.jsx
 
 " JSON files
-au BufRead,BufNewFile *.json set filetype=json
-au BufRead,BufNewFile *.json setlocal syntax=javascript
+autocmd BufRead,BufNewFile *.json set filetype=json
+autocmd BufRead,BufNewFile *.json setlocal syntax=javascript
 
 " Vim files (use K to look up the current word in vim's help files)
-au FileType vim setlocal keywordprg=:help
+autocmd FileType vim setlocal keywordprg=:help
 
 " Reason
 " There are a bunch of <localleader> bindings that are handy (eg \t), and gd to
@@ -582,4 +582,4 @@ map <LocalLeader>f :ReasonPrettyPrint<CR>
 let g:ale_linter_aliases = {'reason': 'ocaml'}
 
 " Treat Ctrl-C like <Esc>, to prevent weird Neovim plugin errors
-imap <C-c> <Esc>
+inoremap <C-c> <Esc>
