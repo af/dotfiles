@@ -73,7 +73,7 @@ Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml'
 
 " theme/syntax related plugins
 Plug 'sheerun/vim-polyglot',        { 'commit': 'e404a65' }     " syntax highlighting for many languages
-Plug 'w0rp/ale',                    { 'commit': '3e1486f' }
+Plug 'w0rp/ale',                    { 'commit': 'bb1f045' }
 Plug 'colorizer',                   { 'commit': 'aae6b51', 'on': 'ColorToggle' }
 
 " Colour schemes
@@ -376,7 +376,7 @@ let g:jsdoc_return_description = 0
 let g:jsdoc_param_description_separator = ' - '
 
 " UltiSnips
-let g:UltiSnipsExpandTrigger="<C-j>"
+let g:UltiSnipsExpandTrigger="<C-g>"
 let g:UltiSnipsEditSplit = 'vertical'
 let g:UltiSnipsSnippetDirectories = ['personal_snippets']
 let g:UltiSnipsSnippetsDir = '~/.vim/personal_snippets'
@@ -503,8 +503,9 @@ autocmd BufLeave *.js,*.jsx
 " the file's location with ":cd %:h"
 
 " Move between errors (using ale)
-nnoremap <silent> [l  <Plug>(ale_previous_wrap)
-nnoremap <silent> ]l  <Plug>(ale_next_wrap)
+nnoremap <silent> <C-j> :call ale#loclist_jumping#Jump('after', 1)<CR>
+nnoremap <silent> <C-k> :call ale#loclist_jumping#Jump('before', 1)<CR>
+
 
 "===============================================================================
 " Key Bindings: Misc
@@ -535,7 +536,7 @@ vnoremap <Leader>P "+P
 
 " vim-ragtag
 let g:ragtag_global_maps = 1
-inoremap <C-t> <C-x>/
+imap <C-t> <C-x>/
 
 " Resize window with arrow keys
 nnoremap <Left> :vertical resize -4<CR>
@@ -580,6 +581,7 @@ autocmd FileType vim setlocal keywordprg=:help
 "   https://github.com/ocaml/merlin/blob/master/vim/merlin/doc/merlin.txt
 map <LocalLeader>f :ReasonPrettyPrint<CR>
 let g:ale_linter_aliases = {'reason': 'ocaml'}
+let g:ale_open_list = 1
 
 " Treat Ctrl-C like <Esc>, to prevent weird Neovim plugin errors
 inoremap <C-c> <Esc>
