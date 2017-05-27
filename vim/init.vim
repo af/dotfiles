@@ -310,8 +310,8 @@ nnoremap gm :FZFMru<CR>
 
 " gitgutter
 " use [c and ]c to jump to next/previous changed "hunk"
-nnoremap <leader>a <Plug>GitGutterStageHunk
-nnoremap <leader>r <Plug>GitGutterRevertHunk
+nmap <leader>a <Plug>GitGutterStageHunk
+nmap <leader>r <Plug>GitGutterRevertHunk
 
 " vim-airline:
 " Note: the following symbols require a patched font.
