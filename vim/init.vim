@@ -2,15 +2,19 @@
 " * see ":h normal-index" or ":h insert-index" for a list of built-in mappings
 " * see ":verbose nmap <C-j>" (for example) for maps setup by plugins or .vimrc
 " * profile startup time with "vim --startuptime startup.log"
+"
+" Reminder (since this file now has folds): zR to open all folds in a file, zM to close them all
+" zO to open recursively from cursor, zA to toggle recursively
+" See :help fold-manual
 
 set nocompatible            " we're using (neo)vim, not Vi
 
-"===============================================================================
-" Plugin setup via vim-plug
+" {{{ Plugin setup via vim-plug
+" ==============================================================================
 "
 " * Run :PlugInstall to install
 " * Run :PlugUpdate to update
-"===============================================================================
+"
 call plug#begin('~/.vim/plugged')
 
 " vim plugins, managed by vim-plug
@@ -105,14 +109,11 @@ augroup load_on_insert
 augroup END
 
 call plug#end()
-"===============================================================================
-" (End of plugin setup)
-"===============================================================================
+" }}} (end of plugin setup)
 
+" {{{ General Vim settings
+" ==============================================================================
 
-"===============================================================================
-" General Vim settings
-"===============================================================================
 let mapleader = " "         " <leader> is our personal modifier key
 set visualbell
 set history=500             " longer command history (default=20)
@@ -136,9 +137,9 @@ set autoindent
 set list listchars=tab:›\ ,trail:·          " mark trailing white space
 "set list listchars=tab:›\ ,trail:·,eol:¬   " mark trailing white space (with eol)
 
+" }}}
 
-"===============================================================================
-" Display/window settings
+" {{{ Display/window settings
 "===============================================================================
 syntax on
 set bg=dark
@@ -159,9 +160,9 @@ autocmd FileType qf call AdjustWindowHeight(3, 7)       " 2nd arg=> max height
 function! AdjustWindowHeight(minheight, maxheight)
     exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
+" }}}
 
-"===============================================================================
-" Searching & Replacing
+" {{{ Searching & Replacing
 "===============================================================================
 set ignorecase
 set smartcase               " override 'ignorecase' if search term has upper case chars
@@ -176,9 +177,9 @@ nnoremap / /\v
 vnoremap / /\v
 nnoremap ? ?\v
 vnoremap ? ?\v
+" }}}
 
-"===============================================================================
-" Line wrapping
+" {{{ Line wrapping
 "===============================================================================
 set wrap
 set textwidth=99
@@ -187,9 +188,12 @@ nnoremap j gj
 nnoremap k gk
 autocmd WinEnter * set wrap     " Only wrap the current file (works nice with ctrlsf)
 autocmd WinLeave * set nowrap
+" }}}
 
+" {{{ Neovim-specific settings
+"===============================================================================
 if has('nvim')
-    " Neovim True Color support
+    " True Color support
     " For this to work, you need recent versions of iTerm2 and tmux (2.2+)
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
     let &t_8b="\e[48;2;%ld;%ld;%ldm"
@@ -211,10 +215,9 @@ if has('nvim')
 elseif $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
     set t_Co=256            " 256 colours for regular vim if the terminal can handle it.
 endif
+" }}}
 
-
-"===============================================================================
-" Colorscheme
+" {{{ Colorscheme & syntax
 "===============================================================================
 color gruvbox
 set bg=dark
@@ -230,10 +233,9 @@ function! <SID>SynStack()
   endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
+" }}}
 
-
-"===============================================================================
-" Autocompletion and Tab behavior
+" {{{ Autocompletion and Tab behavior
 "===============================================================================
 " May want to consider replacing "menuone" with "menu" (see vim help)
 set completeopt=menuone,preview,longest
@@ -248,11 +250,9 @@ inoremap <expr> <S-TAB> pumvisible() ? '<C-p>' : '<S-TAB>'
 " Make <Enter> select the currently highlighted item in the pop up menu:
 " This is not necessary with deoplete
 "inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" }}}
 
-
-
-"===============================================================================
-" Plugin customization
+" {{{ Plugin customization
 "===============================================================================
 
 " vim-hardtime: discourage repeat usage of hjkl
@@ -405,8 +405,12 @@ let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md',
 
 let g:EditorConfig_core_mode = 'python_external'    " Speeds up load time by ~150ms
 
-"===============================================================================
-" Key Bindings: Visual mode
+" vim-ragtag
+let g:ragtag_global_maps = 1
+imap <C-t> <C-x>/
+" }}}
+
+" {{{ Key Bindings: Visual mode
 "===============================================================================
 
 " Tab modifies indent in visual mode
@@ -421,9 +425,9 @@ vnoremap > >gv
 " Note: the . command must take effect at the start of each line
 vnoremap . :norm.<CR>
 xnoremap @ :normal @
+" }}}
 
-"===============================================================================
-" Key Bindings: Moving around
+" {{{ Key Bindings: Moving around
 "===============================================================================
 
 " (built-in)
@@ -505,10 +509,9 @@ autocmd BufLeave *.js,*.jsx
 " Move between errors (using ale)
 nnoremap <silent> <C-j> :call ale#loclist_jumping#Jump('after', 1)<CR>
 nnoremap <silent> <C-k> :call ale#loclist_jumping#Jump('before', 1)<CR>
+" }}}
 
-
-"===============================================================================
-" Key Bindings: Misc
+" {{{ Key Bindings: Misc
 "===============================================================================
 " Use ':w!!' to save a root-owned file using sudo:
 cnoremap w!! w !sudo tee % >/dev/null
@@ -519,9 +522,6 @@ cnoremap <C-k> <up>
 " Make n/N always go in consistent directions:
 noremap <silent> n /<CR>
 noremap <silent> N ?<CR>
-
-set foldlevelstart=10
-set pastetoggle=<F2>   " Have had problems with <F2>, see http://stackoverflow.com/q/7885198/351433
 
 " console.log convenience mapping. Inserts a console.log() call with the variable under the cursor
 autocmd FileType javascript nnoremap <Leader>cl yiwoconsole.log(`<c-r>": ${<c-r>"}`)<Esc>hh
@@ -534,10 +534,6 @@ nnoremap <Leader>P "+P
 vnoremap <Leader>p "+p
 vnoremap <Leader>P "+P
 
-" vim-ragtag
-let g:ragtag_global_maps = 1
-imap <C-t> <C-x>/
-
 " Resize window with arrow keys
 nnoremap <Left> :vertical resize -4<CR>
 nnoremap <Right> :vertical resize +4<CR>
@@ -548,8 +544,19 @@ nnoremap <Down> :resize +4<CR>
 cnoremap <C-h> <Left>
 cnoremap <C-l> <Right>
 
+" Treat Ctrl-C like <Esc>, to prevent weird Neovim plugin errors
+inoremap <C-c> <Esc>
+" }}}
+
+" {{{ Folding
 "===============================================================================
-" Filetype-specific settings
+set foldlevelstart=10
+set foldmethod=syntax
+autocmd FileType vim set foldmethod=marker
+set pastetoggle=<F2>   " Have had problems with <F2>, see http://stackoverflow.com/q/7885198/351433
+" }}}
+
+" {{{ Filetype-specific settings
 "===============================================================================
 " filetype detection for syntax highlighting
 autocmd BufNewFile,BufRead *.md set filetype=markdown
@@ -582,6 +589,4 @@ autocmd FileType vim setlocal keywordprg=:help
 map <LocalLeader>f :ReasonPrettyPrint<CR>
 let g:ale_linter_aliases = {'reason': 'ocaml'}
 let g:ale_open_list = 1
-
-" Treat Ctrl-C like <Esc>, to prevent weird Neovim plugin errors
-inoremap <C-c> <Esc>
+" }}}
