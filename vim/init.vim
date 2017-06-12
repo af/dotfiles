@@ -134,6 +134,8 @@ set scrolloff=3             " # of lines always shown above/below the cursor
 set expandtab
 set tabstop=4 shiftwidth=4 softtabstop=4
 set autoindent
+set breakindent
+set showbreak=…
 set list listchars=tab:›\ ,trail:·          " mark trailing white space
 "set list listchars=tab:›\ ,trail:·,eol:¬   " mark trailing white space (with eol)
 
@@ -164,7 +166,7 @@ endfunction
 
 " {{{ Searching & Replacing
 "===============================================================================
-set ignorecase
+set infercase
 set smartcase               " override 'ignorecase' if search term has upper case chars
 set incsearch               " incremental search
 set showmatch
@@ -471,9 +473,15 @@ cnoremap <A-l> <c-\><c-n><c-w>l
 nnoremap <silent> vv <C-w>v<C-w>l
 nnoremap <leader>o :only<CR>
 
+" Automatically resize/equalize splits when vim is resized
+autocmd VimResized * wincmd =
+
 " Save current file every time we leave insert mode or leave vim
-" Note: "acwrite" check prevents errors with CtrlSF buffers
-autocmd InsertLeave,FocusLost * nested if &l:buftype != 'acwrite' | update | endif
+augroup autoSaveAndRead
+    autocmd!
+    autocmd TextChanged,InsertLeave,FocusLost * silent! wall
+    autocmd CursorHold * silent! checktime
+augroup END
 
 " <escape> in normal mode also saves
 nmap <esc> :w<cr>
