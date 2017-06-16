@@ -166,7 +166,7 @@ endfunction
 
 " {{{ Searching & Replacing
 "===============================================================================
-set infercase
+set ignorecase
 set smartcase               " override 'ignorecase' if search term has upper case chars
 set incsearch               " incremental search
 set showmatch
