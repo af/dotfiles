@@ -503,13 +503,8 @@ autocmd BufLeave *.styl             normal! mS
 autocmd BufLeave *.html,*.mustache  normal! mH
 autocmd BufLeave README.md          normal! mR
 autocmd BufLeave package.json       normal! mP
-" if a js filename has "test" in it, mark it T. Otherwise J:
-autocmd BufLeave *.js,*.jsx
-    \ | if (expand("<afile>")) =~ "test.*"
-    \ | execute 'normal! mT'
-    \ | else
-    \ | execute 'normal! mJ'
-    \ | endif
+autocmd BufLeave *.js,*.jsx         normal! mJ
+autocmd BufLeave *.test.js,*.test.jsx   normal! mT
 
 " ProTip: After opening a file with a global mark, you can change vim's cwd to
 " the file's location with ":cd %:h"
