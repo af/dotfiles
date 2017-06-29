@@ -77,7 +77,7 @@ Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml'
 
 " theme/syntax related plugins
 Plug 'sheerun/vim-polyglot',        { 'commit': 'e404a65' }     " syntax highlighting for many languages
-Plug 'w0rp/ale',                    { 'commit': 'bb1f045' }
+Plug 'w0rp/ale',                    { 'commit': '7eec1f2' }
 Plug 'colorizer',                   { 'commit': 'aae6b51', 'on': 'ColorToggle' }
 
 " Colour schemes
@@ -512,6 +512,13 @@ autocmd BufLeave *.test.js,*.test.jsx   normal! mT
 " Move between errors (using ale)
 nnoremap <silent> <C-j> :call ale#loclist_jumping#Jump('after', 1)<CR>
 nnoremap <silent> <C-k> :call ale#loclist_jumping#Jump('before', 1)<CR>
+
+" More ale/loclist config
+let g:ale_open_list = 1   " Open the loclist when reading a file (if there are errors)
+let g:ale_lint_on_text_changed = "normal"
+
+" automatically close corresponding loclist when quitting a window
+autocmd QuitPre * if &filetype != 'qf' | silent! lclose | endif
 " }}}
 
 " {{{ Key Bindings: Misc
@@ -591,5 +598,4 @@ autocmd FileType vim setlocal keywordprg=:help
 "   https://github.com/ocaml/merlin/blob/master/vim/merlin/doc/merlin.txt
 map <LocalLeader>f :ReasonPrettyPrint<CR>
 let g:ale_linter_aliases = {'reason': 'ocaml'}
-let g:ale_open_list = 1
 " }}}
