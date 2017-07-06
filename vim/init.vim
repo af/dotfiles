@@ -392,6 +392,19 @@ let g:ctrlsf_indent = 1
 let g:ctrlsf_ignore_dir = ['node_modules', '.git']
 nnoremap <C-g> :CtrlSF ""<left>
 nnoremap gr <Plug>CtrlSFCwordExec
+let g:ctrlsf_mapping = {
+  \"open"    : "o",
+  \"openb"   : "O",
+  \"split"   : "<C-O>",
+  \"vsplit"  : "",
+  \"tab"     : "t",
+  \"tabb"    : "T",
+  \"popen"   : "p",
+  \"quit"    : "q",
+  \"next"    : "<C-J>",
+  \"prev"    : "<C-K>",
+  \"pquit"   : "q",
+  \"loclist" : "" }
 
 " delimitMate
 let delimitMate_expand_cr = 1
