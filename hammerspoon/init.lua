@@ -87,3 +87,7 @@ hs.hotkey.bind({}, 'F16', Utils.dismissAllNotifications)
 
 local emoji = require 'emoji'
 hs.hotkey.bind(mash, 'Y', emoji.choose)
+
+local mortality = require 'mortality'
+local estimatedDeath = os.time{year=2065, month=1, day=1}
+mortality(estimatedDeath)
