@@ -8,11 +8,12 @@ local init = function(estimatedDeath)
   local updateText = function()
     local now = os.time()
     local daysLeft = (estimatedDeath - now) / (HOUR * 24)
-    local text = hs.styledtext.new('💀' .. math.floor(daysLeft), textStyle)
+    local roundedDays = math.floor(daysLeft * 10) / 10  -- Show one decimal point
+    local text = hs.styledtext.new('💀' .. roundedDays, textStyle)
     menu:setTitle(text)
   end
 
-  hs.timer.doEvery(12 * HOUR, updateText)
+  hs.timer.doEvery(HOUR, updateText)
   updateText()
 end
 
