@@ -65,8 +65,6 @@ Plug 'whatyouhide/vim-textobj-xmlattr'          " eg. vix
 Plug 'tpope/vim-sleuth',            { 'commit': '039e2cd' }
 Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load lazily, w/o input lag
 
-Plug 'reasonml/vim-reason-loader'
-
 " Javascript/CSS/HTML-related plugins
 Plug 'moll/vim-node',               { 'commit': '13b3121' }     " Lazy loading doesn't work for some reason
 Plug '1995eaton/vim-better-javascript-completion',  { 'for': ['javascript', 'jsx'] }
@@ -74,6 +72,10 @@ Plug 'heavenshell/vim-jsdoc',       { 'for': ['javascript', 'jsx'] }
 Plug 'othree/csscomplete.vim',      { 'for': ['css', 'stylus'] }
 Plug 'rstacruz/sparkup',            { 'commit': 'd400a57', 'for': ['html', 'xml', 'mustache'] }
 Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml', 'mustache', 'jsx'] }
+
+" Other language-specific plugins
+Plug 'reasonml/vim-reason-loader'
+Plug '~/dotfiles/vim/downloaded_plugins/dbext'
 
 " theme/syntax related plugins
 Plug 'sheerun/vim-polyglot',        { 'commit': 'e404a65' }     " syntax highlighting for many languages
@@ -347,6 +349,9 @@ let g:deoplete#omni#input_patterns = {}
 let g:deoplete#omni#input_patterns.stylus = '.*'
 let g:deoplete#sources.stylus = ['omni', 'buffer', 'tags']
 
+" DBExt
+let g:dbext_default_profile_postgresql_local = 'type=PGSQL:user=aaron:passwd=whatever:dbname=qci_proto'
+
 " For OCaml/Reason, ensure Merlin takes precedence:
 let g:deoplete#sources.ocaml = ['omni', 'buffer']
 let g:deoplete#sources.reason = ['omni', 'buffer']
@@ -585,6 +590,10 @@ set pastetoggle=<F2>   " Have had problems with <F2>, see http://stackoverflow.c
 autocmd BufNewFile,BufRead *.md set filetype=markdown
 autocmd BufNewFile,BufRead *.mustache set filetype=mustache
 autocmd FileType mustache set ft=html.mustache
+
+" sql
+" see https://www.reddit.com/r/vim/comments/2om1ib/how_to_disable_sql_dynamic_completion/
+let g:omni_sql_no_default_maps = 1
 
 " html
 iabbrev target="_blank" target="_blank" rel="noopener"
