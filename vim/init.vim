@@ -74,8 +74,8 @@ Plug 'rstacruz/sparkup',            { 'commit': 'd400a57', 'for': ['html', 'xml'
 Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml', 'mustache', 'jsx'] }
 
 " Other language-specific plugins
-Plug 'reasonml/vim-reason-loader'
-Plug '~/dotfiles/vim/downloaded_plugins/dbext'
+Plug 'reasonml-editor/vim-reason',  { 'for': ['reason'] }
+Plug '~/dotfiles/vim/downloaded_plugins/dbext', {'for': ['sql']}
 
 " theme/syntax related plugins
 Plug 'sheerun/vim-polyglot',        { 'commit': 'e404a65' }     " syntax highlighting for many languages
@@ -618,6 +618,6 @@ autocmd FileType vim setlocal keywordprg=:help
 " For more on Merlin and vim, see:
 "   https://github.com/ocaml/merlin/wiki/vim-from-scratch
 "   https://github.com/ocaml/merlin/blob/master/vim/merlin/doc/merlin.txt
-map <LocalLeader>f :ReasonPrettyPrint<CR>
+autocmd FileType reason map <LocalLeader>f :ReasonPrettyPrint<CR>
 let g:ale_linter_aliases = {'reason': 'ocaml'}
 " }}}
