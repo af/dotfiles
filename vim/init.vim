@@ -349,9 +349,6 @@ let g:deoplete#omni#input_patterns = {}
 let g:deoplete#omni#input_patterns.stylus = '.*'
 let g:deoplete#sources.stylus = ['omni', 'buffer', 'tags']
 
-" DBExt
-let g:dbext_default_profile_postgresql_local = 'type=PGSQL:user=aaron:passwd=whatever:dbname=qci_proto'
-
 " For OCaml/Reason, ensure Merlin takes precedence:
 let g:deoplete#sources.ocaml = ['omni', 'buffer']
 let g:deoplete#sources.reason = ['omni', 'buffer']
@@ -621,3 +618,11 @@ autocmd FileType vim setlocal keywordprg=:help
 autocmd FileType reason map <LocalLeader>f :ReasonPrettyPrint<CR>
 let g:ale_linter_aliases = {'reason': 'ocaml'}
 " }}}
+
+
+" Load any machine-specific config from another file, if it exists
+try
+  source ~/.vimrc_machine_specific
+catch
+  " No such file? No problem; just ignore it.
+endtry
