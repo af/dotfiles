@@ -395,10 +395,10 @@ let g:ctrlsf_ignore_dir = ['node_modules', '.git']
 nnoremap <C-g> :CtrlSF ""<left>
 nnoremap gr <Plug>CtrlSFCwordExec
 let g:ctrlsf_mapping = {
-  \"open"    : "o",
+  \"open"    : ["o", "<CR>"],
   \"openb"   : "O",
-  \"split"   : "<C-O>",
-  \"vsplit"  : "",
+  \"split"   : "<C-s>",
+  \"vsplit"  : "<C-v>",
   \"tab"     : "t",
   \"tabb"    : "T",
   \"popen"   : "p",
