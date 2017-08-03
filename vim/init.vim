@@ -393,7 +393,7 @@ let g:ctrlsf_winsize = '65%'
 let g:ctrlsf_indent = 1
 let g:ctrlsf_ignore_dir = ['node_modules', '.git']
 nnoremap <C-g> :CtrlSF ""<left>
-nnoremap gr <Plug>CtrlSFCwordExec
+nmap gr <Plug>CtrlSFCCwordExec
 let g:ctrlsf_mapping = {
   \"open"    : ["o", "<CR>"],
   \"openb"   : "O",
