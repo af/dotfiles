@@ -31,16 +31,6 @@ SYMLINK_MAP = {
     '~/Library/Application Support/Karabiner/private.xml': 'karabiner.xml',
 }
 
-# npm modules to install globally:
-NPM_GLOBALS = [
-    'diff-so-fancy'
-    'eslint',
-    'gist-cli',
-    'jsonlint',
-    'stylus',
-    'yarn'
-]
-
 
 # Output a generic header for a section of the install script:
 def section(name):
@@ -67,18 +57,5 @@ for source, dest in skipped:
     print('! skipped %-30s (file already exists)' % dest)
 for source, dest in linked:
     print('symlinked %-25s ---> %s' % (dest, source))
-
-
-
-section('Installing global npm modules...')
-check_cmd = 'npm ls -g --parseable ' + ' '.join(NPM_GLOBALS)
-install_list = subprocess.check_output(check_cmd, shell=True)
-if not install_list:
-    cmd = 'npm install -g ' + ' '.join(NPM_GLOBALS)
-    output = subprocess.check_output(cmd, shell=True)
-    print output
-else:
-    print 'npm modules have been installed\n'
-
 
 print('Done!')

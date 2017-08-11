@@ -160,6 +160,17 @@ function af-workspace () {
     tmux select-pane -L     # End up on the main (left) pane
 }
 
+# Install the global npm packages that I use all the time
+# Need to run this any time I install a new node version via nvm
+function af-npm-i-globals () {
+    npm i -g \
+      diff-so-fancy\
+      eslint\
+      gist-cli\
+      jsonlint\
+      yarn
+}
+
 # Helper to send a command to the right tmux pane.
 # Usage: 'ts echo "hello"'
 function ts {
