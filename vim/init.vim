@@ -494,7 +494,7 @@ autocmd VimResized * wincmd =
 " Save current file every time we leave insert mode or leave vim
 augroup autoSaveAndRead
     autocmd!
-    autocmd TextChanged,InsertLeave,FocusLost * silent! wall
+    autocmd InsertLeave,FocusLost * update
     autocmd CursorHold * silent! checktime
 augroup END
 
@@ -531,6 +531,7 @@ nnoremap <silent> <C-k> :call ale#loclist_jumping#Jump('before', 1)<CR>
 " More ale/loclist config
 let g:ale_open_list = 1   " Open the loclist when reading a file (if there are errors)
 let g:ale_lint_on_text_changed = "normal"
+let g:ale_lint_on_insert_leave = 1
 
 " automatically close corresponding loclist when quitting a window
 autocmd QuitPre * if &filetype != 'qf' | silent! lclose | endif
