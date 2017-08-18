@@ -76,6 +76,7 @@ Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml'
 " Other language-specific plugins
 Plug 'reasonml-editor/vim-reason',  { 'for': ['reason'] }
 Plug '~/dotfiles/vim/downloaded_plugins/dbext', {'for': ['sql']}
+Plug 'elzr/vim-json',               { 'commit': 'f5e3181', 'for': ['json'] }
 
 " theme/syntax related plugins
 Plug 'sheerun/vim-polyglot',        { 'commit': 'e404a65' }     " syntax highlighting for many languages
@@ -604,8 +605,8 @@ autocmd BufNewFile,BufRead *.jsx set filetype=jsx
 autocmd FileType jsx set ft=javascript.jsx
 
 " JSON files
+let g:vim_json_syntax_conceal = 0
 autocmd BufRead,BufNewFile *.json set filetype=json
-autocmd BufRead,BufNewFile *.json setlocal syntax=javascript
 
 " Vim files (use K to look up the current word in vim's help files)
 autocmd FileType vim setlocal keywordprg=:help
