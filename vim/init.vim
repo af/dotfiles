@@ -80,7 +80,7 @@ Plug '~/dotfiles/vim/downloaded_plugins/dbext', {'for': ['sql']}
 " theme/syntax related plugins
 Plug 'sheerun/vim-polyglot',        { 'commit': 'e404a65' }     " syntax highlighting for many languages
 Plug 'w0rp/ale',                    { 'commit': '7eec1f2' }
-Plug 'colorizer',                   { 'commit': 'aae6b51', 'on': 'ColorToggle' }
+Plug 'lilydjwg/colorizer',          { 'commit': '9d6dc32', 'on': 'ColorToggle' }
 
 " Colour schemes
 Plug 'morhetz/gruvbox',             { 'commit': '2ea3298' }     " default. brown/retro. :set bg=dark
