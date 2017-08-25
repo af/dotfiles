@@ -88,7 +88,7 @@ Plug 'morhetz/gruvbox',             { 'commit': '2ea3298' }     " default. brown
 
 " Snippets and tab completion
 Plug 'SirVer/UltiSnips',            { 'commit': '71c3972', 'on': [] }  " personal snippets are in this dotfiles repo
-Plug 'Shougo/deoplete.nvim',        { 'commit': '76dfa1a', 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete.nvim',        { 'commit': 'ac4e8b5', 'do': ':UpdateRemotePlugins' }
 "Plug 'ajh17/VimCompletesMe',        { 'commit': '146f000' }    " More minimal alternative to deoplete
 
 
