@@ -25,17 +25,17 @@ local Log = {}
 local App = {}
 
 -- (ab)use hs.chooser as a text input with the possibility of using other options
-local showChooserPrompt = function(options, callback)
+local showChooserPrompt = function(items, callback)
     local chooser = hs.chooser.new(function(item)
         if item then callback(item.text) end
         if chooser then chooser:delete() end
     end)
 
     -- The table of choices to present to the user. It's comprised of one empty
-    -- item (which we update as the user types), and those passed in as options
+    -- item (which we update as the user types), and those passed in as items
     local choiceList = { {text=''} }
-    for i=1, #options do
-        choiceList[#choiceList+1] = {text=options[i]}
+    for i=1, #items do
+        choiceList[#choiceList+1] = items[i]
     end
 
     chooser:choices(function()
@@ -81,13 +81,16 @@ Log.getCompletedToday = function()
     return todayItems
 end
 
--- Return a table of recent task names, most recent first
+-- Return a table of recent tasks ({text, subText}), most recent first
 Log.getRecentTaskNames = function()
-    local tasks = Log.getLatestItems(10)
+    local tasks = Log.getLatestItems(12)
     local nonEmptyTasks = hs.fnutils.filter(tasks, function(t) return t ~= '' end)
     local names = hs.fnutils.map(nonEmptyTasks, function(taskWithTimestamp)
-        local taskStartPosition = string.find(taskWithTimestamp, ']') + 2
-        return string.sub(taskWithTimestamp, taskStartPosition)
+        local timeStampEnd = string.find(taskWithTimestamp, ']')
+        return {
+            text = string.sub(taskWithTimestamp, timeStampEnd + 2),
+            subText = string.sub(taskWithTimestamp, 2, timeStampEnd - 1)  -- slice braces off
+        }
     end)
 
     -- TODO: dedupe these items before returning
