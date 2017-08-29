@@ -425,7 +425,7 @@ let g:EditorConfig_core_mode = 'python_external'    " Speeds up load time by ~15
 
 " vim-ragtag
 let g:ragtag_global_maps = 1
-imap <C-t> <C-x>/
+autocmd FileType html,javascript imap <C-k> <C-x>/
 " }}}
 
 " {{{ Key Bindings: Visual mode
