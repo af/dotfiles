@@ -191,8 +191,6 @@ set textwidth=99
 set formatoptions=qrn1
 nnoremap j gj
 nnoremap k gk
-autocmd WinEnter * set wrap     " Only wrap the current file (works nice with ctrlsf)
-autocmd WinLeave * set nowrap
 " }}}
 
 " {{{ Neovim-specific settings
@@ -205,7 +203,8 @@ if has('nvim')
 
     set inccommand=split
 
-    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1     " See https://github.com/neovim/neovim/wiki/FAQ
+    " See https://github.com/neovim/neovim/wiki/FAQ
+    set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
 
     " Nicer navigation for Neovim's terminal buffers
     " via https://github.com/neovim/neovim/pull/2076#issuecomment-76998265
@@ -495,18 +494,18 @@ autocmd VimResized * wincmd =
 " Save current file every time we leave insert mode or leave vim
 augroup autoSaveAndRead
     autocmd!
-    autocmd InsertLeave,FocusLost * call Autosave()
+    autocmd InsertLeave,FocusLost * call <SID>autosave()
     autocmd CursorHold * silent! checktime
 augroup END
 
-function! Autosave()
-    if &filetype !=# 'ctrlsf'
+function! <SID>autosave()
+    if &filetype !=# 'ctrlsf' && expand('%')
         update
     endif
 endfunction
 
 " <escape> in normal mode also saves
-nmap <esc> :call Autosave()<CR>
+nmap <esc> :call <SID>autosave()<CR>
 
 " Swap ` and ' for mark jumping:
 nnoremap ' `
