@@ -25,7 +25,7 @@ Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'danro/rename.vim',            { 'commit': 'f133763' }
 Plug 'af/YankRing.vim',             { 'commit': '0e4235b', 'on': [] }   " using fork, as v18 isn't officially on GH
 Plug 'tpope/vim-obsession',         { 'commit': '4ab72e0' }     " start a session file with :Obsession
-Plug 'dyng/ctrlsf.vim',             { 'commit': '881dfbf' }
+Plug 'dyng/ctrlsf.vim',             { 'commit': '5c40f36' }
 Plug 'jeetsukumaran/vim-filebeagle',{ 'commit': 'abfb7f9' }
 Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 'markdown' }
 Plug 'mbbill/undotree',             { 'commit': '39e5cf0' }
@@ -495,12 +495,18 @@ autocmd VimResized * wincmd =
 " Save current file every time we leave insert mode or leave vim
 augroup autoSaveAndRead
     autocmd!
-    autocmd InsertLeave,FocusLost * update
+    autocmd InsertLeave,FocusLost * call Autosave()
     autocmd CursorHold * silent! checktime
 augroup END
 
+function! Autosave()
+    if &filetype !=# 'ctrlsf'
+        update
+    endif
+endfunction
+
 " <escape> in normal mode also saves
-nmap <esc> :w<cr>
+nmap <esc> :call Autosave()<CR>
 
 " Swap ` and ' for mark jumping:
 nnoremap ' `
