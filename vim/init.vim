@@ -499,7 +499,7 @@ augroup autoSaveAndRead
 augroup END
 
 function! <SID>autosave()
-    if &filetype !=# 'ctrlsf' && expand('%')
+    if &filetype !=# 'ctrlsf' && (filereadable(expand('%')) == 1)
         update
     endif
 endfunction
