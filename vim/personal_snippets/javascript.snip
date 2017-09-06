@@ -1,0 +1,166 @@
+# Custom JavaScript snippets for neosnippet
+# For more ideas, see the "builtins" here: https://github.com/Shougo/neosnippet-snippets/blob/master/neosnippets/javascript.snip
+
+snippet console-log
+alias cl
+options word
+	console.log(${0:TARGET})
+
+snippet const
+alias co
+options word
+	const ${1} = ${0}
+
+snippet debugger
+alias d
+options word
+	debugger
+
+
+snippet jsdoc-block
+alias jd
+options head
+	/**
+	 * ${3:}
+	 * @return {${1:type}} - ${2}
+	 */
+
+snippet jsdoc-arg
+alias ja
+options word
+	@arg {${1:type}} ${2:name} - 
+
+snippet jsdoc-throws
+alias jt
+	@throws {${1:type}}
+
+
+snippet require
+alias req
+options head
+	const ${1:name} = require('${2}')
+
+snippet for-loop
+alias for
+options head
+	for (let i = 0; i < ${1}; i++) {
+		${0}
+	}
+
+snippet switch
+options head
+	switch (${1}) {
+	case ${2}:
+		${3}
+		break
+	}
+
+snippet method
+alias me
+options head
+	${1:methodName}() {
+		${2}
+	},
+
+
+#===================
+# Testing snippets
+#===================
+
+snippet painless-test
+alias t
+options head
+	test('${1}', () => {
+		${2}
+	})
+
+snippet mocha-describe
+alias desc
+options head
+	describe('${1}', function(${2}) {
+		$0
+	})
+
+snippet mocha-it
+alias it
+options head
+	it('${1}', (${2}) => {
+		${3}
+	})
+
+snippet mocha-before
+alias before
+options head
+	before((${1}) => {
+		${2}
+	})
+
+snippet mocha-after
+alias after
+options head
+	after((${1}) => {
+		${2}
+	})
+
+snippet mocha-beforeEach
+alias beforeEach
+options head
+	beforeEach((${1}) => {
+		${2}
+	})
+
+snippet mocha-afterEach
+alias afterEach
+options head
+	afterEach((${1}) => {
+		${2}
+	})
+
+snippet assertStrictEqual()
+alias ase
+options word
+	assert.strictEqual(${1})
+
+snippet assert.ok()
+alias aok
+options word
+	assert.ok(${1})
+
+
+#===================
+# React snippets
+#===================
+
+snippet react-functional
+alias rf
+options head
+	const ${1} = ({${2}}) => {
+		return (
+			${3}
+		)
+	}
+
+snippet react-class
+alias rc
+options head
+	class ${1} extends Component {
+		render() {
+			return ${2}
+		}
+	}
+
+snippet react-stateful-class
+alias rs
+options head
+	class ${1:MyComponent} extends Component {
+		constructor(props) {
+			super(props)
+			this.state = {
+				${3}
+			}
+		}
+
+		render() {
+			return ${2}
+		}
+	}

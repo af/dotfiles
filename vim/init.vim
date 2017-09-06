@@ -87,8 +87,8 @@ Plug 'lilydjwg/colorizer',          { 'commit': '9d6dc32', 'on': 'ColorToggle' }
 Plug 'morhetz/gruvbox',             { 'commit': '2ea3298' }     " default. brown/retro. :set bg=dark
 
 " Snippets and tab completion
-Plug 'SirVer/UltiSnips',            { 'commit': '71c3972', 'on': [] }  " personal snippets are in this dotfiles repo
 Plug 'Shougo/deoplete.nvim',        { 'commit': 'ac4e8b5', 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/neosnippet',           { 'commit': '0e829d5' }
 "Plug 'ajh17/VimCompletesMe',        { 'commit': '146f000' }    " More minimal alternative to deoplete
 
 
@@ -108,7 +108,7 @@ Plug 'Shougo/deoplete.nvim',        { 'commit': 'ac4e8b5', 'do': ':UpdateRemoteP
 " to improve startup time:
 augroup load_on_insert
   autocmd!
-  autocmd InsertEnter * call plug#load('UltiSnips', 'YankRing.vim') | autocmd! load_on_insert
+  autocmd InsertEnter * call plug#load('YankRing.vim') | autocmd! load_on_insert
 augroup END
 
 call plug#end()
@@ -379,12 +379,16 @@ let g:jsdoc_input_description = 1
 let g:jsdoc_return_description = 0
 let g:jsdoc_param_description_separator = ' - '
 
-" UltiSnips
-let g:UltiSnipsExpandTrigger="<C-g>"
-let g:UltiSnipsEditSplit = 'vertical'
-let g:UltiSnipsSnippetDirectories = ['personal_snippets']
-let g:UltiSnipsSnippetsDir = '~/.vim/personal_snippets'
-nnoremap <leader>s :UltiSnipsEdit<CR>
+" Neosnippet
+imap <C-j>     <Plug>(neosnippet_expand_or_jump)
+smap <C-j>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-j>     <Plug>(neosnippet_expand_target)
+let g:neosnippet#snippets_directory = '~/.vim/personal_snippets'
+let g:neosnippet#disable_runtime_snippets = { '_': 1 }
+nnoremap <leader>s :NeoSnippetEdit -vertical -split<CR>
+if has('conceal')
+    set conceallevel=2 concealcursor=niv
+endif
 
 " CtrlSF.vim
 let g:ctrlsf_context = '-B 2 -A 2'
