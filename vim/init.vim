@@ -68,7 +68,6 @@ Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load laz
 " Javascript/CSS/HTML-related plugins
 Plug 'moll/vim-node',               { 'commit': '13b3121' }     " Lazy loading doesn't work for some reason
 Plug '1995eaton/vim-better-javascript-completion',  { 'for': ['javascript', 'jsx'] }
-Plug 'heavenshell/vim-jsdoc',       { 'for': ['javascript', 'jsx'] }
 Plug 'othree/csscomplete.vim',      { 'for': ['css', 'stylus'] }
 Plug 'rstacruz/sparkup',            { 'commit': 'd400a57', 'for': ['html', 'xml', 'mustache'] }
 Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml', 'mustache', 'jsx'] }
@@ -89,11 +88,6 @@ Plug 'morhetz/gruvbox',             { 'commit': '2ea3298' }     " default. brown
 " Snippets and tab completion
 Plug 'Shougo/deoplete.nvim',        { 'commit': 'ac4e8b5', 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neosnippet',           { 'commit': '0e829d5' }
-"Plug 'ajh17/VimCompletesMe',        { 'commit': '146f000' }    " More minimal alternative to deoplete
-
-
-" Cool plugins that are disabled because they add to startup time:
-" Plug 'ashisha/image.vim', { 'commit': 'ae15d1c5' }       " view images in vim (requires `pip install Pillow`)
 
 " plugins for colorscheme dev (not tested yet):
 " https://github.com/shawncplus/Vim-toCterm
@@ -243,9 +237,6 @@ endfunc
 "===============================================================================
 " May want to consider replacing "menuone" with "menu" (see vim help)
 set completeopt=menuone,preview,longest
-
-" Use omnicompletion with <Tab> by default:
-autocmd FileType * let b:vcm_tab_complete = "omni"
 
 " Traverse completions with <Tab>
 inoremap <expr> <TAB> pumvisible() ? '<C-n>' : '<TAB>'
@@ -399,6 +390,7 @@ let g:ctrlsf_ignore_dir = ['node_modules', '.git']
 nnoremap <C-g> :CtrlSF ""<left>
 nmap gr <Plug>CtrlSFCCwordExec
 let g:ctrlsf_mapping = {
+  \"chgmode" : "<A-m",
   \"open"    : ["o", "<CR>"],
   \"openb"   : "O",
   \"split"   : "<C-s>",
@@ -610,6 +602,7 @@ iabbrev target="_blank" target="_blank" rel="noopener"
 autocmd FileType css,sass,scss,stylus,less set omnifunc=csscomplete#CompleteCSS
 
 " JSX
+let g:jsx_ext_required = 1      " .js files don't get the jsx filetype
 autocmd BufNewFile,BufRead *.jsx set filetype=jsx
 autocmd FileType jsx set ft=javascript.jsx
 
@@ -619,6 +612,12 @@ autocmd BufRead,BufNewFile *.json set filetype=json
 
 " Vim files (use K to look up the current word in vim's help files)
 autocmd FileType vim setlocal keywordprg=:help
+
+" Hack to open help in vsplit by default
+augroup vimrc_help
+    autocmd!
+    autocmd BufEnter *.txt if &buftype == 'help' | wincmd L | endif
+augroup END
 
 " Reason
 " There are a bunch of <localleader> bindings that are handy (eg \t), and gd to
