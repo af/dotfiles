@@ -79,7 +79,7 @@ Plug 'elzr/vim-json',               { 'commit': 'f5e3181', 'for': ['json'] }
 
 " theme/syntax related plugins
 Plug 'sheerun/vim-polyglot',        { 'commit': 'e404a65' }     " syntax highlighting for many languages
-Plug 'w0rp/ale',                    { 'tag': 'v1.5.0' }
+Plug 'w0rp/ale',                    { 'tag': 'v1.5.1' }
 Plug 'lilydjwg/colorizer',          { 'commit': '9d6dc32', 'on': 'ColorToggle' }
 
 " Colour schemes
