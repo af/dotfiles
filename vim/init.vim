@@ -1,3 +1,6 @@
+set encoding=utf-8
+scriptencoding utf-8
+
 " General Notes
 " * see ":h normal-index" or ":h insert-index" for a list of built-in mappings
 " * see ":verbose nmap <C-j>" (for example) for maps setup by plugins or .vimrc
@@ -6,8 +9,6 @@
 " Reminder (since this file now has folds): zR to open all folds in a file, zM to close them all
 " zO to open recursively from cursor, zA to toggle recursively
 " See :help fold-manual
-
-set nocompatible            " we're using (neo)vim, not Vi
 
 " {{{ Plugin setup via vim-plug
 " ==============================================================================
@@ -111,7 +112,7 @@ call plug#end()
 " {{{ General Vim settings
 " ==============================================================================
 
-let mapleader = " "         " <leader> is our personal modifier key
+let g:mapleader = ' '         " <leader> is our personal modifier key
 set visualbell
 set history=500             " longer command history (default=20)
 set backspace=indent,eol,start
@@ -124,7 +125,6 @@ set lazyredraw              " Speeds up macros by avoiding excessive redraws
 "autocmd BufWinEnter,BufNewFile * silent tabo    " Ensure only one tab is open
 set hidden                  " TODO: revisit this. Hides instead of unloads buffers
 set autoread                " reload files on changes (ie. changing git branches)
-set encoding=utf-8
 set scrolloff=3             " # of lines always shown above/below the cursor
 
 " Indenting & white space
@@ -141,7 +141,6 @@ set list listchars=tab:›\ ,trail:·          " mark trailing white space
 " {{{ Display/window settings
 "===============================================================================
 syntax on
-set bg=dark
 set number                  " line number gutter
 set ruler                   " line numbers at bottom of page
 set showcmd
@@ -157,7 +156,7 @@ set colorcolumn=80,100      " Highlight these columns with a different bg
 " http://vim.wikia.com/wiki/Automatically_fitting_a_quickfix_window_height
 autocmd FileType qf call AdjustWindowHeight(3, 7)       " 2nd arg=> max height
 function! AdjustWindowHeight(minheight, maxheight)
-    exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
+    exe max([min([line('$'), a:maxheight]), a:minheight]) . 'wincmd _'
 endfunction
 " }}}
 
@@ -210,7 +209,7 @@ if has('nvim')
     tnoremap <A-v> <c-\><c-n><c-w><c-v>
     tnoremap <A-s> <c-\><c-n><c-w><c-s>
     autocmd WinEnter term://* call feedkeys('i')
-elseif $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
+elseif $TERM ==# 'xterm-256color' || $TERM ==# 'screen-256color' || $COLORTERM ==# 'gnome-terminal'
     set t_Co=256            " 256 colours for regular vim if the terminal can handle it.
 endif
 " }}}
@@ -218,7 +217,7 @@ endif
 " {{{ Colorscheme & syntax
 "===============================================================================
 color gruvbox
-set bg=dark
+set background=dark
 highlight Comment cterm=italic
 
 
@@ -226,7 +225,7 @@ highlight Comment cterm=italic
 " From Vimcasts #25: http://vimcasts.org/episodes/creating-colorschemes-for-vim/
 nnoremap <leader>h :call <SID>SynStack()<CR>
 function! <SID>SynStack()
-  if !exists("*synstack")
+  if !exists('*synstack')
     return
   endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
@@ -267,7 +266,7 @@ autocmd FileType filebeagle nmap <buffer> <C-v> <Plug>(FileBeagleBufferSplitVert
 autocmd FileType filebeagle nmap <buffer> <C-s> <Plug>(FileBeagleBufferSplitVisitTarget)
 
 " Load matchit.vim, but only if the user hasn't installed a newer version.
-if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &runtimepath) ==# ''
     runtime! macros/matchit.vim
 endif
 
@@ -288,7 +287,7 @@ let g:fzf_action = {
 
 " When launching vim, if no file was provided, launch FZF automatically
 function! s:fzf_on_launch()
-  if @% == ""
+  if @% ==# ''
     call fzf#run({'sink': 'e', 'options': '-m -x +s', 'window': 'rightbelow new'})
   endif
 endfunction
@@ -390,23 +389,25 @@ let g:ctrlsf_ignore_dir = ['node_modules', '.git']
 nnoremap <C-g> :CtrlSF ""<left>
 nmap gr <Plug>CtrlSFCCwordExec
 let g:ctrlsf_mapping = {
-  \"chgmode" : "<A-m",
-  \"open"    : ["o", "<CR>"],
-  \"openb"   : "O",
-  \"split"   : "<C-s>",
-  \"vsplit"  : "<C-v>",
-  \"tab"     : "<C-t>",
-  \"tabb"    : "t",
-  \"popen"   : "p",
-  \"quit"    : "q",
-  \"next"    : "<C-J>",
-  \"prev"    : "<C-K>",
-  \"pquit"   : "q",
-  \"loclist" : "" }
+  \'chgmode' : '<A-m',
+  \'open'    : ['o', '<CR>'],
+  \'openb'   : 'O',
+  \'split'   : '<C-s>',
+  \'vsplit'  : '<C-v>',
+  \'tab'     : '<C-t>',
+  \'tabb'    : 't',
+  \'popen'   : 'p',
+  \'quit'    : 'q',
+  \'next'    : '<C-J>',
+  \'prev'    : '<C-K>',
+  \'pquit'   : 'q',
+  \'loclist' : '' }
+
+let g:yankring_replace_n_nkey = '<A-n>'  " Now using C-n for window switching
 
 " delimitMate
-let delimitMate_expand_cr = 1
-let delimitMate_expand_space = 1
+let g:delimitMate_expand_cr = 1
+let g:delimitMate_expand_space = 1
 inoremap <expr> <C-l> delimitMate#JumpAny()
 
 " VimWiki
@@ -532,7 +533,7 @@ nnoremap <silent> <C-k> :call ale#loclist_jumping#Jump('before', 1)<CR>
 
 " More ale/loclist config
 let g:ale_open_list = 1   " Open the loclist when reading a file (if there are errors)
-let g:ale_lint_on_text_changed = "normal"
+let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
 
 " automatically close corresponding loclist when quitting a window
