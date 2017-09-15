@@ -1,6 +1,10 @@
 set encoding=utf-8
 scriptencoding utf-8
 
+augroup vimrc
+    autocmd!
+augroup END
+
 " General Notes
 " * see ":h normal-index" or ":h insert-index" for a list of built-in mappings
 " * see ":verbose nmap <C-j>" (for example) for maps setup by plugins or .vimrc
@@ -122,7 +126,6 @@ set lazyredraw              " Speeds up macros by avoiding excessive redraws
 "set shellpipe=>             " Prevents results from flashing during Ack.vim searches
 
 " File/buffer settings
-"autocmd BufWinEnter,BufNewFile * silent tabo    " Ensure only one tab is open
 set hidden                  " TODO: revisit this. Hides instead of unloads buffers
 set autoread                " reload files on changes (ie. changing git branches)
 set scrolloff=3             " # of lines always shown above/below the cursor
@@ -154,7 +157,7 @@ set colorcolumn=80,100      " Highlight these columns with a different bg
 
 " Automatically set quickfix height
 " http://vim.wikia.com/wiki/Automatically_fitting_a_quickfix_window_height
-autocmd FileType qf call AdjustWindowHeight(3, 7)       " 2nd arg=> max height
+autocmd vimrc FileType qf call AdjustWindowHeight(3, 7)       " 2nd arg=> max height
 function! AdjustWindowHeight(minheight, maxheight)
     exe max([min([line('$'), a:maxheight]), a:minheight]) . 'wincmd _'
 endfunction
@@ -208,7 +211,7 @@ if has('nvim')
     tnoremap <A-l> <c-\><c-n><c-w>l
     tnoremap <A-v> <c-\><c-n><c-w><c-v>
     tnoremap <A-s> <c-\><c-n><c-w><c-s>
-    autocmd WinEnter term://* call feedkeys('i')
+    autocmd vimrc WinEnter term://* call feedkeys('i')
 elseif $TERM ==# 'xterm-256color' || $TERM ==# 'screen-256color' || $COLORTERM ==# 'gnome-terminal'
     set t_Co=256            " 256 colours for regular vim if the terminal can handle it.
 endif
@@ -262,8 +265,8 @@ let g:diminactive_enable_focus = 1
 
 " FileBeagle
 let g:filebeagle_show_hidden = 1        " Use 'gh' to toggle- FileBeagle hides lots by default
-autocmd FileType filebeagle nmap <buffer> <C-v> <Plug>(FileBeagleBufferSplitVerticalVisitTarget)
-autocmd FileType filebeagle nmap <buffer> <C-s> <Plug>(FileBeagleBufferSplitVisitTarget)
+autocmd vimrc FileType filebeagle nmap <buffer> <C-v> <Plug>(FileBeagleBufferSplitVerticalVisitTarget)
+autocmd vimrc FileType filebeagle nmap <buffer> <C-s> <Plug>(FileBeagleBufferSplitVisitTarget)
 
 " Load matchit.vim, but only if the user hasn't installed a newer version.
 if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &runtimepath) ==# ''
@@ -291,7 +294,7 @@ function! s:fzf_on_launch()
     call fzf#run({'sink': 'e', 'options': '-m -x +s', 'window': 'rightbelow new'})
   endif
 endfunction
-autocmd VimEnter * call <SID>fzf_on_launch()
+autocmd vimrc VimEnter * call <SID>fzf_on_launch()
 
 " Custom MRU using FZF
 " Based on the example here: https://github.com/junegunn/fzf/wiki/Examples-(vim)
@@ -421,7 +424,7 @@ let g:EditorConfig_core_mode = 'python_external'    " Speeds up load time by ~15
 
 " vim-ragtag
 let g:ragtag_global_maps = 1
-autocmd FileType html,javascript imap <C-k> <C-x>/
+autocmd vimrc FileType html,javascript imap <C-k> <C-x>/
 " }}}
 
 " {{{ Key Bindings: Visual mode
@@ -486,7 +489,7 @@ nnoremap <silent> vv <C-w>v<C-w>l
 nnoremap <leader>o :only<CR>
 
 " Automatically resize/equalize splits when vim is resized
-autocmd VimResized * wincmd =
+autocmd vimrc VimResized * wincmd =
 
 " Save current file every time we leave insert mode or leave vim
 augroup autoSaveAndRead
@@ -511,18 +514,18 @@ nnoremap ` '
 " Global mark conventions
 " Uppercase marks persist between sessions, so they're useful for accessing
 " common files quickly. Make the following dotfiles always accessible:
-autocmd BufLeave vimrc,init.vim     normal! mV
-autocmd BufLeave zshrc              normal! mZ
+autocmd vimrc BufLeave vimrc,init.vim     normal! mV
+autocmd vimrc BufLeave zshrc              normal! mZ
 
 " Leave a mark behind in the most recently accessed file of certain types.
 " via https://www.reddit.com/r/vim/comments/41wgqf/do_you_regularly_use_manual_marks_if_yes_how_do/cz5qfqr
-autocmd BufLeave *.css,*.styl       normal! mC
-autocmd BufLeave *.styl             normal! mS
-autocmd BufLeave *.html,*.mustache  normal! mH
-autocmd BufLeave README.md          normal! mR
-autocmd BufLeave package.json       normal! mP
-autocmd BufLeave *.js,*.jsx         normal! mJ
-autocmd BufLeave *.test.js,*.test.jsx   normal! mT
+autocmd vimrc BufLeave *.css,*.styl       normal! mC
+autocmd vimrc BufLeave *.styl             normal! mS
+autocmd vimrc BufLeave *.html,*.mustache  normal! mH
+autocmd vimrc BufLeave README.md          normal! mR
+autocmd vimrc BufLeave package.json       normal! mP
+autocmd vimrc BufLeave *.js,*.jsx         normal! mJ
+autocmd vimrc BufLeave *.test.js,*.test.jsx   normal! mT
 
 " ProTip: After opening a file with a global mark, you can change vim's cwd to
 " the file's location with ":cd %:h"
@@ -537,7 +540,7 @@ let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
 
 " automatically close corresponding loclist when quitting a window
-autocmd QuitPre * if &filetype != 'qf' | silent! lclose | endif
+autocmd vimrc QuitPre * if &filetype != 'qf' | silent! lclose | endif
 " }}}
 
 " {{{ Key Bindings: Misc
@@ -553,7 +556,7 @@ noremap <silent> n /<CR>
 noremap <silent> N ?<CR>
 
 " console.log convenience mapping. Inserts a console.log() call with the variable under the cursor
-autocmd FileType javascript nnoremap <Leader>cl yiwoconsole.log(`<c-r>": ${<c-r>"}`)<Esc>hh
+autocmd vimrc FileType javascript nnoremap <Leader>cl yiwoconsole.log(`<c-r>": ${<c-r>"}`)<Esc>hh
 
 " copy/paste with system clipboard:
 vnoremap <Leader>y "+y
@@ -581,16 +584,16 @@ inoremap <C-c> <Esc>
 "===============================================================================
 set foldlevelstart=10
 set foldmethod=syntax
-autocmd FileType vim set foldmethod=marker
+autocmd vimrc FileType vim set foldmethod=marker
 set pastetoggle=<F2>   " Have had problems with <F2>, see http://stackoverflow.com/q/7885198/351433
 " }}}
 
 " {{{ Filetype-specific settings
 "===============================================================================
 " filetype detection for syntax highlighting
-autocmd BufNewFile,BufRead *.md set filetype=markdown
-autocmd BufNewFile,BufRead *.mustache set filetype=mustache
-autocmd FileType mustache set ft=html.mustache
+autocmd vimrc BufNewFile,BufRead *.md set filetype=markdown
+autocmd vimrc BufNewFile,BufRead *.mustache set filetype=mustache
+autocmd vimrc FileType mustache set ft=html.mustache
 
 " sql
 " see https://www.reddit.com/r/vim/comments/2om1ib/how_to_disable_sql_dynamic_completion/
@@ -600,19 +603,19 @@ let g:omni_sql_no_default_maps = 1
 iabbrev target="_blank" target="_blank" rel="noopener"
 
 " CSS-like autocomplete for preprocessor files:
-autocmd FileType css,sass,scss,stylus,less set omnifunc=csscomplete#CompleteCSS
+autocmd vimrc FileType css,sass,scss,stylus,less set omnifunc=csscomplete#CompleteCSS
 
 " JSX
 let g:jsx_ext_required = 1      " .js files don't get the jsx filetype
-autocmd BufNewFile,BufRead *.jsx set filetype=jsx
-autocmd FileType jsx set ft=javascript.jsx
+autocmd vimrc BufNewFile,BufRead *.jsx set filetype=jsx
+autocmd vimrc FileType jsx set ft=javascript.jsx
 
 " JSON files
 let g:vim_json_syntax_conceal = 0
 autocmd BufRead,BufNewFile *.json set filetype=json
 
 " Vim files (use K to look up the current word in vim's help files)
-autocmd FileType vim setlocal keywordprg=:help
+autocmd vimrc FileType vim setlocal keywordprg=:help
 
 " Hack to open help in vsplit by default
 augroup vimrc_help
@@ -626,7 +629,7 @@ augroup END
 " For more on Merlin and vim, see:
 "   https://github.com/ocaml/merlin/wiki/vim-from-scratch
 "   https://github.com/ocaml/merlin/blob/master/vim/merlin/doc/merlin.txt
-autocmd FileType reason map <LocalLeader>f :ReasonPrettyPrint<CR>
+autocmd vimrc FileType reason map <LocalLeader>f :ReasonPrettyPrint<CR>
 let g:ale_linter_aliases = {'reason': 'ocaml'}
 " }}}
 
