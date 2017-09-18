@@ -74,7 +74,7 @@ Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load laz
 Plug 'moll/vim-node',               { 'commit': '13b3121' }     " Lazy loading doesn't work for some reason
 Plug '1995eaton/vim-better-javascript-completion',  { 'for': ['javascript', 'jsx'] }
 Plug 'othree/csscomplete.vim',      { 'for': ['css', 'stylus'] }
-Plug 'rstacruz/sparkup',            { 'commit': 'd400a57', 'for': ['html', 'xml', 'mustache'] }
+Plug 'mattn/emmet-vim',             { 'commit': 'ed79a92', 'for': ['html', 'xml', 'mustache', 'jsx'] }
 Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml', 'mustache', 'jsx'] }
 
 " Other language-specific plugins
@@ -355,8 +355,14 @@ nnoremap <leader><F2> :ColorToggle<CR>
 nnoremap <F3> :UndotreeToggle<CR>
 let g:undotree_SetFocusWhenToggle = 1
 
-" Sparkup
-let g:sparkupExecuteMapping = '<C-e>'       " The default mapping
+" emmet-vim
+let g:user_emmet_leader_key='<C-e>'
+imap <C-e><C-e> <plug>(emmet-expand-abbr)
+
+let g:user_emmet_settings = {
+\  'javascript.jsx' : { 'extends' : 'jsx' },
+\}
+
 
 " Splitjoin (javascript setting)
 " see https://github.com/AndrewRadev/splitjoin.vim/issues/67#issuecomment-91582205
