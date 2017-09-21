@@ -84,7 +84,7 @@ Plug 'elzr/vim-json',               { 'commit': 'f5e3181', 'for': ['json'] }
 
 " theme/syntax related plugins
 Plug 'sheerun/vim-polyglot',        { 'commit': 'e404a65' }     " syntax highlighting for many languages
-Plug 'w0rp/ale',                    { 'tag': 'v1.5.1' }
+Plug 'w0rp/ale',                    { 'commit': '70fdeb7' }
 Plug 'lilydjwg/colorizer',          { 'commit': '9d6dc32', 'on': 'ColorToggle' }
 
 " Colour schemes
@@ -543,7 +543,11 @@ nnoremap <silent> <C-k> :call ale#loclist_jumping#Jump('before', 1)<CR>
 " More ale/loclist config
 let g:ale_open_list = 1   " Open the loclist when reading a file (if there are errors)
 let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_on_insert_leave = 1
+
+" Enabling lint_on_insert_leave currently makes the cursor jump around annoyingly.
+" So the autocmd below simulates that behavior, but adds a delay to mitigate the jumping
+let g:ale_lint_on_insert_leave = 0
+autocmd vimrc InsertLeave * call ale#Queue(50)
 
 " automatically close corresponding loclist when quitting a window
 autocmd vimrc QuitPre * if &filetype != 'qf' | silent! lclose | endif
