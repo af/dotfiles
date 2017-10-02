@@ -76,6 +76,7 @@ Plug '1995eaton/vim-better-javascript-completion',  { 'for': ['javascript', 'jsx
 Plug 'othree/csscomplete.vim',      { 'for': ['css', 'stylus'] }
 Plug 'mattn/emmet-vim',             { 'commit': 'ed79a92', 'for': ['html', 'xml', 'mustache', 'jsx'] }
 Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml', 'mustache', 'jsx'] }
+Plug 'mhartington/nvim-typescript', { 'commit': '8d09628', 'for': ['typescript'] }
 
 " Other language-specific plugins
 Plug 'reasonml-editor/vim-reason',  { 'for': ['reason'] }
