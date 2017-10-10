@@ -544,11 +544,12 @@ nnoremap <silent> <C-k> :call ale#loclist_jumping#Jump('before', 1)<CR>
 " More ale/loclist config
 let g:ale_open_list = 1   " Open the loclist when reading a file (if there are errors)
 let g:ale_lint_on_text_changed = 'normal'
+let g:ale_sign_column_always = 1
 
-" Enabling lint_on_insert_leave currently makes the cursor jump around annoyingly.
-" So the autocmd below simulates that behavior, but adds a delay to mitigate the jumping
+" Enabling lint_on_insert_leave currently makes the cursor jump around annoyingly
+" The following line was an attempt to fix this, but it suffered from the same issue: 
+" autocmd vimrc InsertLeave * call ale#Queue(500)
 let g:ale_lint_on_insert_leave = 0
-autocmd vimrc InsertLeave * call ale#Queue(50)
 
 " automatically close corresponding loclist when quitting a window
 autocmd vimrc QuitPre * if &filetype != 'qf' | silent! lclose | endif
