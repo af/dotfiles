@@ -227,7 +227,7 @@ highlight Comment cterm=italic
 
 " Show syntax highlighting groups for word under cursor with <leader>s
 " From Vimcasts #25: http://vimcasts.org/episodes/creating-colorschemes-for-vim/
-nnoremap <leader>h :call <SID>SynStack()<CR>
+nnoremap <leader>S :call <SID>SynStack()<CR>
 function! <SID>SynStack()
   if !exists('*synstack')
     return
@@ -385,10 +385,9 @@ smap <C-j>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-j>     <Plug>(neosnippet_expand_target)
 let g:neosnippet#snippets_directory = '~/.vim/personal_snippets'
 let g:neosnippet#disable_runtime_snippets = { '_': 1 }
+let g:neosnippet#scope_aliases = {}
+let g:neosnippet#scope_aliases['jsx'] = 'html'
 nnoremap <leader>s :NeoSnippetEdit -vertical -split<CR>
-if has('conceal')
-    set conceallevel=2 concealcursor=niv
-endif
 
 " CtrlSF.vim
 let g:ctrlsf_context = '-B 2 -A 2'
@@ -481,7 +480,17 @@ nnoremap <A-v> <c-w>v
 nnoremap <A-o> <c-w>o
 nnoremap <A-z> :ZoomWinTabToggle<CR>
 nnoremap <A-p> <c-w>p       " most recently used window
-nnoremap <CR> <c-w>w        " more convenient alias
+
+"nnoremap <expr> <C-n> pumvisible() ? '<C-n>' : call next_window()
+
+function! <SID>next_window()
+    wincmd w
+    if &filetype ==# 'qf'
+        wincmd w
+    endif
+endfunction
+nnoremap <C-n> :call <SID>next_window()<CR>
+
 nnoremap <C-S-k> <c-w>W
 inoremap <A-j> <c-\><c-n><c-w>j
 inoremap <A-k> <c-\><c-n><c-w>k
