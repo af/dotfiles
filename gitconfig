@@ -3,16 +3,18 @@
     email = aaron.franks@gmail.com
 [color]
     diff = auto
-    ui = auto
+    ui = true
 [color "branch"]
     current = yellow reverse
     local = yellow
     remote = green
 [color "diff"]
-    meta = cyan bold
-    frag = yellow
-    old = red bold
-    new = green bold
+	meta = 227
+	frag = magenta bold
+	old = red bold
+	new = green bold
+	commit = 227 bold
+	whitespace = red reverse
 [color "status"]
     added = yellow
     changed = cyan
@@ -38,11 +40,11 @@
 [core]
     editor = nvim
     excludesfile = ~/.gitignore_global
-    pager = diff-highlight | diff-so-fancy | less --tabs=1,5 -R
+    pager = diff-so-fancy | less --tabs=4 -RFX
 [push]
     default = current
 [color "diff-highlight"]
-    oldHighlight = red bold 52
-    newNormal = green bold
-    newHighlight = green bold 22
-    oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+	oldNormal = red bold
