@@ -10,6 +10,7 @@ bind generic s view-stash                               # regular mapping for th
 
 set refresh-mode = periodic
 set refresh-interval = 3
+set tab-size = 4
 
 color cursor black green
 

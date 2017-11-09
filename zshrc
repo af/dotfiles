@@ -150,7 +150,7 @@ function af-initproject () {
 function af-workspace () {
     # Main pane for vim on the left:
     tmux send-keys 'git status' 'C-m'
-    tmux splitw -h -p 50
+    tmux splitw -h -p 35
 
     # tig running in the bottom right:
     tmux splitw -v -p 30

@@ -554,6 +554,13 @@ nnoremap <silent> <C-k> :call ale#loclist_jumping#Jump('before', 1)<CR>
 let g:ale_open_list = 1   " Open the loclist when reading a file (if there are errors)
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_sign_column_always = 1
+let g:ale_linters = {
+\   'javascript': ['eslint', 'flow'],
+\}
+let g:ale_linter_aliases = {
+\   'reason': 'ocaml',
+\   'less': 'css'
+\}
 
 " Enabling lint_on_insert_leave currently makes the cursor jump around annoyingly
 " The following line was an attempt to fix this, but it suffered from the same issue: 
@@ -651,7 +658,6 @@ augroup END
 "   https://github.com/ocaml/merlin/wiki/vim-from-scratch
 "   https://github.com/ocaml/merlin/blob/master/vim/merlin/doc/merlin.txt
 autocmd vimrc FileType reason map <LocalLeader>f :ReasonPrettyPrint<CR>
-let g:ale_linter_aliases = {'reason': 'ocaml'}
 " }}}
 
 
