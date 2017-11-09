@@ -84,7 +84,7 @@ Plug '~/dotfiles/vim/downloaded_plugins/dbext', {'for': ['sql']}
 Plug 'elzr/vim-json',               { 'commit': 'f5e3181', 'for': ['json'] }
 
 " theme/syntax related plugins
-Plug 'sheerun/vim-polyglot',        { 'commit': 'e404a65' }     " syntax highlighting for many languages
+Plug 'sheerun/vim-polyglot',        { 'commit': 'a61ab44' }     " syntax highlighting for many languages
 Plug 'w0rp/ale',                    { 'commit': '70fdeb7' }
 Plug 'lilydjwg/colorizer',          { 'commit': '9d6dc32', 'on': 'ColorToggle' }
 
@@ -632,6 +632,9 @@ iabbrev target="_blank" target="_blank" rel="noopener"
 
 " CSS-like autocomplete for preprocessor files:
 autocmd vimrc FileType css,sass,scss,stylus,less set omnifunc=csscomplete#CompleteCSS
+
+" JavaScript
+let g:javascript_plugin_flow = 1
 
 " JSX
 let g:jsx_ext_required = 1      " .js files don't get the jsx filetype
