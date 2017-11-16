@@ -28,20 +28,22 @@ Plug 'tpope/vim-repeat',            { 'commit': '7a6675f' }     " Enable . repea
 Plug 'vimwiki/vimwiki',             { 'tag':    'v2.2.1'  }
 Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'danro/rename.vim',            { 'commit': 'f133763' }
-Plug 'af/YankRing.vim',             { 'commit': '0e4235b', 'on': [] }   " using fork, as v18 isn't officially on GH
 Plug 'tpope/vim-obsession',         { 'commit': '4ab72e0' }     " start a session file with :Obsession
 Plug 'dyng/ctrlsf.vim',             { 'commit': '5c40f36' }
 Plug 'jeetsukumaran/vim-filebeagle',{ 'commit': 'abfb7f9' }
 Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 'markdown' }
 Plug 'mbbill/undotree',             { 'commit': '39e5cf0' }
 Plug 'troydm/zoomwintab.vim',       { 'commit': 'b7a940e' }
-Plug 'blueyed/vim-diminactive',     { 'commit': '5cb27ae' }
 Plug 'takac/vim-hardtime',          { 'commit': 'acf59c8' }
 Plug 'Valloric/ListToggle',         { 'commit': '2bc7857' }
 
 " FZF and friends
 Plug 'junegunn/fzf',                { 'tag': '0.16.6', 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim',            { 'commit': '687f5e2' }
+Plug 'junegunn/fzf.vim',            { 'commit': '4b9e2a0' }
+
+" Yanking
+Plug 'bfredl/nvim-miniyank',           { 'commit': 'b263f7c' }
+Plug 'machakann/vim-highlightedyank',  { 'commit': '5fb7d0f' }
 
 " Editing modifications
 Plug 'tommcdo/vim-exchange',        { 'commit': 'b82a774' }
@@ -92,7 +94,7 @@ Plug 'lilydjwg/colorizer',          { 'commit': '9d6dc32', 'on': 'ColorToggle' }
 Plug 'morhetz/gruvbox',             { 'commit': '2ea3298' }     " default. brown/retro. :set bg=dark
 
 " Snippets and tab completion
-Plug 'Shougo/deoplete.nvim',        { 'commit': 'ac4e8b5', 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete.nvim',        { 'commit': '523b465', 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neosnippet',           { 'commit': '0e829d5' }
 
 " plugins for colorscheme dev (not tested yet):
@@ -106,10 +108,10 @@ Plug 'Shougo/neosnippet',           { 'commit': '0e829d5' }
 
 " Load some of the more sluggish plugins on first insert mode enter,
 " to improve startup time:
-augroup load_on_insert
-  autocmd!
-  autocmd InsertEnter * call plug#load('YankRing.vim') | autocmd! load_on_insert
-augroup END
+" augroup load_on_insert
+"   autocmd!
+"   autocmd InsertEnter * call plug#load('myslowplugin.vim') | autocmd! load_on_insert
+" augroup END
 
 call plug#end()
 " }}} (end of plugin setup)
@@ -412,7 +414,11 @@ let g:ctrlsf_mapping = {
   \'pquit'   : 'q',
   \'loclist' : '' }
 
-let g:yankring_replace_n_nkey = '<A-n>'  " Now using C-n for window switching
+" nvim-miniyank (lighter-weight YankRing workalike)
+let g:miniyank_maxitems = 25
+map p <Plug>(miniyank-autoput)
+map P <Plug>(miniyank-autoPut)
+nmap <C-p> <Plug>(miniyank-cycle)
 
 " delimitMate
 let g:delimitMate_expand_cr = 1
