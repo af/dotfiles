@@ -34,7 +34,6 @@ Plug 'jeetsukumaran/vim-filebeagle',{ 'commit': 'abfb7f9' }
 Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 'markdown' }
 Plug 'mbbill/undotree',             { 'commit': '39e5cf0' }
 Plug 'troydm/zoomwintab.vim',       { 'commit': 'b7a940e' }
-Plug 'takac/vim-hardtime',          { 'commit': 'acf59c8' }
 Plug 'Valloric/ListToggle',         { 'commit': '2bc7857' }
 
 " FZF and friends
@@ -74,9 +73,7 @@ Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load laz
 
 " Javascript/CSS/HTML-related plugins
 Plug 'moll/vim-node',               { 'commit': '13b3121' }     " Lazy loading doesn't work for some reason
-Plug '1995eaton/vim-better-javascript-completion',  { 'for': ['javascript', 'jsx'] }
-Plug 'othree/csscomplete.vim',      { 'for': ['css', 'stylus'] }
-Plug 'mattn/emmet-vim',             { 'commit': 'ed79a92', 'for': ['html', 'xml', 'mustache', 'jsx'] }
+Plug 'othree/csscomplete.vim',      { 'for': ['css', 'stylus', 'less'] }
 Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml', 'mustache', 'javascript'] }
 Plug 'mhartington/nvim-typescript', { 'commit': '8d09628', 'for': ['typescript'] }
 
@@ -103,9 +100,11 @@ Plug 'Shougo/neosnippet',           { 'commit': '0e829d5' }
 " https://github.com/shawncplus/Vim-toCterm
 " https://github.com/guns/xterm-color-table.vim
 
+" Enabled periodically, but not by default:
+" Plug 'takac/vim-hardtime',          { 'commit': 'acf59c8' }
+
 " Try later:
 " Plug 'zefei/vim-colortuner'
-" Plug 'mattn/emmet-vim'
 " Plug 'jaxbot/github-issues.vim'          " TODO: configure this
 
 " Load some of the more sluggish plugins on first insert mode enter,
@@ -253,6 +252,7 @@ inoremap <expr> <S-TAB> pumvisible() ? '<C-p>' : '<S-TAB>'
 imap <expr> <CR> (pumvisible() ? "\<c-y>\<Plug>(expand_or_nl)" : "\<CR>")
 imap <expr> <Plug>(expand_or_nl) (cm#completed_is_snippet() ? "\<C-U>":"\<CR>")
 inoremap <C-c> <Esc>
+set shortmess+=c
 
 " Extra config to make snippet expansion work correctly with <CR>:
 inoremap <silent> <c-u> <c-r>=cm#sources#neosnippet#trigger_or_popup("\<Plug>(neosnippet_expand_or_jump)")<cr>
@@ -276,15 +276,11 @@ set noshowmode
 "===============================================================================
 
 " vim-hardtime: discourage repeat usage of hjkl
-let g:hardtime_default_on = 0
 let g:hardtime_allow_different_key = 1
 let g:hardtime_maxcount = 2    " (slightly less punishing mode)
 let g:list_of_normal_keys = ['h', 'j', 'k', 'l', 'w']
 let g:list_of_visual_keys = ['h', 'j', 'k', 'l', 'w']
 let g:list_of_insert_keys = []
-
-" vim-diminactive
-let g:diminactive_enable_focus = 1
 
 " FileBeagle
 let g:filebeagle_show_hidden = 1        " Use 'gh' to toggle- FileBeagle hides lots by default
@@ -364,28 +360,9 @@ nnoremap <leader><F2> :ColorToggle<CR>
 nnoremap <F3> :UndotreeToggle<CR>
 let g:undotree_SetFocusWhenToggle = 1
 
-" emmet-vim
-let g:user_emmet_leader_key='<C-e>'
-imap <C-e><C-e> <plug>(emmet-expand-abbr)
-
-let g:user_emmet_settings = {
-\  'javascript.jsx' : { 'extends' : 'jsx' },
-\}
-
-
 " Splitjoin (javascript setting)
 " see https://github.com/AndrewRadev/splitjoin.vim/issues/67#issuecomment-91582205
 let g:splitjoin_javascript_if_clause_curly_braces = 'Sj'
-
-" vim-jsdoc
-nnoremap <silent> <C-d> <Plug>(jsdoc)
-let g:jsdoc_enable_es6 = 1
-let g:jsdoc_tags = {}
-let g:jsdoc_tags['param'] = 'arg'
-let g:jsdoc_allow_input_prompt = 1
-let g:jsdoc_input_description = 1
-let g:jsdoc_return_description = 0
-let g:jsdoc_param_description_separator = ' - '
 
 " Neosnippet
 imap <C-j>     <Plug>(neosnippet_expand_or_jump)
