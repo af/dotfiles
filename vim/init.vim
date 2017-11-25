@@ -94,7 +94,9 @@ Plug 'lilydjwg/colorizer',          { 'commit': '9d6dc32', 'on': 'ColorToggle' }
 Plug 'morhetz/gruvbox',             { 'commit': '2ea3298' }     " default. brown/retro. :set bg=dark
 
 " Snippets and tab completion
-Plug 'roxma/nvim-completion-manager', { 'commit': '21c4b61' }
+Plug 'roxma/nvim-completion-manager',  { 'commit': '21c4b61' }
+Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/echodoc.vim'
 Plug 'Shougo/neosnippet',           { 'commit': '0e829d5' }
 
 " plugins for colorscheme dev (not tested yet):
@@ -255,6 +257,19 @@ inoremap <C-c> <Esc>
 " Extra config to make snippet expansion work correctly with <CR>:
 inoremap <silent> <c-u> <c-r>=cm#sources#neosnippet#trigger_or_popup("\<Plug>(neosnippet_expand_or_jump)")<cr>
 
+" LanguageClient integration
+" note: also need to install language servers globally (eg with `yarn global add`)
+let g:LanguageClient_serverCommands = {
+\ 'javascript': ['flow-language-server', '--stdio'],
+\ 'javascript.jsx': ['flow-language-server', '--stdio'],
+\ }
+let g:LanguageClient_autoStart = 1
+nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+
+" for echodoc; the mode is already visible in airline
+set noshowmode
 " }}}
 
 " {{{ Plugin customization
