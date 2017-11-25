@@ -330,7 +330,7 @@ let g:airline_theme = 'gruvbox'
 let g:airline#extensions#tabline#enabled = 1    " Tab line at top of window
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline#extensions#tabline#buffers_label = 'bufs'
-let g:airline#extensions#tabline#show_buffers = 2  " Show buffers no matter how many tabs are open
+let g:airline#extensions#tabline#show_buffers = 1
 let g:airline#extensions#tabline#show_tabs = 1
 let g:airline#extensions#tabline#show_tab_type = 0
 let g:airline#extensions#tabline#tab_nr_type = 2    " show both splits and tab number
@@ -567,6 +567,10 @@ let g:ale_linter_aliases = {
 \   'reason': 'ocaml',
 \   'less': 'css'
 \}
+let g:ale_fixers = {
+\   'javascript': ['eslint']
+\}
+nnoremap <leader>f :ALEFix<CR>
 
 " Enabling lint_on_insert_leave currently makes the cursor jump around annoyingly
 " The following line was an attempt to fix this, but it suffered from the same issue: 
@@ -641,11 +645,7 @@ autocmd vimrc FileType css,sass,scss,stylus,less set omnifunc=csscomplete#Comple
 
 " JavaScript
 let g:javascript_plugin_flow = 1
-
-" JSX
-let g:jsx_ext_required = 1      " .js files don't get the jsx filetype
-autocmd vimrc BufNewFile,BufRead *.jsx set filetype=jsx
-autocmd vimrc FileType jsx set ft=javascript.jsx
+let g:javascript_plugin_jsdoc = 1
 
 " JSON files
 let g:vim_json_syntax_conceal = 0
