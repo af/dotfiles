@@ -74,7 +74,7 @@ Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml'
 Plug 'mhartington/nvim-typescript', { 'commit': '8d09628', 'for': ['typescript'] }
 
 " Other language-specific plugins
-Plug 'reasonml-editor/vim-reason',  { 'for': ['reason'] }
+Plug 'reasonml-editor/vim-reason-plus',  { 'for': ['reason'] }
 Plug '~/dotfiles/vim/downloaded_plugins/dbext', {'for': ['sql']}
 Plug 'elzr/vim-json',               { 'commit': 'f5e3181', 'for': ['json'] }
 Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 'markdown' }
@@ -254,11 +254,14 @@ inoremap <silent> <c-u> <c-r>=cm#sources#neosnippet#trigger_or_popup("\<Plug>(ne
 let g:LanguageClient_serverCommands = {
 \ 'javascript': ['flow-language-server', '--stdio'],
 \ 'javascript.jsx': ['flow-language-server', '--stdio'],
+\ 'ocaml': ['ocaml-language-server', '--stdio'],
+\ 'reason': ['ocaml-language-server', '--stdio'],
 \ }
 let g:LanguageClient_autoStart = 1
 nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+nnoremap <silent> <F3> :call LanguageClient_textDocument_formatting()<cr>
 
 " for echodoc; the mode is already visible in airline
 set noshowmode
@@ -606,12 +609,10 @@ augroup vimrc_help
 augroup END
 
 " Reason
-" There are a bunch of <localleader> bindings that are handy (eg \t), and gd to
-" jump to a variable's definition (:MerlinLocate)
+" There are a bunch of <localleader> bindings that are handy
 " For more on Merlin and vim, see:
 "   https://github.com/ocaml/merlin/wiki/vim-from-scratch
 "   https://github.com/ocaml/merlin/blob/master/vim/merlin/doc/merlin.txt
-autocmd vimrc FileType reason map <LocalLeader>f :ReasonPrettyPrint<CR>
 " }}}
 
 

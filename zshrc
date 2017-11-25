@@ -166,8 +166,11 @@ function af-npm-i-globals () {
     npm i -g \
       diff-so-fancy\
       eslint\
+      flow-language-server\
       gist-cli\
       jsonlint\
+      neovim\
+      ocaml-language-server\
       yarn
 }
 
