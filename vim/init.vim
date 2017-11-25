@@ -42,6 +42,7 @@ Plug 'junegunn/fzf.vim',            { 'commit': '4b9e2a0' }
 
 " Yanking
 Plug 'bfredl/nvim-miniyank',           { 'commit': 'b263f7c' }
+Plug 'roxma/vim-tmux-clipboard',       { 'commit': '24e6363' }
 Plug 'machakann/vim-highlightedyank',  { 'commit': '5fb7d0f' }
 
 " Editing modifications
