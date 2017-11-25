@@ -77,7 +77,7 @@ Plug 'moll/vim-node',               { 'commit': '13b3121' }     " Lazy loading d
 Plug '1995eaton/vim-better-javascript-completion',  { 'for': ['javascript', 'jsx'] }
 Plug 'othree/csscomplete.vim',      { 'for': ['css', 'stylus'] }
 Plug 'mattn/emmet-vim',             { 'commit': 'ed79a92', 'for': ['html', 'xml', 'mustache', 'jsx'] }
-Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml', 'mustache', 'jsx'] }
+Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml', 'mustache', 'javascript'] }
 Plug 'mhartington/nvim-typescript', { 'commit': '8d09628', 'for': ['typescript'] }
 
 " Other language-specific plugins
@@ -94,7 +94,7 @@ Plug 'lilydjwg/colorizer',          { 'commit': '9d6dc32', 'on': 'ColorToggle' }
 Plug 'morhetz/gruvbox',             { 'commit': '2ea3298' }     " default. brown/retro. :set bg=dark
 
 " Snippets and tab completion
-Plug 'Shougo/deoplete.nvim',        { 'commit': '523b465', 'do': ':UpdateRemotePlugins' }
+Plug 'roxma/nvim-completion-manager', { 'commit': '21c4b61' }
 Plug 'Shougo/neosnippet',           { 'commit': '0e829d5' }
 
 " plugins for colorscheme dev (not tested yet):
@@ -247,9 +247,14 @@ set completeopt=menuone,preview,longest
 inoremap <expr> <TAB> pumvisible() ? '<C-n>' : '<TAB>'
 inoremap <expr> <S-TAB> pumvisible() ? '<C-p>' : '<S-TAB>'
 
-" Make <Enter> select the currently highlighted item in the pop up menu:
-" This is not necessary with deoplete
-"inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" nvim-completion-manager config
+imap <expr> <CR> (pumvisible() ? "\<c-y>\<Plug>(expand_or_nl)" : "\<CR>")
+imap <expr> <Plug>(expand_or_nl) (cm#completed_is_snippet() ? "\<C-U>":"\<CR>")
+inoremap <C-c> <Esc>
+
+" Extra config to make snippet expansion work correctly with <CR>:
+inoremap <silent> <c-u> <c-r>=cm#sources#neosnippet#trigger_or_popup("\<Plug>(neosnippet_expand_or_jump)")<cr>
+
 " }}}
 
 " {{{ Plugin customization
@@ -337,20 +342,6 @@ let g:airline#extensions#tabline#tab_nr_type = 2    " show both splits and tab n
 let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 
-" Deoplete
-let g:deoplete#enable_at_startup = 1
-
-let g:deoplete#sources = {}
-let g:deoplete#omni#input_patterns = {}
-let g:deoplete#omni#input_patterns.stylus = '.*'
-let g:deoplete#sources.stylus = ['omni', 'buffer', 'tags']
-
-" For OCaml/Reason, ensure Merlin takes precedence:
-let g:deoplete#sources.ocaml = ['omni', 'buffer']
-let g:deoplete#sources.reason = ['omni', 'buffer']
-let g:deoplete#omni#input_patterns.ocaml = '.*'
-let g:deoplete#omni#input_patterns.reason = '.*'
-
 " Colorizer
 nnoremap <leader><F2> :ColorToggle<CR>
 
@@ -389,6 +380,7 @@ let g:neosnippet#snippets_directory = '~/.vim/personal_snippets'
 let g:neosnippet#disable_runtime_snippets = { '_': 1 }
 let g:neosnippet#scope_aliases = {}
 let g:neosnippet#scope_aliases['jsx'] = 'html'
+let g:neosnippet#enable_completed_snippet=1
 nnoremap <leader>s :NeoSnippetEdit -vertical -split<CR>
 
 " CtrlSF.vim
@@ -613,9 +605,6 @@ nnoremap <Down> :resize +4<CR>
 " Home row left/right bindings for command mode:
 cnoremap <C-h> <Left>
 cnoremap <C-l> <Right>
-
-" Treat Ctrl-C like <Esc>, to prevent weird Neovim plugin errors
-inoremap <C-c> <Esc>
 " }}}
 
 " {{{ Folding
