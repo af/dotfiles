@@ -22,25 +22,27 @@ augroup END
 "
 call plug#begin('~/.vim/plugged')
 
-" vim plugins, managed by vim-plug
+" Essentials
+Plug 'w0rp/ale',                    { 'commit': '70fdeb7' }
 Plug 'vim-airline/vim-airline',     { 'commit': '64d9166' }
-Plug 'tpope/vim-repeat',            { 'commit': '7a6675f' }     " Enable . repeat for plugin operations (eg. gitgutter)
-Plug 'vimwiki/vimwiki',             { 'tag':    'v2.2.1'  }
 Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
-Plug 'danro/rename.vim',            { 'commit': 'f133763' }
-Plug 'tpope/vim-obsession',         { 'commit': '4ab72e0' }     " start a session file with :Obsession
 Plug 'dyng/ctrlsf.vim',             { 'commit': '5c40f36' }
-Plug 'jeetsukumaran/vim-filebeagle',{ 'commit': 'abfb7f9' }
-Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 'markdown' }
-Plug 'mbbill/undotree',             { 'commit': '39e5cf0' }
-Plug 'troydm/zoomwintab.vim',       { 'commit': 'b7a940e' }
-Plug 'Valloric/ListToggle',         { 'commit': '2bc7857' }
-
-" FZF and friends
 Plug 'junegunn/fzf',                { 'tag': '0.16.6', 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim',            { 'commit': '4b9e2a0' }
+Plug 'jeetsukumaran/vim-filebeagle',{ 'commit': 'abfb7f9' }
+Plug 'roxma/nvim-completion-manager',  { 'commit': '21c4b61' }
+Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+Plug 'airblade/vim-gitgutter',      { 'commit': '78d83c7' }
 
-" Yanking
+" tpope appreciation section
+Plug 'tpope/vim-repeat',            { 'commit': '7a6675f' }     " Enable . repeat for plugin operations (eg. gitgutter)
+Plug 'tpope/vim-obsession',         { 'commit': '4ab72e0' }     " start a session file with :Obsession
+Plug 'tpope/vim-surround',          { 'commit': '42e9b46' }
+Plug 'tpope/vim-unimpaired',        { 'commit': '11dc568' }
+Plug 'tpope/vim-fugitive',          { 'commit': '935a2cc' }
+Plug 'tpope/vim-sleuth',            { 'commit': '039e2cd' }
+
+" Yanking and clipboard
 Plug 'bfredl/nvim-miniyank',           { 'commit': 'b263f7c' }
 Plug 'roxma/vim-tmux-clipboard',       { 'commit': '24e6363' }
 Plug 'machakann/vim-highlightedyank',  { 'commit': '5fb7d0f' }
@@ -48,14 +50,8 @@ Plug 'machakann/vim-highlightedyank',  { 'commit': '5fb7d0f' }
 " Editing modifications
 Plug 'tommcdo/vim-exchange',        { 'commit': 'b82a774' }
 Plug 'AndrewRadev/splitjoin.vim',   { 'commit': '4b062a0' }     " gS and gJ to split/join lines
-Plug 'Raimondi/delimitMate',        { 'commit': '8bc47fd' }
-Plug 'tpope/vim-surround',          { 'commit': '42e9b46' }
-Plug 'tpope/vim-unimpaired',        { 'commit': '11dc568' }
+Plug 'jiangmiao/auto-pairs',        { 'commit': 'f0019fc' }
 Plug 'tomtom/tcomment_vim',         { 'commit': '3d0a997' }
-
-" Git/VCS related plugins
-Plug 'tpope/vim-fugitive',          { 'commit': '935a2cc' }
-Plug 'airblade/vim-gitgutter',      { 'commit': '78d83c7' }
 
 " Text objects
 " They're basically all based on vim-textobj-user. For more, see https://github.com/kana/vim-textobj-user/wiki
@@ -69,7 +65,6 @@ Plug 'Julian/vim-textobj-variable-segment'      " eg. viv
 Plug 'whatyouhide/vim-textobj-xmlattr'          " eg. vix
 
 " Indentation, etc. Autodetect, but override with .editorconfig if present:
-Plug 'tpope/vim-sleuth',            { 'commit': '039e2cd' }
 Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load lazily, w/o input lag
 
 " Javascript/CSS/HTML-related plugins
@@ -82,31 +77,27 @@ Plug 'mhartington/nvim-typescript', { 'commit': '8d09628', 'for': ['typescript']
 Plug 'reasonml-editor/vim-reason',  { 'for': ['reason'] }
 Plug '~/dotfiles/vim/downloaded_plugins/dbext', {'for': ['sql']}
 Plug 'elzr/vim-json',               { 'commit': 'f5e3181', 'for': ['json'] }
+Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 'markdown' }
 
-" theme/syntax related plugins
+" Color/Theme/syntax related plugins
+Plug 'morhetz/gruvbox',             { 'commit': '2ea3298' }     " default colorscheme. brown/retro. :set bg=dark
 Plug 'sheerun/vim-polyglot',        { 'commit': 'a61ab44' }     " syntax highlighting for many languages
-Plug 'w0rp/ale',                    { 'commit': '70fdeb7' }
 Plug 'lilydjwg/colorizer',          { 'commit': '9d6dc32', 'on': 'ColorToggle' }
 
-" Colour schemes
-Plug 'morhetz/gruvbox',             { 'commit': '2ea3298' }     " default. brown/retro. :set bg=dark
-
-" Snippets and tab completion
-Plug 'roxma/nvim-completion-manager',  { 'commit': '21c4b61' }
-Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+" Misc
+Plug 'vimwiki/vimwiki',             { 'tag':    'v2.2.1'  }
+Plug 'Valloric/ListToggle',         { 'commit': '2bc7857' }
+Plug 'troydm/zoomwintab.vim',       { 'commit': 'b7a940e' }
+Plug 'danro/rename.vim',            { 'commit': 'f133763' }
 Plug 'Shougo/echodoc.vim'
 Plug 'Shougo/neosnippet',           { 'commit': '0e829d5' }
 
-" plugins for colorscheme dev (not tested yet):
-" https://github.com/shawncplus/Vim-toCterm
-" https://github.com/guns/xterm-color-table.vim
-
 " Enabled periodically, but not by default:
 " Plug 'takac/vim-hardtime',          { 'commit': 'acf59c8' }
+" Plug 'mbbill/undotree',             { 'commit': '39e5cf0' }
 
 " Try later:
 " Plug 'zefei/vim-colortuner'
-" Plug 'jaxbot/github-issues.vim'          " TODO: configure this
 
 " Load some of the more sluggish plugins on first insert mode enter,
 " to improve startup time:
@@ -276,22 +267,10 @@ set noshowmode
 " {{{ Plugin customization
 "===============================================================================
 
-" vim-hardtime: discourage repeat usage of hjkl
-let g:hardtime_allow_different_key = 1
-let g:hardtime_maxcount = 2    " (slightly less punishing mode)
-let g:list_of_normal_keys = ['h', 'j', 'k', 'l', 'w']
-let g:list_of_visual_keys = ['h', 'j', 'k', 'l', 'w']
-let g:list_of_insert_keys = []
-
 " FileBeagle
 let g:filebeagle_show_hidden = 1        " Use 'gh' to toggle- FileBeagle hides lots by default
 autocmd vimrc FileType filebeagle nmap <buffer> <C-v> <Plug>(FileBeagleBufferSplitVerticalVisitTarget)
 autocmd vimrc FileType filebeagle nmap <buffer> <C-s> <Plug>(FileBeagleBufferSplitVisitTarget)
-
-" Load matchit.vim, but only if the user hasn't installed a newer version.
-if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &runtimepath) ==# ''
-    runtime! macros/matchit.vim
-endif
 
 " ListToggle
 let g:lt_location_list_toggle_map = '<leader>l'
@@ -308,14 +287,6 @@ let g:fzf_action = {
   \'ctrl-t': 'tab split',
   \':': 'close' }
 
-" When launching vim, if no file was provided, launch FZF automatically
-function! s:fzf_on_launch()
-  if @% ==# ''
-    call fzf#run({'sink': 'e', 'options': '-m -x +s', 'window': 'rightbelow new'})
-  endif
-endfunction
-autocmd vimrc VimEnter * call <SID>fzf_on_launch()
-
 " Custom MRU using FZF
 " Based on the example here: https://github.com/junegunn/fzf/wiki/Examples-(vim)
 command! FZFMru call fzf#run({
@@ -331,8 +302,6 @@ nmap <leader>a <Plug>GitGutterStageHunk
 nmap <leader>r <Plug>GitGutterRevertHunk
 
 " vim-airline:
-" Note: the following symbols require a patched font.
-" For Monaco, I used https://github.com/fromonesrc/monaco-powerline-vim
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
@@ -350,7 +319,6 @@ let g:airline#extensions#tabline#buffers_label = 'bufs'
 let g:airline#extensions#tabline#show_buffers = 1
 let g:airline#extensions#tabline#show_tabs = 1
 let g:airline#extensions#tabline#show_tab_type = 0
-let g:airline#extensions#tabline#tab_nr_type = 2    " show both splits and tab number
 let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 
@@ -405,10 +373,9 @@ map p <Plug>(miniyank-autoput)
 map P <Plug>(miniyank-autoPut)
 nmap <C-p> <Plug>(miniyank-cycle)
 
-" delimitMate
-let g:delimitMate_expand_cr = 1
-let g:delimitMate_expand_space = 1
-inoremap <expr> <C-l> delimitMate#JumpAny()
+" Auto-pairs
+let g:AutoPairsShortcutJump = '<C-l>'
+let g:AutoPairsShortcutFastWrap = '<C-w>'
 
 " VimWiki
 let g:vimwiki_ext2syntax = {}
@@ -571,9 +538,6 @@ autocmd vimrc QuitPre * if &filetype != 'qf' | silent! lclose | endif
 " Use ':w!!' to save a root-owned file using sudo:
 cnoremap w!! w !sudo tee % >/dev/null
 
-cnoremap <C-j> <down>
-cnoremap <C-k> <up>
-
 " Make n/N always go in consistent directions:
 noremap <silent> n /<CR>
 noremap <silent> N ?<CR>
@@ -581,13 +545,8 @@ noremap <silent> N ?<CR>
 " console.log convenience mapping. Inserts a console.log() call with the variable under the cursor
 autocmd vimrc FileType javascript nnoremap <Leader>cl yiwoconsole.log(`<c-r>": ${<c-r>"}`)<Esc>hh
 
-" copy/paste with system clipboard:
+" yank to system clipboard:
 vnoremap <Leader>y "+y
-vnoremap <Leader>d "+d
-nnoremap <Leader>p "+p
-nnoremap <Leader>P "+P
-vnoremap <Leader>p "+p
-vnoremap <Leader>P "+P
 
 " Resize window with arrow keys
 nnoremap <Left> :vertical resize -4<CR>
@@ -595,7 +554,11 @@ nnoremap <Right> :vertical resize +4<CR>
 nnoremap <Up> :resize -4<CR>
 nnoremap <Down> :resize +4<CR>
 
-" Home row left/right bindings for command mode:
+" Home row bindings for command mode:
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-j> <down>
+cnoremap <C-k> <up>
 cnoremap <C-h> <Left>
 cnoremap <C-l> <Right>
 " }}}
