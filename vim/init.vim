@@ -71,7 +71,7 @@ Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load laz
 Plug 'moll/vim-node',               { 'commit': '13b3121' }     " Lazy loading doesn't work for some reason
 Plug 'othree/csscomplete.vim',      { 'for': ['css', 'stylus', 'less'] }
 Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml', 'mustache', 'javascript'] }
-Plug 'mhartington/nvim-typescript', { 'commit': '8d09628', 'for': ['typescript'] }
+Plug 'mhartington/nvim-typescript', { 'commit': 'f33d0bc', 'for': ['typescript'], 'do': ':UpdateRemotePlugins' }
 
 " Other language-specific plugins
 Plug 'reasonml-editor/vim-reason-plus',  { 'for': ['reason'] }
@@ -256,6 +256,7 @@ let g:LanguageClient_serverCommands = {
 \ 'javascript.jsx': ['flow-language-server', '--stdio'],
 \ 'ocaml': ['ocaml-language-server', '--stdio'],
 \ 'reason': ['ocaml-language-server', '--stdio'],
+\ 'typescript': ['typescript-language-server', '--stdio'],
 \ }
 let g:LanguageClient_autoStart = 1
 nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
@@ -517,6 +518,7 @@ let g:ale_lint_on_text_changed = 'normal'
 let g:ale_sign_column_always = 1
 let g:ale_linters = {
 \   'javascript': ['eslint', 'flow'],
+\   'typescript': ['tslint', 'tsserver', 'typecheck'],
 \}
 let g:ale_linter_aliases = {
 \   'reason': 'ocaml',
