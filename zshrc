@@ -132,7 +132,7 @@ alias j='fasd_cd -d'     # jumping to autocompleted directory
 setopt interactivecomments
 
 setopt hist_ignore_all_dups     # Ignore duplicate history items
-setopt hist_find_no_dups        # Don't surface duplicates
+setopt hist_find_no_dups        # Do not surface duplicates
 
 
 # Shorthand function to create a new project with a git repo and README:
@@ -171,6 +171,7 @@ function af-npm-i-globals () {
       jsonlint\
       neovim\
       ocaml-language-server\
+      typescript-language-server\
       yarn
 }
 

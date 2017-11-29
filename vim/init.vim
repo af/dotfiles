@@ -259,7 +259,7 @@ let g:LanguageClient_serverCommands = {
 \ 'typescript': ['typescript-language-server', '--stdio'],
 \ }
 let g:LanguageClient_autoStart = 1
-nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+autocmd vimrc FileType javascript,ocaml,reason,typescript nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 nnoremap <silent> <F3> :call LanguageClient_textDocument_formatting()<cr>
