@@ -24,7 +24,7 @@ call plug#begin('~/.vim/plugged')
 
 " Essentials
 Plug 'w0rp/ale',                    { 'commit': '70fdeb7' }
-Plug 'vim-airline/vim-airline',     { 'commit': '64d9166' }
+Plug 'vim-airline/vim-airline',     { 'commit': '6c8d0f5' }
 Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': '5c40f36' }
 Plug 'junegunn/fzf',                { 'tag': '0.16.6', 'dir': '~/.fzf', 'do': './install --all' }
@@ -317,10 +317,11 @@ let g:airline_symbols.branch    = '⭠'
 let g:airline_symbols.readonly  = '⭤'
 let g:airline_symbols.linenr    = '⭡'
 let g:airline_theme = 'gruvbox'
-let g:airline#extensions#tabline#enabled = 1    " Tab line at top of window
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-let g:airline#extensions#tabline#buffers_label = 'bufs'
-let g:airline#extensions#tabline#show_buffers = 1
+let g:airline_extensions = ['ale', 'branch', 'tabline']   " Only enable extensions I use, improves performance
+let g:airline_highlighting_cache = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#tabline#show_close_button = 0
+let g:airline#extensions#tabline#show_splits = 1
 let g:airline#extensions#tabline#show_tabs = 1
 let g:airline#extensions#tabline#show_tab_type = 0
 let g:airline#extensions#tabline#left_alt_sep = ''
