@@ -149,11 +149,10 @@ set wildignore=.svn,.git,.gitignore,*.pyc,*.so,*.swp,*.jpg,*.png,*.gif,node_modu
 set laststatus=2            " Always show a status line for lowest window in a split
 set cursorline              " highlight the full line that the cursor is currently on
 set colorcolumn=80,100      " Highlight these columns with a different bg
-"set helpheight=99999        " Hack to make help pages open "fullscreen"
 
 " Automatically set quickfix height
 " http://vim.wikia.com/wiki/Automatically_fitting_a_quickfix_window_height
-autocmd vimrc FileType qf call AdjustWindowHeight(3, 7)       " 2nd arg=> max height
+autocmd vimrc FileType qf call AdjustWindowHeight(4, 12)       " 2nd arg=> max height
 function! AdjustWindowHeight(minheight, maxheight)
     exe max([min([line('$'), a:maxheight]), a:minheight]) . 'wincmd _'
 endfunction
@@ -379,7 +378,7 @@ map P <Plug>(miniyank-autoPut)
 nmap <C-p> <Plug>(miniyank-cycle)
 
 " Auto-pairs
-let g:AutoPairsShortcutJump = '<C-l>'
+inoremap <silent> <C-l> <ESC>:call AutoPairsJump()<CR>a
 let g:AutoPairsShortcutFastWrap = '<C-w>'
 
 " VimWiki
@@ -514,7 +513,7 @@ nnoremap <silent> <C-j> :call ale#loclist_jumping#Jump('after', 1)<CR>
 nnoremap <silent> <C-k> :call ale#loclist_jumping#Jump('before', 1)<CR>
 
 " More ale/loclist config
-let g:ale_open_list = 1   " Open the loclist when reading a file (if there are errors)
+let g:ale_open_list = 0   " Don't open the loclist when reading a file (if there are errors)
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_sign_column_always = 1
 let g:ale_linters = {
@@ -571,7 +570,7 @@ cnoremap <C-l> <Right>
 
 " {{{ Folding
 "===============================================================================
-set foldlevelstart=10
+set foldlevelstart=99
 set foldmethod=syntax
 autocmd vimrc FileType vim set foldmethod=marker
 set pastetoggle=<F2>   " Have had problems with <F2>, see http://stackoverflow.com/q/7885198/351433
@@ -618,6 +617,7 @@ augroup END
 "   https://github.com/ocaml/merlin/blob/master/vim/merlin/doc/merlin.txt
 " }}}
 
+autocmd vimrc FileType gitcommit set tabstop=4
 
 " Load any machine-specific config from another file, if it exists
 try
