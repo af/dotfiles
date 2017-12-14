@@ -117,9 +117,8 @@ set visualbell
 set history=500             " longer command history (default=20)
 set backspace=indent,eol,start
 set noswapfile              " Disable swap files
+set backupcopy=yes
 set lazyredraw              " Speeds up macros by avoiding excessive redraws
-"set directory=~/.vim/swp    " where the .swp files go (if enabled)
-"set shellpipe=>             " Prevents results from flashing during Ack.vim searches
 
 " File/buffer settings
 set hidden                  " TODO: revisit this. Hides instead of unloads buffers
@@ -133,7 +132,6 @@ set autoindent
 set breakindent
 set showbreak=…
 set list listchars=tab:›\ ,trail:·          " mark trailing white space
-"set list listchars=tab:›\ ,trail:·,eol:¬   " mark trailing white space (with eol)
 
 " }}}
 
@@ -380,6 +378,7 @@ nmap <C-p> <Plug>(miniyank-cycle)
 " Auto-pairs
 inoremap <silent> <C-l> <ESC>:call AutoPairsJump()<CR>a
 let g:AutoPairsShortcutFastWrap = '<C-w>'
+let g:AutoPairsMultilineClose = 0
 
 " VimWiki
 let g:vimwiki_ext2syntax = {}
