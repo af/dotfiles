@@ -29,7 +29,6 @@ Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': '5c40f36' }
 Plug 'junegunn/fzf',                { 'tag': '0.16.6', 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim',            { 'commit': '4b9e2a0' }
-Plug 'jeetsukumaran/vim-filebeagle',{ 'commit': 'abfb7f9' }
 Plug 'roxma/nvim-completion-manager',  { 'commit': '21c4b61' }
 Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
 Plug 'airblade/vim-gitgutter',      { 'commit': '78d83c7' }
@@ -267,6 +266,16 @@ set noshowmode
 
 " {{{ Plugin customization
 "===============================================================================
+
+let g:netrw_banner = 0
+let g:netrw_home = '~/dotfiles'
+
+" Experiment: open right vsplit
+" Note: use P to open in previous ("preview" window)
+nnoremap - :Vexplore! %:h<CR>
+
+autocmd vimrc FileType netrw nnoremap qq <C-w>q
+autocmd vimrc FileType netrw nmap <C-t> t
 
 " FileBeagle
 let g:filebeagle_show_hidden = 1        " Use 'gh' to toggle- FileBeagle hides lots by default
