@@ -176,7 +176,7 @@ vnoremap ? ?\v
 "===============================================================================
 set wrap
 set textwidth=99
-set formatoptions=qrn1
+set formatoptions=qrn1j
 nnoremap j gj
 nnoremap k gk
 " }}}
@@ -406,11 +406,10 @@ autocmd vimrc FileType html,javascript imap <C-k> <C-x>/
 " {{{ Key Bindings: Visual mode
 "===============================================================================
 
-" Tab modifies indent in visual mode
-vnoremap <S-Tab> <<
-vnoremap <Tab> >>
-
+" Tab modifies indent in visual mode,
 " make < > shifts keep selection
+vnoremap <S-Tab> <gv
+vnoremap <Tab> >gv
 vnoremap < <gv
 vnoremap > >gv
 
@@ -423,9 +422,10 @@ xnoremap @ :normal @
 " {{{ Key Bindings: Moving around
 "===============================================================================
 
-" (built-in)
-" <C-o> - move the cursor position back in the jump list
-" <C-i> - move the cursor position forward in the jump list
+" Swap jumplist bindings (left => back, right => forward)
+nnoremap <C-o> <C-i>
+nnoremap <C-i> <C-o>
+
 " g;    - move back in the change list
 " g,    - move forward in the change list
 " gi    - move to the last insert, and re-enter insert mode
