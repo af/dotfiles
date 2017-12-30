@@ -94,6 +94,7 @@ Plug 'Shougo/neosnippet',           { 'commit': '0e829d5' }
 " Enabled periodically, but not by default:
 " Plug 'takac/vim-hardtime',          { 'commit': 'acf59c8' }
 " Plug 'mbbill/undotree',             { 'commit': '39e5cf0' }
+" Plug 'tweekmonster/startuptime.vim'
 
 " Try later:
 " Plug 'zefei/vim-colortuner'
@@ -215,6 +216,13 @@ color gruvbox
 set background=dark
 highlight Comment cterm=italic
 
+" highlight trailing whitespace and excessive line length:
+augroup ErrorHighlights
+    autocmd!
+    autocmd InsertEnter * call clearmatches()
+    autocmd InsertLeave * call matchadd('ErrorMsg', '\s\+$', 100) | call matchadd('ErrorMsg', '\%>140v.\+', 100)
+augroup END
+
 
 " Show syntax highlighting groups for word under cursor with <leader>s
 " From Vimcasts #25: http://vimcasts.org/episodes/creating-colorschemes-for-vim/
@@ -237,8 +245,11 @@ inoremap <expr> <TAB> pumvisible() ? '<C-n>' : '<TAB>'
 inoremap <expr> <S-TAB> pumvisible() ? '<C-p>' : '<S-TAB>'
 
 " nvim-completion-manager config
-imap <expr> <CR> (pumvisible() ? "\<c-y>\<Plug>(expand_or_nl)" : "\<CR>")
+" Includes a hack to work around <CR> conflicts with auto-pairs
+"imap <expr> <CR> (pumvisible() ? "\<c-y>\<Plug>(expand_or_nl)" : "\<CR>")
 imap <expr> <Plug>(expand_or_nl) (cm#completed_is_snippet() ? "\<C-U>":"\<CR>")
+imap <expr> <silent> <cr>  (pumvisible() ? "\<c-y>\<Plug>(cm_inject_snippet)\<Plug>(expand_or_nl)\<c-r>=AutoPairsReturn()\<cr>" : "\<cr>\<c-r>=AutoPairsReturn()\<cr>")
+
 inoremap <C-c> <Esc>
 set shortmess+=c
 
@@ -330,6 +341,7 @@ let g:airline#extensions#tabline#show_close_button = 0
 let g:airline#extensions#tabline#show_splits = 1
 let g:airline#extensions#tabline#show_tabs = 1
 let g:airline#extensions#tabline#show_tab_type = 0
+let g:airline#extensions#tabline#tab_nr_type = 2
 let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 
@@ -417,6 +429,9 @@ vnoremap > >gv
 " Note: the . command must take effect at the start of each line
 vnoremap . :norm.<CR>
 xnoremap @ :normal @
+
+" Repeat the last used macro:
+nnoremap Q @@
 " }}}
 
 " {{{ Key Bindings: Moving around
