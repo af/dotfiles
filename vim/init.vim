@@ -283,7 +283,15 @@ let g:netrw_home = '~/dotfiles'
 
 " Experiment: open right vsplit
 " Note: use P to open in previous ("preview" window)
-nnoremap - :Vexplore! %:h<CR>
+" see https://github.com/tpope/vim-vinegar/blob/master/plugin/vinegar.vim for tips
+function! <SID>vsplit_netrw()
+  let s:filename = expand('%:t')
+  Vexplore! %:h
+  "25Lexplore
+  call search(s:filename)   " move cursor to the current file
+endfunction
+nnoremap - :call <SID>vsplit_netrw()<CR>
+"nnoremap - :Vexplore! %:h<CR>
 
 autocmd vimrc FileType netrw nnoremap qq <C-w>q
 autocmd vimrc FileType netrw nmap <C-t> t
