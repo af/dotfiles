@@ -91,6 +91,20 @@ Plug 'danro/rename.vim',            { 'commit': 'f133763' }
 Plug 'Shougo/echodoc.vim'
 Plug 'Shougo/neosnippet',           { 'commit': '0e829d5' }
 
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+
+Plug 'christoomey/vim-tmux-navigator'
+if &term == 'screen-256color'
+    let g:tmux_navigator_no_mappings = 1
+    nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
+    nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+    nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+    nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
+endif
+
 " Enabled periodically, but not by default:
 " Plug 'takac/vim-hardtime',          { 'commit': 'acf59c8' }
 " Plug 'mbbill/undotree',             { 'commit': '39e5cf0' }
@@ -250,6 +264,7 @@ inoremap <expr> <S-TAB> pumvisible() ? '<C-p>' : '<S-TAB>'
 imap <expr> <Plug>(expand_or_nl) (cm#completed_is_snippet() ? "\<C-U>":"\<CR>")
 imap <expr> <silent> <cr>  (pumvisible() ? "\<c-y>\<Plug>(cm_inject_snippet)\<Plug>(expand_or_nl)\<c-r>=AutoPairsReturn()\<cr>" : "\<cr>\<c-r>=AutoPairsReturn()\<cr>")
 
+nnoremap <silent> <leader>q :wq<CR>
 inoremap <C-c> <Esc>
 set shortmess+=c
 
@@ -327,7 +342,7 @@ nnoremap - :call <SID>lex_netrw()<CR>
 
 " ListToggle
 let g:lt_location_list_toggle_map = '<leader>l'
-let g:lt_quickfix_list_toggle_map = '<leader>q'
+let g:lt_quickfix_list_toggle_map = '<leader>z'
 
 " FZF
 " More tips: https://github.com/junegunn/fzf/wiki/Examples-(vim)
@@ -481,8 +496,8 @@ nnoremap <C-i> <C-o>
 
 " Navigating between buffers:
 " These first bindings don't work with nnoremap for some reason (?)
-nmap <C-h> <Plug>AirlineSelectPrevTab
-nmap <C-l> <Plug>AirlineSelectNextTab
+"nmap <C-h> <Plug>AirlineSelectPrevTab
+"nmap <C-l> <Plug>AirlineSelectNextTab
 nnoremap <Backspace> <C-^>
 nnoremap <silent> <C-u> :bd<CR>
 
@@ -564,8 +579,8 @@ autocmd vimrc BufLeave *.test.js,*.test.jsx   normal! mT
 " the file's location with ":cd %:h"
 
 " Move between errors (using ale)
-nnoremap <silent> <C-j> :call ale#loclist_jumping#Jump('after', 1)<CR>
-nnoremap <silent> <C-k> :call ale#loclist_jumping#Jump('before', 1)<CR>
+"nnoremap <silent> <C-j> :call ale#loclist_jumping#Jump('after', 1)<CR>
+"nnoremap <silent> <C-k> :call ale#loclist_jumping#Jump('before', 1)<CR>
 
 " More ale/loclist config
 let g:ale_open_list = 0   " Don't open the loclist when reading a file (if there are errors)
