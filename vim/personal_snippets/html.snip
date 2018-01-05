@@ -18,7 +18,7 @@ options head
 snippet input
 alias in
 options word
-	<input type="${1:text}" name="${2:some_name}"${3}>
+	<input type="${1:text}" name="${2:some_name}"${3} />
 
 snippet select
 alias sel
@@ -59,3 +59,7 @@ options word
 snippet scriptsrc
 options word
 	<script src="${1}"></script>
+
+snippet cn
+options word
+	className="${0}"
