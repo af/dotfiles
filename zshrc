@@ -52,7 +52,7 @@ source $ZSH/oh-my-zsh.sh
 bindkey '^k' up-line-or-search
 bindkey '^j' down-line-or-search
 
-# Customize to your needs...
+# Various customizations for $PATH:
 PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 export PATH=$(brew --prefix ruby)/bin:$PATH     # For ruby gems
 export PATH=/usr/local/bin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/git/bin:/usr/local/heroku/bin:/Users/aaron/.my_scripts:/usr/local/sbin
@@ -88,6 +88,7 @@ alias gl='git log'
 alias gc='git checkout'
 alias gb='git branch'
 alias gdc='git diff --cached'
+alias gp='git pull'
 alias gr='git remote'
 alias gpr='git pull --rebase'
 alias lat='git latest'
@@ -121,8 +122,9 @@ export NODE_PATH=/usr/local/lib/node_modules
 ulimit -S -n 5000
 
 # NVM:
-source $(brew --prefix nvm)/nvm.sh
-export PATH=$(yarn global bin):$PATH       # Add yarn global binaries to PATH
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # fasd (https://github.com/clvv/fasd):
 eval "$(fasd --init posix-alias zsh-hook)"
@@ -211,7 +213,7 @@ export FZF_DEFAULT_COMMAND='ag -g "" --hidden --ignore .git'  # Respect .gitigno
 #  * -e is for exact matching
 #  * ':' is mapped to "abort", mostly to use with vim.
 #  * for a full list of available actions to bind to, see "man fzf" and search for "action"
-export FZF_DEFAULT_OPTS='-e --bind ctrl-l:select-all,ctrl-n:toggle+up,ctrl-f:page-down,ctrl-b:page-up,::abort'
+export FZF_DEFAULT_OPTS='--bind ctrl-l:select-all,ctrl-n:toggle+up,ctrl-f:page-down,ctrl-b:page-up,::abort'
 export FZF_COMPLETION_OPTS='-m'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"    # Respect .gitignore for ^t
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -235,6 +237,12 @@ b() {
                  --format='%(committerdate:short)|%(color:green)%(refname:short)%(color:reset)|%(subject)') &&
   branch=$(echo "$branches" | column -t -s "|" | fzf --ansi +m) &&
   git checkout $(echo "$branch" | awk '{print $2}' | sed "s/.* //")
+}
+
+# Use FZF to stage modified files in git, and then show status
+fga() {
+  git ls-files -m | fzf -m | xargs git add
+  git status
 }
 
 # Check out a git commit with FZF:
