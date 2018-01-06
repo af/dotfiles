@@ -275,11 +275,16 @@ nnoremap <silent> <F3> :call LanguageClient_textDocument_formatting()<cr>
 set noshowmode
 " }}}
 
-" {{{ Plugin customization
+" {{{ netrw
 "===============================================================================
 
+" General settings and bindings
 let g:netrw_banner = 0
 let g:netrw_home = '~/dotfiles'
+let g:netrw_browse_split = 4   " Open files in the last window that was active
+let g:netrw_altv = 1
+autocmd vimrc FileType netrw nmap <C-t> t
+autocmd vimrc FileType netrw nmap <C-v> v<C-w>=
 
 function! DeleteEmptyBuffers()
     let [i, n; empty] = [1, bufnr('$')]
@@ -294,23 +299,32 @@ function! DeleteEmptyBuffers()
     endif
 endfunction
 
+" TODO: handle case where Lex is already open, but not to the dir of the current file.
+" Can we jump to that file in that case?
+
+" TODO: determine this dynamically in lex_netrw instead of tracking this error-prone state:
+let t:lexp_is_open = 0
+
 " Experiment: Lexplore wrapper
 " see https://github.com/tpope/vim-vinegar/blob/master/plugin/vinegar.vim for tips
 function! <SID>lex_netrw()
-  let s:filename = expand('%:t')
-  25Lexplore %:h
-  call search(s:filename)   " move cursor to the current file
-  call DeleteEmptyBuffers()
+  let l:current_filename = expand('%:t')
+
+  if t:lexp_is_open
+    1wincmd w   " Move to first window (assumed to be Lexplore)
+  else
+    25Lexplore %:h
+    call DeleteEmptyBuffers()   " Lexplore leaves a bunch of stray buffers around
+    let t:lexp_is_open = 1
+  endif
+  call search(l:current_filename)   " move cursor to the current file
 endfunction
 nnoremap - :call <SID>lex_netrw()<CR>
 
-autocmd vimrc FileType netrw nnoremap qq <C-w>q
-autocmd vimrc FileType netrw nmap <C-t> t
+" }}}
 
-" FileBeagle
-let g:filebeagle_show_hidden = 1        " Use 'gh' to toggle- FileBeagle hides lots by default
-autocmd vimrc FileType filebeagle nmap <buffer> <C-v> <Plug>(FileBeagleBufferSplitVerticalVisitTarget)
-autocmd vimrc FileType filebeagle nmap <buffer> <C-s> <Plug>(FileBeagleBufferSplitVisitTarget)
+" {{{ Plugin customization
+"===============================================================================
 
 " ListToggle
 let g:lt_location_list_toggle_map = '<leader>l'
