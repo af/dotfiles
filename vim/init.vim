@@ -281,17 +281,28 @@ set noshowmode
 let g:netrw_banner = 0
 let g:netrw_home = '~/dotfiles'
 
-" Experiment: open right vsplit
-" Note: use P to open in previous ("preview" window)
-" see https://github.com/tpope/vim-vinegar/blob/master/plugin/vinegar.vim for tips
-function! <SID>vsplit_netrw()
-  let s:filename = expand('%:t')
-  Vexplore! %:h
-  "25Lexplore
-  call search(s:filename)   " move cursor to the current file
+function! DeleteEmptyBuffers()
+    let [i, n; empty] = [1, bufnr('$')]
+    while i <= n
+        if bufexists(i) && bufname(i) == ''
+            call add(empty, i)
+        endif
+        let i += 1
+    endwhile
+    if len(empty) > 0
+        exe 'bdelete' join(empty)
+    endif
 endfunction
-nnoremap - :call <SID>vsplit_netrw()<CR>
-"nnoremap - :Vexplore! %:h<CR>
+
+" Experiment: Lexplore wrapper
+" see https://github.com/tpope/vim-vinegar/blob/master/plugin/vinegar.vim for tips
+function! <SID>lex_netrw()
+  let s:filename = expand('%:t')
+  25Lexplore %:h
+  call search(s:filename)   " move cursor to the current file
+  call DeleteEmptyBuffers()
+endfunction
+nnoremap - :call <SID>lex_netrw()<CR>
 
 autocmd vimrc FileType netrw nnoremap qq <C-w>q
 autocmd vimrc FileType netrw nmap <C-t> t
