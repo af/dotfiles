@@ -311,9 +311,10 @@ function! <SID>lex_netrw()
   if l:lexp_is_open
     1wincmd w   " Move to first window (assumed to be Lexplore)
   else
-    25Lexplore %:h
+    Lexplore %:h
+    vertical resize 25   " Use a fixed width, instead of a % of space
     let t:lexp_buf_num = bufnr('%')
-    call DeleteEmptyBuffers()   " Lexplore leaves a bunch of stray buffers around
+    silent !DeleteEmptyBuffers()   " Lexplore leaves a bunch of stray buffers around
   endif
   call search(l:current_filename)   " move cursor to the current file
 endfunction
@@ -400,7 +401,7 @@ nnoremap <leader>s :NeoSnippetEdit -vertical -split<CR>
 
 " CtrlSF.vim
 let g:ctrlsf_context = '-B 2 -A 2'
-let g:ctrlsf_position = 'right'
+let g:ctrlsf_position = 'bottom'
 let g:ctrlsf_winsize = '65%'
 let g:ctrlsf_indent = 1
 let g:ctrlsf_ignore_dir = ['node_modules', '.git']
