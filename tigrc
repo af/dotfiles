@@ -6,6 +6,7 @@ bind generic <Ctrl-b> scroll-page-up
 bind generic H move-first-line
 bind generic L move-last-line
 bind generic y !@zsh -c "echo -n %(commit) | pbcopy"    # copy selected commit's SHA
+bind generic b !@zsh -c "echo -n %(branch) | pbcopy"    # copy selected commit's branch name
 bind generic s view-stash                               # regular mapping for this is 'y'
 
 set refresh-mode = periodic
