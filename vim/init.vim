@@ -283,8 +283,8 @@ let g:netrw_banner = 0
 let g:netrw_home = '~/dotfiles'
 let g:netrw_browse_split = 4   " Open files in the last window that was active
 let g:netrw_altv = 1
-autocmd vimrc FileType netrw nmap <C-t> t
-autocmd vimrc FileType netrw nmap <C-v> v<C-w>=
+autocmd vimrc FileType netrw nmap <buffer> <C-t> t
+autocmd vimrc FileType netrw nmap <buffer> <C-v> v<C-w>=
 
 function! DeleteEmptyBuffers()
     let [l:i, l:n; l:empty] = [1, bufnr('$')]
