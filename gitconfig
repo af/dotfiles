@@ -9,12 +9,12 @@
     local = yellow
     remote = green
 [color "diff"]
-	meta = 227
-	frag = magenta bold
-	old = red bold
-	new = green bold
-	commit = 227 bold
-	whitespace = red reverse
+    meta = 227
+    frag = magenta bold
+    old = red bold
+    new = green bold
+    commit = 227 bold
+    whitespace = red reverse
 [color "status"]
     added = yellow
     changed = cyan
@@ -44,7 +44,7 @@
 [push]
     default = current
 [color "diff-highlight"]
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
-	oldNormal = red bold
+    oldHighlight = red bold 52
+    newNormal = green bold
+    newHighlight = green bold 22
+    oldNormal = red bold

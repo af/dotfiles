@@ -79,7 +79,7 @@ alias ga='git add'
 alias gap='git add --patch'
 alias gra='git rebase --abort'
 alias grc='git rebase --continue'
-alias gri='git rebase -i HEAD~10'
+alias gri='git rebase -i HEAD~20'
 alias gs='git status'
 alias gsl='git stash list'
 alias gss='git stash save'
@@ -88,7 +88,7 @@ alias gl='git log'
 alias gc='git checkout'
 alias gb='git branch'
 alias gdc='git diff --cached'
-alias gp='git pull'
+alias gp='git pull --ff-only'
 alias gr='git remote'
 alias gpr='git pull --rebase'
 alias lat='git latest'
@@ -226,7 +226,6 @@ fzf-history-widget-accept() {
 }
 zle     -N   fzf-history-widget-accept
 bindkey '^R' fzf-history-widget-accept
-
 
 # Check out git branch with FZF:
 b() {
