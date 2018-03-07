@@ -19,7 +19,6 @@ SYMLINK_MAP = {
     '~/.gitconfig':         'gitconfig',
     '~/.gitignore_global':  'gitignore_global',
     '~/.hammerspoon':       'hammerspoon',
-    '~/.jshintrc':          'jshintrc',
     '~/.psqlrc':            'psqlrc',
     '~/.config/nvim':       'vim',
     '~/.vim':               'vim',
@@ -28,7 +27,7 @@ SYMLINK_MAP = {
     '~/.tigrc':             'tigrc',
     '~/.weechat':           'weechat',
     '~/.zshrc':             'zshrc',
-    '~/Library/Application Support/Karabiner/private.xml': 'karabiner.xml',
+    '~/Library/Preferences/kitty/kitty.conf': 'kitty.conf',
 }
 
 
