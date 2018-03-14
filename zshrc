@@ -6,7 +6,7 @@ ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="alanpeabody"
+ZSH_THEME="af-magic"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -42,7 +42,7 @@ DISABLE_LS_COLORS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Note: zsh-syntax-highlighting needs to be cloned to oh-my-zsh's custom/plugins directory first:
-plugins=(brew git npm nvm zsh-syntax-highlighting)
+plugins=(brew git npm zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
