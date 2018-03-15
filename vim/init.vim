@@ -91,17 +91,11 @@ Plug 'danro/rename.vim',            { 'commit': 'f133763' }
 Plug 'Shougo/echodoc.vim'
 Plug 'Shougo/neosnippet',           { 'commit': '0e829d5' }
 
-noremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-
-Plug 'christoomey/vim-tmux-navigator'
-if &term == 'screen-256color'
-    let g:tmux_navigator_no_mappings = 1
+let g:tmux_navigator_no_mappings = 1
+let g:tmux_navigator_save_on_switch = 1     " Update the current buffer when leaving vim
+Plug 'christoomey/vim-tmux-navigator', { 'commit': 'd724094' }
+if $TERM ==# 'xterm-256color' || $TERM ==# 'tmux-256color'
     nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
-    nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
-    nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
     nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
 endif
 
@@ -392,6 +386,16 @@ let g:airline#extensions#tabline#tab_nr_type = 2
 let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 
+" jumping to tabs:
+nnoremap <leader>1 1gt
+nnoremap <leader>2 2gt
+nnoremap <leader>3 3gt
+nnoremap <leader>4 4gt
+nnoremap <leader>5 5gt
+nnoremap <leader>6 6gt
+nnoremap gl :tabn<CR>
+nnoremap gh :tabp<CR>
+
 " Colorizer
 nnoremap <leader><F2> :ColorToggle<CR>
 
@@ -513,11 +517,9 @@ nnoremap <A-o> <c-w>o
 nnoremap <A-z> :ZoomWinTabToggle<CR>
 nnoremap <A-p> <c-w>p       " most recently used window
 
-"nnoremap <expr> <C-n> pumvisible() ? '<C-n>' : call next_window()
-
 function! <SID>next_window()
     wincmd w
-    if &filetype ==# 'qf'
+    if &filetype ==# 'qf' || &filetype ==# 'netrw'
         wincmd w
     endif
 endfunction
@@ -579,8 +581,8 @@ autocmd vimrc BufLeave *.test.js,*.test.jsx   normal! mT
 " the file's location with ":cd %:h"
 
 " Move between errors (using ale)
-"nnoremap <silent> <C-j> :call ale#loclist_jumping#Jump('after', 1)<CR>
-"nnoremap <silent> <C-k> :call ale#loclist_jumping#Jump('before', 1)<CR>
+nnoremap <silent> <C-j> :call ale#loclist_jumping#Jump('after', 1)<CR>
+nnoremap <silent> <C-k> :call ale#loclist_jumping#Jump('before', 1)<CR>
 
 " More ale/loclist config
 let g:ale_open_list = 0   " Don't open the loclist when reading a file (if there are errors)
