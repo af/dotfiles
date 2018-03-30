@@ -40,7 +40,7 @@ def section(name):
 section('Symlinking config files to ~')
 linked = []
 skipped = []
-for dest, source in SYMLINK_MAP.iteritems():
+for dest, source in SYMLINK_MAP.items():
     source = os.path.join(DOTFILES_ROOT, source)
     dest = os.path.abspath(os.path.expanduser(dest))
 
