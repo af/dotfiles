@@ -150,7 +150,7 @@ set colorcolumn=80,100      " Highlight these columns with a different bg
 
 " Automatically set quickfix height
 " http://vim.wikia.com/wiki/Automatically_fitting_a_quickfix_window_height
-autocmd vimrc FileType qf call AdjustWindowHeight(4, 12)       " 2nd arg=> max height
+autocmd vimrc FileType qf call AdjustWindowHeight(4, 24)       " 2nd arg=> max height
 function! AdjustWindowHeight(minheight, maxheight)
     exe max([min([line('$'), a:maxheight]), a:minheight]) . 'wincmd _'
 endfunction
@@ -306,9 +306,9 @@ endfunction
 " see https://github.com/tpope/vim-vinegar/blob/master/plugin/vinegar.vim for tips
 function! <SID>lex_netrw()
   let l:current_filename = expand('%:t')
-  let l:lexp_is_open = exists('t:lexp_buf_num') && bufwinnr(t:lexp_buf_num) != -1
+  let b:lexp_is_open = exists('t:lexp_buf_num') && bufwinnr(t:lexp_buf_num) != -1
 
-  if l:lexp_is_open
+  if b:lexp_is_open
     1wincmd w   " Move to first window (assumed to be Lexplore)
   else
     Lexplore %:h
@@ -376,6 +376,14 @@ let g:airline#extensions#tabline#show_tab_type = 0
 let g:airline#extensions#tabline#tab_nr_type = 2
 let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#tabline#buffer_idx_mode = 1
+
+" jumping to tabs:
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
+nmap <leader>3 <Plug>AirlineSelectTab3
+nmap <leader>4 <Plug>AirlineSelectTab4
+nmap <leader>5 <Plug>AirlineSelectTab5
+nmap <leader>6 <Plug>AirlineSelectTab6
 
 " Colorizer
 nnoremap <leader><F2> :ColorToggle<CR>
@@ -498,11 +506,9 @@ nnoremap <A-o> <c-w>o
 nnoremap <A-z> :ZoomWinTabToggle<CR>
 nnoremap <A-p> <c-w>p       " most recently used window
 
-"nnoremap <expr> <C-n> pumvisible() ? '<C-n>' : call next_window()
-
 function! <SID>next_window()
     wincmd w
-    if &filetype ==# 'qf'
+    if &filetype ==# 'qf' || &filetype ==# 'netrw'
         wincmd w
     endif
 endfunction
