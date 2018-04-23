@@ -23,10 +23,10 @@ augroup END
 call plug#begin('~/.vim/plugged')
 
 " Essentials
-Plug 'w0rp/ale',                    { 'commit': '70fdeb7' }
+Plug 'w0rp/ale',                    { 'tag': 'v1.8.0' }
 Plug 'vim-airline/vim-airline',     { 'commit': '6c8d0f5' }
 Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
-Plug 'dyng/ctrlsf.vim',             { 'commit': '5c40f36' }
+Plug 'dyng/ctrlsf.vim',             { 'commit': '184b22f' }
 Plug 'junegunn/fzf',                { 'tag': '0.16.6', 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim',            { 'commit': '4b9e2a0' }
 Plug 'roxma/nvim-completion-manager',  { 'commit': '21c4b61' }
@@ -589,11 +589,6 @@ let g:ale_fixers = {
 \   'javascript': ['eslint']
 \}
 nnoremap <leader>f :ALEFix<CR>
-
-" Enabling lint_on_insert_leave currently makes the cursor jump around annoyingly
-" The following line was an attempt to fix this, but it suffered from the same issue: 
-" autocmd vimrc InsertLeave * call ale#Queue(500)
-let g:ale_lint_on_insert_leave = 0
 
 " automatically close corresponding loclist when quitting a window
 autocmd vimrc QuitPre * if &filetype != 'qf' | silent! lclose | endif
