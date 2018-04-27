@@ -24,14 +24,14 @@ call plug#begin('~/.vim/plugged')
 
 " Essentials
 Plug 'w0rp/ale',                    { 'tag': 'v1.8.0' }
-Plug 'vim-airline/vim-airline',     { 'commit': '6c8d0f5' }
+Plug 'vim-airline/vim-airline',     { 'tag': 'v0.9' }
 Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': '184b22f' }
 Plug 'junegunn/fzf',                { 'tag': '0.16.6', 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim',            { 'commit': '4b9e2a0' }
 Plug 'roxma/nvim-completion-manager',  { 'commit': '21c4b61' }
 Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-Plug 'airblade/vim-gitgutter',      { 'commit': '78d83c7' }
+Plug 'airblade/vim-gitgutter',      { 'commit': 'ad25925' }
 
 " tpope appreciation section
 Plug 'tpope/vim-repeat',            { 'commit': '7a6675f' }     " Enable . repeat for plugin operations (eg. gitgutter)

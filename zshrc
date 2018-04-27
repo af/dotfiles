@@ -79,7 +79,7 @@ alias ga='git add'
 alias gap='git add --patch'
 alias gra='git rebase --abort'
 alias grc='git rebase --continue'
-alias gri='git rebase -i HEAD~20'
+alias gri='git rebase -i'
 alias gs='git status'
 alias gsl='git stash list'
 alias gss='git stash save'
@@ -261,9 +261,6 @@ fkill() {
     kill -${1:-9} $pid
   fi
 }
-
-# Android SDK
-export ANDROID_HOME=/usr/local/opt/android-sdk
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
