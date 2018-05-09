@@ -352,7 +352,7 @@ nnoremap gm :FZFMru<CR>
 " gitgutter
 " use [c and ]c to jump to next/previous changed "hunk"
 nmap <leader>a <Plug>GitGutterStageHunk
-nmap <leader>r <Plug>GitGutterRevertHunk
+nmap <leader>r <Plug>GitGutterUndoHunk
 
 " vim-airline:
 if !exists('g:airline_symbols')

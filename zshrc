@@ -93,6 +93,7 @@ alias gr='git remote'
 alias gpr='git pull --rebase'
 alias lat='git latest'
 alias t='tig --all'
+alias ff='git merge --ff-only'
 
 alias ys='yarn start'
 alias yt='yarn test'
