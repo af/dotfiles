@@ -34,6 +34,7 @@ Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
 Plug 'airblade/vim-gitgutter',      { 'commit': 'ad25925' }
 
 " tpope appreciation section
+Plug 'tpope/vim-apathy'
 Plug 'tpope/vim-repeat',            { 'commit': '7a6675f' }     " Enable . repeat for plugin operations (eg. gitgutter)
 Plug 'tpope/vim-obsession',         { 'commit': '4ab72e0' }     " start a session file with :Obsession
 Plug 'tpope/vim-surround',          { 'commit': '42e9b46' }
@@ -67,7 +68,6 @@ Plug 'whatyouhide/vim-textobj-xmlattr'          " eg. vix
 Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load lazily, w/o input lag
 
 " Javascript/CSS/HTML-related plugins
-Plug 'moll/vim-node',               { 'commit': '13b3121' }     " Lazy loading doesn't work for some reason
 Plug 'othree/csscomplete.vim',      { 'for': ['css', 'stylus', 'less'] }
 Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml', 'mustache', 'javascript'] }
 Plug 'mhartington/nvim-typescript', { 'commit': 'f33d0bc', 'for': ['typescript'], 'do': ':UpdateRemotePlugins' }
