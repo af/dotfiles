@@ -23,14 +23,14 @@ augroup END
 call plug#begin('~/.vim/plugged')
 
 " Essentials
-Plug 'w0rp/ale',                    { 'tag': 'v1.8.0' }
+Plug 'w0rp/ale',                    { 'tag': 'v1.9.0' }
 Plug 'vim-airline/vim-airline',     { 'tag': 'v0.9' }
 Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': '184b22f' }
 Plug 'junegunn/fzf',                { 'tag': '0.16.6', 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim',            { 'commit': '4b9e2a0' }
 Plug 'roxma/nvim-completion-manager',  { 'commit': '21c4b61' }
-Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+Plug 'autozimu/LanguageClient-neovim', { 'tag': '0.1.87', 'do': 'bash install.sh' }
 Plug 'airblade/vim-gitgutter',      { 'commit': 'ad25925' }
 
 " tpope appreciation section
@@ -86,7 +86,6 @@ Plug 'lilydjwg/colorizer',          { 'commit': '9d6dc32', 'on': 'ColorToggle' }
 " Misc
 Plug 'vimwiki/vimwiki',             { 'tag':    'v2.2.1'  }
 Plug 'Valloric/ListToggle',         { 'commit': '2bc7857' }
-Plug 'troydm/zoomwintab.vim',       { 'commit': 'b7a940e' }
 Plug 'danro/rename.vim',            { 'commit': 'f133763' }
 Plug 'Shougo/echodoc.vim'
 Plug 'Shougo/neosnippet',           { 'commit': '0e829d5' }
@@ -95,6 +94,7 @@ Plug 'Shougo/neosnippet',           { 'commit': '0e829d5' }
 " Plug 'takac/vim-hardtime',          { 'commit': 'acf59c8' }
 " Plug 'mbbill/undotree',             { 'commit': '39e5cf0' }
 " Plug 'tweekmonster/startuptime.vim'
+" Plug 'troydm/zoomwintab.vim',       { 'commit': 'b7a940e' }
 
 " Try later:
 " Plug 'zefei/vim-colortuner'
@@ -503,7 +503,6 @@ nnoremap <A-c> <c-w>c
 nnoremap <A-s> <c-w>s
 nnoremap <A-v> <c-w>v
 nnoremap <A-o> <c-w>o
-nnoremap <A-z> :ZoomWinTabToggle<CR>
 nnoremap <A-p> <c-w>p       " most recently used window
 
 function! <SID>next_window()
