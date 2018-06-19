@@ -1,12 +1,7 @@
 #!/usr/bin/env python
 '''
 Install script for dotfiles:
-    * symlinks a bunch of files to ~.
-    * installs npm modules globally
-
-Dependencies:
-    * python (obviously)
-    * node.js and npm
+    * symlinks a bunch of files to ~
 '''
 import os
 import subprocess
@@ -14,8 +9,6 @@ import subprocess
 # Assume this script is located the root of the dotfiles repo:
 DOTFILES_ROOT = os.path.dirname(os.path.abspath(__file__))
 SYMLINK_MAP = {
-    '~/.ctags':             'ctags',
-    '~/.emacs.d':           'emacs',
     '~/.gitconfig':         'gitconfig',
     '~/.gitignore_global':  'gitignore_global',
     '~/.hammerspoon':       'hammerspoon',
@@ -27,9 +20,7 @@ SYMLINK_MAP = {
     '~/.tigrc':             'tigrc',
     '~/.weechat':           'weechat',
     '~/.zshrc':             'zshrc',
-    '~/Library/Preferences/kitty/kitty.conf': 'kitty.conf',
 }
-
 
 # Output a generic header for a section of the install script:
 def section(name):
