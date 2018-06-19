@@ -2,8 +2,6 @@
 
 brew install \
 ag \
-caskroom/cask/brew-cask \
-ctags \
 curl \
 fasd \
 ghi \
@@ -12,10 +10,10 @@ gnu-sed --with-default-names \
 heroku-toolbelt \
 hub \
 jq \
+neovim \
 ngrep \
 nmap \
 nvm \
-pip3 \
 python3 \
 reattach-to-user-namespace \
 siege \
@@ -25,6 +23,3 @@ tmux \
 weechat --with-perl --with-python \
 wget \
 zsh
-
-brew tap neovim/neovim
-brew install --HEAD neovim
