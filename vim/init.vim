@@ -32,6 +32,7 @@ Plug 'junegunn/fzf.vim',            { 'commit': '4b9e2a0' }
 Plug 'roxma/nvim-completion-manager',  { 'commit': '21c4b61' }
 Plug 'autozimu/LanguageClient-neovim', { 'tag': '0.1.87', 'do': 'bash install.sh' }
 Plug 'airblade/vim-gitgutter',      { 'commit': 'ad25925' }
+Plug 'scrooloose/nerdtree'
 
 " tpope appreciation section
 Plug 'tpope/vim-apathy'
@@ -275,50 +276,37 @@ nnoremap <silent> <F3> :call LanguageClient_textDocument_formatting()<cr>
 set noshowmode
 " }}}
 
-" {{{ netrw
+" {{{ nerdtree
 "===============================================================================
 
-" General settings and bindings
-let g:netrw_banner = 0
-let g:netrw_home = '~/dotfiles'
-let g:netrw_browse_split = 4   " Open files in the last window that was active
-let g:netrw_altv = 1
-autocmd vimrc FileType netrw nmap <buffer> <C-t> t
-autocmd vimrc FileType netrw nmap <buffer> <C-v> v<C-w>=
-
-function! DeleteEmptyBuffers()
-    let [l:i, l:n; l:empty] = [1, bufnr('$')]
-    while l:i <= l:n
-        if bufexists(l:i) && bufname(l:i) ==# ''
-            call add(l:empty, l:i)
-        endif
-        let l:i += 1
-    endwhile
-    if len(l:empty) > 0
-        exe 'bdelete' join(l:empty)
-    endif
+function! IsNerdTreeEnabled()
+    return exists('t:NERDTreeBufName') && bufwinnr(t:NERDTreeBufName) != -1
 endfunction
 
-" TODO: handle case where Lex is already open, but not to the dir of the current file.
-" Can we jump to that file in that case?
-
-" Experiment: Lexplore wrapper
-" see https://github.com/tpope/vim-vinegar/blob/master/plugin/vinegar.vim for tips
-function! <SID>lex_netrw()
+function! OpenNerdTree()
   let l:current_filename = expand('%:t')
-  let b:lexp_is_open = exists('t:lexp_buf_num') && bufwinnr(t:lexp_buf_num) != -1
-
-  if b:lexp_is_open
-    1wincmd w   " Move to first window (assumed to be Lexplore)
+  " FIXME: check if current file is visible in nerdtree (need to switch to nerdtree to search):
+  " let l:current_file_is_visible = IsNerdTreeEnabled() && search(l:current_filename, 'n') != 0
+  let l:current_file_is_visible = IsNerdTreeEnabled()
+  if l:current_file_is_visible
+    NERDTreeFocus
   else
-    Lexplore %:h
-    vertical resize 25   " Use a fixed width, instead of a % of space
-    let t:lexp_buf_num = bufnr('%')
-    silent !DeleteEmptyBuffers()   " Lexplore leaves a bunch of stray buffers around
+    NERDTree %
   endif
-  call search(l:current_filename)   " move cursor to the current file
+  call search(l:current_filename)  " move cursor to current file
 endfunction
-nnoremap - :call <SID>lex_netrw()<CR>
+
+" Note: this opens a fresh tree every time:
+" nnoremap - :NERDTree %<CR>
+" nnoremap - :NERDTreeToggle %<CR>
+nnoremap - :call OpenNerdTree()<CR>
+
+autocmd vimrc FileType nerdtree nmap <buffer> - U
+autocmd vimrc FileType nerdtree nmap <buffer> <C-v> s
+autocmd vimrc FileType nerdtree nmap <buffer> <C-t> t
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeAutoDeleteBuffer = 1
+
 
 " }}}
 
@@ -505,23 +493,7 @@ nnoremap <A-v> <c-w>v
 nnoremap <A-o> <c-w>o
 nnoremap <A-p> <c-w>p       " most recently used window
 
-function! <SID>next_window()
-    wincmd w
-    if &filetype ==# 'qf' || &filetype ==# 'netrw'
-        wincmd w
-    endif
-endfunction
-nnoremap <C-n> :call <SID>next_window()<CR>
-
-nnoremap <C-S-k> <c-w>W
-inoremap <A-j> <c-\><c-n><c-w>j
-inoremap <A-k> <c-\><c-n><c-w>k
-inoremap <A-h> <c-\><c-n><c-w>h
-inoremap <A-l> <c-\><c-n><c-w>l
-cnoremap <A-j> <c-\><c-n><c-w>j
-cnoremap <A-k> <c-\><c-n><c-w>k
-cnoremap <A-h> <c-\><c-n><c-w>h
-cnoremap <A-l> <c-\><c-n><c-w>l
+nnoremap <C-n> <c-w>w
 " Open new vsplit and move to it:
 nnoremap <silent> vv <C-w>v<C-w>l
 nnoremap <leader>o :only<CR>
