@@ -26,7 +26,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'w0rp/ale',                    { 'tag': 'v1.9.0' }
 Plug 'vim-airline/vim-airline',     { 'tag': 'v0.9' }
 Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
-Plug 'dyng/ctrlsf.vim',             { 'commit': '184b22f' }
+Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
 Plug 'junegunn/fzf',                { 'tag': '0.16.6', 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim',            { 'commit': '4b9e2a0' }
 Plug 'roxma/nvim-completion-manager',  { 'commit': '21c4b61' }
@@ -50,7 +50,7 @@ Plug 'machakann/vim-highlightedyank',  { 'commit': '5fb7d0f' }
 
 " Editing modifications
 Plug 'tommcdo/vim-exchange',        { 'commit': 'b82a774' }
-Plug 'AndrewRadev/splitjoin.vim',   { 'commit': '4b062a0' }     " gS and gJ to split/join lines
+Plug 'AndrewRadev/splitjoin.vim',   { 'commit': '26e9e9b' }     " gS and gJ to split/join lines
 Plug 'jiangmiao/auto-pairs',        { 'commit': 'f0019fc' }
 Plug 'tomtom/tcomment_vim',         { 'commit': '3d0a997' }
 
@@ -89,7 +89,7 @@ Plug 'vimwiki/vimwiki',             { 'tag':    'v2.2.1'  }
 Plug 'Valloric/ListToggle',         { 'commit': '2bc7857' }
 Plug 'danro/rename.vim',            { 'commit': 'f133763' }
 Plug 'Shougo/echodoc.vim'
-Plug 'Shougo/neosnippet',           { 'commit': '0e829d5' }
+Plug 'Shougo/neosnippet',           { 'commit': 'f775508' }
 
 " Enabled periodically, but not by default:
 " Plug 'takac/vim-hardtime',          { 'commit': 'acf59c8' }
@@ -380,9 +380,9 @@ nnoremap <leader><F2> :ColorToggle<CR>
 nnoremap <F3> :UndotreeToggle<CR>
 let g:undotree_SetFocusWhenToggle = 1
 
-" Splitjoin (javascript setting)
-" see https://github.com/AndrewRadev/splitjoin.vim/issues/67#issuecomment-91582205
-let g:splitjoin_javascript_if_clause_curly_braces = 'Sj'
+" Splitjoin
+let g:splitjoin_curly_brace_padding = 0
+let g:splitjoin_trailing_comma = 1
 
 " Neosnippet
 imap <C-j>     <Plug>(neosnippet_expand_or_jump)
@@ -417,6 +417,7 @@ let g:ctrlsf_mapping = {
   \'prev'    : '<C-K>',
   \'pquit'   : 'q',
   \'loclist' : '' }
+let g:ctrlsf_auto_focus = {"at": "start"}
 
 " nvim-miniyank (lighter-weight YankRing workalike)
 let g:miniyank_maxitems = 25
