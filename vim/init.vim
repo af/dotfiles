@@ -16,21 +16,20 @@ augroup END
 
 " {{{ Plugin setup via vim-plug
 " ==============================================================================
-"
 " * Run :PlugInstall to install
 " * Run :PlugUpdate to update
 "
 call plug#begin('~/.vim/plugged')
 
 " Essentials
-Plug 'w0rp/ale',                    { 'tag': 'v1.9.0' }
+Plug 'w0rp/ale',                    { 'tag': 'v2.0.0' }
 Plug 'vim-airline/vim-airline',     { 'tag': 'v0.9' }
 Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
 Plug 'junegunn/fzf',                { 'tag': '0.16.6', 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim',            { 'commit': '4b9e2a0' }
-Plug 'roxma/nvim-completion-manager',  { 'commit': '21c4b61' }
-Plug 'autozimu/LanguageClient-neovim', { 'tag': '0.1.87', 'do': 'bash install.sh' }
+Plug 'roxma/nvim-completion-manager',  { 'commit': '3ef5ade3' }
+Plug 'autozimu/LanguageClient-neovim', { 'tag': '0.1.94', 'do': 'bash install.sh' }
 Plug 'airblade/vim-gitgutter',      { 'commit': 'ad25925' }
 Plug 'scrooloose/nerdtree'
 
@@ -45,32 +44,27 @@ Plug 'tpope/vim-sleuth',            { 'commit': '039e2cd' }
 
 " Yanking and clipboard
 Plug 'bfredl/nvim-miniyank',           { 'commit': 'b263f7c' }
-Plug 'roxma/vim-tmux-clipboard',       { 'commit': '24e6363' }
 Plug 'machakann/vim-highlightedyank',  { 'commit': '5fb7d0f' }
 
 " Editing modifications
-Plug 'tommcdo/vim-exchange',        { 'commit': 'b82a774' }
 Plug 'AndrewRadev/splitjoin.vim',   { 'commit': '26e9e9b' }     " gS and gJ to split/join lines
 Plug 'jiangmiao/auto-pairs',        { 'commit': 'f0019fc' }
 Plug 'tomtom/tcomment_vim',         { 'commit': '3d0a997' }
 
-" Text objects
+" Additional text objects
 " They're basically all based on vim-textobj-user. For more, see https://github.com/kana/vim-textobj-user/wiki
 Plug 'kana/vim-textobj-user'
-Plug 'jceb/vim-textobj-uri'
-Plug 'kana/vim-textobj-indent'
-Plug 'kana/vim-textobj-line'
-Plug 'kana/vim-textobj-function'
-Plug 'thinca/vim-textobj-function-javascript'   " eg. vif
+Plug 'jceb/vim-textobj-uri'                     " eg. viu
+Plug 'kana/vim-textobj-indent'                  " eg. vii
 Plug 'Julian/vim-textobj-variable-segment'      " eg. viv
 Plug 'whatyouhide/vim-textobj-xmlattr'          " eg. vix
 
 " Indentation, etc. Autodetect, but override with .editorconfig if present:
-Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load lazily, w/o input lag
+" Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load lazily, w/o input lag
 
 " Javascript/CSS/HTML-related plugins
 Plug 'othree/csscomplete.vim',      { 'for': ['css', 'stylus', 'less'] }
-Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml', 'mustache', 'javascript'] }
+Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml', 'javascript'] }
 Plug 'mhartington/nvim-typescript', { 'commit': 'f33d0bc', 'for': ['typescript'], 'do': ':UpdateRemotePlugins' }
 
 " Other language-specific plugins
@@ -97,19 +91,9 @@ Plug 'Shougo/neosnippet',           { 'commit': 'f775508' }
 " Plug 'tweekmonster/startuptime.vim'
 " Plug 'troydm/zoomwintab.vim',       { 'commit': 'b7a940e' }
 
-" Try later:
-" Plug 'zefei/vim-colortuner'
-
-" Load some of the more sluggish plugins on first insert mode enter,
-" to improve startup time:
-" augroup load_on_insert
-"   autocmd!
-"   autocmd InsertEnter * call plug#load('myslowplugin.vim') | autocmd! load_on_insert
-" augroup END
-
 call plug#end()
-" }}} (end of plugin setup)
 
+" }}}
 " {{{ General Vim settings
 " ==============================================================================
 
@@ -135,7 +119,6 @@ set showbreak=…
 set list listchars=tab:›\ ,trail:·          " mark trailing white space
 
 " }}}
-
 " {{{ Display/window settings
 "===============================================================================
 syntax on
@@ -155,8 +138,8 @@ autocmd vimrc FileType qf call AdjustWindowHeight(4, 24)       " 2nd arg=> max h
 function! AdjustWindowHeight(minheight, maxheight)
     exe max([min([line('$'), a:maxheight]), a:minheight]) . 'wincmd _'
 endfunction
-" }}}
 
+" }}}
 " {{{ Searching & Replacing
 "===============================================================================
 set ignorecase
@@ -172,8 +155,8 @@ nnoremap / /\v
 vnoremap / /\v
 nnoremap ? ?\v
 vnoremap ? ?\v
-" }}}
 
+" }}}
 " {{{ Line wrapping
 "===============================================================================
 set wrap
@@ -181,13 +164,12 @@ set textwidth=99
 set formatoptions=qrn1j
 nnoremap j gj
 nnoremap k gk
-" }}}
 
+" }}}
 " {{{ Neovim-specific settings
 "===============================================================================
 if has('nvim')
-    " True Color support
-    " For this to work, you need recent versions of iTerm2 and tmux (2.2+)
+    " True Color support- requires recent versions of iTerm2 and tmux (2.2+)
     let $NVIM_TUI_ENABLE_TRUE_COLOR=1
     let &t_8b="\e[48;2;%ld;%ld;%ldm"
 
@@ -196,21 +178,13 @@ if has('nvim')
     " See https://github.com/neovim/neovim/wiki/FAQ
     set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
 
-    " Nicer navigation for Neovim's terminal buffers
-    " via https://github.com/neovim/neovim/pull/2076#issuecomment-76998265
     tnoremap <esc> <c-\><c-n>
-    tnoremap <A-j> <c-\><c-n><c-w>j
-    tnoremap <A-k> <c-\><c-n><c-w>k
-    tnoremap <A-h> <c-\><c-n><c-w>h
-    tnoremap <A-l> <c-\><c-n><c-w>l
-    tnoremap <A-v> <c-\><c-n><c-w><c-v>
-    tnoremap <A-s> <c-\><c-n><c-w><c-s>
     autocmd vimrc WinEnter term://* call feedkeys('i')
-elseif $TERM ==# 'xterm-256color' || $TERM ==# 'screen-256color' || $COLORTERM ==# 'gnome-terminal'
-    set t_Co=256            " 256 colours for regular vim if the terminal can handle it.
+elseif $TERM ==# 'xterm-256color' || $TERM ==# 'screen-256color'
+    set t_Co=256    " 256 colours for regular vim if the terminal can handle it.
 endif
-" }}}
 
+" }}}
 " {{{ Colorscheme & syntax
 "===============================================================================
 color gruvbox
@@ -224,7 +198,6 @@ augroup ErrorHighlights
     autocmd InsertLeave * call matchadd('ErrorMsg', '\s\+$', 100) | call matchadd('ErrorMsg', '\%>140v.\+', 100)
 augroup END
 
-
 " Show syntax highlighting groups for word under cursor with <leader>s
 " From Vimcasts #25: http://vimcasts.org/episodes/creating-colorschemes-for-vim/
 nnoremap <leader>S :call <SID>SynStack()<CR>
@@ -234,8 +207,8 @@ function! <SID>SynStack()
   endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
-" }}}
 
+" }}}
 " {{{ Autocompletion and Tab behavior
 "===============================================================================
 " May want to consider replacing "menuone" with "menu" (see vim help)
@@ -246,10 +219,12 @@ inoremap <expr> <TAB> pumvisible() ? '<C-n>' : '<TAB>'
 inoremap <expr> <S-TAB> pumvisible() ? '<C-p>' : '<S-TAB>'
 
 " nvim-completion-manager config
-" Includes a hack to work around <CR> conflicts with auto-pairs
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 "imap <expr> <CR> (pumvisible() ? "\<c-y>\<Plug>(expand_or_nl)" : "\<CR>")
-imap <expr> <Plug>(expand_or_nl) (cm#completed_is_snippet() ? "\<C-U>":"\<CR>")
-imap <expr> <silent> <cr>  (pumvisible() ? "\<c-y>\<Plug>(cm_inject_snippet)\<Plug>(expand_or_nl)\<c-r>=AutoPairsReturn()\<cr>" : "\<cr>\<c-r>=AutoPairsReturn()\<cr>")
+"imap <expr> <Plug>(expand_or_nl) (cm#completed_is_snippet() ? "\<C-U>":"\<CR>")
+
+" Extra hack to work around <CR> conflicts with auto-pairs:
+"imap <expr> <silent> <cr>  (pumvisible() ? "\<c-y>\<Plug>(cm_inject_snippet)\<Plug>(expand_or_nl)\<c-r>=AutoPairsReturn()\<cr>" : "\<cr>\<c-r>=AutoPairsReturn()\<cr>")
 
 inoremap <C-c> <Esc>
 set shortmess+=c
@@ -274,8 +249,32 @@ nnoremap <silent> <F3> :call LanguageClient_textDocument_formatting()<cr>
 
 " for echodoc; the mode is already visible in airline
 set noshowmode
-" }}}
 
+" }}}
+" {{{ ALE
+"===============================================================================
+" Move between errors
+nnoremap <silent> <C-j> :call ale#loclist_jumping#Jump('after', 1)<CR>
+nnoremap <silent> <C-k> :call ale#loclist_jumping#Jump('before', 1)<CR>
+
+let g:ale_open_list = 0   " Don't open the loclist when reading a file (if there are errors)
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_delay = 100
+let g:ale_sign_column_always = 1
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'typescript': ['tslint', 'tsserver', 'typecheck'],
+\}
+let g:ale_linter_aliases = {
+\   'reason': 'ocaml',
+\   'less': 'css'
+\}
+let g:ale_fixers = {
+\   'javascript': ['eslint']
+\}
+nnoremap <leader>f :ALEFix<CR>
+
+" }}}
 " {{{ nerdtree
 "===============================================================================
 
@@ -307,10 +306,8 @@ autocmd vimrc FileType nerdtree nmap <buffer> <C-t> t
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeAutoDeleteBuffer = 1
 
-
 " }}}
-
-" {{{ Plugin customization
+" {{{ More plugin customization
 "===============================================================================
 
 " ListToggle
@@ -364,14 +361,6 @@ let g:airline#extensions#tabline#show_tab_type = 0
 let g:airline#extensions#tabline#tab_nr_type = 2
 let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#tabline#buffer_idx_mode = 1
-
-" jumping to tabs:
-nmap <leader>1 <Plug>AirlineSelectTab1
-nmap <leader>2 <Plug>AirlineSelectTab2
-nmap <leader>3 <Plug>AirlineSelectTab3
-nmap <leader>4 <Plug>AirlineSelectTab4
-nmap <leader>5 <Plug>AirlineSelectTab5
-nmap <leader>6 <Plug>AirlineSelectTab6
 
 " Colorizer
 nnoremap <leader><F2> :ColorToggle<CR>
@@ -442,13 +431,12 @@ let g:EditorConfig_core_mode = 'python_external'    " Speeds up load time by ~15
 " vim-ragtag
 let g:ragtag_global_maps = 1
 autocmd vimrc FileType html,javascript imap <C-k> <C-x>/
-" }}}
 
+" }}}
 " {{{ Key Bindings: Visual mode
 "===============================================================================
 
-" Tab modifies indent in visual mode,
-" make < > shifts keep selection
+" Tab modifies indent in visual mode; make < > shifts keep selection
 vnoremap <S-Tab> <gv
 vnoremap <Tab> >gv
 vnoremap < <gv
@@ -461,8 +449,8 @@ xnoremap @ :normal @
 
 " Repeat the last used macro:
 nnoremap Q @@
-" }}}
 
+" }}}
 " {{{ Key Bindings: Moving around
 "===============================================================================
 
@@ -482,21 +470,9 @@ nmap <C-h> <Plug>AirlineSelectPrevTab
 nmap <C-l> <Plug>AirlineSelectNextTab
 nnoremap <Backspace> <C-^>
 nnoremap <silent> <C-u> :bd<CR>
-
-" Easier movement between windows (Neovim only?):
-nnoremap <A-j> <c-w>j
-nnoremap <A-k> <c-w>k
-nnoremap <A-h> <c-w>h
-nnoremap <A-l> <c-w>l
-nnoremap <A-c> <c-w>c
-nnoremap <A-s> <c-w>s
-nnoremap <A-v> <c-w>v
-nnoremap <A-o> <c-w>o
-nnoremap <A-p> <c-w>p       " most recently used window
-
 nnoremap <C-n> <c-w>w
 " Open new vsplit and move to it:
-nnoremap <silent> vv <C-w>v<C-w>l
+nnoremap <leader>v <C-w>v<C-w>l
 nnoremap <leader>o :only<CR>
 
 " Automatically resize/equalize splits when vim is resized
@@ -512,11 +488,12 @@ augroup END
 function! <SID>autosave()
     if &filetype !=# 'ctrlsf' && (filereadable(expand('%')) == 1)
         update
+        call ale#Queue(0)   " Trigger linting immediately
     endif
 endfunction
 
 " <escape> in normal mode also saves
-nmap <esc> :call <SID>autosave()<CR>
+nnoremap <esc> :call <SID>autosave()<CR>
 
 " Swap ` and ' for mark jumping:
 nnoremap ' `
@@ -532,40 +509,16 @@ autocmd vimrc BufLeave zshrc              normal! mZ
 " via https://www.reddit.com/r/vim/comments/41wgqf/do_you_regularly_use_manual_marks_if_yes_how_do/cz5qfqr
 autocmd vimrc BufLeave *.css,*.styl       normal! mC
 autocmd vimrc BufLeave *.styl             normal! mS
-autocmd vimrc BufLeave *.html,*.mustache  normal! mH
+autocmd vimrc BufLeave *.html             normal! mH
 autocmd vimrc BufLeave README.md          normal! mR
 autocmd vimrc BufLeave package.json       normal! mP
 autocmd vimrc BufLeave *.js,*.jsx         normal! mJ
 autocmd vimrc BufLeave *.test.js,*.test.jsx   normal! mT
 
-" ProTip: After opening a file with a global mark, you can change vim's cwd to
-" the file's location with ":cd %:h"
-
-" Move between errors (using ale)
-nnoremap <silent> <C-j> :call ale#loclist_jumping#Jump('after', 1)<CR>
-nnoremap <silent> <C-k> :call ale#loclist_jumping#Jump('before', 1)<CR>
-
-" More ale/loclist config
-let g:ale_open_list = 0   " Don't open the loclist when reading a file (if there are errors)
-let g:ale_lint_on_text_changed = 'normal'
-let g:ale_sign_column_always = 1
-let g:ale_linters = {
-\   'javascript': ['eslint', 'flow'],
-\   'typescript': ['tslint', 'tsserver', 'typecheck'],
-\}
-let g:ale_linter_aliases = {
-\   'reason': 'ocaml',
-\   'less': 'css'
-\}
-let g:ale_fixers = {
-\   'javascript': ['eslint']
-\}
-nnoremap <leader>f :ALEFix<CR>
-
 " automatically close corresponding loclist when quitting a window
 autocmd vimrc QuitPre * if &filetype != 'qf' | silent! lclose | endif
-" }}}
 
+" }}}
 " {{{ Key Bindings: Misc
 "===============================================================================
 " Use ':w!!' to save a root-owned file using sudo:
@@ -594,25 +547,20 @@ cnoremap <C-j> <down>
 cnoremap <C-k> <up>
 cnoremap <C-h> <Left>
 cnoremap <C-l> <Right>
-" }}}
 
+" }}}
 " {{{ Folding
 "===============================================================================
 set foldlevelstart=99
 set foldmethod=syntax
 autocmd vimrc FileType vim set foldmethod=marker
-set pastetoggle=<F2>   " Have had problems with <F2>, see http://stackoverflow.com/q/7885198/351433
-" }}}
 
+" }}}
 " {{{ Filetype-specific settings
 "===============================================================================
-" filetype detection for syntax highlighting
 autocmd vimrc BufNewFile,BufRead *.md set filetype=markdown
-autocmd vimrc BufNewFile,BufRead *.mustache set filetype=mustache
-autocmd vimrc FileType mustache set ft=html.mustache
 
-" sql
-" see https://www.reddit.com/r/vim/comments/2om1ib/how_to_disable_sql_dynamic_completion/
+" sql, see https://www.reddit.com/r/vim/comments/2om1ib/how_to_disable_sql_dynamic_completion/
 let g:omni_sql_no_default_maps = 1
 
 " html
@@ -638,14 +586,8 @@ augroup vimrc_help
     autocmd BufEnter *.txt if &buftype == 'help' | wincmd L | endif
 augroup END
 
-" Reason
-" There are a bunch of <localleader> bindings that are handy
-" For more on Merlin and vim, see:
-"   https://github.com/ocaml/merlin/wiki/vim-from-scratch
-"   https://github.com/ocaml/merlin/blob/master/vim/merlin/doc/merlin.txt
-" }}}
-
 autocmd vimrc FileType gitcommit set tabstop=4
+" }}}
 
 " Load any machine-specific config from another file, if it exists
 try
