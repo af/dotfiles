@@ -1,6 +1,7 @@
 *.swp
 init-tmux-session
 vim/bundle
+vim/downloaded_plugins/dbext/doc
 vim/plugged
 vim/.netrwhist
 emacs

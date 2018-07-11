@@ -24,9 +24,23 @@ SYMLINK_MAP = {
 
 # Output a generic header for a section of the install script:
 def section(name):
-    print('\n\n' + name)
+    print('\n' + name)
     print('='*40)
 
+def shell_out(cmd):
+    print(subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE).stdout.read())
+
+
+# TODO: skip this section if not running macOS
+section('Installing homebrew dependencies')
+shell_out('./brew_installs.sh')
+
+section('Updating submodules')
+shell_out('git submodule init && git submodule update && echo Submodules updated!')
+
+section('Installing pip dependencies')
+shell_out('pip install --user neovim')
+shell_out('pip3 install --user neovim')
 
 section('Symlinking config files to ~')
 linked = []
