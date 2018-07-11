@@ -1,6 +1,6 @@
 [user]
-    name = Aaron Franks
     email = aaron.franks@gmail.com
+    name = Aaron Franks
 [color]
     diff = auto
     ui = true
@@ -9,11 +9,11 @@
     local = yellow
     remote = green
 [color "diff"]
-    meta = 227
-    frag = magenta bold
-    old = red bold
-    new = green bold
     commit = 227 bold
+    frag = magenta bold
+    meta = 227
+    new = green bold
+    old = red bold
     whitespace = red reverse
 [color "status"]
     added = yellow
@@ -25,16 +25,16 @@
     ci = commit
     cp = cherry-pick
     changed = !git --no-pager diff --name-only
-    resume = !git --no-pager show --pretty="format:" --name-only      # List files changed in a given commit (default: HEAD)
     d  = diff
     hash = rev-parse HEAD
+    latest = for-each-ref --sort=-committerdate refs/heads --format='%(committerdate:short) %(refname:short)'
     ls  = ls-files
     mvhead = branch -f
+    resume = !git --no-pager show --pretty="format:" --name-only      # List files changed in a given commit (default: HEAD)
     s  = status
     undo = reset --soft HEAD^
     unstage = reset HEAD
-    latest = for-each-ref --sort=-committerdate refs/heads --format='%(committerdate:short) %(refname:short)'
-    trim = !sh -c 'git branch --merged master | grep -v master | xargs -n 1 git branch -d'
+    trim = !sh -c 'git branch --merged | grep -v master | grep -v dev | xargs -n 1 git branch -d && git fetch --prune'
 [branch]
     autosetupmerge = true
 [core]
@@ -44,7 +44,7 @@
 [push]
     default = current
 [color "diff-highlight"]
-    oldHighlight = red bold 52
-    newNormal = green bold
     newHighlight = green bold 22
+    newNormal = green bold
+    oldHighlight = red bold 52
     oldNormal = red bold
