@@ -278,15 +278,17 @@ nnoremap <leader>f :ALEFix<CR>
 " {{{ nerdtree
 "===============================================================================
 
-function! IsNerdTreeEnabled()
+function! IsNerdTreeOpen()
     return exists('t:NERDTreeBufName') && bufwinnr(t:NERDTreeBufName) != -1
 endfunction
 
+" Open Nerdtree to the current file. Note NERDTreeFind is very similar to this, but it always expands
+" the tree from the root, so it's not quite what I want
 function! OpenNerdTree()
   let l:current_filename = expand('%:t')
   " FIXME: check if current file is visible in nerdtree (need to switch to nerdtree to search):
-  " let l:current_file_is_visible = IsNerdTreeEnabled() && search(l:current_filename, 'n') != 0
-  let l:current_file_is_visible = IsNerdTreeEnabled()
+  " let l:current_file_is_visible = IsNerdTreeOpen() && search(l:current_filename, 'n') != 0
+  let l:current_file_is_visible = IsNerdTreeOpen()
   if l:current_file_is_visible
     NERDTreeFocus
   else
@@ -295,16 +297,15 @@ function! OpenNerdTree()
   call search(l:current_filename)  " move cursor to current file
 endfunction
 
-" Note: this opens a fresh tree every time:
-" nnoremap - :NERDTree %<CR>
-" nnoremap - :NERDTreeToggle %<CR>
 nnoremap - :call OpenNerdTree()<CR>
 
-autocmd vimrc FileType nerdtree nmap <buffer> - U
-autocmd vimrc FileType nerdtree nmap <buffer> <C-v> s
-autocmd vimrc FileType nerdtree nmap <buffer> <C-t> t
+let NERDTreeMapOpenVSplit = '<C-v>'
+let NERDTreeMapOpenInTab = '<C-t>'
+let NERDTreeMapUpdirKeepOpen = '-'
+let NERDTreeMapHelp = '<F1>'
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeAutoDeleteBuffer = 1
+autocmd vimrc FileType nerdtree nmap <buffer> % ma
 
 " }}}
 " {{{ More plugin customization
