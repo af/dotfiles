@@ -4,3 +4,12 @@
 [submodule "tmux/tmux-continuum"]
 	path = tmux/tmux-continuum
 	url = https://github.com/tmux-plugins/tmux-continuum
+[submodule "tmux/tmux-open"]
+	path = tmux/tmux-open
+	url = https://github.com/tmux-plugins/tmux-open
+[submodule "tmux/tmux-copycat"]
+	path = tmux/tmux-copycat
+	url = https://github.com/tmux-plugins/tmux-copycat
+[submodule "tmux/tmux-yank"]
+	path = tmux/tmux-yank
+	url = https://github.com/tmux-plugins/tmux-yank
