@@ -22,7 +22,7 @@ augroup END
 call plug#begin('~/.vim/plugged')
 
 " Essentials
-Plug 'w0rp/ale',                    { 'tag': 'v2.0.0' }
+Plug 'w0rp/ale',                    { 'tag': 'v2.1.0' }
 Plug 'vim-airline/vim-airline',     { 'tag': 'v0.9' }
 Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
@@ -132,13 +132,6 @@ set laststatus=2            " Always show a status line for lowest window in a s
 set cursorline              " highlight the full line that the cursor is currently on
 set colorcolumn=80,100      " Highlight these columns with a different bg
 
-" Automatically set quickfix height
-" http://vim.wikia.com/wiki/Automatically_fitting_a_quickfix_window_height
-autocmd vimrc FileType qf call AdjustWindowHeight(4, 24)       " 2nd arg=> max height
-function! AdjustWindowHeight(minheight, maxheight)
-    exe max([min([line('$'), a:maxheight]), a:minheight]) . 'wincmd _'
-endfunction
-
 " }}}
 " {{{ Searching & Replacing
 "===============================================================================
@@ -187,9 +180,9 @@ endif
 " }}}
 " {{{ Colorscheme & syntax
 "===============================================================================
+let g:gruvbox_italic=1
 color gruvbox
 set background=dark
-highlight Comment cterm=italic
 
 " highlight trailing whitespace and excessive line length:
 augroup ErrorHighlights
@@ -261,6 +254,8 @@ let g:ale_open_list = 0   " Don't open the loclist when reading a file (if there
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_delay = 100
 let g:ale_sign_column_always = 1
+let g:ale_sign_warning = '⚠'
+let g:ale_sign_error = '✗'
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'typescript': ['tslint', 'tsserver', 'typecheck'],
@@ -270,7 +265,8 @@ let g:ale_linter_aliases = {
 \   'less': 'css'
 \}
 let g:ale_fixers = {
-\   'javascript': ['eslint']
+\   'javascript': ['eslint'],
+\   'json': ['jq']
 \}
 nnoremap <leader>f :ALEFix<CR>
 
@@ -298,6 +294,19 @@ function! OpenNerdTree()
 endfunction
 
 nnoremap - :call OpenNerdTree()<CR>
+
+function! UnloadFile()
+  if &filetype ==# 'ctrlsf' || &filetype ==# 'nerdtree'
+    bdelete
+  elseif IsNerdTreeOpen()
+    let l:buffer_number = bufnr('%')
+    bnext
+    execute 'bdelete ' . l:buffer_number
+  else
+    bdelete
+  endif
+endfunction
+nnoremap <silent> <C-u> :call UnloadFile()<CR>
 
 let NERDTreeMapOpenVSplit = '<C-v>'
 let NERDTreeMapOpenInTab = '<C-t>'
@@ -357,8 +366,9 @@ let g:airline_highlighting_cache = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#show_close_button = 0
 let g:airline#extensions#tabline#show_splits = 1
+let g:airline#extensions#tabline#show_buffers = 1
 let g:airline#extensions#tabline#show_tabs = 1
-let g:airline#extensions#tabline#show_tab_type = 0
+let g:airline#extensions#tabline#show_tab_type = 1
 let g:airline#extensions#tabline#tab_nr_type = 2
 let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#tabline#buffer_idx_mode = 1
@@ -470,7 +480,6 @@ nnoremap <C-i> <C-o>
 nmap <C-h> <Plug>AirlineSelectPrevTab
 nmap <C-l> <Plug>AirlineSelectNextTab
 nnoremap <Backspace> <C-^>
-nnoremap <silent> <C-u> :bd<CR>
 nnoremap <C-n> <c-w>w
 " Open new vsplit and move to it:
 nnoremap <leader>v <C-w>v<C-w>l
