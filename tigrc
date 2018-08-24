@@ -1,6 +1,7 @@
 # config file for tig
 # See http://jonas.nitro.dk/tig/tigrc.5.html for config details
 
+bind generic <Ctrl-r> !@zsh -c "git fetch && git merge --ff-only"
 bind generic <Ctrl-f> scroll-page-down
 bind generic <Ctrl-b> scroll-page-up
 bind generic H move-first-line

@@ -9,8 +9,9 @@ Mac-specific, but most should work on any unix-ish OS.
 * (For macOS) [Install homebrew](http://brew.sh/)
 * clone this repo (to `~/dotfiles` or similar)
 * `./install.py`
-* `nvm install <current nodejs version>`
+* `nvm install <desired nodejs version>`
 * `af-npm-i-globals`
+* `brew tap homebrew/services` (see https://superuser.com/a/1010357)
 
 
 # Misc hacks

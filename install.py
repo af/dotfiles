@@ -36,7 +36,7 @@ section('Installing homebrew dependencies')
 shell_out('./brew_installs.sh')
 
 section('Updating submodules')
-shell_out('git submodule init && git submodule update && echo Submodules updated!')
+shell_out('git submodule update --init && echo Submodules updated!')
 
 section('Installing pip dependencies')
 shell_out('pip install --user neovim')

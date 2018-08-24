@@ -34,7 +34,7 @@
     s  = status
     undo = reset --soft HEAD^
     unstage = reset HEAD
-    trim = !sh -c 'git branch --merged | grep -v master | grep -v dev | xargs -n 1 git branch -d && git fetch --prune'
+    trim = !sh -c 'git fetch --prune && git branch --merged | grep -v master | grep -v dev | xargs -n 1 git branch -d'
 [branch]
     autosetupmerge = true
 [core]
@@ -48,3 +48,5 @@
     newNormal = green bold
     oldHighlight = red bold 52
     oldNormal = red bold
+[url "git@github.com:"]
+	insteadOf = https://github.com/

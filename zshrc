@@ -263,5 +263,12 @@ fkill() {
   fi
 }
 
+ffdev() {
+  topicbranch=$(git rev-parse --abbrev-ref HEAD)
+  co dev
+  ff $topicbranch
+  git log --oneline -n 5
+}
+
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
