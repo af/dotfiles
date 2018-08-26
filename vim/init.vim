@@ -26,8 +26,8 @@ Plug 'w0rp/ale',                    { 'tag': 'v2.1.0' }
 Plug 'vim-airline/vim-airline',     { 'tag': 'v0.9' }
 Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
-Plug 'junegunn/fzf',                { 'tag': '0.16.6', 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim',            { 'commit': '4b9e2a0' }
+Plug 'junegunn/fzf',                { 'tag': '0.17.4', 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim',            { 'commit': 'f39c92b' }
 Plug 'roxma/nvim-completion-manager',  { 'commit': '3ef5ade3' }
 Plug 'autozimu/LanguageClient-neovim', { 'tag': '0.1.94', 'do': 'bash install.sh' }
 Plug 'airblade/vim-gitgutter',      { 'commit': 'ad25925' }
@@ -180,9 +180,10 @@ endif
 " }}}
 " {{{ Colorscheme & syntax
 "===============================================================================
-let g:gruvbox_italic=1
 color gruvbox
 set background=dark
+set synmaxcol=400    " Performance improvement on large single-line files
+highlight Comment cterm=italic
 
 " highlight trailing whitespace and excessive line length:
 augroup ErrorHighlights
