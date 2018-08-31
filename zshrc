@@ -106,6 +106,14 @@ alias p='python'
 alias quickweb='python -c "import SimpleHTTPServer as a; a.test()"'
 alias pypath='p -c "import sys, pprint; pprint.pprint(sys.path)"'
 
+# Aliases that "replace" stock unix tools
+# To access the original versions, prefix the command with `command `, eg. "command cat"
+# via https://remysharp.com/2018/08/23/cli-improved
+alias cat='bat'
+alias du='ncdu -x --exclude .git --exclude node_modules'
+alias loc='tokei'
+alias top='htop'
+
 # Networking
 alias httpsniff="sudo ngrep -W byline -d 'en0' -t '^(GET|POST) ' 'tcp and port 80'"
 alias slownet="sudo ipfw pipe 1 config bw 100Kbit/s"
@@ -214,9 +222,10 @@ export FZF_DEFAULT_COMMAND='ag -g "" --hidden --ignore .git'  # Respect .gitigno
 #  * -e is for exact matching
 #  * ':' is mapped to "abort", mostly to use with vim.
 #  * for a full list of available actions to bind to, see "man fzf" and search for "action"
-export FZF_DEFAULT_OPTS='--bind ctrl-l:select-all,ctrl-n:toggle+up,ctrl-f:page-down,ctrl-b:page-up,::abort'
+export FZF_DEFAULT_OPTS='--bind ctrl-l:select-all,ctrl-n:toggle+up,ctrl-f:preview-page-down,ctrl-b:preview-page-up,::abort'
 export FZF_COMPLETION_OPTS='-m'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"    # Respect .gitignore for ^t
+export FZF_CTRL_T_OPTS="--preview 'bat --color \"always\" {}'"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Automatically accept selected history items from fzf
