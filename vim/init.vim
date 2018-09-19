@@ -28,10 +28,17 @@ Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
 Plug 'junegunn/fzf',                { 'tag': '0.17.4', 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim',            { 'commit': 'f39c92b' }
-Plug 'roxma/nvim-completion-manager',  { 'commit': '3ef5ade3' }
-Plug 'autozimu/LanguageClient-neovim', { 'tag': '0.1.94', 'do': 'bash install.sh' }
+Plug 'autozimu/LanguageClient-neovim', { 'tag': '0.1.98', 'do': 'bash install.sh' }
 Plug 'airblade/vim-gitgutter',      { 'commit': 'ad25925' }
 Plug 'scrooloose/nerdtree'
+Plug 'PhilRunninger/nerdtree-buffer-ops'
+
+" ncm2
+Plug 'ncm2/ncm2'
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-tmux'
+Plug 'ncm2/ncm2-path'
+Plug 'roxma/nvim-yarp'      " required by ncm2
 
 " tpope appreciation section
 Plug 'tpope/vim-apathy'
@@ -205,29 +212,34 @@ endfunc
 " }}}
 " {{{ Autocompletion and Tab behavior
 "===============================================================================
-" May want to consider replacing "menuone" with "menu" (see vim help)
-set completeopt=menuone,preview,longest
+autocmd BufEnter * call ncm2#enable_for_buffer()
+
+" :help Ncm2PopupOpen for more information on this setting
+set completeopt=menuone,noselect,noinsert
+set shortmess+=c
 
 " Traverse completions with <Tab>
 inoremap <expr> <TAB> pumvisible() ? '<C-n>' : '<TAB>'
 inoremap <expr> <S-TAB> pumvisible() ? '<C-p>' : '<S-TAB>'
 
-" nvim-completion-manager config
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
-"imap <expr> <CR> (pumvisible() ? "\<c-y>\<Plug>(expand_or_nl)" : "\<CR>")
-"imap <expr> <Plug>(expand_or_nl) (cm#completed_is_snippet() ? "\<C-U>":"\<CR>")
-
-" Extra hack to work around <CR> conflicts with auto-pairs:
-"imap <expr> <silent> <cr>  (pumvisible() ? "\<c-y>\<Plug>(cm_inject_snippet)\<Plug>(expand_or_nl)\<c-r>=AutoPairsReturn()\<cr>" : "\<cr>\<c-r>=AutoPairsReturn()\<cr>")
-
 inoremap <C-c> <Esc>
-set shortmess+=c
 
-" Extra config to make snippet expansion work correctly with <CR>:
-inoremap <silent> <c-u> <c-r>=cm#sources#neosnippet#trigger_or_popup("\<Plug>(neosnippet_expand_or_jump)")<cr>
+" Use csscomplete as a completion source for css files
+autocmd User Ncm2Plugin call ncm2#register_source({
+  \ 'name' : 'css',
+  \ 'priority': 9,
+  \ 'subscope_enable': 1,
+  \ 'scope': ['css', 'less', 'stylus'],
+  \ 'mark': 'css',
+  \ 'word_pattern': '[\w\-]+',
+  \ 'complete_pattern': ':\s*',
+  \ 'on_complete': ['ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
+  \ })
 
 " LanguageClient integration
 " note: also need to install language servers globally (eg with `yarn global add`)
+let g:LanguageClient_hasSnippetSupport = 0
+let g:LanguageClient_hoverPreview = 'Never'
 let g:LanguageClient_serverCommands = {
 \ 'javascript': ['flow-language-server', '--stdio'],
 \ 'javascript.jsx': ['flow-language-server', '--stdio'],
@@ -235,7 +247,6 @@ let g:LanguageClient_serverCommands = {
 \ 'reason': ['ocaml-language-server', '--stdio'],
 \ 'typescript': ['typescript-language-server', '--stdio'],
 \ }
-let g:LanguageClient_autoStart = 1
 autocmd vimrc FileType javascript,javascript.jsx,ocaml,reason,typescript nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
@@ -566,9 +577,6 @@ let g:omni_sql_no_default_maps = 1
 
 " html
 iabbrev target="_blank" target="_blank" rel="noopener"
-
-" CSS-like autocomplete for preprocessor files:
-autocmd vimrc FileType css,sass,scss,stylus,less set omnifunc=csscomplete#CompleteCSS
 
 " JavaScript
 let g:javascript_plugin_flow = 1
