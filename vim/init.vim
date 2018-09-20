@@ -398,6 +398,7 @@ let g:neosnippet#enable_completed_snippet=1
 nnoremap <leader>s :NeoSnippetEdit -vertical -split<CR>
 
 " CtrlSF.vim
+let g:ctrlsf_ackprg = 'rg'
 let g:ctrlsf_context = '-B 2 -A 2'
 let g:ctrlsf_position = 'bottom'
 let g:ctrlsf_winsize = '65%'

@@ -120,6 +120,10 @@ alias slownet="sudo ipfw pipe 1 config bw 100Kbit/s"
 alias fastnet="sudo ipfw flush"
 # For ipfw info see http://blog.tcs.de/simulate-slow-network-connection-on-mac-os-x/
 
+# Ripgrep
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+alias ag='rg'
+
 # NPM & Node:
 export NPM_CONFIG_SAVE=true
 export NPM_CONFIG_SAVE_EXACT=true

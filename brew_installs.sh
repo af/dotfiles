@@ -1,7 +1,6 @@
 #!/bin/bash
 
 brew install \
-ag \
 bat \
 curl \
 entr \
