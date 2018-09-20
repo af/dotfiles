@@ -11,7 +11,7 @@ bind generic b !@zsh -c "echo -n %(branch) | pbcopy"    # copy selected commit's
 bind generic d !@zsh -c "git branch -d %(branch)"       # remove the selected branch
 bind generic D !@zsh -c "git branch -D %(branch)"       # Force-remove the selected branch
 bind generic c !@zsh -c "git checkout %(branch)"        # Checkout the selected branch (even remote)
-bind generic R !@zsh -c "git checkout master && git branch -D %(branch) && git co %(branch)"       # "re-checkout" a remote branch
+bind generic R !@zsh -c "git checkout HEAD^ && git branch -D %(branch) && git co %(branch)"       # "re-checkout" a remote branch
 bind generic T !@zsh -c "git trim"
 bind generic s view-stash                               # regular mapping for this is 'y'
 

@@ -221,7 +221,7 @@ v \
 }
 
 # FZF
-export FZF_DEFAULT_COMMAND='ag -g "" --hidden --ignore .git'  # Respect .gitignore, show hidden files
+export FZF_DEFAULT_COMMAND='rg --files --hidden'  # Respect .gitignore, show hidden files
 # Notes on FZF_DEFAULT_OPTS:
 #  * -e is for exact matching
 #  * ':' is mapped to "abort", mostly to use with vim.
@@ -230,6 +230,7 @@ export FZF_DEFAULT_OPTS='--bind ctrl-l:select-all,ctrl-n:toggle+up,ctrl-f:previe
 export FZF_COMPLETION_OPTS='-m'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"    # Respect .gitignore for ^t
 export FZF_CTRL_T_OPTS="--preview 'bat --color \"always\" {}'"
+export FZF_TMUX_HEIGHT=70%
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Automatically accept selected history items from fzf
