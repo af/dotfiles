@@ -22,8 +22,8 @@ augroup END
 call plug#begin('~/.vim/plugged')
 
 " Essentials
-Plug 'w0rp/ale',                    { 'tag': 'v2.1.0' }
-Plug 'vim-airline/vim-airline',     { 'tag': 'v0.9' }
+Plug 'w0rp/ale',                    { 'tag': 'v2.2.0' }
+Plug 'vim-airline/vim-airline',     { 'commit': 'a029826' }
 Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
 Plug 'junegunn/fzf',                { 'tag': '0.17.4', 'dir': '~/.fzf', 'do': './install --all' }
@@ -494,7 +494,7 @@ autocmd vimrc VimResized * wincmd =
 " Save current file every time we leave insert mode or leave vim
 augroup autoSaveAndRead
     autocmd!
-    autocmd InsertLeave,FocusLost * call <SID>autosave()
+    "autocmd InsertLeave,FocusLost * call <SID>autosave()
     autocmd CursorHold * silent! checktime
 augroup END
 
