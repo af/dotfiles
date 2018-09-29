@@ -46,7 +46,7 @@ Plug 'tpope/vim-repeat',            { 'commit': '7a6675f' }     " Enable . repea
 Plug 'tpope/vim-obsession',         { 'commit': '4ab72e0' }     " start a session file with :Obsession
 Plug 'tpope/vim-surround',          { 'commit': '42e9b46' }
 Plug 'tpope/vim-unimpaired',        { 'commit': '11dc568' }
-Plug 'tpope/vim-fugitive',          { 'commit': '935a2cc' }
+Plug 'tpope/vim-fugitive',          { 'commit': 'a9100fa' }
 Plug 'tpope/vim-sleuth',            { 'commit': '039e2cd' }
 
 " Yanking and clipboard
@@ -247,10 +247,16 @@ let g:LanguageClient_serverCommands = {
 \ 'reason': ['ocaml-language-server', '--stdio'],
 \ 'typescript': ['typescript-language-server', '--stdio'],
 \ }
-autocmd vimrc FileType javascript,javascript.jsx,ocaml,reason,typescript nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
-nnoremap <silent> <F3> :call LanguageClient_textDocument_formatting()<cr>
+
+function LC_maps()
+  if has_key(g:LanguageClient_serverCommands, &filetype)
+    nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+    nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+    nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+    nnoremap <silent> <F3> :call LanguageClient_textDocument_formatting()<cr>
+  endif
+endfunction
+autocmd FileType * call LC_maps()
 
 " for echodoc; the mode is already visible in airline
 set noshowmode
@@ -273,11 +279,11 @@ let g:ale_linters = {
 \   'typescript': ['tslint', 'tsserver', 'typecheck'],
 \}
 let g:ale_linter_aliases = {
-\   'reason': 'ocaml',
 \   'less': 'css'
 \}
 let g:ale_fixers = {
 \   'javascript': ['eslint'],
+\   'reason': ['refmt'],
 \   'json': ['jq']
 \}
 nnoremap <leader>f :ALEFix<CR>
