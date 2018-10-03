@@ -28,16 +28,16 @@ Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
 Plug 'junegunn/fzf',                { 'tag': '0.17.4', 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim',            { 'commit': 'f39c92b' }
-Plug 'autozimu/LanguageClient-neovim', { 'tag': '0.1.98', 'do': 'bash install.sh' }
+Plug 'autozimu/LanguageClient-neovim', { 'tag': '0.1.120', 'do': 'bash install.sh' }
 Plug 'airblade/vim-gitgutter',      { 'commit': 'ad25925' }
 Plug 'scrooloose/nerdtree'
 Plug 'PhilRunninger/nerdtree-buffer-ops'
 
 " ncm2
-Plug 'ncm2/ncm2'
-Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-tmux'
-Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2',                   { 'commit': '02a263f' }
+Plug 'ncm2/ncm2-bufword',           { 'commit': '86a92eb' }
+Plug 'ncm2/ncm2-tmux',              { 'commit': '4f60ee1' }
+Plug 'ncm2/ncm2-path',              { 'commit': 'd17deac' }
 Plug 'roxma/nvim-yarp'      " required by ncm2
 
 " tpope appreciation section
