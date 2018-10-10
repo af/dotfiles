@@ -238,6 +238,7 @@ autocmd User Ncm2Plugin call ncm2#register_source({
 
 " LanguageClient integration
 " note: also need to install language servers globally (eg with `yarn global add`)
+let g:LanguageClient_diagnosticsEnable = 0      " Use ALE for signs etc instead
 let g:LanguageClient_hasSnippetSupport = 0
 let g:LanguageClient_hoverPreview = 'Never'
 let g:LanguageClient_serverCommands = {
@@ -274,8 +275,9 @@ let g:ale_lint_delay = 100
 let g:ale_sign_column_always = 1
 let g:ale_sign_warning = '⚠'
 let g:ale_sign_error = '✗'
+let g:ale_echo_msg_format = '[%linter%] %s'
 let g:ale_linters = {
-\   'javascript': ['eslint'],
+\   'javascript': ['eslint', 'flow'],
 \   'typescript': ['tslint', 'tsserver', 'typecheck'],
 \}
 let g:ale_linter_aliases = {
