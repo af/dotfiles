@@ -81,8 +81,8 @@ Plug 'elzr/vim-json',               { 'commit': 'f5e3181', 'for': ['json'] }
 Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 'markdown' }
 
 " Color/Theme/syntax related plugins
-Plug 'morhetz/gruvbox',             { 'commit': '2ea3298' }     " default colorscheme. brown/retro. :set bg=dark
-Plug 'sheerun/vim-polyglot',        { 'commit': 'a61ab44' }     " syntax highlighting for many languages
+Plug 'morhetz/gruvbox',             { 'commit': 'cb4e7a5' }     " default colorscheme. brown/retro. :set bg=dark
+Plug 'sheerun/vim-polyglot',        { 'commit': 'ec1c943' }     " syntax highlighting for many languages
 Plug 'lilydjwg/colorizer',          { 'commit': '9d6dc32', 'on': 'ColorToggle' }
 
 " Misc
@@ -188,6 +188,7 @@ endif
 " {{{ Colorscheme & syntax
 "===============================================================================
 color gruvbox
+let g:gruvbox_contrast_dark = 'soft'
 set background=dark
 set synmaxcol=400    " Performance improvement on large single-line files
 highlight Comment cterm=italic
@@ -198,6 +199,10 @@ augroup ErrorHighlights
     autocmd InsertEnter * call clearmatches()
     autocmd InsertLeave * call matchadd('ErrorMsg', '\s\+$', 100) | call matchadd('ErrorMsg', '\%>140v.\+', 100)
 augroup END
+
+" syntax highlighting overrides:
+let g:polyglot_disabled = ['markdown']
+highlight link jsFuncCall jsObjectProp
 
 " Show syntax highlighting groups for word under cursor with <leader>s
 " From Vimcasts #25: http://vimcasts.org/episodes/creating-colorschemes-for-vim/
