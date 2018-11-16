@@ -27,7 +27,7 @@ Plug 'vim-airline/vim-airline',     { 'commit': 'a029826' }
 Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
 Plug 'junegunn/fzf',                { 'tag': '0.17.4', 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim',            { 'commit': 'f39c92b' }
+Plug 'junegunn/fzf.vim',            { 'commit': '741d7ca' }
 Plug 'autozimu/LanguageClient-neovim', { 'tag': '0.1.120', 'do': 'bash install.sh' }
 Plug 'airblade/vim-gitgutter',      { 'commit': 'ad25925' }
 Plug 'scrooloose/nerdtree'
@@ -169,10 +169,7 @@ nnoremap k gk
 " {{{ Neovim-specific settings
 "===============================================================================
 if has('nvim')
-    " True Color support- requires recent versions of iTerm2 and tmux (2.2+)
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-    let &t_8b="\e[48;2;%ld;%ld;%ldm"
-
+    set termguicolors
     set inccommand=split
 
     " See https://github.com/neovim/neovim/wiki/FAQ
@@ -296,6 +293,46 @@ let g:ale_fixers = {
 nnoremap <leader>f :ALEFix<CR>
 
 " }}}
+" {{{ grepping (:grep, CTRLSF.vim, etc)
+"===============================================================================
+
+if executable("rg")
+  set grepprg=rg\ --vimgrep\ --no-heading
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
+
+" Automatically open quickfix after executing a quickfix command (eg :grep)
+augroup vimrc
+  autocmd!
+  autocmd QuickFixCmdPost [^l]* cwindow
+augroup END
+
+" CtrlSF.vim
+let g:ctrlsf_ackprg = 'rg'
+let g:ctrlsf_context = '-B 2 -A 2'
+let g:ctrlsf_position = 'bottom'
+let g:ctrlsf_winsize = '65%'
+let g:ctrlsf_indent = 1
+let g:ctrlsf_ignore_dir = ['node_modules', '.git']
+nnoremap <C-g> :CtrlSF ""<left>
+nmap gr <Plug>CtrlSFCCwordExec
+let g:ctrlsf_mapping = {
+  \'chgmode' : '<A-m',
+  \'open'    : '<CR>',
+  \'openb'   : ['o', 'O'],
+  \'split'   : '<C-s>',
+  \'vsplit'  : '<C-v>',
+  \'tab'     : '<C-t>',
+  \'tabb'    : 't',
+  \'popen'   : 'p',
+  \'quit'    : 'q',
+  \'next'    : '<C-J>',
+  \'prev'    : '<C-K>',
+  \'pquit'   : 'q',
+  \'loclist' : '' }
+let g:ctrlsf_auto_focus = {"at": "start"}
+
+" }}}
 " {{{ nerdtree
 "===============================================================================
 
@@ -409,31 +446,6 @@ let g:neosnippet#scope_aliases = {}
 let g:neosnippet#scope_aliases['jsx'] = 'html'
 let g:neosnippet#enable_completed_snippet=1
 nnoremap <leader>s :NeoSnippetEdit -vertical -split<CR>
-
-" CtrlSF.vim
-let g:ctrlsf_ackprg = 'rg'
-let g:ctrlsf_context = '-B 2 -A 2'
-let g:ctrlsf_position = 'bottom'
-let g:ctrlsf_winsize = '65%'
-let g:ctrlsf_indent = 1
-let g:ctrlsf_ignore_dir = ['node_modules', '.git']
-nnoremap <C-g> :CtrlSF ""<left>
-nmap gr <Plug>CtrlSFCCwordExec
-let g:ctrlsf_mapping = {
-  \'chgmode' : '<A-m',
-  \'open'    : '<CR>',
-  \'openb'   : ['o', 'O'],
-  \'split'   : '<C-s>',
-  \'vsplit'  : '<C-v>',
-  \'tab'     : '<C-t>',
-  \'tabb'    : 't',
-  \'popen'   : 'p',
-  \'quit'    : 'q',
-  \'next'    : '<C-J>',
-  \'prev'    : '<C-K>',
-  \'pquit'   : 'q',
-  \'loclist' : '' }
-let g:ctrlsf_auto_focus = {"at": "start"}
 
 " nvim-miniyank (lighter-weight YankRing workalike)
 let g:miniyank_maxitems = 25
