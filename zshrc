@@ -46,6 +46,9 @@ plugins=(brew git npm zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
+# FIXME: assumed dotfiles location here
+source ~/dotfiles/git-fzf-helpers.zsh
+
 # VI keybindings:
 #bindkey -v
 
@@ -103,7 +106,7 @@ alias yl='yarn lint'
 alias v='nvim'
 alias vs='nvim -S'
 alias p='python'
-alias quickweb='python -c "import SimpleHTTPServer as a; a.test()"'
+alias quickweb='python3 -m http.server'
 alias pypath='p -c "import sys, pprint; pprint.pprint(sys.path)"'
 
 # Aliases that "replace" stock unix tools
