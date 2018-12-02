@@ -22,7 +22,7 @@ augroup END
 call plug#begin('~/.vim/plugged')
 
 " Essentials
-Plug 'w0rp/ale',                    { 'tag': 'v2.2.0' }
+Plug 'w0rp/ale',                    { 'tag': 'v2.3.0' }
 Plug 'vim-airline/vim-airline',     { 'commit': 'a029826' }
 Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
@@ -287,6 +287,7 @@ let g:ale_linter_aliases = {
 \}
 let g:ale_fixers = {
 \   'javascript': ['eslint'],
+\   'ocaml': ['ocamlformat'],
 \   'reason': ['refmt'],
 \   'json': ['jq']
 \}
