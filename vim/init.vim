@@ -29,9 +29,9 @@ Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
 Plug 'junegunn/fzf',                { 'tag': '0.17.4', 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim',            { 'commit': '741d7ca' }
 Plug 'autozimu/LanguageClient-neovim', { 'tag': '0.1.120', 'do': 'bash install.sh' }
-Plug 'airblade/vim-gitgutter',      { 'commit': 'ad25925' }
-Plug 'scrooloose/nerdtree'
-Plug 'PhilRunninger/nerdtree-buffer-ops'
+Plug 'airblade/vim-gitgutter',      { 'commit': 'c2651ae' }
+Plug 'scrooloose/nerdtree',         { 'on': 'NERDTreeToggle' }
+Plug 'PhilRunninger/nerdtree-buffer-ops', { 'on': 'NERDTreeToggle' }
 
 " ncm2
 Plug 'ncm2/ncm2',                   { 'commit': '02a263f' }
@@ -124,6 +124,10 @@ set autoindent
 set breakindent
 set showbreak=…
 set list listchars=tab:›\ ,trail:·          " mark trailing white space
+
+" Speeds up startup time
+let g:python3_host_prog = '/usr/local/bin/python3'
+let g:python_host_prog = '/usr/local/bin/python'
 
 " }}}
 " {{{ Display/window settings
