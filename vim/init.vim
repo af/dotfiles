@@ -28,10 +28,10 @@ Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
 Plug 'junegunn/fzf',                { 'tag': '0.17.4', 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim',            { 'commit': '741d7ca' }
-Plug 'autozimu/LanguageClient-neovim', { 'tag': '0.1.120', 'do': 'bash install.sh' }
-Plug 'airblade/vim-gitgutter',      { 'commit': 'c2651ae' }
+Plug 'airblade/vim-gitgutter',      { 'commit': '1d422b9' }
 Plug 'scrooloose/nerdtree',         { 'on': 'NERDTreeToggle' }
 Plug 'PhilRunninger/nerdtree-buffer-ops', { 'on': 'NERDTreeToggle' }
+Plug 'autozimu/LanguageClient-neovim', { 'tag': '0.1.131', 'do': 'bash install.sh' }
 
 " ncm2
 Plug 'ncm2/ncm2',                   { 'commit': '02a263f' }
@@ -252,6 +252,7 @@ let g:LanguageClient_serverCommands = {
 \ 'javascript.jsx': ['flow-language-server', '--stdio'],
 \ 'ocaml': ['ocaml-language-server', '--stdio'],
 \ 'reason': ['ocaml-language-server', '--stdio'],
+\ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
 \ 'typescript': ['typescript-language-server', '--stdio'],
 \ }
 
@@ -292,8 +293,9 @@ let g:ale_linter_aliases = {
 let g:ale_fixers = {
 \   'javascript': ['eslint'],
 \   'ocaml': ['ocamlformat'],
+\   'json': ['jq'],
 \   'reason': ['refmt'],
-\   'json': ['jq']
+\   'rust': ['rustfmt']
 \}
 nnoremap <leader>f :ALEFix<CR>
 
