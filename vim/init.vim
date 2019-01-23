@@ -23,7 +23,7 @@ call plug#begin('~/.vim/plugged')
 
 " Essentials
 Plug 'w0rp/ale',                    { 'tag': 'v2.3.0' }
-Plug 'vim-airline/vim-airline',     { 'commit': 'a029826' }
+Plug 'vim-airline/vim-airline',     { 'tag': 'v0.10' }
 Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
 Plug 'junegunn/fzf',                { 'tag': '0.17.4', 'dir': '~/.fzf', 'do': './install --all' }
@@ -165,6 +165,7 @@ vnoremap ? ?\v
 "===============================================================================
 set wrap
 set textwidth=99
+autocmd vimrc FileType markdown,txt set breakindent
 set formatoptions=qrn1j
 nnoremap j gj
 nnoremap k gk
@@ -412,11 +413,18 @@ command! FZFMru call fzf#run({
 \ 'options': '-m -x +s',
 \ 'down':    '40%' })
 nnoremap gm :FZFMru<CR>
+" Sibling file selector
+nnoremap <silent> <leader>- :Files <C-r>=expand("%:h")<CR>/<CR>
 
 " gitgutter
 " use [c and ]c to jump to next/previous changed "hunk"
 nmap <leader>a <Plug>GitGutterStageHunk
 nmap <leader>r <Plug>GitGutterUndoHunk
+
+" fugitive
+nmap <leader>gs :Gstatus<CR>
+nmap <leader>gd :Gdiff<CR>
+nmap <leader>gb :Gblame<CR>
 
 " vim-airline:
 let g:airline_theme = 'gruvbox'
