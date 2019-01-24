@@ -352,9 +352,9 @@ endfunction
 " the tree from the root, so it's not quite what I want
 function! OpenNerdTree()
   let l:current_filename = expand('%:t')
-  " FIXME: check if current file is visible in nerdtree (need to switch to nerdtree to search):
-  " let l:current_file_is_visible = IsNerdTreeOpen() && search(l:current_filename, 'n') != 0
-  let l:current_file_is_visible = IsNerdTreeOpen()
+  " check if current file is visible in nerdtree. Note this is 'best effort', a false positive will
+  " happen if there's a file in nerdtree with the same name
+  let l:current_file_is_visible = IsNerdTreeOpen() && search(l:current_filename, 'n') != 0
   if l:current_file_is_visible
     NERDTreeFocus
   else
