@@ -38,6 +38,7 @@ Plug 'ncm2/ncm2',                   { 'commit': '02a263f' }
 Plug 'ncm2/ncm2-bufword',           { 'commit': '86a92eb' }
 Plug 'ncm2/ncm2-tmux',              { 'commit': '4f60ee1' }
 Plug 'ncm2/ncm2-path',              { 'commit': 'd17deac' }
+Plug 'ncm2/ncm2-neosnippet',        { 'commit': 'fcb4df9' }
 Plug 'roxma/nvim-yarp'      " required by ncm2
 
 " tpope appreciation section
@@ -90,7 +91,7 @@ Plug 'vimwiki/vimwiki',             { 'tag':    'v2.2.1'  }
 Plug 'Valloric/ListToggle',         { 'commit': '2bc7857' }
 Plug 'danro/rename.vim',            { 'commit': 'f133763' }
 Plug 'Shougo/echodoc.vim'
-Plug 'Shougo/neosnippet',           { 'commit': 'f775508' }
+Plug 'Shougo/neosnippet.vim',       { 'commit': 'a943f93' }
 
 " Enabled periodically, but not by default:
 " Plug 'takac/vim-hardtime',          { 'commit': 'acf59c8' }
@@ -230,6 +231,7 @@ inoremap <expr> <TAB> pumvisible() ? '<C-n>' : '<TAB>'
 inoremap <expr> <S-TAB> pumvisible() ? '<C-p>' : '<S-TAB>'
 
 inoremap <C-c> <Esc>
+inoremap <silent> <expr> <CR> ncm2_neosnippet#expand_or("\<CR>", 'n')
 
 " Use csscomplete as a completion source for css files
 autocmd User Ncm2Plugin call ncm2#register_source({
