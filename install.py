@@ -20,6 +20,7 @@ SYMLINK_MAP = {
     '~/.tmux.conf':         'tmux.conf',
     '~/.tigrc':             'tigrc',
     '~/.weechat':           'weechat',
+    '~/.config/alacritty/alacritty.yml': 'alacritty.yml',
     '~/.zshrc':             'zshrc',
 }
 
