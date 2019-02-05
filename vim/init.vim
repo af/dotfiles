@@ -192,9 +192,9 @@ endif
 "===============================================================================
 color gruvbox
 let g:gruvbox_contrast_dark = 'soft'
+let g:gruvbox_italic=1
 set background=dark
 set synmaxcol=400    " Performance improvement on large single-line files
-highlight Comment cterm=italic
 
 " highlight trailing whitespace and excessive line length:
 augroup ErrorHighlights
@@ -207,7 +207,7 @@ augroup END
 let g:polyglot_disabled = ['markdown']
 highlight link jsFuncCall jsObjectProp
 
-" Show syntax highlighting groups for word under cursor with <leader>s
+" Show syntax highlighting groups for word under cursor with <leader>S
 " From Vimcasts #25: http://vimcasts.org/episodes/creating-colorschemes-for-vim/
 nnoremap <leader>S :call <SID>SynStack()<CR>
 function! <SID>SynStack()

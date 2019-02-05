@@ -1,16 +1,6 @@
 # Configuration for Alacritty, the GPU enhanced terminal emulator.
-
-# Any items in the `env` entry below will be added as
-# environment variables. Some entries may override variables
-# set by alacritty itself.
-#env:
-  # TERM variable
-  #
-  # This value is used to set the `$TERM` environment variable for
-  # each instance of Alacritty. If it is not present, alacritty will
-  # check the local terminfo database and use `alacritty` if it is
-  # available, otherwise `xterm-256color` is used.
-  #TERM: xterm-256color
+env:
+  TERM: xterm-256color
 
 window:
   # Window dimensions (changes require restart)
@@ -44,7 +34,7 @@ window:
   decorations: none
 
   # When true, alacritty starts maximized.
-  start_maximized: false
+  start_maximized: true
 
 scrolling:
   # Maximum number of lines in the scrollback buffer.
@@ -78,42 +68,18 @@ tabspaces: 8
 
 # Font configuration (changes require restart)
 font:
-  # Normal (roman) font face
   normal:
-    # Font family
-    #
-    # Default:
-    #   - (macOS) Menlo
-    #   - (Linux) monospace
-    #   - (Windows) Consolas
     family: Consolas
-
-    # The `style` can be specified to pick a specific face.
     style: Regular
 
-  # Bold font face
   bold:
-    # Font family
-    #
-    # If the bold family is not specified, it will fall back to the
-    # value specified for the normal font.
     family: Consolas
-
-    # The `style` can be specified to pick a specific face.
     style: Bold
 
-  # Italic font face
   italic:
-    # Font family
-    #
-    # If the italic family is not specified, it will fall back to the
-    # value specified for the normal font.
-    family: monospace
-
-    # The `style` can be specified to pick a specific face.
+    family: Consolas
     style: Italic
 
-  # Point size
   size: 13.0
 
 
@@ -274,36 +240,6 @@ background_opacity: 1.0
 mouse_bindings:
   - { mouse: Middle, action: PasteSelection }
 
-mouse:
-  # Click settings
-  #
-  # The `double_click` and `triple_click` settings control the time
-  # alacritty should wait for accepting multiple clicks as one double
-  # or triple click.
-  double_click: { threshold: 300 }
-  triple_click: { threshold: 300 }
-
-  # If this is `true`, the cursor is temporarily hidden when typing.
-  hide_when_typing: false
-
-  url:
-    # URL launcher
-    #
-    # This program is executed when clicking on a text which is recognized as a URL.
-    # The URL is always added to the command as the last parameter.
-    #
-    # Default:
-    #   - (macOS) open
-    #   - (Linux) xdg-open
-    #   - (Windows) explorer
-    #launcher: xdg-open
-
-    # URL modifiers
-    #
-    # These are the modifiers that need to be held down for opening URLs when clicking
-    # on them. The available modifiers are documented in the key binding section.
-    modifiers: None
-
 selection:
   semantic_escape_chars: ",│`|:\"' ()[]{}<>"
 
@@ -328,30 +264,6 @@ cursor:
 
 # Live config reload (changes require restart)
 live_config_reload: true
-
-# Shell
-#
-# You can set `shell.program` to the path of your favorite shell, e.g. `/bin/fish`.
-# Entries in `shell.args` are passed unmodified as arguments to the shell.
-#
-# Default:
-#   - (Linux/macOS) /bin/bash --login
-#   - (Windows) powershell
-#shell:
-#  program: /bin/bash
-#  args:
-#    - --login
-
-# Windows 10 ConPTY backend (Windows only)
-#
-# This will enable better color support and may resolve other issues,
-# however this API and its implementation is still young and so is
-# disabled by default, as stability may not be as good as the winpty
-# backend.
-#
-# Alacritty will fall back to the WinPTY automatically if the ConPTY
-# backend cannot be initialized.
-enable_experimental_conpty_backend: false
 
 # Send ESC (\x1b) before characters when alt is pressed.
 alt_send_esc: true
@@ -442,14 +354,6 @@ alt_send_esc: true
 #   - ~AppKeypad
 #   - AppKeypad
 key_bindings:
-  # (Windows/Linux only)
-  #- { key: V,        mods: Control|Shift,    action: Paste               }
-  #- { key: C,        mods: Control|Shift,    action: Copy                }
-  #- { key: Insert,   mods: Shift,   action: PasteSelection               }
-  #- { key: Key0,     mods: Control, action: ResetFontSize                }
-  #- { key: Equals,   mods: Control, action: IncreaseFontSize             }
-  #- { key: Subtract, mods: Control, action: DecreaseFontSize             }
-
   # (macOS only)
   #- { key: Key0,     mods: Command, action: ResetFontSize                }
   #- { key: Equals,   mods: Command, action: IncreaseFontSize             }
