@@ -110,7 +110,7 @@ font:
   #
   # This is a global setting and will require a log out or restart to take
   # effect.
-  use_thin_strokes: true
+  use_thin_strokes: false
 
 # Display the time it takes to redraw each frame.
 render_timer: false
@@ -119,66 +119,44 @@ render_timer: false
 persistent_logging: false
 
 # If `true`, bold text is drawn using the bright color variants.
-draw_bold_text_with_bright_colors: true
+draw_bold_text_with_bright_colors: false
 
-# Colors (Tomorrow Night Bright)
+# Colors via
+# https://github.com/aaron-williamson/base16-alacritty/blob/master/colors/base16-railscasts.yml
 colors:
-  # Default colors
   primary:
-    background: '0x000000'
-    foreground: '0xeaeaea'
+    background: '0x2b2b2b'
+    foreground: '0xe6e1dc'
 
-    # Bright and dim foreground colors
-    #
-    # The dimmed foreground color is calculated automatically if it is not present.
-    # If the bright foreground color is not set, or `draw_bold_text_with_bright_colors`
-    # is `false`, the normal foreground color will be used.
-    #dim_foreground: '0x9a9a9a'
-    #bright_foreground: '0xffffff'
-
-  # Cursor colors
-  #
-  # Colors which should be used to draw the terminal cursor. If these are unset,
-  # the cursor color will be the inverse of the cell color.
-  #cursor:
-  #  text: '0x000000'
-  #  cursor: '0xffffff'
+  # Colors the cursor will use if `custom_cursor_colors` is true
+  cursor:
+    text: '0x2b2b2b'
+    cursor: '0xe6e1dc'
 
   # Normal colors
   normal:
-    black:   '0x000000'
-    red:     '0xd54e53'
-    green:   '0xb9ca4a'
-    yellow:  '0xe6c547'
-    blue:    '0x7aa6da'
-    magenta: '0xc397d8'
-    cyan:    '0x70c0ba'
-    white:   '0xeaeaea'
+    black:   '0x2b2b2b'
+    red:     '0xda4939'
+    green:   '0xa5c261'
+    yellow:  '0xffc66d'
+    blue:    '0x6d9cbe'
+    magenta: '0xb6b3eb'
+    cyan:    '0x519f50'
+    white:   '0xe6e1dc'
 
   # Bright colors
   bright:
-    black:   '0x666666'
-    red:     '0xff3334'
-    green:   '0x9ec400'
-    yellow:  '0xe7c547'
-    blue:    '0x7aa6da'
-    magenta: '0xb77ee0'
-    cyan:    '0x54ced6'
-    white:   '0xffffff'
+    black:   '0x5a647e'
+    red:     '0xcc7833'
+    green:   '0x272935'
+    yellow:  '0x3a4055'
+    blue:    '0xd4cfc9'
+    magenta: '0xf4f1ed'
+    cyan:    '0xbc9458'
+    white:   '0xf9f7f3'
 
   # Dim colors
-  #
-  # If the dim colors are not set, they will be calculated automatically based
-  # on the `normal` colors.
-  #dim:
-  #  black:   '0x000000'
-  #  red:     '0x8c3336'
-  #  green:   '0x7a8530'
-  #  yellow:  '0x97822e'
-  #  blue:    '0x506d8f'
-  #  magenta: '0x80638e'
-  #  cyan:    '0x497e7a'
-  #  white:   '0x9a9a9a'
+  # (not set, calculated automatically from Normal colors above)
 
   # Indexed Colors
   #

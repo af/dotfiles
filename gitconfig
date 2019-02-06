@@ -15,6 +15,11 @@
     new = green bold
     old = red bold
     whitespace = red reverse
+[color "diff-highlight"]
+    newHighlight = green bold 22
+    newNormal = green bold
+    oldHighlight = red bold 52
+    oldNormal = red bold
 [color "status"]
     added = yellow
     changed = cyan
@@ -43,10 +48,5 @@
     pager = diff-so-fancy | less --tabs=4 -RFX
 [push]
     default = current
-[color "diff-highlight"]
-    newHighlight = green bold 22
-    newNormal = green bold
-    oldHighlight = red bold 52
-    oldNormal = red bold
 [url "git@github.com:"]
 	insteadOf = https://github.com/
