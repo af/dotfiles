@@ -251,8 +251,8 @@ let g:LanguageClient_diagnosticsEnable = 0      " Use ALE for signs etc instead
 let g:LanguageClient_hasSnippetSupport = 0
 let g:LanguageClient_hoverPreview = 'Never'
 let g:LanguageClient_serverCommands = {
-\ 'javascript': ['flow-language-server', '--stdio'],
-\ 'javascript.jsx': ['flow-language-server', '--stdio'],
+\ 'javascript': ['flow', 'lsp'],
+\ 'javascript.jsx': ['flow', 'lsp'],
 \ 'ocaml': ['ocaml-language-server', '--stdio'],
 \ 'reason': ['ocaml-language-server', '--stdio'],
 \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
@@ -287,7 +287,7 @@ let g:ale_sign_warning = '⚠'
 let g:ale_sign_error = '✗'
 let g:ale_echo_msg_format = '[%linter%] %s'
 let g:ale_linters = {
-\   'javascript': ['eslint', 'flow'],
+\   'javascript': ['eslint', 'flow-language-server'],
 \   'typescript': ['tslint', 'tsserver', 'typecheck'],
 \}
 let g:ale_linter_aliases = {
