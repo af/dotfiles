@@ -2,6 +2,7 @@
 '''
 Install script for dotfiles:
     * symlinks a bunch of files to ~
+    * installs homebrew and pip dependencies
 '''
 import os
 import subprocess
@@ -41,8 +42,8 @@ section('Updating submodules')
 shell_out('git submodule update --init && echo Submodules updated!')
 
 section('Installing pip dependencies')
-shell_out('pip install --user neovim')
-shell_out('pip3 install --user neovim')
+shell_out('pip install --user pynvim')
+shell_out('pip3 install --user pynvim')
 
 section('Symlinking config files to ~')
 linked = []

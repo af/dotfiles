@@ -143,6 +143,7 @@ set wildignore=.svn,.git,.gitignore,*.pyc,*.so,*.swp,*.jpg,*.png,*.gif,node_modu
 set laststatus=2            " Always show a status line for lowest window in a split
 set cursorline              " highlight the full line that the cursor is currently on
 set colorcolumn=80,100      " Highlight these columns with a different bg
+set signcolumn=yes          " Always show sign column. Prevents rendering jank on startup
 
 " }}}
 " {{{ Searching & Replacing
