@@ -1,3 +1,7 @@
+# Use `zprof` to profile shell startup time
+zmodload zsh/zprof
+# More on profiling startup time: https://esham.io/2018/02/zsh-profiling
+
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
@@ -42,7 +46,7 @@ DISABLE_LS_COLORS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Note: zsh-syntax-highlighting needs to be cloned to oh-my-zsh's custom/plugins directory first:
-plugins=(brew git npm zsh-syntax-highlighting)
+plugins=(brew git zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -56,8 +60,12 @@ bindkey '^k' up-line-or-search
 bindkey '^j' down-line-or-search
 
 # Various customizations for $PATH:
-PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
-export PATH=$(brew --prefix ruby)/bin:$PATH     # For ruby gems
+export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
+
+# Add ruby gems, via homebrew, to the path.
+# Hardcoding the full path here because using `$(brew --prefix ruby)` is slooooooowwwww
+export PATH=/usr/local/opt/ruby/bin:$PATH
+
 export PATH=/usr/local/bin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/git/bin:/usr/local/heroku/bin:/Users/aaron/.my_scripts:/usr/local/sbin
 export PATH=node_modules/.bin:$PATH     # Handy for using locally-installed versions of eslint, etc
 
