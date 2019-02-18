@@ -355,11 +355,15 @@ endfunction
 " the tree from the root, so it's not quite what I want
 function! OpenNerdTree()
   let l:current_filename = expand('%:t')
-  " check if current file is visible in nerdtree. Note this is 'best effort', a false positive will
-  " happen if there's a file in nerdtree with the same name
-  let l:current_file_is_visible = IsNerdTreeOpen() && search(l:current_filename, 'n') != 0
-  if l:current_file_is_visible
+  let l:full_file_path = expand('%')
+  " check if current file is visible in nerdtree. Note this is 'best effort', if a different file in
+  " the tree has the same name, it will be considered a valid match as well
+  if IsNerdTreeOpen()
     NERDTreeFocus
+    let l:current_file_is_visible = search(l:current_filename, 'n') != 0
+    if (l:current_file_is_visible ==# 0)
+      execute 'NERDTree ' . fnamemodify(l:full_file_path, ':h')
+    endif
   else
     NERDTree %
   endif
