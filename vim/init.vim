@@ -52,7 +52,7 @@ Plug 'tpope/vim-sleuth',            { 'commit': '039e2cd' }
 
 " Yanking and clipboard
 Plug 'bfredl/nvim-miniyank',           { 'commit': 'b263f7c' }
-Plug 'machakann/vim-highlightedyank',  { 'commit': '5fb7d0f' }
+Plug 'machakann/vim-highlightedyank',  { 'commit': '51e25c9' }
 
 " Editing modifications
 Plug 'AndrewRadev/splitjoin.vim',   { 'commit': '26e9e9b' }     " gS and gJ to split/join lines
@@ -72,7 +72,7 @@ Plug 'whatyouhide/vim-textobj-xmlattr'          " eg. vix
 
 " Javascript/CSS/HTML-related plugins
 Plug 'othree/csscomplete.vim',      { 'for': ['css', 'stylus', 'less'] }
-Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml', 'javascript'] }
+Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml', 'javascript', 'reason'] }
 Plug 'mhartington/nvim-typescript', { 'commit': 'f33d0bc', 'for': ['typescript'], 'do': ':UpdateRemotePlugins' }
 
 " Other language-specific plugins
@@ -87,7 +87,7 @@ Plug 'sheerun/vim-polyglot',        { 'commit': 'ec1c943' }     " syntax highlig
 Plug 'lilydjwg/colorizer',          { 'commit': '9d6dc32', 'on': 'ColorToggle' }
 
 " Misc
-Plug 'vimwiki/vimwiki',             { 'tag':    'v2.2.1'  }
+Plug 'vimwiki/vimwiki',             { 'commit': '417490f' }
 Plug 'Valloric/ListToggle',         { 'commit': '2bc7857' }
 Plug 'danro/rename.vim',            { 'commit': 'f133763' }
 Plug 'Shougo/echodoc.vim'
@@ -491,7 +491,7 @@ let g:EditorConfig_core_mode = 'python_external'    " Speeds up load time by ~15
 
 " vim-ragtag
 let g:ragtag_global_maps = 1
-autocmd vimrc FileType html,javascript imap <C-k> <C-x>/
+autocmd vimrc FileType html,javascript,reason imap <C-k> <C-x>/
 
 " }}}
 " {{{ Key Bindings: Visual mode
