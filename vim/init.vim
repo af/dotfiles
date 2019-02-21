@@ -22,7 +22,7 @@ augroup END
 call plug#begin('~/.vim/plugged')
 
 " Essentials
-Plug 'w0rp/ale',                    { 'tag': 'v2.3.0' }
+Plug 'w0rp/ale',                    { 'tag': 'v2.3.1' }
 Plug 'vim-airline/vim-airline',     { 'tag': 'v0.10' }
 Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
@@ -47,7 +47,7 @@ Plug 'tpope/vim-repeat',            { 'commit': '7a6675f' }     " Enable . repea
 Plug 'tpope/vim-obsession',         { 'commit': '4ab72e0' }     " start a session file with :Obsession
 Plug 'tpope/vim-surround',          { 'commit': '42e9b46' }
 Plug 'tpope/vim-unimpaired',        { 'commit': '11dc568' }
-Plug 'tpope/vim-fugitive',          { 'commit': 'a9100fa' }
+Plug 'tpope/vim-fugitive',          { 'commit': '8c33bdf' }
 Plug 'tpope/vim-sleuth',            { 'commit': '039e2cd' }
 
 " Yanking and clipboard
@@ -280,6 +280,16 @@ set noshowmode
 nnoremap <silent> <C-j> :call ale#loclist_jumping#Jump('after', 1)<CR>
 nnoremap <silent> <C-k> :call ale#loclist_jumping#Jump('before', 1)<CR>
 
+" Show full error output in preview window (close window with 'q')
+" TODO: toggle preview window off with C-e
+nmap <silent> <C-e> <Plug>(ale_detail)
+
+if !hlexists('ALEVirtualTextError')
+    highlight link ALEVirtualTextError ErrorMsg
+    highlight link ALEVirtualTextWarning MoreMsg
+endif
+let g:ale_virtualtext_cursor = 1
+let g:ale_virtualtext_prefix = '  ---> '
 let g:ale_open_list = 0   " Don't open the loclist when reading a file (if there are errors)
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_delay = 100
