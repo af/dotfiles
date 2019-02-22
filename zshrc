@@ -142,13 +142,7 @@ export NPM_CONFIG_LOGLEVEL='warn'
 export NPM_CONFIG_INIT_LICENSE='MIT'
 export NPM_CONFIG_INIT_AUTHOR_NAME='Aaron Franks'
 export NPM_CONFIG_INIT_AUTHOR_URL='http://aaronfranks.com/'
-export NODE_PATH=/usr/local/lib/node_modules
 ulimit -S -n 5000
-
-# NVM:
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # fasd (https://github.com/clvv/fasd):
 eval "$(fasd --init posix-alias zsh-hook)"
@@ -187,7 +181,7 @@ function af-workspace () {
 }
 
 # Install the global npm packages that I use all the time
-# Need to run this any time I install a new node version via nvm
+# Need to run this any time I install a new node version via fnm
 function af-npm-i-globals () {
     npm i -g \
       diff-so-fancy\
@@ -293,6 +287,11 @@ ffdev() {
   ff $topicbranch
   git log --oneline -n 5
 }
+
+# fnm for (fast!) node version management: https://github.com/Schniz/fnm
+# Assumes a node alias named `default` exists, and uses it on startup
+eval `fnm env --multi`
+fnm use default --quiet
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
