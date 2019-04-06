@@ -73,7 +73,7 @@ hs.hotkey.bind({}, 'F14', Audio.decVolume)
 hs.hotkey.bind({}, 'F15', Audio.incVolume)
 
 -- dismiss all OS X notifications
-hs.hotkey.bind({}, 'F16', Utils.dismissAllNotifications)
+hs.hotkey.bind(mash, 'X', Utils.dismissAllNotifications)
 
 local emoji = require 'emoji'
 hs.hotkey.bind(mash, 'Y', emoji.choose)
