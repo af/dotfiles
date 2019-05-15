@@ -73,7 +73,6 @@ Plug 'whatyouhide/vim-textobj-xmlattr'          " eg. vix
 " Javascript/CSS/HTML-related plugins
 Plug 'othree/csscomplete.vim',      { 'for': ['css', 'stylus', 'less'] }
 Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml', 'javascript', 'reason'] }
-Plug 'mhartington/nvim-typescript', { 'commit': 'f33d0bc', 'for': ['typescript'], 'do': ':UpdateRemotePlugins' }
 
 " Other language-specific plugins
 Plug 'reasonml-editor/vim-reason-plus',  { 'for': ['reason'] }
@@ -83,7 +82,8 @@ Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 
 
 " Color/Theme/syntax related plugins
 Plug 'morhetz/gruvbox',             { 'commit': 'cb4e7a5' }     " default colorscheme. brown/retro. :set bg=dark
-Plug 'sheerun/vim-polyglot',        { 'commit': 'ec1c943' }     " syntax highlighting for many languages
+Plug 'arcticicestudio/nord-vim'
+Plug 'sheerun/vim-polyglot',        { 'commit': '9fd5c11' }     " syntax highlighting for many languages
 Plug 'lilydjwg/colorizer',          { 'commit': '9d6dc32', 'on': 'ColorToggle' }
 
 " Misc
@@ -139,7 +139,7 @@ set ruler                   " line numbers at bottom of page
 set showcmd
 set title
 set wildmenu
-set wildignore=.svn,.git,.gitignore,*.pyc,*.so,*.swp,*.jpg,*.png,*.gif,node_modules,_site
+set wildignore=.svn,.git,.gitignore,*.pyc,*.so,*.swp,*.jpg,*.png,*.gif,node_modules,_site,_build,esy.lock
 set laststatus=2            " Always show a status line for lowest window in a split
 set cursorline              " highlight the full line that the cursor is currently on
 set colorcolumn=80,100      " Highlight these columns with a different bg
@@ -191,7 +191,7 @@ endif
 " }}}
 " {{{ Colorscheme & syntax
 "===============================================================================
-color gruvbox
+color nord
 let g:gruvbox_contrast_dark = 'soft'
 let g:gruvbox_italic=1
 set background=dark
@@ -399,6 +399,7 @@ let NERDTreeMapOpenVSplit = '<C-v>'
 let NERDTreeMapOpenInTab = '<C-t>'
 let NERDTreeMapUpdirKeepOpen = '-'
 let NERDTreeMapHelp = '<F1>'
+let NERDTreeRespectWildIgnore=1
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeAutoDeleteBuffer = 1
 autocmd vimrc FileType nerdtree nmap <buffer> % ma
@@ -444,7 +445,7 @@ nmap <leader>gd :Gdiff<CR>
 nmap <leader>gb :Gblame<CR>
 
 " vim-airline:
-let g:airline_theme = 'gruvbox'
+let g:airline_theme = 'nord'
 let g:airline_extensions = ['ale', 'branch', 'tabline']   " Only enable extensions I use, improves performance
 let g:airline_highlighting_cache = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'

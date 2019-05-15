@@ -185,12 +185,10 @@ function af-workspace () {
 function af-npm-i-globals () {
     npm i -g \
       diff-so-fancy\
-      eslint\
       gist-cli\
       jsonlint\
       neovim\
       ocaml-language-server\
-      typescript-language-server\
       yarn
 }
 
