@@ -22,7 +22,7 @@ augroup END
 call plug#begin('~/.vim/plugged')
 
 " Essentials
-Plug 'w0rp/ale',                    { 'tag': 'v2.3.1' }
+Plug 'w0rp/ale',                    { 'commit': '1a9b8a5' }
 Plug 'vim-airline/vim-airline',     { 'tag': 'v0.10' }
 Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
@@ -258,6 +258,7 @@ let g:LanguageClient_serverCommands = {
 \ 'reason': ['ocaml-language-server', '--stdio'],
 \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
 \ 'typescript': ['typescript-language-server', '--stdio'],
+\ 'typescript.jsx': ['typescript-language-server', '--stdio'],
 \ }
 
 function LC_maps()
