@@ -72,7 +72,7 @@ Plug 'whatyouhide/vim-textobj-xmlattr'          " eg. vix
 
 " Javascript/CSS/HTML-related plugins
 Plug 'othree/csscomplete.vim',      { 'for': ['css', 'stylus', 'less'] }
-Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml', 'javascript', 'reason'] }
+Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml', 'javascript', 'typescript', 'reason'] }
 
 " Other language-specific plugins
 Plug 'reasonml-editor/vim-reason-plus',  { 'for': ['reason'] }
@@ -310,7 +310,8 @@ let g:ale_fixers = {
 \   'ocaml': ['ocamlformat'],
 \   'json': ['jq'],
 \   'reason': ['refmt'],
-\   'rust': ['rustfmt']
+\   'rust': ['rustfmt'],
+\   'typescript': ['prettier']
 \}
 nnoremap <leader>f :ALEFix<CR>
 
@@ -478,6 +479,7 @@ let g:neosnippet#snippets_directory = '~/.vim/personal_snippets'
 let g:neosnippet#disable_runtime_snippets = { '_': 1 }
 let g:neosnippet#scope_aliases = {}
 let g:neosnippet#scope_aliases['jsx'] = 'html'
+let g:neosnippet#scope_aliases['typescript'] = 'javascript'
 let g:neosnippet#enable_completed_snippet=1
 nnoremap <leader>s :NeoSnippetEdit -vertical -split<CR>
 
