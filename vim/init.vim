@@ -31,15 +31,20 @@ Plug 'junegunn/fzf.vim',            { 'commit': '741d7ca' }
 Plug 'airblade/vim-gitgutter',      { 'commit': '1d422b9' }
 Plug 'scrooloose/nerdtree',         { 'on': 'NERDTreeToggle' }
 Plug 'PhilRunninger/nerdtree-buffer-ops', { 'on': 'NERDTreeToggle' }
-Plug 'autozimu/LanguageClient-neovim', { 'tag': '0.1.131', 'do': 'bash install.sh' }
+"Plug 'autozimu/LanguageClient-neovim', { 'tag': '0.1.131', 'do': 'bash install.sh' }
 
 " ncm2
-Plug 'ncm2/ncm2',                   { 'commit': '02a263f' }
-Plug 'ncm2/ncm2-bufword',           { 'commit': '86a92eb' }
-Plug 'ncm2/ncm2-tmux',              { 'commit': '4f60ee1' }
-Plug 'ncm2/ncm2-path',              { 'commit': 'd17deac' }
-Plug 'ncm2/ncm2-neosnippet',        { 'commit': 'fcb4df9' }
-Plug 'roxma/nvim-yarp'      " required by ncm2
+"Plug 'ncm2/ncm2',                   { 'commit': '02a263f' }
+"Plug 'ncm2/ncm2-bufword',           { 'commit': '86a92eb' }
+"Plug 'ncm2/ncm2-tmux',              { 'commit': '4f60ee1' }
+"Plug 'ncm2/ncm2-path',              { 'commit': 'd17deac' }
+"Plug 'ncm2/ncm2-neosnippet',        { 'commit': 'fcb4df9' }
+"Plug 'roxma/nvim-yarp'      " required by ncm2
+
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install({'tag':1})}}
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
 
 " tpope appreciation section
 Plug 'tpope/vim-apathy'
@@ -221,7 +226,7 @@ endfunc
 " }}}
 " {{{ Autocompletion and Tab behavior
 "===============================================================================
-autocmd BufEnter * call ncm2#enable_for_buffer()
+"autocmd BufEnter * call ncm2#enable_for_buffer()
 
 " :help Ncm2PopupOpen for more information on this setting
 set completeopt=menuone,noselect,noinsert
@@ -232,7 +237,7 @@ inoremap <expr> <TAB> pumvisible() ? '<C-n>' : '<TAB>'
 inoremap <expr> <S-TAB> pumvisible() ? '<C-p>' : '<S-TAB>'
 
 inoremap <C-c> <Esc>
-inoremap <silent> <expr> <CR> ncm2_neosnippet#expand_or("\<CR>", 'n')
+"inoremap <silent> <expr> <CR> ncm2_neosnippet#expand_or("\<CR>", 'n')
 
 " Use csscomplete as a completion source for css files
 autocmd User Ncm2Plugin call ncm2#register_source({
@@ -248,28 +253,28 @@ autocmd User Ncm2Plugin call ncm2#register_source({
 
 " LanguageClient integration
 " note: also need to install language servers globally (eg with `yarn global add`)
-let g:LanguageClient_diagnosticsEnable = 0      " Use ALE for signs etc instead
-let g:LanguageClient_hasSnippetSupport = 0
-let g:LanguageClient_hoverPreview = 'Never'
-let g:LanguageClient_serverCommands = {
-\ 'javascript': ['flow', 'lsp'],
-\ 'javascript.jsx': ['flow', 'lsp'],
-\ 'ocaml': ['ocaml-language-server', '--stdio'],
-\ 'reason': ['ocaml-language-server', '--stdio'],
-\ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-\ 'typescript': ['typescript-language-server', '--stdio'],
-\ 'typescript.jsx': ['typescript-language-server', '--stdio'],
-\ }
+" let g:LanguageClient_diagnosticsEnable = 0      " Use ALE for signs etc instead
+" let g:LanguageClient_hasSnippetSupport = 0
+" let g:LanguageClient_hoverPreview = 'Never'
+" let g:LanguageClient_serverCommands = {
+" \ 'javascript': ['flow', 'lsp'],
+" \ 'javascript.jsx': ['flow', 'lsp'],
+" \ 'ocaml': ['ocaml-language-server', '--stdio'],
+" \ 'reason': ['ocaml-language-server', '--stdio'],
+" \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+" \ 'typescript': ['typescript-language-server', '--stdio'],
+" \ 'typescript.jsx': ['typescript-language-server', '--stdio'],
+" \ }
 
-function LC_maps()
-  if has_key(g:LanguageClient_serverCommands, &filetype)
-    nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-    nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-    nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
-    nnoremap <silent> <F3> :call LanguageClient_textDocument_formatting()<cr>
-  endif
-endfunction
-autocmd FileType * call LC_maps()
+" function LC_maps()
+"   if has_key(g:LanguageClient_serverCommands, &filetype)
+"     nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+"     nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+"     nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+"     nnoremap <silent> <F3> :call LanguageClient_textDocument_formatting()<cr>
+"   endif
+" endfunction
+" autocmd FileType * call LC_maps()
 
 " for echodoc; the mode is already visible in airline
 set noshowmode
