@@ -1,3 +1,6 @@
+# TODO: check out merge tool suggestions here
+# https://vimways.org/2018/vim-and-git/
+
 [user]
     email = aaron.franks@gmail.com
     name = Aaron Franks
@@ -49,4 +52,6 @@
 [push]
     default = current
 [url "git@github.com:"]
-	insteadOf = https://github.com/
+    insteadOf = https://github.com/
+[commit]
+    verbose = true

@@ -81,6 +81,7 @@ alias ..='cd ..; ls'
 alias ...='cd ../..; ls'
 
 # Aliases for git:
+alias ch='git changed | xargs nvim'
 alias ci='git commit -v'
 alias co='git checkout'
 alias cia='git commit -v -a'
@@ -283,7 +284,18 @@ ffdev() {
   topicbranch=$(git rev-parse --abbrev-ref HEAD)
   co dev
   ff $topicbranch
-  git log --oneline -n 5
+  # git log --oneline -n 5
+
+  # TODO: bail if ff didn't work above
+
+  # TODO: prompt "push to dev?"
+
+  # TODO: prompt "delete origin/topic?"
+  # prompt -p "Delete remote branch origin/$(echo topicbranch)?" shouldDelete
+
+  git hash | pbcopy
+  echo "Done."
+  echo "📋 Copied commit" $(git hash) "to the clipboard"
 }
 
 # fnm for (fast!) node version management: https://github.com/Schniz/fnm
