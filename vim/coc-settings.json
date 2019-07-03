@@ -1,0 +1,13 @@
+{
+  "coc.preferences.extensionUpdateCheck": "never",
+  "tsserver.log": "verbose",
+  "diagnostic.displayByAle": true,
+  "languageserver": {
+    "reason": {
+      "command": "~/code/reason/reason-language-server.exe",
+      "filetypes": [
+        "reason"
+      ]
+    }
+  }
+}

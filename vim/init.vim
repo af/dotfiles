@@ -23,7 +23,7 @@ call plug#begin('~/.vim/plugged')
 
 " Essentials
 Plug 'w0rp/ale',                    { 'tag': 'v2.5.0' }
-Plug 'vim-airline/vim-airline',     { 'tag': 'v0.10' }
+Plug 'vim-airline/vim-airline',     { 'commit': '2db9b27' }
 Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
 Plug 'junegunn/fzf',                { 'tag': '0.17.4', 'dir': '~/.fzf', 'do': './install --all' }
@@ -31,20 +31,13 @@ Plug 'junegunn/fzf.vim',            { 'commit': '741d7ca' }
 Plug 'airblade/vim-gitgutter',      { 'commit': '1d422b9' }
 Plug 'scrooloose/nerdtree',         { 'on': 'NERDTreeToggle' }
 Plug 'PhilRunninger/nerdtree-buffer-ops', { 'on': 'NERDTreeToggle' }
-"Plug 'autozimu/LanguageClient-neovim', { 'tag': '0.1.131', 'do': 'bash install.sh' }
 
-" ncm2
-"Plug 'ncm2/ncm2',                   { 'commit': '02a263f' }
-"Plug 'ncm2/ncm2-bufword',           { 'commit': '86a92eb' }
-"Plug 'ncm2/ncm2-tmux',              { 'commit': '4f60ee1' }
-"Plug 'ncm2/ncm2-path',              { 'commit': 'd17deac' }
-"Plug 'ncm2/ncm2-neosnippet',        { 'commit': 'fcb4df9' }
-"Plug 'roxma/nvim-yarp'      " required by ncm2
-
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install({'tag':1})}}
-Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+" coc.nvim
+Plug 'neoclide/coc.nvim',           {'tag': '*', 'do': { -> coc#util#install({'tag':1})}}
+Plug 'neoclide/coc-tsserver',       {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-json',           {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-css',            {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-pairs',          {'do': 'yarn install --frozen-lockfile'}
 
 " tpope appreciation section
 Plug 'tpope/vim-apathy'
@@ -61,7 +54,6 @@ Plug 'machakann/vim-highlightedyank',  { 'commit': '51e25c9' }
 
 " Editing modifications
 Plug 'AndrewRadev/splitjoin.vim',   { 'commit': '26e9e9b' }     " gS and gJ to split/join lines
-Plug 'jiangmiao/auto-pairs',        { 'commit': 'f0019fc' }
 Plug 'tomtom/tcomment_vim',         { 'commit': '3d0a997' }
 
 " Additional text objects
@@ -75,27 +67,22 @@ Plug 'whatyouhide/vim-textobj-xmlattr'          " eg. vix
 " Indentation, etc. Autodetect, but override with .editorconfig if present:
 " Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load lazily, w/o input lag
 
-" Javascript/CSS/HTML-related plugins
-Plug 'othree/csscomplete.vim',      { 'for': ['css', 'stylus', 'less'] }
+" language-specific plugins
 Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml', 'javascript', 'typescript', 'reason'] }
-
-" Other language-specific plugins
-Plug 'reasonml-editor/vim-reason-plus',  { 'for': ['reason'] }
 Plug '~/dotfiles/vim/downloaded_plugins/dbext', {'for': ['sql']}
 Plug 'elzr/vim-json',               { 'commit': 'f5e3181', 'for': ['json'] }
 Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 'markdown' }
 
 " Color/Theme/syntax related plugins
-Plug 'morhetz/gruvbox',             { 'commit': 'cb4e7a5' }     " default colorscheme. brown/retro. :set bg=dark
-Plug 'arcticicestudio/nord-vim'
-Plug 'sheerun/vim-polyglot',        { 'commit': '9fd5c11' }     " syntax highlighting for many languages
+"Plug 'morhetz/gruvbox',             { 'commit': 'cb4e7a5' }     " brown/retro. :set bg=dark
+Plug 'arcticicestudio/nord-vim',    { 'tag': 'v0.12.0' }
+Plug 'sheerun/vim-polyglot',        { 'commit': '3ddca5d' }     " syntax highlighting for many languages
 Plug 'lilydjwg/colorizer',          { 'commit': '9d6dc32', 'on': 'ColorToggle' }
 
 " Misc
 Plug 'vimwiki/vimwiki',             { 'commit': '417490f' }
 Plug 'Valloric/ListToggle',         { 'commit': '2bc7857' }
 Plug 'danro/rename.vim',            { 'commit': 'f133763' }
-Plug 'Shougo/echodoc.vim'
 Plug 'Shougo/neosnippet.vim',       { 'commit': 'a943f93' }
 
 " Enabled periodically, but not by default:
@@ -197,8 +184,12 @@ endif
 " {{{ Colorscheme & syntax
 "===============================================================================
 color nord
+let g:nord_underline = 1
+let g:nord_italic = 1
+let g:nord_italic_comments = 1
+let g:nord_uniform_diff_background = 1
 let g:gruvbox_contrast_dark = 'soft'
-let g:gruvbox_italic=1
+let g:gruvbox_italic = 1
 set background=dark
 set synmaxcol=400    " Performance improvement on large single-line files
 
@@ -224,60 +215,47 @@ function! <SID>SynStack()
 endfunc
 
 " }}}
-" {{{ Autocompletion and Tab behavior
+" {{{ coc.nvim
 "===============================================================================
-"autocmd BufEnter * call ncm2#enable_for_buffer()
 
-" :help Ncm2PopupOpen for more information on this setting
+" Suggested settings from https://github.com/neoclide/coc.nvim
+set nobackup
+set nowritebackup
+set updatetime=300
 set completeopt=menuone,noselect,noinsert
 set shortmess+=c
 
-" Traverse completions with <Tab>
-inoremap <expr> <TAB> pumvisible() ? '<C-n>' : '<TAB>'
-inoremap <expr> <S-TAB> pumvisible() ? '<C-p>' : '<S-TAB>'
-
 inoremap <C-c> <Esc>
-"inoremap <silent> <expr> <CR> ncm2_neosnippet#expand_or("\<CR>", 'n')
 
-" Use csscomplete as a completion source for css files
-autocmd User Ncm2Plugin call ncm2#register_source({
-  \ 'name' : 'css',
-  \ 'priority': 9,
-  \ 'subscope_enable': 1,
-  \ 'scope': ['css', 'less', 'stylus'],
-  \ 'mark': 'css',
-  \ 'word_pattern': '[\w\-]+',
-  \ 'complete_pattern': ':\s*',
-  \ 'on_complete': ['ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-  \ })
+" Auto-indent new inner line after typing {<CR> -- see https://github.com/neoclide/coc-pairs/issues/13
+inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-" LanguageClient integration
-" note: also need to install language servers globally (eg with `yarn global add`)
-" let g:LanguageClient_diagnosticsEnable = 0      " Use ALE for signs etc instead
-" let g:LanguageClient_hasSnippetSupport = 0
-" let g:LanguageClient_hoverPreview = 'Never'
-" let g:LanguageClient_serverCommands = {
-" \ 'javascript': ['flow', 'lsp'],
-" \ 'javascript.jsx': ['flow', 'lsp'],
-" \ 'ocaml': ['ocaml-language-server', '--stdio'],
-" \ 'reason': ['ocaml-language-server', '--stdio'],
-" \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-" \ 'typescript': ['typescript-language-server', '--stdio'],
-" \ 'typescript.jsx': ['typescript-language-server', '--stdio'],
-" \ }
+" Use tab to trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-" function LC_maps()
-"   if has_key(g:LanguageClient_serverCommands, &filetype)
-"     nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-"     nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-"     nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
-"     nnoremap <silent> <F3> :call LanguageClient_textDocument_formatting()<cr>
-"   endif
-" endfunction
-" autocmd FileType * call LC_maps()
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
-" for echodoc; the mode is already visible in airline
-set noshowmode
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
 " }}}
 " {{{ ALE
@@ -306,9 +284,6 @@ let g:ale_echo_msg_format = '[%linter%] %s'
 let g:ale_linters = {
 \   'javascript': ['eslint', 'flow-language-server'],
 \   'typescript': ['tslint', 'tsserver', 'typecheck'],
-\}
-let g:ale_linter_aliases = {
-\   'less': 'css'
 \}
 let g:ale_fixers = {
 \   'css': ['prettier', 'trim_whitespace', 'remove_trailing_lines'],
@@ -470,10 +445,6 @@ let g:airline#extensions#tabline#buffer_idx_mode = 1
 " Colorizer
 nnoremap <leader><F2> :ColorToggle<CR>
 
-" Undotree
-nnoremap <F3> :UndotreeToggle<CR>
-let g:undotree_SetFocusWhenToggle = 1
-
 " Splitjoin
 let g:splitjoin_curly_brace_padding = 0
 let g:splitjoin_trailing_comma = 1
@@ -495,11 +466,6 @@ let g:miniyank_maxitems = 25
 map p <Plug>(miniyank-autoput)
 map P <Plug>(miniyank-autoPut)
 nmap <C-p> <Plug>(miniyank-cycle)
-
-" Auto-pairs
-inoremap <silent> <C-l> <ESC>:call AutoPairsJump()<CR>a
-let g:AutoPairsShortcutFastWrap = '<C-w>'
-let g:AutoPairsMultilineClose = 0
 
 " VimWiki
 let g:vimwiki_ext2syntax = {}
@@ -654,9 +620,6 @@ let g:javascript_plugin_jsdoc = 1
 " JSON files
 let g:vim_json_syntax_conceal = 0
 autocmd BufRead,BufNewFile *.json set filetype=json
-
-" Vim files (use K to look up the current word in vim's help files)
-autocmd vimrc FileType vim setlocal keywordprg=:help
 
 " Hack to open help in vsplit by default
 augroup vimrc_help
