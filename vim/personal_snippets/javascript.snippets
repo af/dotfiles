@@ -1,0 +1,129 @@
+# Custom JavaScript snippets for UltiSnips/coc-snippet
+
+# Snippet options:
+#
+#		b - Beginning of line.
+#		i - In-word expansion.
+#		w - Word boundary.
+#		r - Regular expression
+#		e - Custom context snippet
+#		A - Snippet will be triggered automatically, when condition matches.
+#
+# Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+
+snippet cl "console.log" w
+console.log(${1})
+endsnippet
+
+snippet db "debugger" w
+debugger
+endsnippet
+
+snippet for "for loop" b
+for (let i = 0; i < ${1:something}; i++) {
+	${0:do_something()}
+}
+endsnippet
+
+snippet switch "switch statement" b
+switch (${1:thing}) {
+case ${2:case1}:
+	${3:do_something()}
+	break
+}
+endsnippet
+
+# #===================
+# # Testing snippets
+# #===================
+
+# snippet mocha-describe
+# alias desc
+# options head
+# 	describe('${1}', function(${2}) {
+# 		$0
+# 	})
+# 
+# snippet mocha-it
+# alias it
+# options head
+# 	it('${1}', (${2}) => {
+# 		${3}
+# 	})
+# 
+# snippet mocha-before
+# alias before
+# options head
+# 	before((${1}) => {
+# 		${2}
+# 	})
+# 
+# snippet mocha-after
+# alias after
+# options head
+# 	after((${1}) => {
+# 		${2}
+# 	})
+# 
+# snippet mocha-beforeEach
+# alias beforeEach
+# options head
+# 	beforeEach((${1}) => {
+# 		${2}
+# 	})
+# 
+# snippet mocha-afterEach
+# alias afterEach
+# options head
+# 	afterEach((${1}) => {
+# 		${2}
+# 	})
+# 
+# snippet assertStrictEqual()
+# alias ase
+# options word
+# 	assert.strictEqual(${1})
+# 
+# snippet assert.ok()
+# alias aok
+# options word
+# 	assert.ok(${1})
+# 
+# 
+# #===================
+# # React snippets
+# #===================
+# 
+# snippet react-functional
+# alias rf
+# options head
+# 	const ${1} = ({${2}}) => {
+# 		return (
+# 			${3}
+# 		)
+# 	}
+# 
+# snippet react-class
+# alias rc
+# options head
+# 	class ${1} extends Component {
+# 		render() {
+# 			return ${2}
+# 		}
+# 	}
+# 
+
+snippet react-stateful-class "React class component with state"
+class ${1:MyComponent} extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			${3}
+		}
+	}
+
+	render() {
+		return ${2}
+	}
+}
+endsnippet

@@ -1,0 +1,58 @@
+# Custom html snippets for neosnippet
+# For more ideas, see the "builtins" here: https://github.com/Shougo/neosnippet-snippets/blob/master/neosnippets/html.snip
+
+snippet html "html5 document" b
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>${1}</title>${2}
+</head>
+<body>
+	${3}
+</body>
+</html>
+endsnippet
+
+snippet input "<input />" w
+<input type="${1:text}" name="${2:some_name}"${3} />
+endsnippet
+
+snippet select "<select>" w
+<select name="${1:some_name}"${2}>
+	<option value="${3:option1}">${4}</option>
+	<option value="${5:option2}">${6}</option>${0}
+</select>
+endsnippet
+
+snippet option "<option>" w
+<option value="${1:val}">${2}</option>
+endsnippet
+
+snippet mailto "mailto link" w
+<a href="mailto:${1:joe@example.com}?subject=${2:feedback}">${3:email me}</a>
+endsnippet
+
+snippet img "<img>" w
+<img src="${1:imgsrc}" alt="${2}" ${3}/>
+endsnippet
+
+snippet form "<form>" w
+<form action="${1}" method="${2:POST}" class="${3}">
+	${0}
+	<button type="submit">${4:Submit}</button>
+</form>
+endsnippet
+
+snippet link "<link>" w
+<link rel="${1:stylesheet}" href="${2:/css/master.css}" type="${3:text/css}" media="${4:screen}">
+endsnippet
+
+snippet meta "<meta>" w
+<meta name="${1:name}" content="${2:content}">
+endsnippet
+
+snippet scriptsrc "script src=''>" b
+<script src="${1}"></script>
+endsnippet

@@ -1,7 +1,20 @@
 {
   "coc.preferences.extensionUpdateCheck": "never",
-  "tsserver.log": "verbose",
+  "suggest.noselect": false,
   "diagnostic.displayByAle": true,
+  "snippets.loadFromExtensions": false,
+  "snippets.userSnippetsDirectory": "~/.vim/personal_snippets",
+  "snippets.extends": {
+    "javascriptreact": [
+      "javascript"
+    ],
+    "typescript": [
+      "javascript"
+    ],
+    "typescriptreact": [
+      "javascript"
+    ]
+  },
   "languageserver": {
     "reason": {
       "command": "~/code/reason/reason-language-server.exe",

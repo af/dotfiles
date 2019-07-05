@@ -33,11 +33,12 @@ Plug 'scrooloose/nerdtree',         { 'on': 'NERDTreeToggle' }
 Plug 'PhilRunninger/nerdtree-buffer-ops', { 'on': 'NERDTreeToggle' }
 
 " coc.nvim
-Plug 'neoclide/coc.nvim',           {'tag': '*', 'do': { -> coc#util#install({'tag':1})}}
+Plug 'neoclide/coc.nvim',           {'tag': 'v0.0.72', 'do': { -> coc#util#install({'tag':1})}}
 Plug 'neoclide/coc-tsserver',       {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-json',           {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-css',            {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-pairs',          {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-snippets',       {'tag': '2.1.5', 'do': 'yarn install --frozen-lockfile'}
 
 " tpope appreciation section
 Plug 'tpope/vim-apathy'
@@ -56,21 +57,12 @@ Plug 'machakann/vim-highlightedyank',  { 'commit': '51e25c9' }
 Plug 'AndrewRadev/splitjoin.vim',   { 'commit': '26e9e9b' }     " gS and gJ to split/join lines
 Plug 'tomtom/tcomment_vim',         { 'commit': '3d0a997' }
 
-" Additional text objects
-" They're basically all based on vim-textobj-user. For more, see https://github.com/kana/vim-textobj-user/wiki
-Plug 'kana/vim-textobj-user'
-Plug 'jceb/vim-textobj-uri'                     " eg. viu
-Plug 'kana/vim-textobj-indent'                  " eg. vii
-Plug 'Julian/vim-textobj-variable-segment'      " eg. viv
-Plug 'whatyouhide/vim-textobj-xmlattr'          " eg. vix
-
 " Indentation, etc. Autodetect, but override with .editorconfig if present:
 " Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load lazily, w/o input lag
 
 " language-specific plugins
-Plug 'tpope/vim-ragtag',            { 'commit': '0ef3f6a', 'for': ['html', 'xml', 'javascript', 'typescript', 'reason'] }
+Plug 'tpope/vim-ragtag',            { 'commit': '5d3ce9c' }
 Plug '~/dotfiles/vim/downloaded_plugins/dbext', {'for': ['sql']}
-Plug 'elzr/vim-json',               { 'commit': 'f5e3181', 'for': ['json'] }
 Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 'markdown' }
 
 " Color/Theme/syntax related plugins
@@ -83,7 +75,6 @@ Plug 'lilydjwg/colorizer',          { 'commit': '9d6dc32', 'on': 'ColorToggle' }
 Plug 'vimwiki/vimwiki',             { 'commit': '417490f' }
 Plug 'Valloric/ListToggle',         { 'commit': '2bc7857' }
 Plug 'danro/rename.vim',            { 'commit': 'f133763' }
-Plug 'Shougo/neosnippet.vim',       { 'commit': 'a943f93' }
 
 " Enabled periodically, but not by default:
 " Plug 'takac/vim-hardtime',          { 'commit': 'acf59c8' }
@@ -256,6 +247,13 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
+" coc-snippets (snippets are stored in vim/personal_snippets)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+vmap <C-j> <Plug>(coc-snippets-select)
+let g:coc_snippet_next = '<c-j>'
+let g:coc_snippet_prev = '<c-k>'
+nnoremap <leader>s :CocCommand snippets.editSnippets
 
 " }}}
 " {{{ ALE
@@ -449,18 +447,6 @@ nnoremap <leader><F2> :ColorToggle<CR>
 let g:splitjoin_curly_brace_padding = 0
 let g:splitjoin_trailing_comma = 1
 
-" Neosnippet
-imap <C-j>     <Plug>(neosnippet_expand_or_jump)
-smap <C-j>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-j>     <Plug>(neosnippet_expand_target)
-let g:neosnippet#snippets_directory = '~/.vim/personal_snippets'
-let g:neosnippet#disable_runtime_snippets = { '_': 1 }
-let g:neosnippet#scope_aliases = {}
-let g:neosnippet#scope_aliases['jsx'] = 'html'
-let g:neosnippet#scope_aliases['typescript'] = 'javascript'
-let g:neosnippet#enable_completed_snippet=1
-nnoremap <leader>s :NeoSnippetEdit -vertical -split<CR>
-
 " nvim-miniyank (lighter-weight YankRing workalike)
 let g:miniyank_maxitems = 25
 map p <Plug>(miniyank-autoput)
@@ -478,7 +464,7 @@ let g:EditorConfig_core_mode = 'python_external'    " Speeds up load time by ~15
 
 " vim-ragtag
 let g:ragtag_global_maps = 1
-autocmd vimrc FileType html,javascript,reason imap <C-k> <C-x>/
+imap <C-l> <C-x>/
 
 " }}}
 " {{{ Key Bindings: Visual mode
