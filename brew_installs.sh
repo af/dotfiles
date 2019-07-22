@@ -8,8 +8,7 @@ fasd \
 fd \
 ghi \
 git \
-gnu-sed --with-default-names \
-heroku-toolbelt \
+gnu-sed \
 htop \
 hub \
 jq \
@@ -21,12 +20,13 @@ nmap \
 nvm \
 python3 \
 reattach-to-user-namespace \
+ripgrep \
 siege \
 tidy-html5 \
 tldr \
 tig \
 tokei \
 tmux \
-weechat --with-perl --with-python \
+weechat \
 wget \
 zsh

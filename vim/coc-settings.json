@@ -15,6 +15,7 @@
       "javascript"
     ]
   },
+  "tsserver.enableJavascript": false,
   "languageserver": {
     "reason": {
       "command": "~/code/reason/reason-language-server.exe",

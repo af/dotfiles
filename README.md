@@ -10,9 +10,11 @@ Mac-specific, but most should work on any unix-ish OS.
 * clone this repo (to `~/dotfiles` or similar)
 * `./install.py`
 * Install [fnm](https://github.com/Schniz/fnm)
+* Install the Consolas fonts (or alacritty won't start properly)
 * `fnm install <desired nodejs version>`
 * `fnm alias <desired nodejs version> default`
 * `af-npm-i-globals`
+* `tic term/tmux256.terminfo`
 * `brew tap homebrew/services` (see https://superuser.com/a/1010357)
 
 
