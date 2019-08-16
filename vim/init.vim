@@ -281,7 +281,7 @@ let g:ale_sign_error = '✗'
 let g:ale_echo_msg_format = '[%linter%] %s'
 let g:ale_linters = {
 \   'javascript': ['eslint', 'flow-language-server'],
-\   'typescript': ['tslint', 'tsserver', 'typecheck'],
+\   'typescript': ['eslint', 'tsserver', 'typecheck'],
 \}
 let g:ale_fixers = {
 \   'css': ['prettier', 'trim_whitespace', 'remove_trailing_lines'],
@@ -290,9 +290,9 @@ let g:ale_fixers = {
 \   'json': ['jq'],
 \   'reason': ['refmt'],
 \   'rust': ['rustfmt'],
-\   'typescript': ['prettier', 'trim_whitespace', 'remove_trailing_lines']
+\   'typescript': ['eslint', 'trim_whitespace', 'remove_trailing_lines']
 \}
-let g:ale_fix_on_save = 1
+" let g:ale_fix_on_save = 1
 nnoremap <leader>f :ALEFix<CR>
 
 " }}}
@@ -384,6 +384,7 @@ let NERDTreeMapHelp = '<F1>'
 let NERDTreeRespectWildIgnore=1
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeAutoDeleteBuffer = 1
+let NERDTreeShowHidden=1
 autocmd vimrc FileType nerdtree nmap <buffer> % ma
 
 " }}}

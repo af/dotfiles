@@ -4,6 +4,9 @@
 # Don't let ripgrep vomit really long lines
 --max-columns=150
 
+# Search files that begin with a .
+--hidden
+
 # Mimic ag's color output:
 --colors=line:fg:yellow
 --colors=line:style:bold
