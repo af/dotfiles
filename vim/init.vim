@@ -46,7 +46,8 @@ Plug 'tpope/vim-repeat',            { 'commit': '7a6675f' }     " Enable . repea
 Plug 'tpope/vim-obsession',         { 'commit': '4ab72e0' }     " start a session file with :Obsession
 Plug 'tpope/vim-surround',          { 'commit': '42e9b46' }
 Plug 'tpope/vim-unimpaired',        { 'commit': '11dc568' }
-Plug 'tpope/vim-fugitive',          { 'commit': '8c33bdf' }
+Plug 'tpope/vim-fugitive',          { 'commit': 'c63fd1b' }
+Plug 'tpope/vim-rhubarb',           { 'commit': '9edacf9' }
 Plug 'tpope/vim-sleuth',            { 'commit': '039e2cd' }
 
 " Yanking and clipboard
