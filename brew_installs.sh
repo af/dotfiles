@@ -18,6 +18,7 @@ ngrep \
 noti \
 nmap \
 nvm \
+pgformatter \
 python3 \
 reattach-to-user-namespace \
 ripgrep \

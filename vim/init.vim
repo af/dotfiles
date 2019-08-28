@@ -291,6 +291,7 @@ let g:ale_fixers = {
 \   'json': ['jq'],
 \   'reason': ['refmt'],
 \   'rust': ['rustfmt'],
+\   'sql': ['pgformatter'],
 \   'typescript': ['eslint', 'trim_whitespace', 'remove_trailing_lines']
 \}
 " let g:ale_fix_on_save = 1

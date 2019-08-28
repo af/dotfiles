@@ -60,10 +60,11 @@ hs.hotkey.bind(mash, 'S', Utils.toggleItunesShuffle)
 -- Mission Control keyboard shortcuts in SysPrefs > Keyboard > Shortcuts
 hs.hotkey.bind({'ctrl'}, '1', function() hs.application.launchOrFocus('Google Chrome') end)
 hs.hotkey.bind({'ctrl'}, '2', function() hs.application.launchOrFocus('Alacritty') end)
-hs.hotkey.bind({'ctrl'}, '3', function() hs.application.launchOrFocus('Slack') end)
+hs.hotkey.bind({'ctrl'}, '3', function() hs.application.launchOrFocus('TablePlus') end)
 hs.hotkey.bind({'ctrl'}, '4', function() hs.application.launchOrFocus('Finder') end)
 hs.hotkey.bind({'ctrl'}, '5', function() hs.application.launchOrFocus('Sketch') end)
 
+hs.hotkey.bind({'ctrl'}, '9', function() hs.application.launchOrFocus('Slack') end)
 hs.hotkey.bind({'ctrl'}, '0', function() hs.application.launchOrFocus('iTunes') end)
 
 
