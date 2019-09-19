@@ -7,6 +7,9 @@
 # Search files that begin with a .
 --hidden
 
+# ...but not inside .git directories
+--glob=!.git/*
+
 # Mimic ag's color output:
 --colors=line:fg:yellow
 --colors=line:style:bold

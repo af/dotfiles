@@ -190,7 +190,7 @@ function af-npm-i-globals () {
       gist-cli\
       jsonlint\
       neovim\
-      ocaml-language-server\
+      svgo\
       yarn
 }
 

@@ -70,6 +70,7 @@ Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 
 "Plug 'morhetz/gruvbox',             { 'commit': 'cb4e7a5' }     " brown/retro. :set bg=dark
 Plug 'arcticicestudio/nord-vim',    { 'tag': 'v0.12.0' }
 Plug 'sheerun/vim-polyglot',        { 'commit': '3ddca5d' }     " syntax highlighting for many languages
+Plug 'jparise/vim-graphql'
 Plug 'lilydjwg/colorizer',          { 'commit': '9d6dc32', 'on': 'ColorToggle' }
 
 " Misc
