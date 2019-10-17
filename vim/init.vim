@@ -26,8 +26,8 @@ Plug 'w0rp/ale',                    { 'tag': 'v2.6.0' }
 Plug 'vim-airline/vim-airline',     { 'commit': '2db9b27' }
 Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
-Plug 'junegunn/fzf',                { 'tag': '0.17.4', 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim',            { 'commit': '741d7ca' }
+Plug 'junegunn/fzf',                { 'tag': '0.18.0', 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim',            { 'commit': '359a80e' }
 Plug 'airblade/vim-gitgutter',      { 'commit': '1725c13' }
 Plug 'scrooloose/nerdtree',         { 'on': 'NERDTreeToggle' }
 Plug 'PhilRunninger/nerdtree-buffer-ops', { 'on': 'NERDTreeToggle' }
@@ -411,12 +411,39 @@ let g:fzf_action = {
   \'ctrl-t': 'tab split',
   \':': 'close' }
 
+" floating window for fzf (via https://github.com/junegunn/fzf.vim/issues/664#issuecomment-476438294)
+" see also https://github.com/huytd/vim-config/blob/master/init.vim#L132-L171
+if has('nvim')
+  let $FZF_DEFAULT_OPTS='--layout=reverse --color gutter:-1'
+  let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+endif
+function! FloatingFZF()
+  let buf = nvim_create_buf(v:false, v:true)
+  call setbufvar(buf, '&signcolumn', 'no')
+
+  let height = &lines - 10
+  let width = float2nr(&columns - (&columns * 2 / 10))
+  let col = float2nr((&columns - width) / 2)
+
+  let opts = {
+  \ 'relative': 'editor',
+  \ 'row': 5,
+  \ 'col': col,
+  \ 'width': width,
+  \ 'height': height,
+  \ 'style': 'minimal'
+  \ }
+
+  call nvim_open_win(buf, v:true, opts)
+endfunction
+
 " Custom MRU using FZF
 " Based on the example here: https://github.com/junegunn/fzf/wiki/Examples-(vim)
 command! FZFMru call fzf#run({
 \ 'source':  filter(copy(v:oldfiles), "v:val !~ 'fugitive:\\|__CtrlSF\\|^/tmp/\\|.git/'"),
 \ 'sink':    'edit',
 \ 'options': '-m -x +s',
+\ 'window': 'call FloatingFZF()',
 \ 'down':    '40%' })
 nnoremap gm :FZFMru<CR>
 " Sibling file selector
