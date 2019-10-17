@@ -163,8 +163,9 @@ nnoremap k gk
 if has('nvim')
     autocmd TermOpen * startinsert
     set termguicolors
-
     set inccommand=split
+    set pumblend=5
+    set winblend=5
 
     " See https://github.com/neovim/neovim/wiki/FAQ
     set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
@@ -424,10 +425,24 @@ function! FloatingFZF()
   let height = &lines - 10
   let width = float2nr(&columns - (&columns * 2 / 10))
   let col = float2nr((&columns - width) / 2)
+  let startRow = 5
+
+ " Use a second floating window to add 'padding', as it's not supported natively for floating windows yet
+  let padding_win_opts = {
+  \ 'relative': 'editor',
+  \ 'row': startRow - 1,
+  \ 'col': col - 2,
+  \ 'width': width + 4,
+  \ 'height': height + 2,
+  \ 'style': 'minimal'
+  \ }
+  let padding_buf = nvim_create_buf(v:false, v:true)
+  let s:float_term_padding_win = nvim_open_win(padding_buf, v:true, padding_win_opts)
+  autocmd BufLeave * ++once :q | call nvim_win_close(s:float_term_padding_win, v:true)
 
   let opts = {
   \ 'relative': 'editor',
-  \ 'row': 5,
+  \ 'row': startRow,
   \ 'col': col,
   \ 'width': width,
   \ 'height': height,
