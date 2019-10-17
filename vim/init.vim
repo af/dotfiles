@@ -22,22 +22,22 @@ augroup END
 call plug#begin('~/.vim/plugged')
 
 " Essentials
-Plug 'w0rp/ale',                    { 'tag': 'v2.5.0' }
+Plug 'w0rp/ale',                    { 'tag': 'v2.6.0' }
 Plug 'vim-airline/vim-airline',     { 'commit': '2db9b27' }
 Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
 Plug 'junegunn/fzf',                { 'tag': '0.17.4', 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim',            { 'commit': '741d7ca' }
-Plug 'airblade/vim-gitgutter',      { 'commit': '1d422b9' }
+Plug 'airblade/vim-gitgutter',      { 'commit': '1725c13' }
 Plug 'scrooloose/nerdtree',         { 'on': 'NERDTreeToggle' }
 Plug 'PhilRunninger/nerdtree-buffer-ops', { 'on': 'NERDTreeToggle' }
 
 " coc.nvim
-Plug 'neoclide/coc.nvim',           {'tag': 'v0.0.72', 'do': { -> coc#util#install({'tag':1})}}
-Plug 'neoclide/coc-tsserver',       {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim',           {'tag': 'v0.0.74', 'do': { -> coc#util#install({'tag':1})}}
+Plug 'neoclide/coc-tsserver',       {'tag': '1.4.4', 'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-json',           {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-css',            {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-pairs',          {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-pairs',          {'tag': '1.2.18', 'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-snippets',       {'tag': '2.1.5', 'do': 'yarn install --frozen-lockfile'}
 
 " tpope appreciation section
@@ -46,7 +46,7 @@ Plug 'tpope/vim-repeat',            { 'commit': '7a6675f' }     " Enable . repea
 Plug 'tpope/vim-obsession',         { 'commit': '4ab72e0' }     " start a session file with :Obsession
 Plug 'tpope/vim-surround',          { 'commit': '42e9b46' }
 Plug 'tpope/vim-unimpaired',        { 'commit': '11dc568' }
-Plug 'tpope/vim-fugitive',          { 'commit': 'c63fd1b' }
+Plug 'tpope/vim-fugitive',          { 'commit': '06e3420' }
 Plug 'tpope/vim-rhubarb',           { 'commit': '9edacf9' }
 Plug 'tpope/vim-sleuth',            { 'commit': '039e2cd' }
 
@@ -161,7 +161,9 @@ nnoremap k gk
 " {{{ Neovim-specific settings
 "===============================================================================
 if has('nvim')
+    autocmd TermOpen * startinsert
     set termguicolors
+
     set inccommand=split
 
     " See https://github.com/neovim/neovim/wiki/FAQ
@@ -280,7 +282,7 @@ let g:ale_lint_delay = 100
 let g:ale_sign_column_always = 1
 let g:ale_sign_warning = '⚠'
 let g:ale_sign_error = '✗'
-let g:ale_echo_msg_format = '[%linter%] %s'
+let g:ale_echo_msg_format = '[%linter% %code%] %s'
 let g:ale_linters = {
 \   'javascript': ['eslint', 'flow-language-server'],
 \   'typescript': ['eslint', 'tsserver', 'typecheck'],
@@ -422,8 +424,9 @@ nnoremap <silent> <leader>- :Files <C-r>=expand("%:h")<CR>/<CR>
 
 " gitgutter
 " use [c and ]c to jump to next/previous changed "hunk"
-nmap <leader>a <Plug>GitGutterStageHunk
-nmap <leader>r <Plug>GitGutterUndoHunk
+nmap <leader>a <Plug>(GitGutterStageHunk)
+nmap <leader>r <Plug>(GitGutterUndoHunk)
+nmap <leader>p <Plug>(GitGutterPreviewHunk)
 
 " fugitive
 nmap <leader>gs :Gstatus<CR>
