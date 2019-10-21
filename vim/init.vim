@@ -415,34 +415,21 @@ let g:fzf_action = {
 " floating window for fzf (via https://github.com/junegunn/fzf.vim/issues/664#issuecomment-476438294)
 " see also https://github.com/huytd/vim-config/blob/master/init.vim#L132-L171
 if has('nvim')
-  let $FZF_DEFAULT_OPTS='--layout=reverse --color gutter:-1'
+  let $FZF_DEFAULT_OPTS='--layout=reverse --color gutter:-1 --margin=2,4'
   let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 endif
 function! FloatingFZF()
   let buf = nvim_create_buf(v:false, v:true)
   call setbufvar(buf, '&signcolumn', 'no')
 
-  let height = &lines - 10
+  let margin = 5
+  let height = &lines - (margin * 2)
   let width = float2nr(&columns - (&columns * 2 / 10))
   let col = float2nr((&columns - width) / 2)
-  let startRow = 5
-
- " Use a second floating window to add 'padding', as it's not supported natively for floating windows yet
-  let padding_win_opts = {
-  \ 'relative': 'editor',
-  \ 'row': startRow - 1,
-  \ 'col': col - 2,
-  \ 'width': width + 4,
-  \ 'height': height + 2,
-  \ 'style': 'minimal'
-  \ }
-  let padding_buf = nvim_create_buf(v:false, v:true)
-  let s:float_term_padding_win = nvim_open_win(padding_buf, v:true, padding_win_opts)
-  autocmd BufLeave * ++once :q | call nvim_win_close(s:float_term_padding_win, v:true)
 
   let opts = {
   \ 'relative': 'editor',
-  \ 'row': startRow,
+  \ 'row': margin,
   \ 'col': col,
   \ 'width': width,
   \ 'height': height,
@@ -589,13 +576,13 @@ autocmd vimrc BufLeave zshrc              normal! mZ
 
 " Leave a mark behind in the most recently accessed file of certain types.
 " via https://www.reddit.com/r/vim/comments/41wgqf/do_you_regularly_use_manual_marks_if_yes_how_do/cz5qfqr
-autocmd vimrc BufLeave *.css,*.styl       normal! mC
-autocmd vimrc BufLeave *.styl             normal! mS
+autocmd vimrc BufLeave *.css,*.scss,*.styl normal! mS
 autocmd vimrc BufLeave *.html             normal! mH
 autocmd vimrc BufLeave README.md          normal! mR
 autocmd vimrc BufLeave package.json       normal! mP
 autocmd vimrc BufLeave *.js,*.jsx         normal! mJ
-autocmd vimrc BufLeave *.test.js,*.test.jsx   normal! mT
+autocmd vimrc BufLeave *.ts,*.tsx         normal! mT
+autocmd vimrc BufLeave *.gql              normal! mG
 
 " automatically close corresponding loclist when quitting a window
 autocmd vimrc QuitPre * if &filetype != 'qf' | silent! lclose | endif
