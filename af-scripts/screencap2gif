@@ -1,0 +1,42 @@
+#!/usr/bin/env node
+
+/**
+ * Convert the newest macOS Screen Recording .mov file on the desktop into a gif that can be uploaded as a comment/PR
+ * attachment on github.
+ *
+ * Usage: `cap2gif optional_name_of_gif_output`
+ *
+ * Prerequisites: `brew install gifsicle ffmpeg`
+ */
+
+const { execSync } = require('child_process')
+const { existsSync, readdirSync } = require('fs')
+const { homedir } = require('os')
+const path = require('path')
+
+const screenRecRegex = /^Screen Recording/
+const escapeSpacesRegex = / /g
+const desktop = path.join(homedir(), 'Desktop')
+
+const run = (gifName = '_screencap') => {
+  const recordings = readdirSync(desktop).filter(fname => screenRecRegex.test(fname))
+  if (!recordings.length) {
+    console.log('No screen recordings found on the Desktop, exiting')
+    return;
+  }
+
+  const newestRecordingPath = path.join(desktop, recordings.pop()).replace(escapeSpacesRegex, '\\ ')
+  const outputPath = path.join(desktop, `${gifName}.gif`)
+  console.log(`Generating ${outputPath} from ${newestRecordingPath}...\n`)
+
+  const convertCmd = `ffmpeg -loglevel warning -i ${newestRecordingPath} -pix_fmt rgb8 -r 20 -f gif - | gifsicle --optimize=2 --delay=3 > ${outputPath}`
+  execSync(convertCmd)
+
+  if (existsSync(outputPath)) {
+    // Open Finder to the new gif, so it can easily be dragged to the browser
+    execSync(`open -R ${outputPath}`)
+    console.log(`\nDone!`)
+  }
+}
+
+run(process.argv[2])

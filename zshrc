@@ -68,6 +68,7 @@ export PATH=/usr/local/opt/ruby/bin:$PATH
 
 export PATH=/usr/local/bin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/git/bin:/usr/local/heroku/bin:/Users/aaron/.my_scripts:/usr/local/sbin
 export PATH=node_modules/.bin:$PATH     # Handy for using locally-installed versions of eslint, etc
+export PATH=~/.af-scripts:$PATH         # Personal scripts folder
 
 export EDITOR=nvim
 

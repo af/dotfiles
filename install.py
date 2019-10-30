@@ -16,6 +16,7 @@ SYMLINK_MAP = {
     '~/.psqlrc':            'psqlrc',
     '~/.config/nvim':       'vim',
     '~/.ripgreprc':         'ripgreprc',
+    '~/.af-scripts':        'af-scripts',
     '~/.vim':               'vim',
     '~/.vimrc':             'vim/init.vim',
     '~/.tmux.conf':         'tmux.conf',
