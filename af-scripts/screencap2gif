@@ -4,7 +4,7 @@
  * Convert the newest macOS Screen Recording .mov file on the desktop into a gif that can be uploaded as a comment/PR
  * attachment on github.
  *
- * Usage: `cap2gif optional_name_of_gif_output`
+ * Usage: `screencap2gif optional_name_of_gif_output`
  *
  * Prerequisites: `brew install gifsicle ffmpeg`
  */

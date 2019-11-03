@@ -55,7 +55,7 @@ Plug 'bfredl/nvim-miniyank',           { 'commit': 'b263f7c' }
 Plug 'machakann/vim-highlightedyank',  { 'commit': '51e25c9' }
 
 " Editing modifications
-Plug 'AndrewRadev/splitjoin.vim',   { 'commit': '26e9e9b' }     " gS and gJ to split/join lines
+Plug 'AndrewRadev/splitjoin.vim',   { 'commit': '0dc8587' }     " gS and gJ to split/join lines
 Plug 'tomtom/tcomment_vim',         { 'commit': '3d0a997' }
 
 " Indentation, etc. Autodetect, but override with .editorconfig if present:
@@ -71,7 +71,6 @@ Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 
 Plug 'arcticicestudio/nord-vim',    { 'tag': 'v0.12.0' }
 Plug 'sheerun/vim-polyglot',        { 'commit': '3ddca5d' }     " syntax highlighting for many languages
 Plug 'jparise/vim-graphql'
-Plug 'lilydjwg/colorizer',          { 'commit': '9d6dc32', 'on': 'ColorToggle' }
 
 " Misc
 Plug 'vimwiki/vimwiki',             { 'commit': '417490f' }
@@ -129,6 +128,8 @@ set laststatus=2            " Always show a status line for lowest window in a s
 set cursorline              " highlight the full line that the cursor is currently on
 set colorcolumn=80,100      " Highlight these columns with a different bg
 set signcolumn=yes          " Always show sign column. Prevents rendering jank on startup
+set splitright
+set splitbelow
 
 " }}}
 " {{{ Searching & Replacing
@@ -165,7 +166,7 @@ if has('nvim')
     set termguicolors
     set inccommand=split
     set pumblend=5
-    set winblend=5
+    set winblend=7
 
     " See https://github.com/neovim/neovim/wiki/FAQ
     set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
@@ -475,9 +476,6 @@ let g:airline#extensions#tabline#show_tab_type = 1
 let g:airline#extensions#tabline#tab_nr_type = 2
 let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#tabline#buffer_idx_mode = 1
-
-" Colorizer
-nnoremap <leader><F2> :ColorToggle<CR>
 
 " Splitjoin
 let g:splitjoin_curly_brace_padding = 0

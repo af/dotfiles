@@ -15,7 +15,8 @@
       "javascript"
     ]
   },
-  "tsserver.enableJavascript": false,
+  "tsserver.enableJavascript": true,
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
   "languageserver": {
     "reason": {
       "command": "~/code/reason/reason-language-server.exe",
