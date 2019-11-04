@@ -29,8 +29,8 @@ Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
 Plug 'junegunn/fzf',                { 'tag': '0.18.0', 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim',            { 'commit': '359a80e' }
 Plug 'airblade/vim-gitgutter',      { 'commit': '1725c13' }
-Plug 'scrooloose/nerdtree',         { 'on': 'NERDTreeToggle' }
-Plug 'PhilRunninger/nerdtree-buffer-ops', { 'on': 'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree',         { 'tag': '6.2.0', 'on': 'NERDTreeToggle' }
+Plug 'PhilRunninger/nerdtree-buffer-ops', { 'commit': 'f5e77b8', 'on': 'NERDTreeToggle' }
 
 " coc.nvim
 Plug 'neoclide/coc.nvim',           {'tag': 'v0.0.74', 'do': { -> coc#util#install({'tag':1})}}
@@ -190,16 +190,17 @@ let g:gruvbox_italic = 1
 set background=dark
 set synmaxcol=400    " Performance improvement on large single-line files
 
-" highlight trailing whitespace and excessive line length:
+" highlight trailing whitespace
 augroup ErrorHighlights
     autocmd!
     autocmd InsertEnter * call clearmatches()
-    autocmd InsertLeave * call matchadd('ErrorMsg', '\s\+$', 100) | call matchadd('ErrorMsg', '\%>140v.\+', 100)
+    autocmd InsertLeave * call matchadd('ErrorMsg', '\s\+$', 100)
 augroup END
 
 " syntax highlighting overrides:
 let g:polyglot_disabled = ['markdown']
 highlight link jsFuncCall jsObjectProp
+highlight link NERDTreeOpenBuffer SpecialChar
 
 " Show syntax highlighting groups for word under cursor with <leader>S
 " From Vimcasts #25: http://vimcasts.org/episodes/creating-colorschemes-for-vim/
@@ -384,6 +385,7 @@ function! UnloadFile()
 endfunction
 nnoremap <silent> <C-u> :call UnloadFile()<CR>
 
+let NERDTreeMapOpenSplit = '<C-s>'
 let NERDTreeMapOpenVSplit = '<C-v>'
 let NERDTreeMapOpenInTab = '<C-t>'
 let NERDTreeMapUpdirKeepOpen = '-'
