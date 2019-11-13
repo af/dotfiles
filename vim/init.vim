@@ -250,10 +250,16 @@ function! s:show_documentation()
 endfunction
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+nmap <F2> <Plug>(coc-rename)
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent> ge <Plug>(coc-references)
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Support for "code actions" in normal and visual mode
+nmap <F3> <Plug>(coc-codeaction)
+xmap <F3> <Plug>(coc-codeaction-selected)
 
 " coc-snippets (snippets are stored in vim/personal_snippets)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
@@ -266,8 +272,8 @@ nnoremap <leader>s :CocCommand snippets.editSnippets
 " {{{ ALE
 "===============================================================================
 " Move between errors
-nnoremap <silent> <C-j> :call ale#loclist_jumping#Jump('after', 1)<CR>
-nnoremap <silent> <C-k> :call ale#loclist_jumping#Jump('before', 1)<CR>
+nmap <silent> [w :call ale#loclist_jumping#Jump('before', 1)<CR>
+nmap <silent> ]w :call ale#loclist_jumping#Jump('after', 1)<CR>
 
 " Show full error output in preview window (close window with 'q')
 " TODO: toggle preview window off with C-e
@@ -542,7 +548,6 @@ nnoremap <Backspace> <C-^>
 nnoremap <C-n> <c-w>w
 " Open new vsplit and move to it:
 nnoremap <leader>v <C-w>v<C-w>l
-nnoremap <leader>o :only<CR>
 
 " Automatically resize/equalize splits when vim is resized
 autocmd vimrc VimResized * wincmd =

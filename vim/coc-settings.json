@@ -17,6 +17,7 @@
   },
   "tsserver.enableJavascript": true,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true,
+  "typescript.suggest.completeFunctionCalls": false,
   "languageserver": {
     "reason": {
       "command": "~/code/reason/reason-language-server.exe",
@@ -24,5 +25,12 @@
         "reason"
       ]
     }
+  },
+
+  "list.nextKeymap": "<C-n>",
+  "list.previousKeymap": "<C-p>",
+  "list.maxHeight": 15,
+  "list.insertMappings": {
+    "<C-c>": "do:exit"
   }
 }
