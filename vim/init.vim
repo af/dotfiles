@@ -421,42 +421,23 @@ let g:fzf_action = {
   \'ctrl-t': 'tab split',
   \':': 'close' }
 
-" floating window for fzf (via https://github.com/junegunn/fzf.vim/issues/664#issuecomment-476438294)
-" see also https://github.com/huytd/vim-config/blob/master/init.vim#L132-L171
+" use floating window for fzf (via https://github.com/junegunn/fzf.vim/issues/664#issuecomment-476438294)
 if has('nvim')
   let $FZF_DEFAULT_OPTS='--layout=reverse --color gutter:-1 --margin=2,4'
-  let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+  lua require('navigation')
+  let g:fzf_layout = { 'window': 'lua NavigationFloatingWin()' }
+
+  " Custom MRU using FZF
+  " Based on the example here: https://github.com/junegunn/fzf/wiki/Examples-(vim)
+  command! FZFMru call fzf#run({
+  \ 'source':  filter(copy(v:oldfiles), "v:val !~ 'fugitive:\\|__CtrlSF\\|^/tmp/\\|.git/'"),
+  \ 'sink':    'edit',
+  \ 'options': '-m -x +s',
+  \ 'window': 'lua NavigationFloatingWin()',
+  \ 'down':    '40%' })
+  nnoremap gm :FZFMru<CR>
 endif
-function! FloatingFZF()
-  let buf = nvim_create_buf(v:false, v:true)
-  call setbufvar(buf, '&signcolumn', 'no')
 
-  let margin = 5
-  let height = &lines - (margin * 2)
-  let width = float2nr(&columns - (&columns * 2 / 10))
-  let col = float2nr((&columns - width) / 2)
-
-  let opts = {
-  \ 'relative': 'editor',
-  \ 'row': margin,
-  \ 'col': col,
-  \ 'width': width,
-  \ 'height': height,
-  \ 'style': 'minimal'
-  \ }
-
-  call nvim_open_win(buf, v:true, opts)
-endfunction
-
-" Custom MRU using FZF
-" Based on the example here: https://github.com/junegunn/fzf/wiki/Examples-(vim)
-command! FZFMru call fzf#run({
-\ 'source':  filter(copy(v:oldfiles), "v:val !~ 'fugitive:\\|__CtrlSF\\|^/tmp/\\|.git/'"),
-\ 'sink':    'edit',
-\ 'options': '-m -x +s',
-\ 'window': 'call FloatingFZF()',
-\ 'down':    '40%' })
-nnoremap gm :FZFMru<CR>
 " Sibling file selector
 nnoremap <silent> <leader>- :Files <C-r>=expand("%:h")<CR>/<CR>
 
