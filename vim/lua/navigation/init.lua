@@ -31,3 +31,28 @@ function NavigationFloatingWin()
     style = 'minimal',
   })
 end
+
+
+-- alias for readability/concision
+local vimFn = vim.api.nvim_call_function
+
+-- Open 'alternate' files in vsplits based on current file's path
+-- eg. when editing foo.js, open sibling foo.css file in a vsplit
+--
+-- Uses some tricks from https://stackoverflow.com/questions/17170902/in-vim-how-to-switch-quickly-between-h-and-cpp-files-with-the-same-name
+function VsplitAlternateFiles()
+  local thisFile = vimFn('expand', {'%'})
+  local thisFileWithoutExt = vimFn('expand', {'%:r'})
+  local siblingFiles = vimFn('glob', {thisFileWithoutExt .. '.*'})
+  local siblings = vim.split(siblingFiles, '\n')
+
+  for k, filename in pairs(siblings) do
+    if (filename ~= thisFile) then
+      local bufferNumber = vimFn('bufnr', {filename})
+      local fileNotOpenInWindow = vimFn('bufwinnr', {bufferNumber}) < 0
+      if (fileNotOpenInWindow) then
+        vim.api.nvim_command('vsplit ' .. filename)
+      end
+    end
+  end
+end

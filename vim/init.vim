@@ -515,6 +515,8 @@ nnoremap Q @@
 nnoremap <C-o> <C-i>
 nnoremap <C-i> <C-o>
 
+nnoremap <leader>a :lua VsplitAlternateFiles()<CR>
+
 " g;    - move back in the change list
 " g,    - move forward in the change list
 " gi    - move to the last insert, and re-enter insert mode
