@@ -1,3 +1,6 @@
+-- alias for readability/concision
+local vimFn = vim.api.nvim_call_function
+
 -- Open centered floating window for use with fzf
 --
 -- via https://gabrielpoca.com/2019-11-13-a-bit-more-lua-in-your-vim/
@@ -32,9 +35,6 @@ function NavigationFloatingWin()
   })
 end
 
-
--- alias for readability/concision
-local vimFn = vim.api.nvim_call_function
 
 -- Open 'alternate' files in vsplits based on current file's path
 -- eg. when editing foo.js, open sibling foo.css file in a vsplit

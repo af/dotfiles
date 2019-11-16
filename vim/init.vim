@@ -162,19 +162,21 @@ nnoremap k gk
 " {{{ Neovim-specific settings
 "===============================================================================
 if has('nvim')
-    autocmd TermOpen * startinsert
-    set termguicolors
-    set inccommand=split
-    set pumblend=5
-    set winblend=7
+  autocmd TermOpen * startinsert
+  set termguicolors
+  set inccommand=split
+  set pumblend=5
+  set winblend=7
 
-    " See https://github.com/neovim/neovim/wiki/FAQ
-    set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
+  " See https://github.com/neovim/neovim/wiki/FAQ
+  set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
 
-    tnoremap <esc> <c-\><c-n>
-    autocmd vimrc WinEnter term://* call feedkeys('i')
+  tnoremap <esc> <c-\><c-n>
+  autocmd vimrc WinEnter term://* call feedkeys('i')
+
+  lua require('navigation')
 elseif $TERM ==# 'xterm-256color' || $TERM ==# 'screen-256color'
-    set t_Co=256    " 256 colours for regular vim if the terminal can handle it.
+  set t_Co=256    " 256 colours for regular vim if the terminal can handle it.
 endif
 
 " }}}
@@ -192,9 +194,9 @@ set synmaxcol=400    " Performance improvement on large single-line files
 
 " highlight trailing whitespace
 augroup ErrorHighlights
-    autocmd!
-    autocmd InsertEnter * call clearmatches()
-    autocmd InsertLeave * call matchadd('ErrorMsg', '\s\+$', 100)
+  autocmd!
+  autocmd InsertEnter * call clearmatches()
+  autocmd InsertLeave * call matchadd('ErrorMsg', '\s\+$', 100)
 augroup END
 
 " syntax highlighting overrides:
@@ -231,9 +233,9 @@ inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR
 " Use tab to trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
@@ -280,8 +282,8 @@ nmap <silent> ]w :call ale#loclist_jumping#Jump('after', 1)<CR>
 nmap <silent> <C-e> <Plug>(ale_detail)
 
 if !hlexists('ALEVirtualTextError')
-    highlight link ALEVirtualTextError ErrorMsg
-    highlight link ALEVirtualTextWarning MoreMsg
+  highlight link ALEVirtualTextError ErrorMsg
+  highlight link ALEVirtualTextWarning MoreMsg
 endif
 let g:ale_virtualtext_cursor = 1
 let g:ale_virtualtext_prefix = '  ---> '
@@ -354,7 +356,7 @@ let g:ctrlsf_auto_focus = {"at": "start"}
 "===============================================================================
 
 function! IsNerdTreeOpen()
-    return exists('t:NERDTreeBufName') && bufwinnr(t:NERDTreeBufName) != -1
+  return exists('t:NERDTreeBufName') && bufwinnr(t:NERDTreeBufName) != -1
 endfunction
 
 " Open Nerdtree to the current file. Note NERDTreeFind is very similar to this, but it always expands
@@ -416,15 +418,15 @@ nnoremap <leader><leader> :FZF<CR>
 nnoremap <C-t> :Buffers<CR>
 nnoremap <leader>h :History:<CR>
 let g:fzf_action = {
-  \'ctrl-s': 'split',
-  \'ctrl-v': 'vertical split',
-  \'ctrl-t': 'tab split',
-  \':': 'close' }
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-v': 'vertical split',
+  \ 'ctrl-t': 'tab split',
+  \ ':': 'close'
+  \ }
 
 " use floating window for fzf (via https://github.com/junegunn/fzf.vim/issues/664#issuecomment-476438294)
 if has('nvim')
   let $FZF_DEFAULT_OPTS='--layout=reverse --color gutter:-1 --margin=2,4'
-  lua require('navigation')
   let g:fzf_layout = { 'window': 'lua NavigationFloatingWin()' }
 
   " Custom MRU using FZF
@@ -434,7 +436,8 @@ if has('nvim')
   \ 'sink':    'edit',
   \ 'options': '-m -x +s',
   \ 'window': 'lua NavigationFloatingWin()',
-  \ 'down':    '40%' })
+  \ 'down':    '40%'
+  \ })
   nnoremap gm :FZFMru<CR>
 endif
 
@@ -443,9 +446,9 @@ nnoremap <silent> <leader>- :Files <C-r>=expand("%:h")<CR>/<CR>
 
 " gitgutter
 " use [c and ]c to jump to next/previous changed "hunk"
-nmap <leader>a <Plug>(GitGutterStageHunk)
 nmap <leader>r <Plug>(GitGutterUndoHunk)
-nmap <leader>p <Plug>(GitGutterPreviewHunk)
+nmap <leader>ga <Plug>(GitGutterStageHunk)
+nmap <leader>gp <Plug>(GitGutterPreviewHunk)
 
 " fugitive
 nmap <leader>gs :Gstatus<CR>
@@ -479,9 +482,11 @@ nmap <C-p> <Plug>(miniyank-cycle)
 " VimWiki
 let g:vimwiki_ext2syntax = {}
 let g:vimwiki_global_ext = 0
-let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md',
-                    \  'diary_rel_path': 'journal/', 'diary_index': 'index',
-                    \  'diary_header': 'Journal', 'diary_sort': 'asc'}]
+let g:vimwiki_list = [{
+  \ 'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md',
+  \ 'diary_rel_path': 'journal/', 'diary_index': 'index',
+  \ 'diary_header': 'Journal', 'diary_sort': 'asc'
+  \ }]
 
 let g:EditorConfig_core_mode = 'python_external'    " Speeds up load time by ~150ms
 
@@ -537,16 +542,16 @@ autocmd vimrc VimResized * wincmd =
 
 " Save current file every time we leave insert mode or leave vim
 augroup autoSaveAndRead
-    autocmd!
-    "autocmd InsertLeave,FocusLost * call <SID>autosave()
-    autocmd CursorHold * silent! checktime
+  autocmd!
+  "autocmd InsertLeave,FocusLost * call <SID>autosave()
+  autocmd CursorHold * silent! checktime
 augroup END
 
 function! <SID>autosave()
-    if &filetype !=# 'ctrlsf' && (filereadable(expand('%')) == 1)
-        update
-        call ale#Queue(0)   " Trigger linting immediately
-    endif
+  if &filetype !=# 'ctrlsf' && (filereadable(expand('%')) == 1)
+    update
+    call ale#Queue(0)   " Trigger linting immediately
+  endif
 endfunction
 
 " <escape> in normal mode also saves
@@ -584,9 +589,6 @@ cnoremap w!! w !sudo tee % >/dev/null
 " Make n/N always go in consistent directions:
 noremap <silent> n /<CR>
 noremap <silent> N ?<CR>
-
-" console.log convenience mapping. Inserts a console.log() call with the variable under the cursor
-autocmd vimrc FileType javascript nnoremap <Leader>cl yiwoconsole.log(`<c-r>": ${<c-r>"}`)<Esc>hh
 
 " yank to system clipboard:
 vnoremap <Leader>y "+y
@@ -633,8 +635,8 @@ autocmd BufRead,BufNewFile *.json set filetype=json
 
 " Hack to open help in vsplit by default
 augroup vimrc_help
-    autocmd!
-    autocmd BufEnter *.txt if &buftype == 'help' | wincmd L | endif
+  autocmd!
+  autocmd BufEnter *.txt if &buftype == 'help' | wincmd L | endif
 augroup END
 
 autocmd vimrc FileType gitcommit set tabstop=4
