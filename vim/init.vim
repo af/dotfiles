@@ -64,6 +64,7 @@ Plug 'tomtom/tcomment_vim',         { 'commit': '3d0a997' }
 " language-specific plugins
 Plug 'tpope/vim-ragtag',            { 'commit': '5d3ce9c' }
 Plug '~/dotfiles/vim/downloaded_plugins/dbext', {'for': ['sql']}
+Plug '~/dotfiles/vim/downloaded_plugins/nerdtree_menu_terminal'
 Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 'markdown' }
 
 " Color/Theme/syntax related plugins
