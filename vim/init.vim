@@ -534,7 +534,8 @@ nnoremap <leader>a :lua VsplitAlternateFiles()<CR>
 nmap <C-h> <Plug>AirlineSelectPrevTab
 nmap <C-l> <Plug>AirlineSelectNextTab
 nnoremap <Backspace> <C-^>
-nnoremap <C-n> <c-w>w
+nnoremap <silent> <C-n> :lua ToNextWindow()<CR>
+
 " Open new vsplit and move to it:
 nnoremap <leader>v <C-w>v<C-w>l
 

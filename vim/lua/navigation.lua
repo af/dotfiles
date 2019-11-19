@@ -1,5 +1,14 @@
 -- alias for readability/concision
 local vimFn = vim.api.nvim_call_function
+local vimCmd = vim.api.nvim_command
+
+-- go to the next window, but skip over nerdtree
+function ToNextWindow()
+  vimCmd('wincmd w')
+  if (vim.api.nvim_buf_get_option(0, 'filetype') == 'nerdtree') then
+    vimCmd('wincmd w')
+  end
+end
 
 -- Open centered floating window for use with fzf
 --
