@@ -33,12 +33,13 @@ Plug 'scrooloose/nerdtree',         { 'tag': '6.2.0', 'on': 'NERDTreeToggle' }
 Plug 'PhilRunninger/nerdtree-buffer-ops', { 'commit': 'f5e77b8', 'on': 'NERDTreeToggle' }
 
 " coc.nvim
+let g:cocPlugInstall = 'yarn install --frozen-lockfile'
 Plug 'neoclide/coc.nvim',           {'tag': 'v0.0.74', 'do': { -> coc#util#install({'tag':1})}}
-Plug 'neoclide/coc-tsserver',       {'tag': '1.4.4', 'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-json',           {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-css',            {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-pairs',          {'tag': '1.2.18', 'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-snippets',       {'tag': '2.1.5', 'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tsserver',       {'tag': '1.4.4', 'do': cocPlugInstall }
+Plug 'neoclide/coc-json',           {'tag': '1.2.4', 'do': cocPlugInstall }
+Plug 'neoclide/coc-css',            {'tag': '1.2.2', 'do': cocPlugInstall }
+Plug 'neoclide/coc-pairs',          {'tag': '1.2.18', 'do': cocPlugInstall }
+Plug 'neoclide/coc-snippets',       {'tag': '2.1.5', 'do': cocPlugInstall }
 
 " tpope appreciation section
 Plug 'tpope/vim-apathy'
