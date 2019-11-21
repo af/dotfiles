@@ -177,6 +177,7 @@ if has('nvim')
   autocmd vimrc WinEnter term://* call feedkeys('i')
 
   lua require('navigation')
+  lua require('nerdtree')
 elseif $TERM ==# 'xterm-256color' || $TERM ==# 'screen-256color'
   set t_Co=256    " 256 colours for regular vim if the terminal can handle it.
 endif
@@ -357,43 +358,8 @@ let g:ctrlsf_auto_focus = {"at": "start"}
 " {{{ nerdtree
 "===============================================================================
 
-function! IsNerdTreeOpen()
-  return exists('t:NERDTreeBufName') && bufwinnr(t:NERDTreeBufName) != -1
-endfunction
-
-" Open Nerdtree to the current file. Note NERDTreeFind is very similar to this, but it always expands
-" the tree from the root, so it's not quite what I want
-function! OpenNerdTree()
-  let l:current_filename = expand('%:t')
-  let l:full_file_path = expand('%')
-  " check if current file is visible in nerdtree. Note this is 'best effort', if a different file in
-  " the tree has the same name, it will be considered a valid match as well
-  if IsNerdTreeOpen()
-    NERDTreeFocus
-    let l:current_file_is_visible = search(l:current_filename, 'n') != 0
-    if (l:current_file_is_visible ==# 0)
-      execute 'NERDTree ' . fnamemodify(l:full_file_path, ':h')
-    endif
-  else
-    NERDTree %
-  endif
-  call search(l:current_filename)  " move cursor to current file
-endfunction
-
-nnoremap - :call OpenNerdTree()<CR>
-
-function! UnloadFile()
-  if &filetype ==# 'ctrlsf' || &filetype ==# 'nerdtree'
-    bdelete
-  elseif IsNerdTreeOpen()
-    let l:buffer_number = bufnr('%')
-    bnext
-    execute 'bdelete ' . l:buffer_number
-  else
-    bdelete
-  endif
-endfunction
-nnoremap <silent> <C-u> :call UnloadFile()<CR>
+nnoremap - :lua OpenNerdTree()<CR>
+nnoremap <silent> <C-u> :lua UnloadFile()<CR>
 
 let NERDTreeMapOpenSplit = '<C-s>'
 let NERDTreeMapOpenVSplit = '<C-v>'
