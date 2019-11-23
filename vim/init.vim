@@ -63,9 +63,8 @@ Plug 'tomtom/tcomment_vim',         { 'commit': '3d0a997' }
 " Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load lazily, w/o input lag
 
 " language-specific plugins
-Plug 'tpope/vim-ragtag',            { 'commit': '5d3ce9c' }
-Plug '~/dotfiles/vim/downloaded_plugins/dbext', {'for': ['sql']}
-Plug '~/dotfiles/vim/downloaded_plugins/nerdtree_menu_terminal'
+Plug '~/dotfiles/vim/vendored/dbext', {'for': ['sql']}
+Plug '~/dotfiles/vim/vendored/nerdtree_menu_terminal'
 Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 'markdown' }
 
 " Color/Theme/syntax related plugins
@@ -100,7 +99,7 @@ set backupcopy=yes
 set lazyredraw              " Speeds up macros by avoiding excessive redraws
 
 " File/buffer settings
-set hidden                  " TODO: revisit this. Hides instead of unloads buffers
+set hidden                  " Hides buffers instead of unloading them
 set autoread                " reload files on changes (ie. changing git branches)
 set scrolloff=3             " # of lines always shown above/below the cursor
 
@@ -260,9 +259,8 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> ge <Plug>(coc-references)
-autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" Support for "code actions" in normal and visual mode
+" Support for "code actions" (refactorings, etc) in normal and visual mode
 nmap <F3> <Plug>(coc-codeaction)
 xmap <F3> <Plug>(coc-codeaction-selected)
 
@@ -457,10 +455,6 @@ let g:vimwiki_list = [{
   \ }]
 
 let g:EditorConfig_core_mode = 'python_external'    " Speeds up load time by ~150ms
-
-" vim-ragtag
-let g:ragtag_global_maps = 1
-imap <C-l> <C-x>/
 
 " }}}
 " {{{ Key Bindings: Visual mode

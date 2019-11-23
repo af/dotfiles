@@ -1,6 +1,4 @@
 {
-  "coc.source.emoji.enable": true,
-  "coc.source.emoji.filetypes": ["markdown", "css", "javascript", "typescript"],
   "coc.preferences.extensionUpdateCheck": "never",
   "suggest.noselect": false,
   "diagnostic.displayByAle": true,
