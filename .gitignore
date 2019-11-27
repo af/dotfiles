@@ -1,10 +1,6 @@
-*.swp
-init-tmux-session
-vim/bundle
-vim/downloaded_plugins/dbext/doc
+vim/vendored/dbext/doc
 vim/plugged
 vim/.netrwhist
-emacs
 weechat/certs
 weechat/logs
 weechat/script

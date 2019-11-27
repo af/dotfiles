@@ -175,8 +175,8 @@ if has('nvim')
   tnoremap <esc> <c-\><c-n>
   autocmd vimrc WinEnter term://* call feedkeys('i')
 
-  lua require('navigation')
-  lua require('nerdtree')
+  lua Nav = require('navigation')
+  lua Nerdtree = require('nerdtree')
 elseif $TERM ==# 'xterm-256color' || $TERM ==# 'screen-256color'
   set t_Co=256    " 256 colours for regular vim if the terminal can handle it.
 endif
@@ -269,7 +269,7 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 vmap <C-j> <Plug>(coc-snippets-select)
 let g:coc_snippet_next = '<c-j>'
 let g:coc_snippet_prev = '<c-k>'
-nnoremap <leader>s :CocCommand snippets.editSnippets
+nnoremap <leader>s :CocCommand snippets.editSnippets<CR>
 
 " }}}
 " {{{ ALE
@@ -356,8 +356,8 @@ let g:ctrlsf_auto_focus = {"at": "start"}
 " {{{ nerdtree
 "===============================================================================
 
-nnoremap - :lua OpenNerdTree()<CR>
-nnoremap <silent> <C-u> :lua UnloadFile()<CR>
+nnoremap - :lua Nerdtree.open()<CR>
+nnoremap <silent> <C-u> :lua Nerdtree.unloadFile()<CR>
 
 let NERDTreeMapOpenSplit = '<C-s>'
 let NERDTreeMapOpenVSplit = '<C-v>'
@@ -393,7 +393,7 @@ let g:fzf_action = {
 " use floating window for fzf (via https://github.com/junegunn/fzf.vim/issues/664#issuecomment-476438294)
 if has('nvim')
   let $FZF_DEFAULT_OPTS='--layout=reverse --color gutter:-1 --margin=2,4'
-  let g:fzf_layout = { 'window': 'lua NavigationFloatingWin()' }
+  let g:fzf_layout = { 'window': 'lua Nav.navigationFloatingWin()' }
 
   " Custom MRU using FZF
   " Based on the example here: https://github.com/junegunn/fzf/wiki/Examples-(vim)
@@ -401,7 +401,7 @@ if has('nvim')
   \ 'source':  filter(copy(v:oldfiles), "v:val !~ 'fugitive:\\|__CtrlSF\\|^/tmp/\\|.git/'"),
   \ 'sink':    'edit',
   \ 'options': '-m -x +s',
-  \ 'window': 'lua NavigationFloatingWin()',
+  \ 'window': 'lua Nav.navigationFloatingWin()',
   \ 'down':    '40%'
   \ })
   nnoremap gm :FZFMru<CR>
@@ -482,7 +482,7 @@ nnoremap Q @@
 nnoremap <C-o> <C-i>
 nnoremap <C-i> <C-o>
 
-nnoremap <leader>a :lua VsplitAlternateFiles()<CR>
+nnoremap <silent> <leader>a :lua Nav.vsplitAlternateFiles()<CR>
 
 " g;    - move back in the change list
 " g,    - move forward in the change list
@@ -495,7 +495,7 @@ nnoremap <leader>a :lua VsplitAlternateFiles()<CR>
 nmap <C-h> <Plug>AirlineSelectPrevTab
 nmap <C-l> <Plug>AirlineSelectNextTab
 nnoremap <Backspace> <C-^>
-nnoremap <silent> <C-n> :lua ToNextWindow()<CR>
+nnoremap <silent> <C-n> :lua Nerdtree.toNextWindow()<CR>
 
 " Open new vsplit and move to it:
 nnoremap <leader>v <C-w>v<C-w>l

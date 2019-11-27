@@ -2,19 +2,13 @@
 local vimFn = vim.api.nvim_call_function
 local vimCmd = vim.api.nvim_command
 
-function _getFiletype()
+local API = {}
+
+local _getFiletype = function()
   return vim.api.nvim_buf_get_option(0, 'filetype')
 end
 
--- go to the next window, but skip over nerdtree
-function ToNextWindow()
-  vimCmd('wincmd w')
-  if (_getFiletype() == 'nerdtree') then
-    vimCmd('wincmd w')
-  end
-end
-
-function _isNerdTreeOpen()
+local _isNerdTreeOpen = function()
   local varExists = vimFn('exists', {'t:NERDTreeBufName'})
   if (varExists == 1) then
     local treeBufName = vim.api.nvim_tabpage_get_var(0, 'NERDTreeBufName')
@@ -24,10 +18,16 @@ function _isNerdTreeOpen()
   end
 end
 
+-- go to the next window, but skip over nerdtree
+API.toNextWindow = function()
+  vimCmd('wincmd w')
+  if (_getFiletype() == 'nerdtree') then
+    vimCmd('wincmd w')
+  end
+end
+
 -- Open Nerdtree to the current file
-function OpenNerdTree()
-  local currentFileName = vimFn('expand', {'%:t'})
-  local fullFilePath = vimFn('expand', {'%'})
+API.open = function()
   if _isNerdTreeOpen() then
     vimCmd('NERDTreeFind')
   else
@@ -35,7 +35,7 @@ function OpenNerdTree()
   end
 end
 
-function UnloadFile()
+API.unloadFile = function()
   local filetype = _getFiletype()
   if (filetype == 'ctrlsf' or filetype == 'nerdtree') then
     vimCmd('bdelete')
@@ -47,3 +47,5 @@ function UnloadFile()
     vimCmd('bdelete')
   end
 end
+
+return API

@@ -2,8 +2,10 @@
 local vimFn = vim.api.nvim_call_function
 local vimCmd = vim.api.nvim_command
 
+local API = {}
+
 -- go to the next window, but skip over nerdtree
-function ToNextWindow()
+function API.toNextWindow()
   vimCmd('wincmd w')
   if (vim.api.nvim_buf_get_option(0, 'filetype') == 'nerdtree') then
     vimCmd('wincmd w')
@@ -14,7 +16,7 @@ end
 --
 -- via https://gabrielpoca.com/2019-11-13-a-bit-more-lua-in-your-vim/
 -- see also https://github.com/huytd/vim-config/blob/master/init.vim#L132-L171
-function NavigationFloatingWin()
+function API.navigationFloatingWin()
   -- get the editor's max width and height
   local width = vim.api.nvim_get_option('columns')
   local height = vim.api.nvim_get_option('lines')
@@ -49,13 +51,13 @@ end
 -- eg. when editing foo.js, open sibling foo.css file in a vsplit
 --
 -- Uses some tricks from https://stackoverflow.com/questions/17170902/in-vim-how-to-switch-quickly-between-h-and-cpp-files-with-the-same-name
-function VsplitAlternateFiles()
+function API.vsplitAlternateFiles()
   local thisFile = vimFn('expand', {'%'})
   local thisFileWithoutExt = vimFn('expand', {'%:r'})
   local siblingFiles = vimFn('glob', {thisFileWithoutExt .. '.*'})
   local siblings = vim.split(siblingFiles, '\n')
 
-  for k, filename in pairs(siblings) do
+  for _, filename in pairs(siblings) do
     if (filename ~= thisFile) then
       local bufferNumber = vimFn('bufnr', {filename})
       local fileNotOpenInWindow = vimFn('bufwinnr', {bufferNumber}) < 0
@@ -65,3 +67,5 @@ function VsplitAlternateFiles()
     end
   end
 end
+
+return API
