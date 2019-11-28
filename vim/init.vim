@@ -75,13 +75,10 @@ Plug 'jparise/vim-graphql'
 
 " Misc
 Plug 'vimwiki/vimwiki',             { 'commit': '417490f' }
-Plug 'Valloric/ListToggle',         { 'commit': '2bc7857' }
 Plug 'danro/rename.vim',            { 'commit': 'f133763' }
 
 " Enabled periodically, but not by default:
 " Plug 'takac/vim-hardtime',          { 'commit': 'acf59c8' }
-" Plug 'mbbill/undotree',             { 'commit': '39e5cf0' }
-" Plug 'tweekmonster/startuptime.vim'
 " Plug 'troydm/zoomwintab.vim',       { 'commit': 'b7a940e' }
 
 call plug#end()
@@ -153,6 +150,10 @@ vnoremap ? ?\v
 " {{{ Line wrapping
 "===============================================================================
 set wrap
+augroup quickfix
+  autocmd!
+  autocmd FileType qf setlocal nowrap
+augroup END
 set textwidth=99
 autocmd vimrc FileType markdown,txt set breakindent
 set formatoptions=qrn1j
@@ -177,6 +178,7 @@ if has('nvim')
 
   lua Nav = require('navigation')
   lua Nerdtree = require('nerdtree')
+  lua Windows = require('windows')
 elseif $TERM ==# 'xterm-256color' || $TERM ==# 'screen-256color'
   set t_Co=256    " 256 colours for regular vim if the terminal can handle it.
 endif
@@ -203,8 +205,8 @@ augroup END
 
 " syntax highlighting overrides:
 let g:polyglot_disabled = ['markdown']
-highlight link jsFuncCall jsObjectProp
 highlight link NERDTreeOpenBuffer SpecialChar
+highlight link ctrlsfFilename Keyword
 
 " Show syntax highlighting groups for word under cursor with <leader>S
 " From Vimcasts #25: http://vimcasts.org/episodes/creating-colorschemes-for-vim/
@@ -284,7 +286,7 @@ nmap <silent> <C-e> <Plug>(ale_detail)
 
 if !hlexists('ALEVirtualTextError')
   highlight link ALEVirtualTextError ErrorMsg
-  highlight link ALEVirtualTextWarning MoreMsg
+  highlight link ALEVirtualTextWarning SpecialChar
 endif
 let g:ale_virtualtext_cursor = 1
 let g:ale_virtualtext_prefix = '  ---> '
@@ -302,10 +304,7 @@ let g:ale_linters = {
 let g:ale_fixers = {
 \   'css': ['prettier', 'trim_whitespace', 'remove_trailing_lines'],
 \   'javascript': ['eslint', 'trim_whitespace', 'remove_trailing_lines'],
-\   'ocaml': ['ocamlformat'],
 \   'json': ['jq'],
-\   'reason': ['refmt'],
-\   'rust': ['rustfmt'],
 \   'sql': ['pgformatter'],
 \   'typescript': ['eslint', 'trim_whitespace', 'remove_trailing_lines']
 \}
@@ -373,10 +372,6 @@ autocmd vimrc FileType nerdtree nmap <buffer> % ma
 " }}}
 " {{{ More plugin customization
 "===============================================================================
-
-" ListToggle
-let g:lt_location_list_toggle_map = '<leader>l'
-let g:lt_quickfix_list_toggle_map = '<leader>q'
 
 " FZF
 " More tips: https://github.com/junegunn/fzf/wiki/Examples-(vim)
@@ -483,6 +478,7 @@ nnoremap <C-o> <C-i>
 nnoremap <C-i> <C-o>
 
 nnoremap <silent> <leader>a :lua Nav.vsplitAlternateFiles()<CR>
+nnoremap <silent> <leader>l :lua Windows.toggleLocationList()<CR>
 
 " g;    - move back in the change list
 " g,    - move forward in the change list
@@ -497,18 +493,15 @@ nmap <C-l> <Plug>AirlineSelectNextTab
 nnoremap <Backspace> <C-^>
 nnoremap <silent> <C-n> :lua Nerdtree.toNextWindow()<CR>
 
-" Open new vsplit and move to it:
-nnoremap <leader>v <C-w>v<C-w>l
-
 " Automatically resize/equalize splits when vim is resized
 autocmd vimrc VimResized * wincmd =
 
 " Save current file every time we leave insert mode or leave vim
-augroup autoSaveAndRead
-  autocmd!
-  "autocmd InsertLeave,FocusLost * call <SID>autosave()
-  autocmd CursorHold * silent! checktime
-augroup END
+" augroup autoSaveAndRead
+"   autocmd!
+"   autocmd InsertLeave,FocusLost * call <SID>autosave()
+"   autocmd CursorHold * silent! checktime
+" augroup END
 
 function! <SID>autosave()
   if &filetype !=# 'ctrlsf' && (filereadable(expand('%')) == 1)
@@ -588,13 +581,8 @@ let g:omni_sql_no_default_maps = 1
 " html
 iabbrev target="_blank" target="_blank" rel="noopener"
 
-" JavaScript
 let g:javascript_plugin_flow = 1
-let g:javascript_plugin_jsdoc = 1
-
-" JSON files
 let g:vim_json_syntax_conceal = 0
-autocmd BufRead,BufNewFile *.json set filetype=json
 
 " Hack to open help in vsplit by default
 augroup vimrc_help
