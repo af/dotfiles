@@ -1,4 +1,4 @@
-Grid = {}
+local Grid = {}
 Grid.BORDER = 1
 
 -- Describe the share of the screen that the L/R "chunks" take:

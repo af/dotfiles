@@ -2,16 +2,16 @@
 -- This is intended to be used alongside a CapsLock that's mapped to Ctrl in OS X
 -- Copied from https://github.com/jasoncodes/dotfiles/blob/master/hammerspoon/control_escape.lua
 -- as of d619ce0 (on Oct 28, 2016)
-send_escape = false
-last_mods = {}
+local send_escape = false
+local last_mods = {}
 
-control_key_handler = function()
+local control_key_handler = function()
   send_escape = false
 end
 
-control_key_timer = hs.timer.delayed.new(0.15, control_key_handler)
+local control_key_timer = hs.timer.delayed.new(0.15, control_key_handler)
 
-control_handler = function(evt)
+local control_handler = function(evt)
   local new_mods = evt:getFlags()
   if last_mods["ctrl"] == new_mods["ctrl"] then
     return false
@@ -30,15 +30,13 @@ control_handler = function(evt)
   return false
 end
 
-control_tap = hs.eventtap.new({hs.eventtap.event.types.flagsChanged}, control_handler)
+local control_tap = hs.eventtap.new({hs.eventtap.event.types.flagsChanged}, control_handler)
 control_tap:start()
 
-other_handler = function(evt)
+local other_handler = function()
   send_escape = false
   return false
 end
 
-other_tap = hs.eventtap.new({hs.eventtap.event.types.keyDown}, other_handler)
+local other_tap = hs.eventtap.new({hs.eventtap.event.types.keyDown}, other_handler)
 other_tap:start()
-
-
