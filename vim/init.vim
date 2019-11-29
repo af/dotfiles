@@ -176,9 +176,8 @@ if has('nvim')
   tnoremap <esc> <c-\><c-n>
   autocmd vimrc WinEnter term://* call feedkeys('i')
 
-  lua Nav = require('navigation')
-  lua Nerdtree = require('nerdtree')
-  lua Windows = require('windows')
+  lua nerdtree = require('nerdtree')
+  lua windows = require('windows')
 elseif $TERM ==# 'xterm-256color' || $TERM ==# 'screen-256color'
   set t_Co=256    " 256 colours for regular vim if the terminal can handle it.
 endif
@@ -355,8 +354,8 @@ let g:ctrlsf_auto_focus = {"at": "start"}
 " {{{ nerdtree
 "===============================================================================
 
-nnoremap - :lua Nerdtree.open()<CR>
-nnoremap <silent> <C-u> :lua Nerdtree.unloadFile()<CR>
+nnoremap - :lua nerdtree.open()<CR>
+nnoremap <silent> <C-u> :lua nerdtree.unloadFile()<CR>
 
 let NERDTreeMapOpenSplit = '<C-s>'
 let NERDTreeMapOpenVSplit = '<C-v>'
@@ -388,7 +387,7 @@ let g:fzf_action = {
 " use floating window for fzf (via https://github.com/junegunn/fzf.vim/issues/664#issuecomment-476438294)
 if has('nvim')
   let $FZF_DEFAULT_OPTS='--layout=reverse --color gutter:-1 --margin=2,4'
-  let g:fzf_layout = { 'window': 'lua Nav.navigationFloatingWin()' }
+  let g:fzf_layout = { 'window': 'lua windows.openCenteredFloat()' }
 
   " Custom MRU using FZF
   " Based on the example here: https://github.com/junegunn/fzf/wiki/Examples-(vim)
@@ -396,7 +395,7 @@ if has('nvim')
   \ 'source':  filter(copy(v:oldfiles), "v:val !~ 'fugitive:\\|__CtrlSF\\|^/tmp/\\|.git/'"),
   \ 'sink':    'edit',
   \ 'options': '-m -x +s',
-  \ 'window': 'lua Nav.navigationFloatingWin()',
+  \ 'window': 'lua windows.openCenteredFloat()',
   \ 'down':    '40%'
   \ })
   nnoremap gm :FZFMru<CR>
@@ -477,9 +476,6 @@ nnoremap Q @@
 nnoremap <C-o> <C-i>
 nnoremap <C-i> <C-o>
 
-nnoremap <silent> <leader>a :lua Nav.vsplitAlternateFiles()<CR>
-nnoremap <silent> <leader>l :lua Windows.toggleLocationList()<CR>
-
 " g;    - move back in the change list
 " g,    - move forward in the change list
 " gi    - move to the last insert, and re-enter insert mode
@@ -491,7 +487,10 @@ nnoremap <silent> <leader>l :lua Windows.toggleLocationList()<CR>
 nmap <C-h> <Plug>AirlineSelectPrevTab
 nmap <C-l> <Plug>AirlineSelectNextTab
 nnoremap <Backspace> <C-^>
-nnoremap <silent> <C-n> :lua Nerdtree.toNextWindow()<CR>
+
+nnoremap <silent> <C-n> :lua windows.toNextWindow()<CR>
+nnoremap <silent> <leader>a :lua windows.vsplitAlternateFiles()<CR>
+nnoremap <silent> <leader>l :lua windows.toggleLocationList()<CR>
 
 " Automatically resize/equalize splits when vim is resized
 autocmd vimrc VimResized * wincmd =

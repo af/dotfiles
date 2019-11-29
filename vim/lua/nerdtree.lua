@@ -18,14 +18,6 @@ local _isNerdTreeOpen = function()
   end
 end
 
--- go to the next window, but skip over nerdtree
-API.toNextWindow = function()
-  vimCmd('wincmd w')
-  if (_getFiletype() == 'nerdtree') then
-    vimCmd('wincmd w')
-  end
-end
-
 -- Open Nerdtree to the current file
 API.open = function()
   if _isNerdTreeOpen() then
@@ -35,6 +27,7 @@ API.open = function()
   end
 end
 
+-- TODO move to buffers.lua?
 API.unloadFile = function()
   local filetype = _getFiletype()
   if (filetype == 'ctrlsf' or filetype == 'nerdtree') then
