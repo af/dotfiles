@@ -1,5 +1,6 @@
 local vimFn = vim.api.nvim_call_function
 local vimCmd = vim.api.nvim_command
+local math = require('math')
 
 local API = {}
 
@@ -39,6 +40,8 @@ end
 -- Uses some tricks from https://stackoverflow.com/questions/17170902/in-vim-how-to-switch-quickly-between-h-and-cpp-files-with-the-same-name
 API.vsplitAlternateFiles = function()
   local thisFile = vimFn('expand', {'%'})
+  if (thisFile == '') then return end
+
   local thisFileWithoutExt = vimFn('expand', {'%:r'})
   local siblingFiles = vimFn('glob', {thisFileWithoutExt .. '.*'})
   local siblings = vim.split(siblingFiles, '\n')
