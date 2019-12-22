@@ -375,8 +375,7 @@ autocmd vimrc FileType nerdtree nmap <buffer> % ma
 " FZF
 " More tips: https://github.com/junegunn/fzf/wiki/Examples-(vim)
 nnoremap <leader><leader> :FZF<CR>
-nnoremap <C-t> :Buffers<CR>
-nnoremap <leader>h :History:<CR>
+nnoremap <leader>H :History:<CR>
 let g:fzf_action = {
   \ 'ctrl-s': 'split',
   \ 'ctrl-v': 'vertical split',
@@ -396,10 +395,23 @@ if has('nvim')
   \ 'sink':    'edit',
   \ 'options': '-m -x +s',
   \ 'window': 'lua windows.openCenteredFloat()',
-  \ 'down':    '40%'
   \ })
   nnoremap gm :FZFMru<CR>
 endif
+
+" TODO: omit current buffer (move getbufinfo() part to lua and filter there)
+" TODO: filter out blank line (when 1st opening vim)
+" TODO: remove getcwd() prefix from buffer list
+" TODO: custom sink function to open existing window when picking an open buffer
+" See https://github.com/junegunn/fzf/blob/master/README-VIM.md
+" WIP! via https://github.com/junegunn/fzf/issues/274
+command! FZFMixed call fzf#run({
+  \ 'source': 'echo "'.join(map(getbufinfo(), 'v:val.name'), '\n').'"; rg --files',
+  \ 'sink' : 'edit',
+  \ 'options' : '-m -x +s',
+  \ 'window': 'lua windows.openCenteredFloat()',
+  \})
+nnoremap , :FZFMixed<CR>
 
 " Sibling file selector
 nnoremap <silent> <leader>- :Files <C-r>=expand("%:h")<CR>/<CR>
@@ -417,7 +429,10 @@ nmap <leader>gb :Gblame<CR>
 
 " vim-airline:
 let g:airline_theme = 'nord'
-let g:airline_extensions = ['ale', 'branch', 'tabline']   " Only enable extensions I use, improves performance
+let g:airline_section_a = ''
+let g:airline_section_b = ''
+let g:airline_section_y = ''
+let g:airline_extensions = ['ale', 'tabline']   " Only enable extensions I use, improves performance
 let g:airline_highlighting_cache = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#show_close_button = 0
@@ -451,6 +466,27 @@ let g:vimwiki_list = [{
 let g:EditorConfig_core_mode = 'python_external'    " Speeds up load time by ~150ms
 
 " }}}
+" {{{ Autosave
+"===============================================================================
+
+" Save current file every time we leave insert mode or leave vim
+" augroup autoSaveAndRead
+"   autocmd!
+"   autocmd InsertLeave,FocusLost * call <SID>autosave()
+"   autocmd CursorHold * silent! checktime
+" augroup END
+
+function! <SID>autosave()
+  if &filetype !=# 'ctrlsf' && (filereadable(expand('%')) == 1)
+    update
+    call ale#Queue(0)   " Trigger linting immediately
+  endif
+endfunction
+
+" <escape> in normal mode also saves
+nnoremap <esc> :call <SID>autosave()<CR>
+
+" }}}
 " {{{ Key Bindings: Visual mode
 "===============================================================================
 
@@ -482,35 +518,22 @@ nnoremap <C-i> <C-o>
 " {     - move back one paragraph
 " }     - move forward one paragraph
 
-" Navigating between buffers:
-" These first bindings don't work with nnoremap for some reason (?)
-nmap <C-h> <Plug>AirlineSelectPrevTab
-nmap <C-l> <Plug>AirlineSelectNextTab
+nmap <leader>h <Plug>AirlineSelectPrevTab
+nmap <leader>l <Plug>AirlineSelectNextTab
 nnoremap <Backspace> <C-^>
 
-nnoremap <silent> <C-n> :lua windows.toNextWindow()<CR>
+" Moving between windows
+nmap <silent> <C-j> <C-w>j
+nmap <silent> <C-k> <C-w>k
+nmap <silent> <C-h> <C-w>h
+nmap <silent> <C-l> :lua windows.moveRight()<CR>
 nnoremap <silent> <leader>a :lua windows.vsplitAlternateFiles()<CR>
-nnoremap <silent> <leader>l :lua windows.toggleLocationList()<CR>
+nnoremap <silent> <leader>w :lua windows.toggleLocationList()<CR>
 
 " Automatically resize/equalize splits when vim is resized
 autocmd vimrc VimResized * wincmd =
 
-" Save current file every time we leave insert mode or leave vim
-" augroup autoSaveAndRead
-"   autocmd!
-"   autocmd InsertLeave,FocusLost * call <SID>autosave()
-"   autocmd CursorHold * silent! checktime
-" augroup END
-
-function! <SID>autosave()
-  if &filetype !=# 'ctrlsf' && (filereadable(expand('%')) == 1)
-    update
-    call ale#Queue(0)   " Trigger linting immediately
-  endif
-endfunction
-
-" <escape> in normal mode also saves
-nnoremap <esc> :call <SID>autosave()<CR>
+nnoremap <C-t> :tabe<CR>
 
 " Swap ` and ' for mark jumping:
 nnoremap ' `

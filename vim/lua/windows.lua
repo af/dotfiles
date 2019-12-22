@@ -26,11 +26,11 @@ API.toggleLocationList = function()
   end
 end
 
--- go to the next window, but skip over nerdtree
-API.toNextWindow = function()
-  vimCmd('wincmd w')
+API.moveRight = function()
   if (vim.api.nvim_buf_get_option(0, 'filetype') == 'nerdtree') then
-    vimCmd('wincmd w')
+    vimCmd('wincmd p')
+  else
+    vimCmd('wincmd l')
   end
 end
 
