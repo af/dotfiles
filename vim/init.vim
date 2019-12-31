@@ -176,6 +176,7 @@ if has('nvim')
   tnoremap <esc> <c-\><c-n>
   autocmd vimrc WinEnter term://* call feedkeys('i')
 
+  lua fuzzy = require('fuzzy')
   lua nerdtree = require('nerdtree')
   lua windows = require('windows')
 elseif $TERM ==# 'xterm-256color' || $TERM ==# 'screen-256color'
@@ -399,14 +400,12 @@ if has('nvim')
   nnoremap gm :FZFMru<CR>
 endif
 
-" TODO: omit current buffer (move getbufinfo() part to lua and filter there)
 " TODO: filter out blank line (when 1st opening vim)
-" TODO: remove getcwd() prefix from buffer list
 " TODO: custom sink function to open existing window when picking an open buffer
 " See https://github.com/junegunn/fzf/blob/master/README-VIM.md
 " WIP! via https://github.com/junegunn/fzf/issues/274
 command! FZFMixed call fzf#run({
-  \ 'source': 'echo "'.join(map(getbufinfo(), 'v:val.name'), '\n').'"; rg --files',
+  \ 'source': 'echo "'.luaeval('fuzzy.getBufferNames()').'"; rg --files',
   \ 'sink' : 'edit',
   \ 'options' : '-m -x +s',
   \ 'window': 'lua windows.openCenteredFloat()',
