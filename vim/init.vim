@@ -383,34 +383,25 @@ let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ ':': 'close'
   \ }
+let $FZF_DEFAULT_OPTS='--layout=reverse --color gutter:-1 --margin=2,4 --multi'
 
-" use floating window for fzf (via https://github.com/junegunn/fzf.vim/issues/664#issuecomment-476438294)
 if has('nvim')
-  let $FZF_DEFAULT_OPTS='--layout=reverse --color gutter:-1 --margin=2,4'
+  " use floating window (via https://github.com/junegunn/fzf.vim/issues/664#issuecomment-476438294)
   let g:fzf_layout = { 'window': 'lua windows.openCenteredFloat()' }
 
-  " Custom MRU using FZF
-  " Based on the example here: https://github.com/junegunn/fzf/wiki/Examples-(vim)
-  command! FZFMru call fzf#run({
-  \ 'source':  filter(copy(v:oldfiles), "v:val !~ 'fugitive:\\|__CtrlSF\\|^/tmp/\\|.git/'"),
-  \ 'sink':    'edit',
-  \ 'options': '-m -x +s',
-  \ 'window': 'lua windows.openCenteredFloat()',
-  \ })
-  nnoremap gm :FZFMru<CR>
+  " Search buffers + project files, inspired by https://github.com/junegunn/fzf/issues/274
+  " See also https://github.com/junegunn/fzf/blob/master/README-VIM.md
+  command! FZFMixed call fzf#run(fzf#wrap({
+  \ 'source': 'echo "'.luaeval('fuzzy.getBufferNames()').'"; rg --files'
+  \ }))
+  nnoremap , :FZFMixed<CR>
 endif
 
-" TODO: filter out blank line (when 1st opening vim)
-" TODO: custom sink function to open existing window when picking an open buffer
-" See https://github.com/junegunn/fzf/blob/master/README-VIM.md
-" WIP! via https://github.com/junegunn/fzf/issues/274
-command! FZFMixed call fzf#run({
-  \ 'source': 'echo "'.luaeval('fuzzy.getBufferNames()').'"; rg --files',
-  \ 'sink' : 'edit',
-  \ 'options' : '-m -x +s',
-  \ 'window': 'lua windows.openCenteredFloat()',
-  \})
-nnoremap , :FZFMixed<CR>
+" Custom MRU based on this example: https://github.com/junegunn/fzf/wiki/Examples-(vim)
+command! FZFMru call fzf#run(fzf#wrap({
+\ 'source':  filter(copy(v:oldfiles), "v:val !~ 'term:\\|fugitive:\\|NERD_tree_\\|__CtrlSF\\|^/tmp/\\|.git/'")
+\ }))
+nnoremap gm :FZFMru<CR>
 
 " Sibling file selector
 nnoremap <silent> <leader>- :Files <C-r>=expand("%:h")<CR>/<CR>
