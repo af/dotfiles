@@ -611,3 +611,7 @@ try
 catch
   " No such file? No problem; just ignore it.
 endtry
+
+" set winminheight=0
+" nnoremap <silent> <C-m> :lua windows.maximizeHeight()<CR>
+" autocmd vimrc WinEnter * lua windows.onEnter()

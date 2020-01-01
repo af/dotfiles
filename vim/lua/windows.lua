@@ -91,4 +91,20 @@ API.openCenteredFloat = function()
   })
 end
 
+-- API.maximizeHeight = function()
+--   local height = vim.api.nvim_get_option('lines')
+--   vim.api.nvim_win_set_height(0, height)
+-- end
+-- 
+-- API.onEnter = function ()
+--   local height = vimFn('winheight', {0})
+--   if (height < 3) then
+--     if (vim.api.nvim_buf_get_option(0, 'filetype') == 'qf') then
+--       vim.api.nvim_win_set_height(0, 10)
+--     else
+--       API.maximizeHeight()
+--     end
+--   end
+-- end
+
 return API
