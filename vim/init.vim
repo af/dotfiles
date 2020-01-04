@@ -377,13 +377,16 @@ autocmd vimrc FileType nerdtree nmap <buffer> % ma
 " More tips: https://github.com/junegunn/fzf/wiki/Examples-(vim)
 nnoremap <leader><leader> :FZF<CR>
 nnoremap <leader>H :History:<CR>
+function! s:close_fzf_noop(files)
+endfunction
 let g:fzf_action = {
   \ 'ctrl-s': 'split',
   \ 'ctrl-v': 'vertical split',
   \ 'ctrl-t': 'tab split',
-  \ ':': 'close'
+  \ 'ctrl-u': 'bd',
+  \ ',': function('s:close_fzf_noop')
   \ }
-let $FZF_DEFAULT_OPTS='--layout=reverse --color gutter:-1 --margin=2,4 --multi'
+let $FZF_DEFAULT_OPTS='--layout=reverse --color gutter:-1 --margin=2,4 --multi --tiebreak=index'
 
 if has('nvim')
   " use floating window (via https://github.com/junegunn/fzf.vim/issues/664#issuecomment-476438294)
