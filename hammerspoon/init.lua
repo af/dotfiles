@@ -45,7 +45,6 @@ hs.hotkey.bind(mash, ',', Grid.topright)
 hs.hotkey.bind(mash, '.', Grid.bottomright)
 hs.hotkey.bind(mash, 'P', Grid.rightpeek)
 
-
 -- iTunes control
 hs.hotkey.bind(mash, 'UP', hs.itunes.play)
 hs.hotkey.bind(mash, 'DOWN', hs.itunes.pause)
@@ -75,6 +74,9 @@ hs.hotkey.bind({}, 'F15', Audio.incVolume)
 
 -- dismiss all OS X notifications
 hs.hotkey.bind(mash, 'X', Utils.dismissAllNotifications)
+
+-- focus latest screenshot in a new Finder window
+hs.hotkey.bind(mash, '[', function() hs.execute('showscreenshot', true) end)
 
 local emoji = require 'emoji'
 hs.hotkey.bind(mash, 'Y', emoji.choose)

@@ -1,0 +1,27 @@
+#!/usr/bin/env node
+
+/**
+ * Highlight the latest screen shot in a new Finder window
+ */
+
+const { execSync } = require('child_process')
+const { existsSync, readdirSync } = require('fs')
+const { homedir } = require('os')
+const path = require('path')
+
+const screenshotRegex = /^Screen Shot /
+const escapeSpacesRegex = / /g
+const desktop = path.join(homedir(), 'Desktop')
+
+const run = () => {
+  const screenshots = readdirSync(desktop).filter(fname => screenshotRegex.test(fname))
+  if (!screenshots.length) {
+    console.log('No screenshots found on the Desktop, exiting')
+    return;
+  }
+
+  const newestScreenshot = path.join(desktop, screenshots.pop()).replace(escapeSpacesRegex, '\\ ')
+  execSync(`open -R ${newestScreenshot}`)
+}
+
+run()
