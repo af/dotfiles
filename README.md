@@ -17,6 +17,10 @@ Mac-specific, but most should work on any unix-ish OS.
 * `tic term/tmux256.terminfo`
 * `brew tap homebrew/services` (see https://superuser.com/a/1010357)
 
+# Misc Mac apps
+
+* https://matthewpalmer.net/vanilla/ - hide menu bar icons
+
 
 # Misc hacks
 

@@ -2,6 +2,9 @@
 
 /**
  * Highlight the latest screen shot in a new Finder window
+ *
+ * To ensure screenshots are sorted correctly by time, you'll want to have "24 hour time" turned
+ * on in System Preferences > Language & Region
  */
 
 const { execSync } = require('child_process')
