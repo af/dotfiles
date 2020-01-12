@@ -395,7 +395,8 @@ if has('nvim')
   " Search buffers + project files, inspired by https://github.com/junegunn/fzf/issues/274
   " See also https://github.com/junegunn/fzf/blob/master/README-VIM.md
   command! FZFMixed call fzf#run(fzf#wrap({
-  \ 'source': 'echo "'.luaeval('fuzzy.getBufferNames()').'"; rg --files'
+  \ 'source': 'echo "'.luaeval('fuzzy.getBufferNames()').'"; rg --files',
+  \ 'options': '--header-lines=1 --ansi --tiebreak=index'
   \ }))
   nnoremap , :FZFMixed<CR>
 endif
