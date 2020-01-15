@@ -43,6 +43,7 @@ Plug 'neoclide/coc-snippets',       {'tag': '2.1.5', 'do': cocPlugInstall }
 
 " tpope appreciation section
 Plug 'tpope/vim-apathy'
+Plug 'tpope/vim-commentary',        { 'commit': 'f8238d7' }
 Plug 'tpope/vim-repeat',            { 'commit': '7a6675f' }     " Enable . repeat for plugin operations (eg. gitgutter)
 Plug 'tpope/vim-obsession',         { 'commit': '4ab72e0' }     " start a session file with :Obsession
 Plug 'tpope/vim-surround',          { 'commit': '42e9b46' }
@@ -56,8 +57,7 @@ Plug 'bfredl/nvim-miniyank',           { 'commit': 'b263f7c' }
 Plug 'machakann/vim-highlightedyank',  { 'commit': '51e25c9' }
 
 " Editing modifications
-Plug 'AndrewRadev/splitjoin.vim',   { 'commit': '0dc8587' }     " gS and gJ to split/join lines
-Plug 'tomtom/tcomment_vim',         { 'commit': '3d0a997' }
+Plug 'AndrewRadev/splitjoin.vim',   { 'tag': 'v1.0.0' }     " gS and gJ to split/join lines
 
 " Indentation, etc. Autodetect, but override with .editorconfig if present:
 " Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load lazily, w/o input lag
