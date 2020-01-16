@@ -9,6 +9,11 @@ local yellow = function(t)
   return color .. t .. reset
 end
 
+local highlightName = function(path)
+  -- wrap the last segment of a file path in ANSI color codes
+  return string.gsub(path, '[^/]+$', yellow)
+end
+
 API.getBufferNames = function()
   local cwd = vimFn('getcwd', {})
   local bufs = vimFn('getbufinfo', {})
@@ -20,12 +25,12 @@ API.getBufferNames = function()
     if (buf.name ~= '' and string.match(buf.name, 'NERD_tree_') == nil) then
       local localbufname, _ = string.gsub(buf.name, cwd .. '/', '')
       if (buf.listed == 1 and localbufname ~= currentFile) then
-        table.insert(bufnames, yellow(localbufname))
+        table.insert(bufnames, highlightName(localbufname))
       end
     end
   end
 
-  table.insert(bufnames, currentFile)
+  table.insert(bufnames, highlightName(currentFile))
   if (not utils.isEmpty(bufnames)) then
     utils.reverse(bufnames)
     -- separate buffers and project files with a single extra newline:
