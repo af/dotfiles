@@ -11,7 +11,8 @@ end
 
 local highlightName = function(path)
   -- wrap the last segment of a file path in ANSI color codes
-  return string.gsub(path, '[^/]+$', yellow)
+  local highlighted = string.gsub(path, '[^/]+$', yellow)
+  return highlighted
 end
 
 API.getBufferNames = function()

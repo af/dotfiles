@@ -126,6 +126,7 @@ set laststatus=2            " Always show a status line for lowest window in a s
 set cursorline              " highlight the full line that the cursor is currently on
 set colorcolumn=80,100      " Highlight these columns with a different bg
 set signcolumn=yes          " Always show sign column. Prevents rendering jank on startup
+set showtabline=2
 set splitright
 set splitbelow
 
@@ -375,7 +376,6 @@ autocmd vimrc FileType nerdtree nmap <buffer> % ma
 
 " FZF
 " More tips: https://github.com/junegunn/fzf/wiki/Examples-(vim)
-nnoremap <leader><leader> :FZF<CR>
 nnoremap <leader>H :History:<CR>
 function! s:close_fzf_noop(files)
 endfunction
@@ -399,6 +399,15 @@ if has('nvim')
   \ 'options': '--header-lines=1 --ansi --tiebreak=index'
   \ }))
   nnoremap , :FZFMixed<CR>
+  nnoremap <leader><leader> :FZFMixed<CR>
+
+  " When launching vim, if no file was provided (or there were multiple), launch FZFMixed automatically
+  function! s:fzf_on_launch()
+    if @% == "" || bufexists(2)
+      FZFMixed
+    endif
+  endfunction
+  autocmd VimEnter * call <SID>fzf_on_launch()
 endif
 
 " Custom MRU based on this example: https://github.com/junegunn/fzf/wiki/Examples-(vim)
@@ -426,17 +435,7 @@ let g:airline_theme = 'nord'
 let g:airline_section_a = ''
 let g:airline_section_b = ''
 let g:airline_section_y = ''
-let g:airline_extensions = ['ale', 'tabline']   " Only enable extensions I use, improves performance
-let g:airline_highlighting_cache = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-let g:airline#extensions#tabline#show_close_button = 0
-let g:airline#extensions#tabline#show_splits = 1
-let g:airline#extensions#tabline#show_buffers = 1
-let g:airline#extensions#tabline#show_tabs = 1
-let g:airline#extensions#tabline#show_tab_type = 1
-let g:airline#extensions#tabline#tab_nr_type = 2
-let g:airline#extensions#tabline#left_alt_sep = ''
-let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline_extensions = ['ale']
 
 " Splitjoin
 let g:splitjoin_curly_brace_padding = 0
@@ -512,9 +511,8 @@ nnoremap <C-i> <C-o>
 " {     - move back one paragraph
 " }     - move forward one paragraph
 
-nmap <leader>h <Plug>AirlineSelectPrevTab
-nmap <leader>l <Plug>AirlineSelectNextTab
 nnoremap <Backspace> <C-^>
+nnoremap <C-t> :tabn<CR>
 
 " Moving between windows
 nmap <silent> <C-j> <C-w>j
@@ -526,8 +524,6 @@ nnoremap <silent> <leader>w :lua windows.toggleLocationList()<CR>
 
 " Automatically resize/equalize splits when vim is resized
 autocmd vimrc VimResized * wincmd =
-
-nnoremap <C-t> :tabe<CR>
 
 " Swap ` and ' for mark jumping:
 nnoremap ' `
