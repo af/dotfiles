@@ -1,0 +1,97 @@
+#!/usr/bin/env node
+// @ts-check
+
+// TODO: help output
+// TODO: ts-node?
+
+const { execSync } = require('child_process')
+const { colorize, parseCLI } = require('./_cli')
+
+const POSITIONAL_DEFAULTS = ['master']
+const FLAG_DEFAULTS = {
+  terms: 'TODO|FIXME|console.log|debugger|@ts-ignore|: ?any',
+  output: 'pretty',
+}
+
+const diffFileBoundaryRegex = /^diff --git a\//m
+const fileNameRegex = /\n\+\+\+ b\/(\S+)\n/
+const chunkBoundaryRegex = /\n@@ [^\+]+\+/m
+const lineNumberRegex = /^\d+/
+
+const getRawDiff = (commit, flags) => {
+  const diffCmd = `git diff -U0 -G '${flags.terms}' ${commit}`
+  return execSync(diffCmd, { encoding: 'utf8' })
+}
+
+/** @type {(diff: string, termsRegex: any) => { fileName: string, lines: { lineText: string, lineNumber: number }[] }[]} */
+const parseChunks = (diffOutput, termsRegex) => {
+  return diffOutput
+    .split(diffFileBoundaryRegex)
+    // @ts-ignore tsserver doesn't recognice flatMap yet?
+    .flatMap(chunk => {
+      const fileNameMatch = chunk.match(fileNameRegex)
+      if (!fileNameMatch) return []
+
+      return chunk.split(chunkBoundaryRegex)
+        .map(innerChunk => {
+          const lineNumberMatch = innerChunk.match(lineNumberRegex)
+          if (!lineNumberMatch) return null
+          const chunkStartLine = parseInt(lineNumberMatch[0])
+
+          const matchingAddedLines = innerChunk
+            .split('\n')
+            .slice(1)                         // Remove rest of @@ context line
+            .filter(l => l.startsWith('+'))   // Filter for added lines only
+            .map((lineText, idx) => ({ lineText: lineText.slice(1), lineNumber: idx + chunkStartLine }))
+            .filter(({ lineText }) => termsRegex.test(lineText))   // Filter for lines with our grep terms
+          if (!matchingAddedLines.length) return null
+
+          return {
+            fileName: fileNameMatch[1],
+            lines: matchingAddedLines
+          }
+        })
+        .filter(c => c != null)
+    })
+}
+
+const makeHighlighter = termsRegex => line => line.replace(termsRegex, colorize.yellow)
+
+const formatters = {
+  pretty: (chunks, highlighter) => {
+    const fileSections = chunks.map(chunk => {
+      const { fileName, lines } = chunk
+      const location = `${colorize.cyan(fileName)}`
+      const fmtLine = ({ lineText, lineNumber }) => highlighter(
+        `${colorize.blue(`${lineNumber}:`)} ${lineText.trim()}`
+      )
+
+      return `${location}\n${lines.map(fmtLine).join('\n')}`
+    })
+    return fileSections.join('\n\n')
+  },
+
+  vimgrep: (chunks) => {
+    return chunks.flatMap(chunk => chunk.lines.map(({ lineText, lineNumber }) => (
+      // Note: character position is hardwired to "1" below for now
+      `${chunk.fileName}:${lineNumber}:${lineText.trim()}}`
+    ))).join('\n')
+  }
+}
+
+const main = (argv) => {
+  const { positionalArgs, flags } = parseCLI(argv, POSITIONAL_DEFAULTS, FLAG_DEFAULTS)
+  const termsRegex = new RegExp(flags.terms, 'g')
+  const [commitName] = positionalArgs
+
+  const rawOutput = getRawDiff(commitName, flags)
+  const chunks = parseChunks(rawOutput, termsRegex)
+  const highlighter = makeHighlighter(termsRegex)
+
+  const output = flags.output === 'vimgrep' ?
+    formatters.vimgrep(chunks, highlighter) :
+    formatters.pretty(chunks, highlighter)
+  console.log(output)
+}
+
+main(process.argv)
