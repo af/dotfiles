@@ -26,8 +26,8 @@ Plug 'w0rp/ale',                    { 'tag': 'v2.6.0' }
 Plug 'vim-airline/vim-airline',     { 'commit': '2db9b27' }
 Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
-Plug 'junegunn/fzf',                { 'tag': '0.18.0', 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim',            { 'commit': '359a80e' }
+Plug 'junegunn/fzf',                { 'tag': '0.20.0', 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim',            { 'commit': '467c327' }
 Plug 'airblade/vim-gitgutter',      { 'commit': '1725c13' }
 Plug 'scrooloose/nerdtree',         { 'tag': '6.2.0', 'on': 'NERDTreeToggle' }
 Plug 'PhilRunninger/nerdtree-buffer-ops', { 'commit': 'f5e77b8', 'on': 'NERDTreeToggle' }
@@ -35,7 +35,7 @@ Plug 'PhilRunninger/nerdtree-buffer-ops', { 'commit': 'f5e77b8', 'on': 'NERDTree
 " coc.nvim
 let g:cocPlugInstall = 'yarn install --frozen-lockfile'
 Plug 'neoclide/coc.nvim',           {'tag': 'v0.0.74', 'do': { -> coc#util#install({'tag':1})}}
-Plug 'neoclide/coc-tsserver',       {'tag': '1.4.4', 'do': cocPlugInstall }
+Plug 'neoclide/coc-tsserver',       {'tag': '1.4.12', 'do': cocPlugInstall }
 Plug 'neoclide/coc-json',           {'tag': '1.2.4', 'do': cocPlugInstall }
 Plug 'neoclide/coc-css',            {'tag': '1.2.2', 'do': cocPlugInstall }
 Plug 'neoclide/coc-pairs',          {'tag': '1.2.18', 'do': cocPlugInstall }
@@ -403,6 +403,10 @@ if has('nvim')
 
   " When launching vim, if no file was provided (or there were multiple), launch FZFMixed automatically
   function! s:fzf_on_launch()
+    if @% =~ "man://"
+      " for some reason, using vim as a man reader opens 2 buffers, but we don't want FZFMixed here
+      return
+    endif
     if @% == "" || bufexists(2)
       FZFMixed
     endif
