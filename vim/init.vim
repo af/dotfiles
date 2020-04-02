@@ -558,6 +558,10 @@ autocmd vimrc QuitPre * if &filetype != 'qf' | silent! lclose | endif
 " Use ':w!!' to save a root-owned file using sudo:
 cnoremap w!! w !sudo tee % >/dev/null
 
+" Use custom `todosince` script as "make" program, for populating quickfix window
+set makeprg=todosince\ \-\-output\ vimgrep
+nmap <leader>t :silent make<CR>
+
 " Make n/N always go in consistent directions:
 noremap <silent> n /<CR>
 noremap <silent> N ?<CR>
