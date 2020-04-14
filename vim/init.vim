@@ -467,11 +467,12 @@ let g:EditorConfig_core_mode = 'python_external'    " Speeds up load time by ~15
 "===============================================================================
 
 " Save current file every time we leave insert mode or leave vim
-" augroup autoSaveAndRead
-"   autocmd!
-"   autocmd InsertLeave,FocusLost * call <SID>autosave()
-"   autocmd CursorHold * silent! checktime
-" augroup END
+augroup autoSaveAndRead
+  autocmd!
+  " autocmd InsertLeave,FocusLost * call <SID>autosave()
+  autocmd WinLeave,FocusLost * call <SID>autosave()
+  autocmd CursorHold * silent! checktime
+augroup END
 
 function! <SID>autosave()
   if &filetype !=# 'ctrlsf' && (filereadable(expand('%')) == 1)
