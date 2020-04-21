@@ -9,12 +9,13 @@ Mac-specific, but most should work on any unix-ish OS.
 * (For macOS) [Install homebrew](http://brew.sh/)
 * clone this repo (to `~/dotfiles` or similar)
 * `./install.py`
-* Install [fnm](https://github.com/Schniz/fnm)
+* Install fnm via `brew install Schniz/tap/fnm`
 * Install the Consolas fonts (or alacritty won't start properly)
 * `fnm install <desired nodejs version>`
 * `fnm alias <desired nodejs version> default`
 * `af-npm-i-globals`
 * `tic term/tmux256.terminfo`
+* `brew cask install alacritty`
 * `brew tap homebrew/services` (see https://superuser.com/a/1010357)
 
 # Misc Mac apps

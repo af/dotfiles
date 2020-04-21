@@ -17,12 +17,10 @@ neovim \
 ngrep \
 noti \
 nmap \
-nvm \
 pgformatter \
 python3 \
 reattach-to-user-namespace \
 ripgrep \
-siege \
 tidy-html5 \
 tldr \
 tig \
