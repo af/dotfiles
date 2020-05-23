@@ -35,6 +35,9 @@ Plug 'airblade/vim-gitgutter',      { 'commit': '1725c13' }
 Plug 'scrooloose/nerdtree',         { 'tag': '6.2.0', 'on': 'NERDTreeToggle' }
 Plug 'PhilRunninger/nerdtree-buffer-ops', { 'commit': 'f5e77b8', 'on': 'NERDTreeToggle' }
 
+"Plug 'neovim/nvim-lsp'
+"Plug 'haorenW1025/completion-nvim'
+
 " coc.nvim
 let g:cocPlugInstall = 'yarn install --frozen-lockfile'
 Plug 'neoclide/coc.nvim',           {'tag': 'v0.0.74', 'do': { -> coc#util#install({'tag':1})}}
@@ -182,6 +185,7 @@ if has('nvim')
     autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 1000)
   augroup END
 
+  "lua lsp = require('lsp')
   lua fuzzy = require('fuzzy')
   lua nerdtree = require('nerdtree')
   lua windows = require('windows')
