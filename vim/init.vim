@@ -53,8 +53,7 @@ Plug 'tpope/vim-rhubarb',           { 'commit': '9edacf9' }
 Plug 'tpope/vim-sleuth',            { 'commit': '039e2cd' }
 
 " Yanking and clipboard
-Plug 'bfredl/nvim-miniyank',           { 'commit': 'b263f7c' }
-Plug 'machakann/vim-highlightedyank',  { 'commit': '51e25c9' }
+Plug 'bfredl/nvim-miniyank',           { 'commit': '2a3a0f3' }
 
 " Editing modifications
 Plug 'AndrewRadev/splitjoin.vim',   { 'tag': 'v1.0.0' }     " gS and gJ to split/join lines
@@ -176,6 +175,11 @@ if has('nvim')
 
   tnoremap <esc> <c-\><c-n>
   autocmd vimrc WinEnter term://* call feedkeys('i')
+
+  augroup highlight_yank
+    autocmd!
+    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 1000)
+  augroup END
 
   lua fuzzy = require('fuzzy')
   lua nerdtree = require('nerdtree')
