@@ -62,7 +62,6 @@ Plug 'AndrewRadev/splitjoin.vim',   { 'tag': 'v1.0.0' }     " gS and gJ to split
 " Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load lazily, w/o input lag
 
 " language-specific plugins
-Plug '~/dotfiles/vim/vendored/dbext', {'for': ['sql']}
 Plug '~/dotfiles/vim/vendored/nerdtree_menu_terminal'
 Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 'markdown' }
 
