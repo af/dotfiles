@@ -100,7 +100,7 @@ set scrolloff=3             " # of lines always shown above/below the cursor
 
 " Indenting & white space
 set expandtab
-set tabstop=4 shiftwidth=4 softtabstop=4
+set tabstop=2 shiftwidth=2 softtabstop=2
 set autoindent
 set breakindent
 set showbreak=…
@@ -433,9 +433,9 @@ nmap <leader>ga <Plug>(GitGutterStageHunk)
 nmap <leader>gp <Plug>(GitGutterPreviewHunk)
 
 " fugitive
-nmap <leader>gs :Gstatus<CR>
-nmap <leader>gd :Gdiff<CR>
-nmap <leader>gb :Gblame<CR>
+nmap gs :Gstatus<CR>
+nmap gb :Gblame<CR>
+nmap gl :Git log %<CR>
 
 " vim-airline:
 let g:airline_theme = 'nord'
@@ -605,7 +605,6 @@ let g:omni_sql_no_default_maps = 1
 " html
 iabbrev target="_blank" target="_blank" rel="noopener"
 
-let g:javascript_plugin_flow = 1
 let g:vim_json_syntax_conceal = 0
 
 " Hack to open help in vsplit by default
