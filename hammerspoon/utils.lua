@@ -1,22 +1,13 @@
 -- Grab bag of useful commands and applescript
 local utils = {}
 
-local function tellItunes(cmd)
-  local _cmd = 'tell application "iTunes" to ' .. cmd
-  local ok, result = hs.applescript(_cmd)
-  if ok then
-    return result
-  else
-    return nil
-  end
-end
 
 -- Use OS X notifications for a more pleasant current track alert
 -- TODO: figure out how to show the album art in this alert as well
-utils.itunesTrackAlert = function()
-  local artist = tellItunes('artist of the current track as string') or "Unknown artist"
-  local album  = tellItunes('album of the current track as string') or "Unknown album"
-  local track  = tellItunes('name of the current track as string') or "Unknown track"
+utils.musicTrackAlert = function()
+  local artist = hs.itunes.getCurrentArtist() or "Unknown artist"
+  local album  = hs.itunes.getCurrentAlbum() or "Unknown album"
+  local track  = hs.itunes.getCurrentTrack() or "Unknown track"
   local n = hs.notify.new({title=track, subTitle=artist, informativeText=album})
   n:hasActionButton(false)
   n:send()
@@ -28,12 +19,9 @@ utils.itunesTrackAlert = function()
 end
 
 
--- New shuffle implementation for iTunes 12.5+
---
--- Note: previous implementation had to scrape the menus, and was
--- adapted from https://discussions.apple.com/thread/6573883
-utils.toggleItunesShuffle = function()
-  local tell = function(cmd) return hs.applescript('tell application "iTunes" to ' .. cmd) end
+-- New shuffle implementation for Music.app
+utils.toggleShuffle = function()
+  local tell = function(cmd) return hs.applescript('tell application "Music" to ' .. cmd) end
   local success, shuffleStatus = tell('get shuffle enabled')
   if shuffleStatus then
     tell('set shuffle enabled to false')

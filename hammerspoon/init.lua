@@ -50,8 +50,8 @@ hs.hotkey.bind(mash, 'UP', hs.itunes.play)
 hs.hotkey.bind(mash, 'DOWN', hs.itunes.pause)
 hs.hotkey.bind(mash, 'LEFT', hs.itunes.previous)
 hs.hotkey.bind(mash, 'RIGHT', hs.itunes.next)
-hs.hotkey.bind(mash, '/', Utils.itunesTrackAlert)
-hs.hotkey.bind(mash, 'S', Utils.toggleItunesShuffle)
+hs.hotkey.bind(mash, '/', Utils.musicTrackAlert)
+hs.hotkey.bind(mash, 'S', Utils.toggleShuffle)
 
 
 -- Launch/focus specific apps with one keystroke.
@@ -64,7 +64,7 @@ hs.hotkey.bind({'ctrl'}, '4', function() hs.application.launchOrFocus('Finder') 
 hs.hotkey.bind({'ctrl'}, '5', function() hs.application.launchOrFocus('Sketch') end)
 
 hs.hotkey.bind({'ctrl'}, '9', function() hs.application.launchOrFocus('Slack') end)
-hs.hotkey.bind({'ctrl'}, '0', function() hs.application.launchOrFocus('iTunes') end)
+hs.hotkey.bind({'ctrl'}, '0', function() hs.application.launchOrFocus('Music') end)
 
 
 -- Audio volume control
