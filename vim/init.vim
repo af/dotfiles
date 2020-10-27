@@ -5,6 +5,9 @@ augroup vimrc
     autocmd!
 augroup END
 
+" Not a fan of polyglot's markdown formatting
+let g:polyglot_disabled = ['markdown']
+
 " General Notes
 " * see ":h normal-index" or ":h insert-index" for a list of built-in mappings
 " * see ":verbose nmap <C-j>" (for example) for maps setup by plugins or .vimrc
@@ -67,9 +70,8 @@ Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 
 
 " Color/Theme/syntax related plugins
 "Plug 'morhetz/gruvbox',             { 'commit': 'cb4e7a5' }     " brown/retro. :set bg=dark
-Plug 'arcticicestudio/nord-vim',    { 'tag': 'v0.12.0' }
-Plug 'sheerun/vim-polyglot',        { 'commit': '3ddca5d' }     " syntax highlighting for many languages
-Plug 'jparise/vim-graphql'
+Plug 'arcticicestudio/nord-vim',    { 'tag': 'v0.15.0' }
+Plug 'sheerun/vim-polyglot',        { 'tag': 'v4.15.0' }     " syntax highlighting for many languages
 
 " Misc
 Plug 'vimwiki/vimwiki',             { 'commit': '417490f' }
@@ -208,7 +210,6 @@ augroup ErrorHighlights
 augroup END
 
 " syntax highlighting overrides:
-let g:polyglot_disabled = ['markdown']
 highlight link NERDTreeOpenBuffer SpecialChar
 highlight link ctrlsfFilename Keyword
 
@@ -302,7 +303,7 @@ let g:ale_sign_warning = '⚠'
 let g:ale_sign_error = '✗'
 let g:ale_echo_msg_format = '[%linter% %code%] %s'
 let g:ale_linters = {
-\   'javascript': ['eslint', 'flow-language-server'],
+\   'javascript': ['eslint'],
 \   'typescript': ['eslint', 'tsserver', 'typecheck'],
 \}
 let g:ale_fixers = {
@@ -598,6 +599,7 @@ autocmd vimrc FileType vim set foldmethod=marker
 " {{{ Filetype-specific settings
 "===============================================================================
 autocmd vimrc BufNewFile,BufRead *.md set filetype=markdown
+autocmd vimrc BufNewFile,BufRead Procfile set filetype=sh
 
 " sql, see https://www.reddit.com/r/vim/comments/2om1ib/how_to_disable_sql_dynamic_completion/
 let g:omni_sql_no_default_maps = 1
