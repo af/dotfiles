@@ -1,0 +1,23 @@
+#!/usr/bin/env node
+
+/**
+ * Clean up a sea of old screenshots and screen recordings on the Desktop
+ */
+
+const { execSync } = require('child_process')
+const { existsSync, readdirSync, mkdirSync } = require('fs')
+const { homedir } = require('os')
+const path = require('path')
+
+const desktop = path.join(homedir(), 'Desktop')
+const tidyUpDir = path.join(desktop, 'old_screenshots')
+const tidyUpDirExists = existsSync(tidyUpDir)
+
+const run = () => {
+  if (!tidyUpDirExists) mkdirSync(tidyUpDir)
+
+  execSync(`mv ${desktop}/Screen\\ Shot* ${tidyUpDir}`)
+  execSync(`mv ${desktop}/Screen\\ Recording* ${tidyUpDir}`)
+}
+
+run()
