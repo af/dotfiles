@@ -2,22 +2,38 @@
 
 /**
  * Highlight the latest screen shot in a new Finder window
- *
- * To ensure screenshots are sorted correctly by time, you'll want to have "24 hour time" turned
- * on in System Preferences > Language & Region
  */
 
 const { execSync } = require('child_process')
-const { existsSync, readdirSync } = require('fs')
+const { readdirSync } = require('fs')
 const { homedir } = require('os')
 const path = require('path')
 
-const screenshotRegex = /^Screen Shot /
+const screenshotRegex = /^Screen Shot (\d{4}-\d{2}-\d{2}) at ([\d]+)\.([\d]+)\.([\d]+) (AM|PM)/
 const escapeSpacesRegex = / /g
 const desktop = path.join(homedir(), 'Desktop')
 
+// Sort an array of screenshot filenames, each with macOS's brain-dead
+// non-sortable 12-hour timestamp format,
+// eg "Screen Shot 2020-12-02 at 2.54.28 PM.png"
+const sort12HrTimestamp = (t1, t2) => {
+  const [_, t1Date, t1Hr, t1Min, t1Sec, t1Meridiem] = screenshotRegex.exec(t1)
+  const [__, t2Date, t2Hr, t2Min, t2Sec, t2Meridiem] = screenshotRegex.exec(t2)
+
+  if (t1Date !== t2Date) return (t1Date < t2Date ? -1 : 1)
+  if (t1Meridiem !== t2Meridiem) return (t1Meridiem < t2Meridiem ? -1 : 1)
+  if (t1Hr !== t2Hr) return (+t1Hr < +t2Hr ? -1 : 1)
+  if (t1Min !== t2Min) return (+t1Min < +t2Min ? -1 : 1)
+  if (t1Sec !== t2Sec) return (+t1Sec < +t2Sec ? -1 : 1)
+  return -1
+}
+
 const run = () => {
-  const screenshots = readdirSync(desktop).filter(fname => screenshotRegex.test(fname))
+  const screenshots = readdirSync(desktop)
+    .filter(fname => screenshotRegex.test(fname))
+
+  screenshots.sort(sort12HrTimestamp)
+
   if (!screenshots.length) {
     console.log('No screenshots found on the Desktop, exiting')
     return;
