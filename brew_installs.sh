@@ -6,6 +6,7 @@ curl \
 entr \
 fasd \
 fd \
+fnm \
 ghi \
 git \
 gnu-sed \
