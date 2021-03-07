@@ -228,6 +228,20 @@ function! <SID>SynStack()
 endfunc
 
 " }}}
+" {{{ LSP (WIP)
+"===============================================================================
+
+sign define LspDiagnosticsSignError text=✗ texthl=LspDiagnosticsSignError linehl= numhl=
+sign define LspDiagnosticsSignWarning text=⚠ texthl=LspDiagnosticsSignWarning linehl= numhl=
+sign define LspDiagnosticsSignInformation text=I texthl=LspDiagnosticsSignInformation linehl= numhl=
+sign define LspDiagnosticsSignHint text=H texthl=LspDiagnosticsSignHint linehl= numhl=
+highlight link LspDiagnosticsSignError healthError
+highlight link LspDiagnosticsSignWarning SpecialChar
+highlight link LspDiagnosticsVirtualTextError healthError
+
+autocmd BufEnter * lua require'completion'.on_attach()
+
+" }}}
 " {{{ coc.nvim
 "===============================================================================
 
@@ -238,7 +252,6 @@ set updatetime=300
 set completeopt=menuone,noselect,noinsert
 set shortmess+=c
 
-autocmd BufEnter * lua require'completion'.on_attach()
 
 inoremap <C-c> <Esc>
 
@@ -439,6 +452,7 @@ nnoremap <silent> <leader>- :Files <C-r>=expand("%:h")<CR>/<CR>
 nmap <leader>r <Plug>(GitGutterUndoHunk)
 nmap <leader>ga <Plug>(GitGutterStageHunk)
 nmap <leader>gp <Plug>(GitGutterPreviewHunk)
+let g:gitgutter_sign_priority = 0
 
 " fugitive
 nmap gs :Gstatus<CR>
