@@ -307,11 +307,12 @@ let g:ale_linters = {
 \   'typescript': ['eslint', 'tsserver', 'typecheck'],
 \}
 let g:ale_fixers = {
+\   'html': ['prettier'],
 \   'css': ['prettier', 'trim_whitespace', 'remove_trailing_lines'],
 \   'javascript': ['eslint', 'trim_whitespace', 'remove_trailing_lines'],
 \   'json': ['jq'],
 \   'sql': ['pgformatter'],
-\   'typescript': ['eslint', 'trim_whitespace', 'remove_trailing_lines']
+\   'typescript': ['prettier', 'eslint', 'trim_whitespace', 'remove_trailing_lines']
 \}
 " let g:ale_fix_on_save = 1
 nnoremap <leader>f :ALEFix<CR>

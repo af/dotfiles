@@ -45,7 +45,7 @@ hs.hotkey.bind(mash, ',', Grid.topright)
 hs.hotkey.bind(mash, '.', Grid.bottomright)
 hs.hotkey.bind(mash, 'P', Grid.rightpeek)
 
--- iTunes control
+-- Music.app control
 hs.hotkey.bind(mash, 'UP', hs.itunes.play)
 hs.hotkey.bind(mash, 'DOWN', hs.itunes.pause)
 hs.hotkey.bind(mash, 'LEFT', hs.itunes.previous)
@@ -61,7 +61,7 @@ hs.hotkey.bind({'ctrl'}, '1', function() hs.application.launchOrFocus('Google Ch
 hs.hotkey.bind({'ctrl'}, '2', function() hs.application.launchOrFocus('Alacritty') end)
 hs.hotkey.bind({'ctrl'}, '3', function() hs.application.launchOrFocus('TablePlus') end)
 hs.hotkey.bind({'ctrl'}, '4', function() hs.application.launchOrFocus('Finder') end)
-hs.hotkey.bind({'ctrl'}, '5', function() hs.application.launchOrFocus('Sketch') end)
+hs.hotkey.bind({'ctrl'}, '5', function() hs.application.launchOrFocus('Figma') end)
 
 hs.hotkey.bind({'ctrl'}, '9', function() hs.application.launchOrFocus('Slack') end)
 hs.hotkey.bind({'ctrl'}, '0', function() hs.application.launchOrFocus('Music') end)

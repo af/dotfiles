@@ -15,6 +15,7 @@ SYMLINK_MAP = {
     '~/.hammerspoon':       'hammerspoon',
     '~/.psqlrc':            'psqlrc',
     '~/.config/nvim':       'vim',
+    '~/.pg_format':         'pg_format.conf',
     '~/.ripgreprc':         'ripgreprc',
     '~/.af-scripts':        'af-scripts',
     '~/.vim':               'vim',
