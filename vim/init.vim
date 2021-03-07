@@ -25,7 +25,7 @@ let g:polyglot_disabled = ['markdown']
 call plug#begin('~/.vim/plugged')
 
 " Essentials
-Plug 'w0rp/ale',                    { 'tag': 'v2.6.0' }
+"Plug 'w0rp/ale',                    { 'tag': 'v2.6.0' }
 Plug 'vim-airline/vim-airline',     { 'commit': '2db9b27' }
 Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
@@ -35,17 +35,17 @@ Plug 'airblade/vim-gitgutter',      { 'commit': '1725c13' }
 Plug 'scrooloose/nerdtree',         { 'tag': '6.2.0', 'on': 'NERDTreeToggle' }
 Plug 'PhilRunninger/nerdtree-buffer-ops', { 'commit': 'f5e77b8', 'on': 'NERDTreeToggle' }
 
-"Plug 'neovim/nvim-lsp'
-"Plug 'haorenW1025/completion-nvim'
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
 
 " coc.nvim
-let g:cocPlugInstall = 'yarn install --frozen-lockfile'
-Plug 'neoclide/coc.nvim',           {'tag': 'v0.0.74', 'do': { -> coc#util#install({'tag':1})}}
-Plug 'neoclide/coc-tsserver',       {'tag': '1.4.12', 'do': cocPlugInstall }
-Plug 'neoclide/coc-json',           {'tag': '1.2.4', 'do': cocPlugInstall }
-Plug 'neoclide/coc-css',            {'tag': '1.2.2', 'do': cocPlugInstall }
-Plug 'neoclide/coc-pairs',          {'tag': '1.2.18', 'do': cocPlugInstall }
-Plug 'neoclide/coc-snippets',       {'tag': '2.1.5', 'do': cocPlugInstall }
+" let g:cocPlugInstall = 'yarn install --frozen-lockfile'
+" Plug 'neoclide/coc.nvim',           {'tag': 'v0.0.74', 'do': { -> coc#util#install({'tag':1})}}
+" Plug 'neoclide/coc-tsserver',       {'tag': '1.4.12', 'do': cocPlugInstall }
+" Plug 'neoclide/coc-json',           {'tag': '1.2.4', 'do': cocPlugInstall }
+" Plug 'neoclide/coc-css',            {'tag': '1.2.2', 'do': cocPlugInstall }
+" Plug 'neoclide/coc-pairs',          {'tag': '1.2.18', 'do': cocPlugInstall }
+" Plug 'neoclide/coc-snippets',       {'tag': '2.1.5', 'do': cocPlugInstall }
 
 " tpope appreciation section
 Plug 'tpope/vim-apathy'
@@ -185,7 +185,7 @@ if has('nvim')
     autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 1000)
   augroup END
 
-  "lua lsp = require('lsp')
+  lua lsp = require('lsp')
   lua fuzzy = require('fuzzy')
   lua nerdtree = require('nerdtree')
   lua windows = require('windows')
@@ -238,88 +238,90 @@ set updatetime=300
 set completeopt=menuone,noselect,noinsert
 set shortmess+=c
 
+autocmd BufEnter * lua require'completion'.on_attach()
+
 inoremap <C-c> <Esc>
 
 " Auto-indent new inner line after typing {<CR> -- see https://github.com/neoclide/coc-pairs/issues/13
-inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+"inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use tab to trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-  \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" inoremap <silent><expr> <TAB>
+"   \ pumvisible() ? "\<C-n>" :
+"   \ <SID>check_back_space() ? "\<TAB>" :
+"   \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+" function! s:check_back_space() abort
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~# '\s'
+" endfunction
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
+" function! s:show_documentation()
+"   if (index(['vim','help'], &filetype) >= 0)
+"     execute 'h '.expand('<cword>')
+"   else
+"     call CocAction('doHover')
+"   endif
+" endfunction
 
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-nmap <F2> <Plug>(coc-rename)
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> ge <Plug>(coc-references)
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
+" nmap <F2> <Plug>(coc-rename)
+" nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gy <Plug>(coc-type-definition)
+" nmap <silent> gi <Plug>(coc-implementation)
+" nmap <silent> ge <Plug>(coc-references)
 
 " Support for "code actions" (refactorings, etc) in normal and visual mode
-nmap <F3> <Plug>(coc-codeaction)
-xmap <F3> <Plug>(coc-codeaction-selected)
+" nmap <F3> <Plug>(coc-codeaction)
+" xmap <F3> <Plug>(coc-codeaction-selected)
 
 " coc-snippets (snippets are stored in vim/personal_snippets)
-imap <C-j> <Plug>(coc-snippets-expand-jump)
-vmap <C-j> <Plug>(coc-snippets-select)
-let g:coc_snippet_next = '<c-j>'
-let g:coc_snippet_prev = '<c-k>'
-nnoremap <leader>s :CocCommand snippets.editSnippets<CR>
+" imap <C-j> <Plug>(coc-snippets-expand-jump)
+" vmap <C-j> <Plug>(coc-snippets-select)
+" let g:coc_snippet_next = '<c-j>'
+" let g:coc_snippet_prev = '<c-k>'
+" nnoremap <leader>s :CocCommand snippets.editSnippets<CR>
 
 " }}}
 " {{{ ALE
 "===============================================================================
 " Move between errors
-nmap <silent> [w :call ale#loclist_jumping#Jump('before', 1)<CR>
-nmap <silent> ]w :call ale#loclist_jumping#Jump('after', 1)<CR>
+" nmap <silent> [w :call ale#loclist_jumping#Jump('before', 1)<CR>
+" nmap <silent> ]w :call ale#loclist_jumping#Jump('after', 1)<CR>
 
-" Show full error output in preview window (close window with 'q')
-" TODO: toggle preview window off with C-e
-nmap <silent> <C-e> <Plug>(ale_detail)
+" " Show full error output in preview window (close window with 'q')
+" " TODO: toggle preview window off with C-e
+" nmap <silent> <C-e> <Plug>(ale_detail)
 
-if !hlexists('ALEVirtualTextError')
-  highlight link ALEVirtualTextError ErrorMsg
-  highlight link ALEVirtualTextWarning SpecialChar
-endif
-let g:ale_virtualtext_cursor = 1
-let g:ale_virtualtext_prefix = '  ---> '
-let g:ale_open_list = 0   " Don't open the loclist when reading a file (if there are errors)
-let g:ale_lint_on_text_changed = 'normal'
-let g:ale_lint_delay = 100
-let g:ale_sign_column_always = 1
-let g:ale_sign_warning = '⚠'
-let g:ale_sign_error = '✗'
-let g:ale_echo_msg_format = '[%linter% %code%] %s'
-let g:ale_linters = {
-\   'javascript': ['eslint'],
-\   'typescript': ['eslint', 'tsserver', 'typecheck'],
-\}
-let g:ale_fixers = {
-\   'html': ['prettier'],
-\   'css': ['prettier', 'trim_whitespace', 'remove_trailing_lines'],
-\   'javascript': ['eslint', 'trim_whitespace', 'remove_trailing_lines'],
-\   'json': ['jq'],
-\   'sql': ['pgformatter'],
-\   'typescript': ['prettier', 'eslint', 'trim_whitespace', 'remove_trailing_lines']
-\}
-" let g:ale_fix_on_save = 1
-nnoremap <leader>f :ALEFix<CR>
+" if !hlexists('ALEVirtualTextError')
+"   highlight link ALEVirtualTextError ErrorMsg
+"   highlight link ALEVirtualTextWarning SpecialChar
+" endif
+" let g:ale_virtualtext_cursor = 1
+" let g:ale_virtualtext_prefix = '  ---> '
+" let g:ale_open_list = 0   " Don't open the loclist when reading a file (if there are errors)
+" let g:ale_lint_on_text_changed = 'normal'
+" let g:ale_lint_delay = 100
+" let g:ale_sign_column_always = 1
+" let g:ale_sign_warning = '⚠'
+" let g:ale_sign_error = '✗'
+" let g:ale_echo_msg_format = '[%linter% %code%] %s'
+" let g:ale_linters = {
+" \   'javascript': ['eslint'],
+" \   'typescript': ['eslint', 'tsserver', 'typecheck'],
+" \}
+" let g:ale_fixers = {
+" \   'html': ['prettier'],
+" \   'css': ['prettier', 'trim_whitespace', 'remove_trailing_lines'],
+" \   'javascript': ['eslint', 'trim_whitespace', 'remove_trailing_lines'],
+" \   'json': ['jq'],
+" \   'sql': ['pgformatter'],
+" \   'typescript': ['prettier', 'eslint', 'trim_whitespace', 'remove_trailing_lines']
+" \}
+" " let g:ale_fix_on_save = 1
+" nnoremap <leader>f :ALEFix<CR>
 
 " }}}
 " {{{ grepping (:grep, CTRLSF.vim, etc)
@@ -448,7 +450,7 @@ let g:airline_theme = 'nord'
 let g:airline_section_a = ''
 let g:airline_section_b = ''
 let g:airline_section_y = ''
-let g:airline_extensions = ['ale']
+"let g:airline_extensions = ['ale']
 
 " Splitjoin
 let g:splitjoin_curly_brace_padding = 0
@@ -486,7 +488,7 @@ augroup END
 function! <SID>autosave()
   if &filetype !=# 'ctrlsf' && (filereadable(expand('%')) == 1)
     update
-    call ale#Queue(0)   " Trigger linting immediately
+    "call ale#Queue(0)   " Trigger linting immediately
   endif
 endfunction
 

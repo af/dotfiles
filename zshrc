@@ -187,6 +187,11 @@ function af-workspace () {
 # Need to run this any time I install a new node version via fnm
 function af-npm-i-globals () {
     npm i -g \
+      typescript\
+      typescript-language-server\
+      vim-language-server\
+      vscode-css-languageserver-bin\
+      vscode-json-languageserver\
       diff-so-fancy\
       gist-cli\
       jsonlint\
