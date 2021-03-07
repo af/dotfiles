@@ -36,7 +36,8 @@ Plug 'scrooloose/nerdtree',         { 'tag': '6.2.0', 'on': 'NERDTreeToggle' }
 Plug 'PhilRunninger/nerdtree-buffer-ops', { 'commit': 'f5e77b8', 'on': 'NERDTreeToggle' }
 
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
+Plug 'hrsh7th/nvim-compe'
+Plug 'cohama/lexima.vim'
 
 " coc.nvim
 " let g:cocPlugInstall = 'yarn install --frozen-lockfile'
@@ -186,6 +187,7 @@ if has('nvim')
   augroup END
 
   lua lsp = require('lsp')
+  lua complete = require('completion')
   lua fuzzy = require('fuzzy')
   lua nerdtree = require('nerdtree')
   lua windows = require('windows')
@@ -239,7 +241,15 @@ highlight link LspDiagnosticsSignError healthError
 highlight link LspDiagnosticsSignWarning SpecialChar
 highlight link LspDiagnosticsVirtualTextError healthError
 
-autocmd BufEnter * lua require'completion'.on_attach()
+" completion with nvim-compe
+inoremap <silent> <C-j> <C-n>
+inoremap <silent> <C-k> <C-p>
+inoremap <silent><expr> <C-Space> compe#complete()
+"inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+inoremap <silent><expr> <CR>      compe#confirm(lexima#expand('<LT>CR>', 'i'))
+inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 
 " }}}
 " {{{ coc.nvim
@@ -249,7 +259,7 @@ autocmd BufEnter * lua require'completion'.on_attach()
 set nobackup
 set nowritebackup
 set updatetime=300
-set completeopt=menuone,noselect,noinsert
+set completeopt=menuone,noselect
 set shortmess+=c
 
 
