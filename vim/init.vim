@@ -639,6 +639,21 @@ augroup END
 autocmd vimrc FileType gitcommit set tabstop=4
 " }}}
 
+" Fix for gx not opening urls correctly in recent versions of netrw
+" Should remove this once a fix has been merged. See https://github.com/vim/vim/issues/4738
+if has('macunix')
+  function! OpenURLUnderCursor()
+    let s:uri = expand('<cWORD>')
+    let s:uri = substitute(s:uri, '?', '\\?', '')
+    let s:uri = shellescape(s:uri, 1)
+    if s:uri != ''
+      silent exec "!open '".s:uri."'"
+      :redraw!
+    endif
+  endfunction
+  nnoremap gx :call OpenURLUnderCursor()<CR>
+endif
+
 " Load any machine-specific config from another file, if it exists
 try
   source ~/.vimrc_machine_specific
