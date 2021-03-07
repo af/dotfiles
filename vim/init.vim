@@ -38,6 +38,7 @@ Plug 'PhilRunninger/nerdtree-buffer-ops', { 'commit': 'f5e77b8', 'on': 'NERDTree
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe'
 Plug 'cohama/lexima.vim'
+Plug 'norcalli/nvim-colorizer.lua'
 
 " coc.nvim
 " let g:cocPlugInstall = 'yarn install --frozen-lockfile'
@@ -186,6 +187,7 @@ if has('nvim')
     autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 1000)
   augroup END
 
+  lua require('colorizer').setup({ 'css'; 'stylus'; 'html'; })
   lua lsp = require('lsp')
   lua complete = require('completion')
   lua fuzzy = require('fuzzy')
