@@ -26,7 +26,6 @@ call plug#begin('~/.vim/plugged')
 
 " Essentials
 "Plug 'w0rp/ale',                    { 'tag': 'v2.6.0' }
-Plug 'vim-airline/vim-airline',     { 'commit': '2db9b27' }
 Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
 Plug 'junegunn/fzf',                { 'tag': '0.20.0', 'dir': '~/.fzf', 'do': './install --all' }
@@ -40,6 +39,7 @@ Plug 'hrsh7th/nvim-compe'
 Plug 'cohama/lexima.vim'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'norcalli/snippets.nvim'
+Plug 'hoob3rt/lualine.nvim'
 
 " coc.nvim
 " let g:cocPlugInstall = 'yarn install --frozen-lockfile'
@@ -196,6 +196,7 @@ if has('nvim')
   lua fuzzy = require('fuzzy')
   lua nerdtree = require('nerdtree')
   lua windows = require('windows')
+  lua require('statusline')
 elseif $TERM ==# 'xterm-256color' || $TERM ==# 'screen-256color'
   set t_Co=256    " 256 colours for regular vim if the terminal can handle it.
 endif
@@ -443,13 +444,6 @@ let g:gitgutter_sign_priority = 0
 nmap gs :Gstatus<CR>
 nmap gb :Gblame<CR>
 nmap gl :Git log %<CR>
-
-" vim-airline:
-let g:airline_theme = 'nord'
-let g:airline_section_a = ''
-let g:airline_section_b = ''
-let g:airline_section_y = ''
-"let g:airline_extensions = ['ale']
 
 " Splitjoin
 let g:splitjoin_curly_brace_padding = 0
