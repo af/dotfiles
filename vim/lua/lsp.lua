@@ -16,7 +16,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     -- Enable virtual text, override spacing to 4
     virtual_text = {
       spacing = 4,
-      prefix = '',
+      prefix = '✗',
     },
   }
 )

@@ -39,6 +39,7 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe'
 Plug 'cohama/lexima.vim'
 Plug 'norcalli/nvim-colorizer.lua'
+Plug 'norcalli/snippets.nvim'
 
 " coc.nvim
 " let g:cocPlugInstall = 'yarn install --frozen-lockfile'
@@ -46,7 +47,6 @@ Plug 'norcalli/nvim-colorizer.lua'
 " Plug 'neoclide/coc-tsserver',       {'tag': '1.4.12', 'do': cocPlugInstall }
 " Plug 'neoclide/coc-json',           {'tag': '1.2.4', 'do': cocPlugInstall }
 " Plug 'neoclide/coc-css',            {'tag': '1.2.2', 'do': cocPlugInstall }
-" Plug 'neoclide/coc-pairs',          {'tag': '1.2.18', 'do': cocPlugInstall }
 " Plug 'neoclide/coc-snippets',       {'tag': '2.1.5', 'do': cocPlugInstall }
 
 " tpope appreciation section
@@ -134,6 +134,7 @@ set signcolumn=yes          " Always show sign column. Prevents rendering jank o
 set showtabline=2
 set splitright
 set splitbelow
+set shortmess+=c
 
 " }}}
 " {{{ Searching & Replacing
@@ -187,7 +188,9 @@ if has('nvim')
     autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 1000)
   augroup END
 
+  " TODO: try/catch these imports to handle initial install run?
   lua require('colorizer').setup({ 'css'; 'stylus'; 'html'; })
+  lua snippets = require('mysnips')
   lua lsp = require('lsp')
   lua complete = require('completion')
   lua fuzzy = require('fuzzy')
@@ -244,54 +247,24 @@ highlight link LspDiagnosticsSignWarning SpecialChar
 highlight link LspDiagnosticsVirtualTextError healthError
 
 " completion with nvim-compe
-inoremap <silent> <C-j> <C-n>
-inoremap <silent> <C-k> <C-p>
-inoremap <silent><expr> <C-Space> compe#complete()
+set completeopt=menuone,noselect
+
+imap <expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+imap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 "inoremap <silent><expr> <CR>      compe#confirm('<CR>')
 inoremap <silent><expr> <CR>      compe#confirm(lexima#expand('<LT>CR>', 'i'))
 inoremap <silent><expr> <C-e>     compe#close('<C-e>')
 inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
 inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 
+" snippets
+inoremap <Tab> <cmd>lua return require'snippets'.expand_or_advance(1)<CR>
+inoremap <S-Tab> <cmd>lua return require'snippets'.advance_snippet(-1)<CR>
+
 " }}}
 " {{{ coc.nvim
 "===============================================================================
 
-" Suggested settings from https://github.com/neoclide/coc.nvim
-set nobackup
-set nowritebackup
-set updatetime=300
-set completeopt=menuone,noselect
-set shortmess+=c
-
-
-inoremap <C-c> <Esc>
-
-" Auto-indent new inner line after typing {<CR> -- see https://github.com/neoclide/coc-pairs/issues/13
-"inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" Use tab to trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-" inoremap <silent><expr> <TAB>
-"   \ pumvisible() ? "\<C-n>" :
-"   \ <SID>check_back_space() ? "\<TAB>" :
-"   \ coc#refresh()
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-" function! s:check_back_space() abort
-"   let col = col('.') - 1
-"   return !col || getline('.')[col - 1]  =~# '\s'
-" endfunction
-
-" function! s:show_documentation()
-"   if (index(['vim','help'], &filetype) >= 0)
-"     execute 'h '.expand('<cword>')
-"   else
-"     call CocAction('doHover')
-"   endif
-" endfunction
-
-" nnoremap <silent> K :call <SID>show_documentation()<CR>
 " nmap <F2> <Plug>(coc-rename)
 " nmap <silent> gd <Plug>(coc-definition)
 " nmap <silent> gy <Plug>(coc-type-definition)
@@ -595,6 +568,8 @@ autocmd vimrc QuitPre * if &filetype != 'qf' | silent! lclose | endif
 "===============================================================================
 " Use ':w!!' to save a root-owned file using sudo:
 cnoremap w!! w !sudo tee % >/dev/null
+
+inoremap <C-c> <Esc>
 
 " Use custom `todosince` script as "make" program, for populating quickfix window
 set makeprg=todosince\ \-\-output\ vimgrep
