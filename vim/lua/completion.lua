@@ -21,7 +21,7 @@ require'compe'.setup {
     nvim_lsp = true;
     nvim_lua = true;
     omni = false;  -- This gets really noisy
-    snippets_nvim = false;
+    snippets_nvim = true;
     treesitter = false;
   };
 }
