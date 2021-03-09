@@ -1,6 +1,7 @@
 -- For config info, see
 -- https://github.com/neovim/nvim-lspconfig
 
+local lspconfig = require('lspconfig')
 local lsp_completion = require('completion')
 
 --Enable completion (see https://github.com/neovim/nvim-lspconfig/issues/490#issuecomment-753624074)
@@ -48,19 +49,61 @@ local on_attach = function(client, bufnr)
 end
 
 -- TypeScript/JS
-require'lspconfig'.tsserver.setup{
+lspconfig.tsserver.setup{
   on_attach=on_attach
 }
 
+-- Formatting via efm
+local luafmt = {
+  -- Docs: https://github.com/Koihik/LuaFormatter
+  -- Install with:
+  -- luarocks install --server=https://luarocks.org/dev luaformatter
+  formatCommand = "lua-format --indent-width=2 -i",
+  formatStdin = true
+}
+
+local prettier = {
+  formatCommand = "./node_modules/.bin/prettier --stdin-filepath ${INPUT}",
+  formatStdin = true
+}
+
+local eslint = {
+  lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
+  lintIgnoreExitCode = true,
+  lintStdin = true,
+  lintFormats = {"%f:%l:%c: %m"},
+}
+
+local languages = {
+  lua = {luafmt},
+  typescript = {prettier, eslint},
+  javascript = {prettier, eslint},
+  typescriptreact = {prettier, eslint},
+  javascriptreact = {prettier, eslint},
+  yaml = {prettier},
+  json = {prettier},
+  html = {prettier},
+  css = {prettier},
+  markdown = {prettier}
+}
+
+lspconfig.efm.setup {
+  root_dir = lspconfig.util.root_pattern("yarn.lock", ".git/"),
+  filetypes = vim.tbl_keys(languages),
+  init_options = {documentFormatting = true, codeAction = true},
+  on_attach=on_attach,
+  settings = { languages = languages }
+}
+
 -- CSS
-require'lspconfig'.cssls.setup{
+lspconfig.cssls.setup{
   capabilities = capabilities,
   on_attach=on_attach,
   filetypes={ "css", "scss", "stylus" }
 }
 
 -- JSON
-require'lspconfig'.jsonls.setup{
+lspconfig.jsonls.setup{
   capabilities = capabilities,
   on_attach=on_attach
 }
@@ -68,9 +111,9 @@ require'lspconfig'.jsonls.setup{
 -- Lua
 -- Extra one-time setup is required for this
 -- See https://github.com/neovim/nvim-lsp#sumneko_lua
--- require'lspconfig'.sumneko_lua.setup{}
+-- lspconfig.sumneko_lua.setup{}
 
 -- VimScript
-require'lspconfig'.vimls.setup{
+lspconfig.vimls.setup{
   on_attach=on_attach
 }

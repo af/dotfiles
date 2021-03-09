@@ -3,6 +3,7 @@
 brew install \
 bat \
 curl \
+efm-langserver \
 entr \
 fasd \
 fd \
