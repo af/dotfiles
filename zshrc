@@ -303,7 +303,6 @@ ffdev() {
 # fnm for (fast!) node version management: https://github.com/Schniz/fnm
 # Assumes a node alias named `default` exists, and uses it on startup
 eval `fnm env`
-fnm use default
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
