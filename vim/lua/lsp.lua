@@ -1,8 +1,7 @@
--- For config info, see
+-- For general LSP config info, see
 -- https://github.com/neovim/nvim-lspconfig
 
 local lspconfig = require('lspconfig')
-local lsp_completion = require('completion')
 
 --Enable completion (see https://github.com/neovim/nvim-lspconfig/issues/490#issuecomment-753624074)
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -24,7 +23,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
   local opts = { noremap=true, silent=true }
   buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -35,10 +33,10 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
   buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', 'gR', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<C-w>', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '<C-e>', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
   buf_set_keymap('n', '[w', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']w', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<C-e>', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  buf_set_keymap('n', '<C-w>', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 
   -- Set some keybinds conditional on server capabilities
   if client.resolved_capabilities.document_formatting then
@@ -63,7 +61,7 @@ local luafmt = {
 }
 
 local prettier = {
-  formatCommand = "./node_modules/.bin/prettier --stdin-filepath ${INPUT}",
+  formatCommand = "prettier --stdin-filepath ${INPUT}",
   formatStdin = true
 }
 
@@ -109,9 +107,28 @@ lspconfig.jsonls.setup{
 }
 
 -- Lua
--- Extra one-time setup is required for this
--- See https://github.com/neovim/nvim-lsp#sumneko_lua
--- lspconfig.sumneko_lua.setup{}
+-- Extra one-time setup is required for this, until it hopefully gets added to homebrew
+-- Follow https://github.com/sumneko/lua-language-server/issues/232
+local lua_lsp_dir = '/usr/local/Cellar/lua-language-server/1.18.1'
+local lua_lsp_bin = lua_lsp_dir .. '/bin/lua-langserver'
+lspconfig.sumneko_lua.setup{
+  cmd = {lua_lsp_bin, '-E', lua_lsp_dir .. '/main.lua'},
+  settings = {
+    Lua = {
+      runtime = { version = 'LuaJIT', path = vim.split(package.path, ';') },
+      diagnostics = {
+        globals = {'vim', 'hs'},
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = {
+          [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+          [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true
+        },
+      },
+    },
+  }
+}
 
 -- VimScript
 lspconfig.vimls.setup{
