@@ -39,7 +39,8 @@ Plug 'hrsh7th/nvim-compe'
 Plug 'cohama/lexima.vim'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'norcalli/snippets.nvim'
-Plug 'hoob3rt/lualine.nvim'
+Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+
 
 " coc.nvim
 " let g:cocPlugInstall = 'yarn install --frozen-lockfile'
