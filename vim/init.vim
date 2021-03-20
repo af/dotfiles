@@ -25,7 +25,6 @@ let g:polyglot_disabled = ['markdown']
 call plug#begin('~/.vim/plugged')
 
 " Essentials
-"Plug 'w0rp/ale',                    { 'tag': 'v2.6.0' }
 Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
 Plug 'junegunn/fzf',                { 'tag': '0.20.0', 'dir': '~/.fzf', 'do': './install --all' }
@@ -40,15 +39,6 @@ Plug 'cohama/lexima.vim'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'norcalli/snippets.nvim'
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
-
-
-" coc.nvim
-" let g:cocPlugInstall = 'yarn install --frozen-lockfile'
-" Plug 'neoclide/coc.nvim',           {'tag': 'v0.0.74', 'do': { -> coc#util#install({'tag':1})}}
-" Plug 'neoclide/coc-tsserver',       {'tag': '1.4.12', 'do': cocPlugInstall }
-" Plug 'neoclide/coc-json',           {'tag': '1.2.4', 'do': cocPlugInstall }
-" Plug 'neoclide/coc-css',            {'tag': '1.2.2', 'do': cocPlugInstall }
-" Plug 'neoclide/coc-snippets',       {'tag': '2.1.5', 'do': cocPlugInstall }
 
 " tpope appreciation section
 Plug 'tpope/vim-apathy'
@@ -264,70 +254,10 @@ inoremap <Tab> <cmd>lua return require'snippets'.expand_or_advance(1)<CR>
 inoremap <S-Tab> <cmd>lua return require'snippets'.advance_snippet(-1)<CR>
 
 " }}}
-" {{{ coc.nvim
-"===============================================================================
-
-" nmap <F2> <Plug>(coc-rename)
-" nmap <silent> gd <Plug>(coc-definition)
-" nmap <silent> gy <Plug>(coc-type-definition)
-" nmap <silent> gi <Plug>(coc-implementation)
-" nmap <silent> ge <Plug>(coc-references)
-
-" Support for "code actions" (refactorings, etc) in normal and visual mode
-" nmap <F3> <Plug>(coc-codeaction)
-" xmap <F3> <Plug>(coc-codeaction-selected)
-
-" coc-snippets (snippets are stored in vim/personal_snippets)
-" imap <C-j> <Plug>(coc-snippets-expand-jump)
-" vmap <C-j> <Plug>(coc-snippets-select)
-" let g:coc_snippet_next = '<c-j>'
-" let g:coc_snippet_prev = '<c-k>'
-" nnoremap <leader>s :CocCommand snippets.editSnippets<CR>
-
-" }}}
-" {{{ ALE
-"===============================================================================
-" Move between errors
-" nmap <silent> [w :call ale#loclist_jumping#Jump('before', 1)<CR>
-" nmap <silent> ]w :call ale#loclist_jumping#Jump('after', 1)<CR>
-
-" " Show full error output in preview window (close window with 'q')
-" " TODO: toggle preview window off with C-e
-" nmap <silent> <C-e> <Plug>(ale_detail)
-
-" if !hlexists('ALEVirtualTextError')
-"   highlight link ALEVirtualTextError ErrorMsg
-"   highlight link ALEVirtualTextWarning SpecialChar
-" endif
-" let g:ale_virtualtext_cursor = 1
-" let g:ale_virtualtext_prefix = '  ---> '
-" let g:ale_open_list = 0   " Don't open the loclist when reading a file (if there are errors)
-" let g:ale_lint_on_text_changed = 'normal'
-" let g:ale_lint_delay = 100
-" let g:ale_sign_column_always = 1
-" let g:ale_sign_warning = '⚠'
-" let g:ale_sign_error = '✗'
-" let g:ale_echo_msg_format = '[%linter% %code%] %s'
-" let g:ale_linters = {
-" \   'javascript': ['eslint'],
-" \   'typescript': ['eslint', 'tsserver', 'typecheck'],
-" \}
-" let g:ale_fixers = {
-" \   'html': ['prettier'],
-" \   'css': ['prettier', 'trim_whitespace', 'remove_trailing_lines'],
-" \   'javascript': ['eslint', 'trim_whitespace', 'remove_trailing_lines'],
-" \   'json': ['jq'],
-" \   'sql': ['pgformatter'],
-" \   'typescript': ['prettier', 'eslint', 'trim_whitespace', 'remove_trailing_lines']
-" \}
-" " let g:ale_fix_on_save = 1
-" nnoremap <leader>f :ALEFix<CR>
-
-" }}}
 " {{{ grepping (:grep, CTRLSF.vim, etc)
 "===============================================================================
 
-if executable("rg")
+if executable('rg')
   set grepprg=rg\ --vimgrep\ --no-heading
   set grepformat=%f:%l:%c:%m,%f:%l:%m
 endif
@@ -482,7 +412,6 @@ augroup END
 function! <SID>autosave()
   if &filetype !=# 'ctrlsf' && (filereadable(expand('%')) == 1)
     update
-    "call ale#Queue(0)   " Trigger linting immediately
   endif
 endfunction
 

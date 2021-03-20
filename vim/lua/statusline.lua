@@ -56,7 +56,7 @@ section.left = {
     FileName = {
       provider = function() return fn.expand('%:F') end,
       condition = buffer_not_empty,
-      separator = ' ',
+      separator = '',
       separator_highlight = {colors.green, colors.bg},
       highlight = {colors.green, colors.line_bg}
     }
