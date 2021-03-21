@@ -40,6 +40,7 @@ Plug 'cohama/lexima.vim'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'norcalli/snippets.nvim'
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " tpope appreciation section
 Plug 'tpope/vim-apathy'
@@ -183,6 +184,7 @@ if has('nvim')
   lua require('gitsigns').setup()
   lua require('colorizer').setup({ 'css'; 'stylus'; 'html'; })
   lua snippets = require('mysnips')
+  lua treesitter = require('treesitter')
   lua lsp = require('lsp')
   lua complete = require('completion')
   lua fuzzy = require('fuzzy')
