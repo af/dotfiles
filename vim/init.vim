@@ -29,10 +29,11 @@ Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
 Plug 'junegunn/fzf',                { 'tag': '0.20.0', 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim',            { 'commit': '467c327' }
-Plug 'airblade/vim-gitgutter',      { 'commit': '1725c13' }
 Plug 'scrooloose/nerdtree',         { 'tag': '6.2.0', 'on': 'NERDTreeToggle' }
 Plug 'PhilRunninger/nerdtree-buffer-ops', { 'commit': 'f5e77b8', 'on': 'NERDTreeToggle' }
 
+Plug 'nvim-lua/plenary.nvim'  " Required for gitsigns
+Plug 'lewis6991/gitsigns.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe'
 Plug 'cohama/lexima.vim'
@@ -43,7 +44,6 @@ Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 " tpope appreciation section
 Plug 'tpope/vim-apathy'
 Plug 'tpope/vim-commentary',        { 'commit': 'f8238d7' }
-Plug 'tpope/vim-repeat',            { 'commit': '7a6675f' }     " Enable . repeat for plugin operations (eg. gitgutter)
 Plug 'tpope/vim-obsession',         { 'commit': '4ab72e0' }     " start a session file with :Obsession
 Plug 'tpope/vim-surround',          { 'commit': '42e9b46' }
 Plug 'tpope/vim-unimpaired',        { 'commit': '11dc568' }
@@ -180,6 +180,7 @@ if has('nvim')
   augroup END
 
   " TODO: try/catch these imports to handle initial install run?
+  lua require('gitsigns').setup()
   lua require('colorizer').setup({ 'css'; 'stylus'; 'html'; })
   lua snippets = require('mysnips')
   lua lsp = require('lsp')
@@ -215,6 +216,9 @@ augroup END
 " syntax highlighting overrides:
 highlight link NERDTreeOpenBuffer SpecialChar
 highlight link ctrlsfFilename Keyword
+highlight link GitSignsAdd GitGutterAdd
+highlight link GitSignsDelete GitGutterDelete
+highlight link GitSignsChange GitGutterChange
 
 " Show syntax highlighting groups for word under cursor with <leader>S
 " From Vimcasts #25: http://vimcasts.org/episodes/creating-colorschemes-for-vim/
@@ -363,13 +367,6 @@ nnoremap gm :FZFMru<CR>
 
 " Sibling file selector
 nnoremap <silent> <leader>- :Files <C-r>=expand("%:h")<CR>/<CR>
-
-" gitgutter
-" use [c and ]c to jump to next/previous changed "hunk"
-nmap <leader>r <Plug>(GitGutterUndoHunk)
-nmap <leader>ga <Plug>(GitGutterStageHunk)
-nmap <leader>gp <Plug>(GitGutterPreviewHunk)
-let g:gitgutter_sign_priority = 0
 
 " fugitive
 nmap gs :Gstatus<CR>
