@@ -5,9 +5,6 @@ augroup vimrc
     autocmd!
 augroup END
 
-" Not a fan of polyglot's markdown formatting
-let g:polyglot_disabled = ['markdown']
-
 " General Notes
 " * see ":h normal-index" or ":h insert-index" for a list of built-in mappings
 " * see ":verbose nmap <C-j>" (for example) for maps setup by plugins or .vimrc
@@ -66,9 +63,7 @@ Plug '~/dotfiles/vim/vendored/nerdtree_menu_terminal'
 Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 'markdown' }
 
 " Color/Theme/syntax related plugins
-"Plug 'morhetz/gruvbox',             { 'commit': 'cb4e7a5' }     " brown/retro. :set bg=dark
-Plug 'arcticicestudio/nord-vim',    { 'tag': 'v0.15.0' }
-Plug 'sheerun/vim-polyglot',        { 'tag': 'v4.15.0' }     " syntax highlighting for many languages
+Plug 'christianchiarulli/nvcode-color-schemes.vim'
 
 " Misc
 Plug 'vimwiki/vimwiki',             { 'commit': '417490f' }
@@ -193,6 +188,7 @@ if has('nvim')
   lua require('statusline')
 elseif $TERM ==# 'xterm-256color' || $TERM ==# 'screen-256color'
   set t_Co=256    " 256 colours for regular vim if the terminal can handle it.
+  let g:nvcode_termcolors=256
 endif
 
 " }}}
