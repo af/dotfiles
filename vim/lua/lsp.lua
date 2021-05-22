@@ -36,7 +36,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<C-e>', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
   buf_set_keymap('n', '[w', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']w', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<C-w>', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  -- buf_set_keymap('n', '<C-w>', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 
   -- Set some keybinds conditional on server capabilities
   if client.resolved_capabilities.document_formatting then
@@ -72,6 +72,20 @@ local eslint = {
   lintFormats = {"%f:%l:%c: %m"},
 }
 
+-- TODO: look at stylelint-lsp:
+-- https://www.jihadwaspada.com/post/how-to-setup-stylelint-with-neovim-lsp/
+local stylelint = {
+  lintCommand = 'stylelint --stdin --stdin-filename ${INPUT} --formatter compact',
+  lintIgnoreExitCode = true,
+  lintStdin = true,
+  lintFormats = {
+    '%f: line %l, col %c, %tarning - %m',
+    '%f: line %l, col %c, %trror - %m',
+  },
+  formatCommand = 'stylelint --fix --stdin --stdin-filename ${INPUT}',
+  formatStdin = true,
+}
+
 local languages = {
   lua = {luafmt},
   typescript = {prettier, eslint},
@@ -81,12 +95,12 @@ local languages = {
   yaml = {prettier},
   json = {prettier},
   html = {prettier},
-  css = {prettier},
+  css = {stylelint},
   markdown = {prettier}
 }
 
 lspconfig.efm.setup {
-  root_dir = lspconfig.util.root_pattern("yarn.lock", ".git/"),
+  root_dir = lspconfig.util.root_pattern(".git/"),
   filetypes = vim.tbl_keys(languages),
   init_options = {documentFormatting = true, codeAction = true},
   on_attach=on_attach,
