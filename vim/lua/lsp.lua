@@ -40,15 +40,17 @@ local on_attach = function(client, bufnr)
 
   -- Set some keybinds conditional on server capabilities
   if client.resolved_capabilities.document_formatting then
-    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-  elseif client.resolved_capabilities.document_range_formatting then
-    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+    buf_set_keymap("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
   end
 end
 
 -- TypeScript/JS
 lspconfig.tsserver.setup{
-  on_attach=on_attach
+  on_attach = function(client, bufnr)
+    on_attach(client, bufnr)
+    -- use prettier for formatting instead
+    client.resolved_capabilities.document_formatting = false
+  end
 }
 
 -- Formatting via efm
