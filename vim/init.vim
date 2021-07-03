@@ -2,7 +2,7 @@ set encoding=utf-8
 scriptencoding utf-8
 
 augroup vimrc
-    autocmd!
+  autocmd!
 augroup END
 
 " General Notes
@@ -22,7 +22,6 @@ augroup END
 call plug#begin('~/.vim/plugged')
 
 " Essentials
-Plug 'justinmk/vim-sneak',          { 'commit': '9eb89e4' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
 Plug 'junegunn/fzf',                { 'tag': '0.20.0', 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim',            { 'commit': '467c327' }
@@ -30,14 +29,14 @@ Plug 'scrooloose/nerdtree',         { 'tag': '6.2.0', 'on': 'NERDTreeToggle' }
 Plug 'PhilRunninger/nerdtree-buffer-ops', { 'commit': 'f5e77b8', 'on': 'NERDTreeToggle' }
 
 Plug 'nvim-lua/plenary.nvim'  " Required for gitsigns
-Plug 'lewis6991/gitsigns.nvim'
-Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/nvim-compe'
+Plug 'lewis6991/gitsigns.nvim',     { 'commit': '521e935' }
+Plug 'neovim/nvim-lspconfig',       { 'commit': '8435587' }
+Plug 'hrsh7th/nvim-compe',          { 'commit': '077329e' }
 Plug 'cohama/lexima.vim'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'norcalli/snippets.nvim'
-Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'glepnir/galaxyline.nvim' ,    { 'commit': 'd544cb9' }
+Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '4eb19c9', 'do': ':TSUpdate'}
 
 " tpope appreciation section
 Plug 'tpope/vim-apathy'
@@ -50,10 +49,10 @@ Plug 'tpope/vim-rhubarb',           { 'commit': '9edacf9' }
 Plug 'tpope/vim-sleuth',            { 'commit': '039e2cd' }
 
 " Yanking and clipboard
-Plug 'bfredl/nvim-miniyank',           { 'commit': '2a3a0f3' }
+Plug 'bfredl/nvim-miniyank',        { 'commit': '2a3a0f3' }
 
 " Editing modifications
-Plug 'AndrewRadev/splitjoin.vim',   { 'tag': 'v1.0.0' }     " gS and gJ to split/join lines
+Plug 'AndrewRadev/splitjoin.vim',   { 'commit': '03af68c' }     " gS and gJ to split/join lines
 
 " Indentation, etc. Autodetect, but override with .editorconfig if present:
 " Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load lazily, w/o input lag
