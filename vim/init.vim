@@ -244,7 +244,10 @@ set completeopt=menuone,noselect
 
 imap <expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 imap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
-"inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+
+let g:lexima_no_default_rules = v:true
+call lexima#set_default_rules()
+inoremap <silent><expr> <Tab>     compe#confirm(lexima#expand('<LT>CR>', 'i'))
 inoremap <silent><expr> <CR>      compe#confirm(lexima#expand('<LT>CR>', 'i'))
 inoremap <silent><expr> <C-e>     compe#close('<C-e>')
 inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })

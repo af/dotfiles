@@ -6,6 +6,13 @@ local lspconfig = require('lspconfig')
 --Enable completion (see https://github.com/neovim/nvim-lspconfig/issues/490#issuecomment-753624074)
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = {
+    'documentation',
+    'detail',
+    'additionalTextEdits',
+  }
+}
 
 -- Customize diagnostics display (ie virtual text)
 -- via https://github.com/nvim-lua/diagnostic-nvim/issues/73#issue-737897078
@@ -46,6 +53,7 @@ end
 
 -- TypeScript/JS
 lspconfig.tsserver.setup{
+  capabilities = capabilities,
   on_attach = function(client, bufnr)
     on_attach(client, bufnr)
     -- use prettier for formatting instead
@@ -112,7 +120,11 @@ lspconfig.efm.setup {
 -- CSS
 lspconfig.cssls.setup{
   capabilities = capabilities,
-  on_attach=on_attach,
+  on_attach = function(client, bufnr)
+    on_attach(client, bufnr)
+    -- use prettier for formatting instead
+    client.resolved_capabilities.document_formatting = false
+  end,
   filetypes={ "css", "scss", "stylus" }
 }
 
