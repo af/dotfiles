@@ -177,6 +177,8 @@ if has('nvim')
   " TODO: try/catch these imports to handle initial install run?
   lua require('gitsigns').setup()
   lua require('colorizer').setup({ 'css'; 'stylus'; 'html'; })
+  " TODO: try making a custom "inserter". See https://github.com/norcalli/snippets.nvim/issues/26
+  lua require('snippets').set_ux(require'snippets.inserters.text_markers')
   lua snippets = require('mysnips')
   lua treesitter = require('treesitter')
   lua lsp = require('lsp')
@@ -254,8 +256,8 @@ inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
 inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 
 " snippets
-inoremap <Tab> <cmd>lua return require'snippets'.expand_or_advance(1)<CR>
-inoremap <S-Tab> <cmd>lua return require'snippets'.advance_snippet(-1)<CR>
+inoremap <C-j> <cmd>lua return require'snippets'.expand_or_advance(1)<CR>
+inoremap <C-k> <cmd>lua return require'snippets'.advance_snippet(-1)<CR>
 
 " }}}
 " {{{ grepping (:grep, CTRLSF.vim, etc)

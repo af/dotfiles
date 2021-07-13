@@ -8,14 +8,14 @@ local js_family_snips = {
   db = [[debugger]];
 
   ["for"] = U.match_indentation
-[[for (let i = 0; i < ${1:something}; i++) {
-	${0:do_something()}
+[[for (let i = 0; i < ${1}; i++) {
+	${0}
 }]];
 
   switch = U.match_indentation
-[[switch (${1:thing}) {
-case ${2:case1}:
-	${3:do_something()}
+[[switch (${1}) {
+case ${2}:
+	${3}
 	break
 }]];
 }
@@ -36,22 +36,22 @@ white-space: nowrap;]]
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>${1:title}</title>${2:head}
+	<title>${1}</title>
 </head>
 <body>
-	${3:body}
+	${2}
 </body>
 </html>]];
 
-    link = [[<link rel="${1:stylesheet}" href="${2:/css/master.css}" type="${3:text/css}" media="${4:screen}">]];
+    link = [[<link rel="${1:stylesheet}" href="${2}" type="${3:text/css}" media="${4:screen}">]];
 
     meta = [[<meta name="${1:name}" content="${2:content}">]];
 
-    mailto = [[<a href="mailto:${1:joe@example.com}?subject=${2:feedback}">${3:email me}</a>]];
+    mailto = [[<a href="mailto:${1}?subject=${2}">${3}</a>]];
 
-    ["select"] = U.match_indentation [[<select name="${1:some_name}"${2}>
-	<option value="${3:option1}">${4}</option>
-	<option value="${5:option2}">${6}</option>
+    ["select"] = U.match_indentation [[<select name="${1}">
+	<option value="${2}">${3}</option>
+	<option value="${4}">${5}</option>
 </select>]];
   };
 
