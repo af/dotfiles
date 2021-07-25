@@ -36,7 +36,7 @@ Plug 'cohama/lexima.vim'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'norcalli/snippets.nvim'
 Plug 'glepnir/galaxyline.nvim' ,    { 'commit': 'd544cb9' }
-Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '4eb19c9', 'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', { 'branch': '0.5-compat', 'do': ':TSUpdate' }
 
 " tpope appreciation section
 Plug 'tpope/vim-apathy'
