@@ -139,6 +139,11 @@ vnoremap / /\v
 nnoremap ? ?\v
 vnoremap ? ?\v
 
+" Keep cursor centered while searching (and joining)
+nnoremap n nzzzv
+nnoremap N Nzzzv
+nnoremap J mzJ`z
+
 " }}}
 " {{{ Line wrapping
 "===============================================================================
@@ -426,6 +431,10 @@ vnoremap <S-Tab> <gv
 vnoremap <Tab> >gv
 vnoremap < <gv
 vnoremap > >gv
+
+" moving selected lines around in visual mode
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
 
 " make . and macros work on visual selections (via https://www.reddit.com/r/vim/comments/3y2mgt/)
 " Note: the . command must take effect at the start of each line
