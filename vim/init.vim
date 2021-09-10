@@ -539,6 +539,7 @@ autocmd vimrc FileType vim set foldmethod=marker
 " {{{ Filetype-specific settings
 "===============================================================================
 autocmd vimrc BufNewFile,BufRead *.md set filetype=markdown
+autocmd vimrc BufNewFile,BufRead *.gql set filetype=graphql
 autocmd vimrc BufNewFile,BufRead Procfile set filetype=sh
 
 " sql, see https://www.reddit.com/r/vim/comments/2om1ib/how_to_disable_sql_dynamic_completion/

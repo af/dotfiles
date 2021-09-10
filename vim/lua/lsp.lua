@@ -97,6 +97,7 @@ local stylelint = {
 }
 
 local languages = {
+  graphql = {prettier},
   lua = {luafmt},
   typescript = {prettier, eslint},
   javascript = {prettier, eslint},
