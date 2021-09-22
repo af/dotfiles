@@ -13,11 +13,20 @@ const desktop = path.join(homedir(), 'Desktop')
 const tidyUpDir = path.join(desktop, 'old_screenshots')
 const tidyUpDirExists = existsSync(tidyUpDir)
 
+// Fail silently if there are no matching files to move
+const trySync = (cmd) => {
+  try {
+    execSync(cmd)
+  } catch (err) {
+    if (!err.message.includes('No such file or directory')) throw err;
+  }
+}
+
 const run = () => {
   if (!tidyUpDirExists) mkdirSync(tidyUpDir)
 
-  execSync(`mv ${desktop}/Screen\\ Shot* ${tidyUpDir}`)
-  execSync(`mv ${desktop}/Screen\\ Recording* ${tidyUpDir}`)
+  trySync(`mv ${desktop}/Screen\\ Shot* ${tidyUpDir}`)
+  trySync(`mv ${desktop}/Screen\\ Recording* ${tidyUpDir}`)
 }
 
 run()
