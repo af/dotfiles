@@ -76,10 +76,10 @@ local prettier = {
 }
 
 local eslint = {
-  lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
+  lintCommand = "eslint_d -f ~/dotfiles/tooling/eslint-formatter-vim.js --stdin --stdin-filename ${INPUT}",
   lintIgnoreExitCode = true,
   lintStdin = true,
-  lintFormats = {"%f:%l:%c: %m"},
+  lintFormats = {"%f:%l:%c:%t: %m"},
 }
 
 -- TODO: look at stylelint-lsp:
