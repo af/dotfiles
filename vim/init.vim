@@ -29,14 +29,15 @@ Plug 'scrooloose/nerdtree',         { 'tag': '6.2.0', 'on': 'NERDTreeToggle' }
 Plug 'PhilRunninger/nerdtree-buffer-ops', { 'commit': 'f5e77b8', 'on': 'NERDTreeToggle' }
 
 Plug 'nvim-lua/plenary.nvim'  " Required for gitsigns
-Plug 'lewis6991/gitsigns.nvim',     { 'commit': '521e935' }
+Plug 'lewis6991/gitsigns.nvim',     { 'commit': 'd12442a' }
 Plug 'neovim/nvim-lspconfig',       { 'commit': '8435587' }
-Plug 'hrsh7th/nvim-compe',          { 'commit': '077329e' }
+Plug 'hrsh7th/nvim-compe',          { 'commit': 'd186d73' }
 Plug 'cohama/lexima.vim'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'norcalli/snippets.nvim'
 Plug 'glepnir/galaxyline.nvim' ,    { 'commit': 'd544cb9' }
 Plug 'nvim-treesitter/nvim-treesitter', { 'branch': '0.5-compat', 'do': ':TSUpdate' }
+Plug 'akinsho/nvim-bufferline.lua'
 
 " tpope appreciation section
 Plug 'tpope/vim-apathy'
@@ -192,6 +193,7 @@ if has('nvim')
   lua nerdtree = require('nerdtree')
   lua windows = require('windows')
   lua require('statusline')
+  lua require('bufferline').setup({ options = { tab_size = 14; diagnostics = 'nvim_lsp'; } })
 elseif $TERM ==# 'xterm-256color' || $TERM ==# 'screen-256color'
   set t_Co=256    " 256 colours for regular vim if the terminal can handle it.
   let g:nvcode_termcolors=256
@@ -238,13 +240,13 @@ endfunc
 " {{{ LSP (WIP)
 "===============================================================================
 
-sign define LspDiagnosticsSignError text=✗ texthl=LspDiagnosticsSignError linehl= numhl=
-sign define LspDiagnosticsSignWarning text=⚠ texthl=LspDiagnosticsSignWarning linehl= numhl=
-sign define LspDiagnosticsSignInformation text=I texthl=LspDiagnosticsSignInformation linehl= numhl=
-sign define LspDiagnosticsSignHint text=H texthl=LspDiagnosticsSignHint linehl= numhl=
-highlight link LspDiagnosticsSignError healthError
-highlight link LspDiagnosticsSignWarning SpecialChar
-highlight link LspDiagnosticsVirtualTextError healthError
+sign define DiagnosticSignError text=✗ texthl=DiagnosticSignError linehl= numhl=DiagnosticSignError
+sign define DiagnosticSignWarning text=⚠ texthl=DiagnosticSignWarning linehl= numhl=
+sign define DiagnosticSignInformation text=I texthl=DiagnosticSignInformation linehl= numhl=
+sign define DiagnosticSignHint text=H texthl=DiagnosticSignHint linehl= numhl=
+highlight link DiagnosticSignError healthError
+highlight link DiagnosticSignWarning SpecialChar
+highlight link DiagnosticVirtualTextError healthError
 
 " completion with nvim-compe
 set completeopt=menuone,noselect
@@ -559,24 +561,16 @@ augroup END
 autocmd vimrc FileType gitcommit set tabstop=4
 " }}}
 
-" Fix for gx not opening urls correctly in recent versions of netrw
-" Should remove this once a fix has been merged. See https://github.com/vim/vim/issues/4738
-if has('macunix')
-  function! OpenURLUnderCursor()
-    let s:uri = expand('<cWORD>')
-    let s:uri = substitute(s:uri, '?', '\\?', '')
-    let s:uri = shellescape(s:uri, 1)
-    if s:uri != ''
-      silent exec "!open '".s:uri."'"
-      :redraw!
-    endif
-  endfunction
-  nnoremap gx :call OpenURLUnderCursor()<CR>
-endif
-
 " Load any machine-specific config from another file, if it exists
 try
   source ~/.vimrc_machine_specific
 catch
   " No such file? No problem; just ignore it.
 endtry
+
+nnoremap <silent> <Tab> :BufferLineCycleNext<CR>
+nnoremap <silent> <S-Tab> :BufferLineCyclePrev<CR>
+nnoremap <silent> gb :BufferLinePick<CR>
+
+" muscle memory...
+nnoremap Y yy
