@@ -45,8 +45,8 @@ Plug 'tpope/vim-commentary',        { 'commit': 'f8238d7' }
 Plug 'tpope/vim-obsession',         { 'commit': '4ab72e0' }     " start a session file with :Obsession
 Plug 'tpope/vim-surround',          { 'commit': '42e9b46' }
 Plug 'tpope/vim-unimpaired',        { 'commit': '11dc568' }
-Plug 'tpope/vim-fugitive',          { 'commit': '06e3420' }
-Plug 'tpope/vim-rhubarb',           { 'commit': '9edacf9' }
+Plug 'tpope/vim-fugitive',          { 'commit': 'a6b823b' }
+Plug 'tpope/vim-rhubarb',           { 'commit': '977b3cc' }
 Plug 'tpope/vim-sleuth',            { 'commit': '039e2cd' }
 
 " Yanking and clipboard
@@ -378,13 +378,18 @@ nnoremap gm :FZFMru<CR>
 nnoremap <silent> <leader>- :Files <C-r>=expand("%:h")<CR>/<CR>
 
 " fugitive
-nmap gs :Gstatus<CR>
-nmap gb :Gblame<CR>
-nmap gl :Git log %<CR>
+nnoremap gs :Git<CR>
+nnoremap gl :Git log<CR>
+nnoremap gb :Git blame<CR>
 
 " Splitjoin
 let g:splitjoin_curly_brace_padding = 0
 let g:splitjoin_trailing_comma = 1
+
+" bufferline
+nnoremap <silent> <Tab> :BufferLineCycleNext<CR>
+nnoremap <silent> <S-Tab> :BufferLineCyclePrev<CR>
+nnoremap <silent> gp :BufferLinePick<CR>
 
 " nvim-miniyank (lighter-weight YankRing workalike)
 let g:miniyank_maxitems = 25
@@ -515,6 +520,7 @@ noremap <silent> N ?<CR>
 
 " yank to system clipboard:
 vnoremap <Leader>y "+y
+nnoremap Y yy
 
 " Resize window with arrow keys
 nnoremap <Left> :vertical resize -4<CR>
@@ -567,10 +573,3 @@ try
 catch
   " No such file? No problem; just ignore it.
 endtry
-
-nnoremap <silent> <Tab> :BufferLineCycleNext<CR>
-nnoremap <silent> <S-Tab> :BufferLineCyclePrev<CR>
-nnoremap <silent> gb :BufferLinePick<CR>
-
-" muscle memory...
-nnoremap Y yy
