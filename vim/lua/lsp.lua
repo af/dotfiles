@@ -14,20 +14,6 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
   }
 }
 
--- Customize diagnostics display (ie virtual text)
--- via https://github.com/nvim-lua/diagnostic-nvim/issues/73#issue-737897078
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    -- Enable underline, use default values
-    underline = true,
-    -- Enable virtual text, override spacing to 4
-    virtual_text = {
-      spacing = 4,
-      prefix = '✗',
-    },
-  }
-)
-
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 

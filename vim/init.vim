@@ -188,6 +188,7 @@ if has('nvim')
   lua snippets = require('mysnips')
   lua treesitter = require('treesitter')
   lua lsp = require('lsp')
+  lua diag = require('diagnostics')
   lua complete = require('completion')
   lua fuzzy = require('fuzzy')
   lua nerdtree = require('nerdtree')
@@ -237,13 +238,9 @@ function! <SID>SynStack()
 endfunc
 
 " }}}
-" {{{ LSP (WIP)
+" {{{ LSP & Diagnostics
 "===============================================================================
 
-sign define DiagnosticSignError text=✗ texthl=DiagnosticSignError linehl= numhl=DiagnosticSignError
-sign define DiagnosticSignWarning text=⚠ texthl=DiagnosticSignWarning linehl= numhl=
-sign define DiagnosticSignInformation text=I texthl=DiagnosticSignInformation linehl= numhl=
-sign define DiagnosticSignHint text=H texthl=DiagnosticSignHint linehl= numhl=
 highlight link DiagnosticSignError healthError
 highlight link DiagnosticSignWarning SpecialChar
 highlight link DiagnosticVirtualTextError healthError
