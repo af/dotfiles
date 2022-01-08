@@ -386,7 +386,8 @@ let g:splitjoin_trailing_comma = 1
 " bufferline
 nnoremap <silent> <Tab> :BufferLineCycleNext<CR>
 nnoremap <silent> <S-Tab> :BufferLineCyclePrev<CR>
-nnoremap <silent> gp :BufferLinePick<CR>
+" attempted mnemonic: "slip" to another buffer
+nnoremap <silent> s :BufferLinePick<CR>
 
 " nvim-miniyank (lighter-weight YankRing workalike)
 let g:miniyank_maxitems = 25
