@@ -39,6 +39,10 @@ Plug 'NTBBloodbath/galaxyline.nvim' ,   { 'commit': '1b1552b' }
 Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '8016b74', 'do': ':TSUpdate' }
 Plug 'akinsho/bufferline.nvim'
 
+" experimental: scrollbar with search status
+Plug 'kevinhwang91/nvim-hlslens'
+Plug 'petertriho/nvim-scrollbar'
+
 " tpope appreciation section
 Plug 'tpope/vim-apathy'
 Plug 'tpope/vim-commentary',        { 'commit': 'f8238d7' }
@@ -195,6 +199,7 @@ if has('nvim')
   lua windows = require('windows')
   lua require('statusline')
   lua require('bufferline').setup({ options = { tab_size = 14; diagnostics = 'nvim_lsp'; } })
+  lua require('searchscroll')
 elseif $TERM ==# 'xterm-256color' || $TERM ==# 'screen-256color'
   set t_Co=256    " 256 colours for regular vim if the terminal can handle it.
   let g:nvcode_termcolors=256
