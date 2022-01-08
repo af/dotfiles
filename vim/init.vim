@@ -30,14 +30,14 @@ Plug 'PhilRunninger/nerdtree-buffer-ops', { 'commit': 'f5e77b8', 'on': 'NERDTree
 
 Plug 'nvim-lua/plenary.nvim'  " Required for gitsigns
 Plug 'lewis6991/gitsigns.nvim',     { 'commit': 'd12442a' }
-Plug 'neovim/nvim-lspconfig',       { 'commit': '8435587' }
+Plug 'neovim/nvim-lspconfig',       { 'commit': 'c7081e0' }
 Plug 'hrsh7th/nvim-compe',          { 'commit': 'd186d73' }
 Plug 'cohama/lexima.vim'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'norcalli/snippets.nvim'
-Plug 'glepnir/galaxyline.nvim' ,    { 'commit': 'd544cb9' }
-Plug 'nvim-treesitter/nvim-treesitter', { 'branch': '0.5-compat', 'do': ':TSUpdate' }
-Plug 'akinsho/nvim-bufferline.lua'
+Plug 'NTBBloodbath/galaxyline.nvim' ,   { 'commit': '1b1552b' }
+Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '8016b74', 'do': ':TSUpdate' }
+Plug 'akinsho/bufferline.nvim'
 
 " tpope appreciation section
 Plug 'tpope/vim-apathy'
