@@ -40,7 +40,6 @@ Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '8016b74', 'do': ':TSUpdate'
 Plug 'akinsho/bufferline.nvim'
 
 " experimental: scrollbar with search status
-Plug 'kevinhwang91/nvim-hlslens'
 Plug 'petertriho/nvim-scrollbar'
 
 " tpope appreciation section
