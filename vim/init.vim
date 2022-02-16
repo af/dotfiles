@@ -31,13 +31,20 @@ Plug 'PhilRunninger/nerdtree-buffer-ops', { 'commit': 'f5e77b8', 'on': 'NERDTree
 Plug 'nvim-lua/plenary.nvim'  " Required for gitsigns
 Plug 'lewis6991/gitsigns.nvim',     { 'commit': 'd12442a' }
 Plug 'neovim/nvim-lspconfig',       { 'commit': 'c7081e0' }
-Plug 'hrsh7th/nvim-compe',          { 'commit': 'd186d73' }
 Plug 'cohama/lexima.vim'
 Plug 'norcalli/nvim-colorizer.lua'
-Plug 'norcalli/snippets.nvim'
 Plug 'NTBBloodbath/galaxyline.nvim' ,   { 'commit': '1b1552b' }
 Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '8016b74', 'do': ':TSUpdate' }
 Plug 'akinsho/bufferline.nvim'
+
+" completion and snippets
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
 
 " experimental: scrollbar with search status
 Plug 'petertriho/nvim-scrollbar'
@@ -186,9 +193,7 @@ if has('nvim')
   " TODO: try/catch these imports to handle initial install run?
   lua require('gitsigns').setup()
   lua require('colorizer').setup({ 'css'; 'stylus'; 'html'; })
-  " TODO: try making a custom "inserter". See https://github.com/norcalli/snippets.nvim/issues/26
-  lua require('snippets').set_ux(require'snippets.inserters.text_markers')
-  lua snippets = require('mysnips')
+  "lua snippets = require('mysnips')
   lua treesitter = require('treesitter')
   lua lsp = require('lsp')
   lua diag = require('diagnostics')
@@ -249,23 +254,14 @@ highlight link DiagnosticSignError healthError
 highlight link DiagnosticSignWarning SpecialChar
 highlight link DiagnosticVirtualTextError healthError
 
-" completion with nvim-compe
-set completeopt=menuone,noselect
+" completion with nvim-cmp
+set completeopt=menu,menuone,noselect
 
 imap <expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 imap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 
 let g:lexima_no_default_rules = v:true
 call lexima#set_default_rules()
-inoremap <silent><expr> <Tab>     compe#confirm(lexima#expand('<LT>CR>', 'i'))
-inoremap <silent><expr> <CR>      compe#confirm(lexima#expand('<LT>CR>', 'i'))
-inoremap <silent><expr> <C-e>     compe#close('<C-e>')
-inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
-inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
-
-" snippets
-inoremap <C-j> <cmd>lua return require'snippets'.expand_or_advance(1)<CR>
-inoremap <C-k> <cmd>lua return require'snippets'.advance_snippet(-1)<CR>
 
 " }}}
 " {{{ grepping (:grep, CTRLSF.vim, etc)
