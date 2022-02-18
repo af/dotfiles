@@ -108,6 +108,7 @@ alias lat='git latest'
 alias t='tig --all'
 alias ff='git merge --ff-only'
 
+alias yd='yarn dev'
 alias ys='yarn start'
 alias yw='yarn watch'
 alias yt='yarn test'
