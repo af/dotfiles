@@ -114,10 +114,9 @@ lspconfig.jsonls.setup{
 }
 
 -- Lua
--- Extra one-time setup is required for this, until it hopefully gets added to homebrew
--- Follow https://github.com/sumneko/lua-language-server/issues/232
-local lua_lsp_dir = '/usr/local/Cellar/lua-language-server/1.18.1'
-local lua_lsp_bin = lua_lsp_dir .. '/bin/lua-langserver'
+-- Need to run `brew install lua-language-server` for support (and check version number below)
+local lua_lsp_dir = '/usr/local/Cellar/lua-language-server/2.6.4'
+local lua_lsp_bin = lua_lsp_dir .. '/bin/lua-language-server'
 lspconfig.sumneko_lua.setup{
   cmd = {lua_lsp_bin, '-E', lua_lsp_dir .. '/main.lua'},
   settings = {
