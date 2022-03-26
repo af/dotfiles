@@ -84,3 +84,32 @@ hs.hotkey.bind(mash, 'Y', emoji.choose)
 local mortality = require 'mortality'
 local estimatedDeath = os.time{year=2065, month=1, day=1}
 mortality(estimatedDeath)
+
+-- WIP but works!!
+local sendKeysToTab = function(url, modifiers, key)
+  local succeeded, didFocusWin = hs.osascript.javascript([[
+  (function() {
+    var browser = Application('Google Chrome');
+    for (win of browser.windows()) {
+      var tabIndex =
+        win.tabs().findIndex(tab => tab.url().match(/]] .. url .. [[/));
+      if (tabIndex != -1) {
+        browser.activate();
+        win.activeTabIndex = (tabIndex + 1);
+        win.index = 1;
+        return true
+      }
+    }
+    return false
+  })();
+  ]])
+  if (didFocusWin) then
+    -- need a tiny delay for window focus to settle. is there a better way?
+    -- TODO: the delay needs to be longer if we're switching browser windows
+    local timer = hs.timer.delayed.new(0.2, function()
+      hs.eventtap.keyStroke(modifiers, key)
+    end)
+    timer:start()
+  end
+end
+hs.hotkey.bind({'ctrl'}, '8', function() sendKeysToTab('meet.google.com', {'cmd'}, 'd') end)
