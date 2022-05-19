@@ -15,6 +15,7 @@ bind generic R !@zsh -c "git checkout HEAD^ && git branch -D %(branch) && git co
 bind generic T !@zsh -c "git trim"
 bind generic s view-stash                               # regular mapping for this is 'y'
 
+set ignore-case = smart-case
 set refresh-mode = periodic
 set refresh-interval = 3
 set tab-size = 4
