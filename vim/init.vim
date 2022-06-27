@@ -23,31 +23,32 @@ call plug#begin('~/.vim/plugged')
 
 " Essentials
 Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
-Plug 'junegunn/fzf',                { 'tag': '0.20.0', 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim',            { 'commit': '467c327' }
+Plug 'junegunn/fzf',                { 'tag': '0.30.0', 'do': { -> fzf#install }}
+Plug 'junegunn/fzf.vim',            { 'commit': 'd5f1f86' }
 Plug 'scrooloose/nerdtree',         { 'tag': '6.2.0', 'on': 'NERDTreeToggle' }
 Plug 'PhilRunninger/nerdtree-buffer-ops', { 'commit': 'f5e77b8', 'on': 'NERDTreeToggle' }
 
 Plug 'nvim-lua/plenary.nvim'  " Required for gitsigns
 Plug 'lewis6991/gitsigns.nvim',     { 'commit': 'd12442a' }
-Plug 'neovim/nvim-lspconfig',       { 'commit': 'c7081e0' }
+Plug 'neovim/nvim-lspconfig',       { 'tag': 'v0.1.3' }
 Plug 'cohama/lexima.vim'
 Plug 'norcalli/nvim-colorizer.lua'
-Plug 'NTBBloodbath/galaxyline.nvim' ,   { 'commit': '1b1552b' }
-Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '8016b74', 'do': ':TSUpdate' }
-Plug 'akinsho/bufferline.nvim'
+Plug 'glepnir/galaxyline.nvim' ,    { 'commit': 'eb81be0' }
+Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '881b932', 'do': ':TSUpdate' }
+Plug 'akinsho/bufferline.nvim',     { 'commit': '68839d6' }
+Plug 'tiagovla/scope.nvim',         { 'branch': 'main' }
 
 " completion and snippets
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-nvim-lua'
-Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/cmp-nvim-lsp', { 'branch': 'main' }
+Plug 'hrsh7th/cmp-buffer', { 'branch': 'main' }
+Plug 'hrsh7th/cmp-path', { 'branch': 'main' }
+Plug 'hrsh7th/cmp-nvim-lua', { 'branch': 'main' }
+Plug 'hrsh7th/nvim-cmp', { 'branch': 'main' }
+Plug 'hrsh7th/cmp-vsnip', { 'branch': 'main' }
 Plug 'hrsh7th/vim-vsnip'
 
 " experimental: scrollbar with search status
-Plug 'petertriho/nvim-scrollbar'
+Plug 'petertriho/nvim-scrollbar', { 'branch': 'main' }
 
 " tpope appreciation section
 Plug 'tpope/vim-apathy'
@@ -72,8 +73,8 @@ Plug 'AndrewRadev/splitjoin.vim',   { 'commit': '03af68c' }     " gS and gJ to s
 Plug '~/dotfiles/vim/vendored/nerdtree_menu_terminal'
 Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 'markdown' }
 
-" Color/Theme/syntax related plugins
-Plug 'christianchiarulli/nvcode-color-schemes.vim'
+" Color/Theme/syntax
+Plug 'shaunsingh/nord.nvim'
 
 " Misc
 Plug 'vimwiki/vimwiki',             { 'commit': '417490f' }
@@ -204,6 +205,7 @@ if has('nvim')
   lua require('statusline')
   lua require('bufferline').setup({ options = { tab_size = 14; diagnostics = 'nvim_lsp'; } })
   lua require('searchscroll')
+  lua require('scope').setup()
 elseif $TERM ==# 'xterm-256color' || $TERM ==# 'screen-256color'
   set t_Co=256    " 256 colours for regular vim if the terminal can handle it.
   let g:nvcode_termcolors=256

@@ -114,11 +114,8 @@ lspconfig.jsonls.setup{
 }
 
 -- Lua
--- Need to run `brew install lua-language-server` for support (and check version number below)
-local lua_lsp_dir = '/usr/local/Cellar/lua-language-server/2.6.4'
-local lua_lsp_bin = lua_lsp_dir .. '/bin/lua-language-server'
+-- Need to run `brew install lua-language-server` for support
 lspconfig.sumneko_lua.setup{
-  cmd = {lua_lsp_bin, '-E', lua_lsp_dir .. '/main.lua'},
   settings = {
     Lua = {
       runtime = { version = 'LuaJIT', path = vim.split(package.path, ';') },
@@ -127,11 +124,9 @@ lspconfig.sumneko_lua.setup{
       },
       workspace = {
         -- Make the server aware of Neovim runtime files
-        library = {
-          [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-          [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true
-        },
+        library = vim.api.nvim_get_runtime_file("", true),
       },
+      telemetry = { enable = false, },
     },
   }
 }

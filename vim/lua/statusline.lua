@@ -1,6 +1,7 @@
 local fn = vim.fn
 local gl = require('galaxyline')
-local vcs = require('galaxyline.providers.vcs')
+local vcs = require('galaxyline.provider_vcs')
+local condition = require('galaxyline.condition')
 local section = gl.section
 gl.short_line_list = {'nerdtree'}
 
@@ -32,7 +33,7 @@ section.left = {
   {
     GitBranch = padded({
       provider = vcs.get_git_branch,
-      condition = vcs.check_git_workspace,
+      condition = condition.check_git_workspace,
       highlight = {colors.fg, colors.gray},
       separator = ' ',
       separator_highlight = {colors.bg, colors.bg}
