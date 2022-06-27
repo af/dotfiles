@@ -23,7 +23,7 @@ call plug#begin('~/.vim/plugged')
 
 " Essentials
 Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
-Plug 'junegunn/fzf',                { 'tag': '0.30.0', 'do': { -> fzf#install }}
+Plug 'junegunn/fzf',                { 'tag': '0.30.0', 'do': { -> fzf#install() }}
 Plug 'junegunn/fzf.vim',            { 'commit': 'd5f1f86' }
 Plug 'scrooloose/nerdtree',         { 'tag': '6.2.0', 'on': 'NERDTreeToggle' }
 Plug 'PhilRunninger/nerdtree-buffer-ops', { 'commit': 'f5e77b8', 'on': 'NERDTreeToggle' }
@@ -36,19 +36,19 @@ Plug 'norcalli/nvim-colorizer.lua'
 Plug 'glepnir/galaxyline.nvim' ,    { 'commit': 'eb81be0' }
 Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '881b932', 'do': ':TSUpdate' }
 Plug 'akinsho/bufferline.nvim',     { 'commit': '68839d6' }
-Plug 'tiagovla/scope.nvim',         { 'branch': 'main' }
+Plug 'tiagovla/scope.nvim'
 
 " completion and snippets
-Plug 'hrsh7th/cmp-nvim-lsp', { 'branch': 'main' }
-Plug 'hrsh7th/cmp-buffer', { 'branch': 'main' }
-Plug 'hrsh7th/cmp-path', { 'branch': 'main' }
-Plug 'hrsh7th/cmp-nvim-lua', { 'branch': 'main' }
-Plug 'hrsh7th/nvim-cmp', { 'branch': 'main' }
-Plug 'hrsh7th/cmp-vsnip', { 'branch': 'main' }
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-nvim-lua'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 
 " experimental: scrollbar with search status
-Plug 'petertriho/nvim-scrollbar', { 'branch': 'main' }
+Plug 'petertriho/nvim-scrollbar'
 
 " tpope appreciation section
 Plug 'tpope/vim-apathy'
