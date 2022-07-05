@@ -35,17 +35,20 @@ Plug 'cohama/lexima.vim'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'glepnir/galaxyline.nvim' ,    { 'commit': 'eb81be0' }
 Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '881b932', 'do': ':TSUpdate' }
-Plug 'akinsho/bufferline.nvim',     { 'commit': '68839d6' }
 Plug 'tiagovla/scope.nvim'
+
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'akinsho/bufferline.nvim',     { 'tag': 'v2.3.0' }
 
 " completion and snippets
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-nvim-lua'
-Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+Plug 'hrsh7th/nvim-cmp'
 
 " experimental: scrollbar with search status
 Plug 'petertriho/nvim-scrollbar'
@@ -203,7 +206,7 @@ if has('nvim')
   lua nerdtree = require('nerdtree')
   lua windows = require('windows')
   lua require('statusline')
-  lua require('bufferline').setup({ options = { tab_size = 14; diagnostics = 'nvim_lsp'; } })
+  lua require('tabline')
   lua require('searchscroll')
   lua require('scope').setup()
 elseif $TERM ==# 'xterm-256color' || $TERM ==# 'screen-256color'
@@ -214,13 +217,9 @@ endif
 " }}}
 " {{{ Colorscheme & syntax
 "===============================================================================
+let g:nord_contrast = v:true
+let g:nord_borders = v:true
 color nord
-let g:nord_underline = 1
-let g:nord_italic = 1
-let g:nord_italic_comments = 1
-let g:nord_uniform_diff_background = 1
-let g:gruvbox_contrast_dark = 'soft'
-let g:gruvbox_italic = 1
 set background=dark
 set synmaxcol=400    " Performance improvement on large single-line files
 

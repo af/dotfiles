@@ -49,15 +49,15 @@ scrolling:
 # Font configuration (changes require restart)
 font:
   normal:
-    family: Consolas
+    family: Hack Nerd Font Mono
     style: Regular
 
   bold:
-    family: Consolas
+    family: Hack Nerd Font Mono
     style: Bold
 
   italic:
-    family: Consolas
+    family: Hack Nerd Font Mono
     style: Italic
 
   size: 14.0
@@ -66,7 +66,7 @@ font:
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
   offset:
     x: 0
-    y: 1
+    y: 4
 
   # Glyph offset determines the locations of the glyphs within their cells with
   # the default being at the bottom. Increasing `x` moves the glyph to the right,

@@ -8,21 +8,21 @@ Mac-specific, but most should work on any unix-ish OS.
 
 * (For macOS) [Install homebrew](http://brew.sh/)
 * clone this repo (to `~/dotfiles` or similar)
-* `./install.py`
 * Install fnm via `brew install Schniz/tap/fnm`
-* Install the Consolas fonts (or alacritty won't start properly)
-* `fnm install <desired nodejs version>`
-* `fnm alias <desired nodejs version> default`
+  * `fnm install <desired nodejs version>`
+  * `fnm alias <desired nodejs version> default`
+* `./install.py`
 * `af-npm-i-globals`
 * `tic term/tmux256.terminfo`
+* homebrew font setup (see section below)
 * `brew cask install alacritty`
 * `brew tap homebrew/services` (see https://superuser.com/a/1010357)
 
-# Misc Mac apps
+## Homebrew font setup
 
-* https://matthewpalmer.net/vanilla/ - hide menu bar icons
+via https://github.com/ryanoasis/nerd-fonts#option-4-homebrew-fonts
 
-
-# Misc hacks
-
-* To get italics working in the terminal see [this post](https://alexpearce.me/2014/05/italics-in-iterm2-vim-tmux/). Some files to use for the steps are in term/
+```bash
+brew tap homebrew/cask-fonts
+brew install --cask font-hack-nerd-font
+```
