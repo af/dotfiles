@@ -74,6 +74,11 @@ local stylelint = {
   formatStdin = true,
 }
 
+local pgformatter = {
+  formatCommand = "pg_format ${INPUT}",
+  formatStdin = true,
+}
+
 local languages = {
   graphql = {prettier},
   lua = {luafmt},
@@ -85,7 +90,8 @@ local languages = {
   json = {prettier},
   html = {prettier},
   css = {stylelint},
-  markdown = {prettier}
+  markdown = {prettier},
+  sql = {pgformatter}
 }
 
 lspconfig.efm.setup {
