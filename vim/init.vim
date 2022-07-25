@@ -34,7 +34,7 @@ Plug 'neovim/nvim-lspconfig',       { 'tag': 'v0.1.3' }
 Plug 'cohama/lexima.vim'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'glepnir/galaxyline.nvim' ,    { 'commit': 'eb81be0' }
-Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '881b932', 'do': ':TSUpdate' }
+Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '5e894bd', 'do': ':TSUpdate' }
 Plug 'tiagovla/scope.nvim'
 
 Plug 'kyazdani42/nvim-web-devicons'
