@@ -57,7 +57,8 @@ Plug 'petertriho/nvim-scrollbar'
 Plug 'tpope/vim-apathy'
 Plug 'tpope/vim-commentary',        { 'commit': 'f8238d7' }
 Plug 'tpope/vim-obsession',         { 'commit': '4ab72e0' }     " start a session file with :Obsession
-Plug 'tpope/vim-surround',          { 'commit': '42e9b46' }
+Plug 'tpope/vim-surround',          { 'commit': 'bf3480d' }
+Plug 'tpope/vim-repeat',            { 'commit': '24afe92' }
 Plug 'tpope/vim-unimpaired',        { 'commit': '11dc568' }
 Plug 'tpope/vim-fugitive',          { 'commit': 'a6b823b' }
 Plug 'tpope/vim-rhubarb',           { 'commit': '977b3cc' }
@@ -565,6 +566,8 @@ augroup END
 
 autocmd vimrc FileType gitcommit set tabstop=4
 " }}}
+
+nmap <leader>x :source %<CR>
 
 " Load any machine-specific config from another file, if it exists
 try
