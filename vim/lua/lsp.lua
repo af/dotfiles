@@ -6,6 +6,7 @@ local lspconfig = require('lspconfig')
 --Enable completion with nvim-cmp
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 
@@ -23,9 +24,24 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', ']w', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   -- buf_set_keymap('n', '<C-w>', '<cmd>lua vim.diagnostic.set_loclist()<CR>', opts)
 
-  -- Set some keybinds conditional on server capabilities
-  if client.resolved_capabilities.document_formatting then
-    buf_set_keymap("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  local runformatter = function()
+    vim.lsp.buf.format({
+      filter = function(_client)
+          return _client.name == "efm"
+      end,
+      bufnr = bufnr,
+    })
+  end
+
+  -- TODO: cleanup. See https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Avoiding-LSP-formatting-conflicts
+  buf_set_keymap("n", "<leader>f", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", opts)
+  if client.supports_method("textDocument/formatting") then
+    vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = augroup,
+      buffer = bufnr,
+      callback = runformatter
+    })
   end
 end
 
@@ -35,7 +51,7 @@ lspconfig.tsserver.setup{
   on_attach = function(client, bufnr)
     on_attach(client, bufnr)
     -- use prettier for formatting instead
-    client.resolved_capabilities.document_formatting = false
+    client.server_capabilities.documentFormatting = false
   end
 }
 
@@ -108,7 +124,7 @@ lspconfig.cssls.setup{
   on_attach = function(client, bufnr)
     on_attach(client, bufnr)
     -- use prettier for formatting instead
-    client.resolved_capabilities.document_formatting = false
+    client.server_capabilities.document_formatting = false
   end,
   filetypes={ "css", "scss", "stylus" }
 }

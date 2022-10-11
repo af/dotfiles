@@ -21,6 +21,10 @@ augroup END
 "
 call plug#begin('~/.vim/plugged')
 
+" Semi-official plugins
+Plug 'neovim/nvim-lspconfig',       { 'commit': 'fc2f44d' }
+Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '7ccb9a0', 'do': ':TSUpdate' }
+
 " Essentials
 Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
 Plug 'junegunn/fzf',                { 'tag': '0.30.0', 'do': { -> fzf#install() }}
@@ -29,12 +33,10 @@ Plug 'scrooloose/nerdtree',         { 'tag': '6.2.0', 'on': 'NERDTreeToggle' }
 Plug 'PhilRunninger/nerdtree-buffer-ops', { 'commit': 'f5e77b8', 'on': 'NERDTreeToggle' }
 
 Plug 'nvim-lua/plenary.nvim'  " Required for gitsigns
-Plug 'lewis6991/gitsigns.nvim',     { 'commit': 'd12442a' }
-Plug 'neovim/nvim-lspconfig',       { 'tag': 'v0.1.3' }
+Plug 'lewis6991/gitsigns.nvim',     { 'commit': '9787c94' }
 Plug 'cohama/lexima.vim'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'glepnir/galaxyline.nvim' ,    { 'commit': 'eb81be0' }
-Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '881b932', 'do': ':TSUpdate' }
 Plug 'tiagovla/scope.nvim'
 
 Plug 'kyazdani42/nvim-web-devicons'
