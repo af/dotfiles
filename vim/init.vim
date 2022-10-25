@@ -47,10 +47,10 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-nvim-lua'
-Plug 'hrsh7th/cmp-vsnip'
-Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 Plug 'hrsh7th/nvim-cmp'
+Plug 'dcampos/nvim-snippy'
+Plug 'dcampos/cmp-snippy'
 
 " experimental: scrollbar with search status
 Plug 'petertriho/nvim-scrollbar'
@@ -204,7 +204,8 @@ if has('nvim')
   lua treesitter = require('treesitter')
   lua lsp = require('lsp')
   lua diag = require('diagnostics')
-  lua complete = require('completion')
+  lua require('snippets')
+  lua require('completion')
   lua fuzzy = require('fuzzy')
   lua nerdtree = require('nerdtree')
   lua windows = require('windows')
@@ -362,7 +363,8 @@ if has('nvim')
       " for some reason, using vim as a man reader opens 2 buffers, but we don't want FZFMixed here
       return
     endif
-    if @% == "" || bufexists(2)
+    " todo: this used to be bufexists(2), should investigate why a bump up was needed
+    if @% == "" || bufexists(3)
       FZFMixed
     endif
   endfunction
