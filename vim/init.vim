@@ -33,7 +33,7 @@ Plug 'scrooloose/nerdtree',         { 'tag': '6.2.0', 'on': 'NERDTreeToggle' }
 Plug 'PhilRunninger/nerdtree-buffer-ops', { 'commit': 'f5e77b8', 'on': 'NERDTreeToggle' }
 
 Plug 'nvim-lua/plenary.nvim'  " Required for gitsigns
-Plug 'lewis6991/gitsigns.nvim',     { 'commit': '9787c94' }
+Plug 'lewis6991/gitsigns.nvim',     { 'commit': '851cd32' }
 Plug 'cohama/lexima.vim'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'glepnir/galaxyline.nvim' ,    { 'commit': 'eb81be0' }
@@ -198,7 +198,7 @@ if has('nvim')
   augroup END
 
   " TODO: try/catch these imports to handle initial install run?
-  lua require('gitsigns').setup()
+  lua require('git')
   lua require('colorizer').setup({ 'css'; 'stylus'; 'html'; })
   "lua snippets = require('mysnips')
   lua treesitter = require('treesitter')
