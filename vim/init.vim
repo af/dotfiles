@@ -29,8 +29,10 @@ Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '7ccb9a0', 'do': ':TSUpdate'
 Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
 Plug 'junegunn/fzf',                { 'tag': '0.30.0', 'do': { -> fzf#install() }}
 Plug 'junegunn/fzf.vim',            { 'commit': 'd5f1f86' }
-Plug 'scrooloose/nerdtree',         { 'tag': '6.2.0', 'on': 'NERDTreeToggle' }
-Plug 'PhilRunninger/nerdtree-buffer-ops', { 'commit': 'f5e77b8', 'on': 'NERDTreeToggle' }
+
+"Plug 'scrooloose/nerdtree',         { 'tag': '6.2.0', 'on': 'NERDTreeToggle' }
+"Plug 'PhilRunninger/nerdtree-buffer-ops', { 'commit': 'f5e77b8', 'on': 'NERDTreeToggle' }
+Plug 'nvim-tree/nvim-tree.lua'
 
 Plug 'nvim-lua/plenary.nvim'  " Required for gitsigns
 Plug 'lewis6991/gitsigns.nvim',     { 'commit': '851cd32' }
@@ -76,7 +78,7 @@ Plug 'AndrewRadev/splitjoin.vim',   { 'commit': '03af68c' }     " gS and gJ to s
 " Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load lazily, w/o input lag
 
 " language-specific plugins
-Plug '~/dotfiles/vim/vendored/nerdtree_menu_terminal'
+"Plug '~/dotfiles/vim/vendored/nerdtree_menu_terminal'
 Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 'markdown' }
 
 " Color/Theme/syntax
@@ -207,11 +209,12 @@ if has('nvim')
   lua require('snippets')
   lua require('completion')
   lua fuzzy = require('fuzzy')
-  lua nerdtree = require('nerdtree')
+  "lua nerdtree = require('nerdtree')
   lua windows = require('windows')
   lua require('statusline')
   lua require('tabline')
   lua require('searchscroll')
+  lua require('tree')
   lua require('scope').setup()
 elseif $TERM ==# 'xterm-256color' || $TERM ==# 'screen-256color'
   set t_Co=256    " 256 colours for regular vim if the terminal can handle it.
@@ -312,19 +315,20 @@ let g:ctrlsf_auto_focus = {"at": "start"}
 " {{{ nerdtree
 "===============================================================================
 
-nnoremap - :lua nerdtree.open()<CR>
-nnoremap <silent> <C-u> :lua nerdtree.unloadFile()<CR>
+nnoremap - :NvimTreeFindFile<CR>
+" nnoremap - :lua nerdtree.open()<CR>
+" nnoremap <silent> <C-u> :lua nerdtree.unloadFile()<CR>
 
-let NERDTreeMapOpenSplit = '<C-s>'
-let NERDTreeMapOpenVSplit = '<C-v>'
-let NERDTreeMapOpenInTab = '<C-t>'
-let NERDTreeMapUpdirKeepOpen = '-'
-let NERDTreeMapHelp = '<F1>'
-let NERDTreeRespectWildIgnore=1
-let g:NERDTreeMinimalUI = 1
-let g:NERDTreeAutoDeleteBuffer = 1
-let NERDTreeShowHidden=1
-autocmd vimrc FileType nerdtree nmap <buffer> % ma
+" let NERDTreeMapOpenSplit = '<C-s>'
+" let NERDTreeMapOpenVSplit = '<C-v>'
+" let NERDTreeMapOpenInTab = '<C-t>'
+" let NERDTreeMapUpdirKeepOpen = '-'
+" let NERDTreeMapHelp = '<F1>'
+" let NERDTreeRespectWildIgnore=1
+" let g:NERDTreeMinimalUI = 1
+" let g:NERDTreeAutoDeleteBuffer = 1
+" let NERDTreeShowHidden=1
+" autocmd vimrc FileType nerdtree nmap <buffer> % ma
 
 " }}}
 " {{{ More plugin customization
