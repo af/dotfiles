@@ -1,6 +1,10 @@
 set encoding=utf-8
 scriptencoding utf-8
 
+" For nvim-tree, disable netrw
+let loaded_netrw=1
+let loaded_netrwPlugin=1
+
 augroup vimrc
   autocmd!
 augroup END
@@ -29,9 +33,6 @@ Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '7ccb9a0', 'do': ':TSUpdate'
 Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
 Plug 'junegunn/fzf',                { 'tag': '0.30.0', 'do': { -> fzf#install() }}
 Plug 'junegunn/fzf.vim',            { 'commit': 'd5f1f86' }
-
-"Plug 'scrooloose/nerdtree',         { 'tag': '6.2.0', 'on': 'NERDTreeToggle' }
-"Plug 'PhilRunninger/nerdtree-buffer-ops', { 'commit': 'f5e77b8', 'on': 'NERDTreeToggle' }
 Plug 'nvim-tree/nvim-tree.lua'
 
 Plug 'nvim-lua/plenary.nvim'  " Required for gitsigns
@@ -78,7 +79,6 @@ Plug 'AndrewRadev/splitjoin.vim',   { 'commit': '03af68c' }     " gS and gJ to s
 " Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load lazily, w/o input lag
 
 " language-specific plugins
-"Plug '~/dotfiles/vim/vendored/nerdtree_menu_terminal'
 Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 'markdown' }
 
 " Color/Theme/syntax
@@ -209,7 +209,6 @@ if has('nvim')
   lua require('snippets')
   lua require('completion')
   lua fuzzy = require('fuzzy')
-  "lua nerdtree = require('nerdtree')
   lua windows = require('windows')
   lua require('statusline')
   lua require('tabline')
@@ -238,7 +237,6 @@ augroup ErrorHighlights
 augroup END
 
 " syntax highlighting overrides:
-highlight link NERDTreeOpenBuffer SpecialChar
 highlight link ctrlsfFilename Keyword
 highlight link GitSignsAdd GitGutterAdd
 highlight link GitSignsDelete GitGutterDelete
@@ -312,23 +310,11 @@ let g:ctrlsf_mapping = {
 let g:ctrlsf_auto_focus = {"at": "start"}
 
 " }}}
-" {{{ nerdtree
+" {{{ tree
 "===============================================================================
 
 nnoremap - :NvimTreeFindFile<CR>
-" nnoremap - :lua nerdtree.open()<CR>
-" nnoremap <silent> <C-u> :lua nerdtree.unloadFile()<CR>
-
-" let NERDTreeMapOpenSplit = '<C-s>'
-" let NERDTreeMapOpenVSplit = '<C-v>'
-" let NERDTreeMapOpenInTab = '<C-t>'
-" let NERDTreeMapUpdirKeepOpen = '-'
-" let NERDTreeMapHelp = '<F1>'
-" let NERDTreeRespectWildIgnore=1
-" let g:NERDTreeMinimalUI = 1
-" let g:NERDTreeAutoDeleteBuffer = 1
-" let NERDTreeShowHidden=1
-" autocmd vimrc FileType nerdtree nmap <buffer> % ma
+nnoremap <silent> <C-u> :lua windows.unloadBuffer()<CR>
 
 " }}}
 " {{{ More plugin customization
