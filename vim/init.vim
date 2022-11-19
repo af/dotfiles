@@ -1,6 +1,10 @@
 set encoding=utf-8
 scriptencoding utf-8
 
+" For nvim-tree, disable netrw
+let loaded_netrw=1
+let loaded_netrwPlugin=1
+
 augroup vimrc
   autocmd!
 augroup END
@@ -21,20 +25,21 @@ augroup END
 "
 call plug#begin('~/.vim/plugged')
 
+" Semi-official plugins
+Plug 'neovim/nvim-lspconfig',       { 'commit': 'fc2f44d' }
+Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '7ccb9a0', 'do': ':TSUpdate' }
+
 " Essentials
 Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
 Plug 'junegunn/fzf',                { 'tag': '0.30.0', 'do': { -> fzf#install() }}
 Plug 'junegunn/fzf.vim',            { 'commit': 'd5f1f86' }
-Plug 'scrooloose/nerdtree',         { 'tag': '6.2.0', 'on': 'NERDTreeToggle' }
-Plug 'PhilRunninger/nerdtree-buffer-ops', { 'commit': 'f5e77b8', 'on': 'NERDTreeToggle' }
+Plug 'nvim-tree/nvim-tree.lua'
 
 Plug 'nvim-lua/plenary.nvim'  " Required for gitsigns
-Plug 'lewis6991/gitsigns.nvim',     { 'commit': 'd12442a' }
-Plug 'neovim/nvim-lspconfig',       { 'tag': 'v0.1.3' }
+Plug 'lewis6991/gitsigns.nvim',     { 'commit': '851cd32' }
 Plug 'cohama/lexima.vim'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'glepnir/galaxyline.nvim' ,    { 'commit': 'eb81be0' }
-Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '5e894bd', 'do': ':TSUpdate' }
 Plug 'tiagovla/scope.nvim'
 
 Plug 'kyazdani42/nvim-web-devicons'
@@ -45,10 +50,10 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-nvim-lua'
-Plug 'hrsh7th/cmp-vsnip'
-Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 Plug 'hrsh7th/nvim-cmp'
+Plug 'dcampos/nvim-snippy'
+Plug 'dcampos/cmp-snippy'
 
 " experimental: scrollbar with search status
 Plug 'petertriho/nvim-scrollbar'
@@ -74,7 +79,6 @@ Plug 'AndrewRadev/splitjoin.vim',   { 'commit': '03af68c' }     " gS and gJ to s
 " Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load lazily, w/o input lag
 
 " language-specific plugins
-Plug '~/dotfiles/vim/vendored/nerdtree_menu_terminal'
 Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 'markdown' }
 
 " Color/Theme/syntax
@@ -196,19 +200,20 @@ if has('nvim')
   augroup END
 
   " TODO: try/catch these imports to handle initial install run?
-  lua require('gitsigns').setup()
+  lua require('git')
   lua require('colorizer').setup({ 'css'; 'stylus'; 'html'; })
   "lua snippets = require('mysnips')
   lua treesitter = require('treesitter')
   lua lsp = require('lsp')
   lua diag = require('diagnostics')
-  lua complete = require('completion')
+  lua require('snippets')
+  lua require('completion')
   lua fuzzy = require('fuzzy')
-  lua nerdtree = require('nerdtree')
   lua windows = require('windows')
   lua require('statusline')
   lua require('tabline')
   lua require('searchscroll')
+  lua require('tree')
   lua require('scope').setup()
 elseif $TERM ==# 'xterm-256color' || $TERM ==# 'screen-256color'
   set t_Co=256    " 256 colours for regular vim if the terminal can handle it.
@@ -232,21 +237,10 @@ augroup ErrorHighlights
 augroup END
 
 " syntax highlighting overrides:
-highlight link NERDTreeOpenBuffer SpecialChar
 highlight link ctrlsfFilename Keyword
 highlight link GitSignsAdd GitGutterAdd
 highlight link GitSignsDelete GitGutterDelete
 highlight link GitSignsChange GitGutterChange
-
-" Show syntax highlighting groups for word under cursor with <leader>S
-" From Vimcasts #25: http://vimcasts.org/episodes/creating-colorschemes-for-vim/
-nnoremap <leader>S :call <SID>SynStack()<CR>
-function! <SID>SynStack()
-  if !exists('*synstack')
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
 
 " }}}
 " {{{ LSP & Diagnostics
@@ -306,22 +300,11 @@ let g:ctrlsf_mapping = {
 let g:ctrlsf_auto_focus = {"at": "start"}
 
 " }}}
-" {{{ nerdtree
+" {{{ tree
 "===============================================================================
 
-nnoremap - :lua nerdtree.open()<CR>
-nnoremap <silent> <C-u> :lua nerdtree.unloadFile()<CR>
-
-let NERDTreeMapOpenSplit = '<C-s>'
-let NERDTreeMapOpenVSplit = '<C-v>'
-let NERDTreeMapOpenInTab = '<C-t>'
-let NERDTreeMapUpdirKeepOpen = '-'
-let NERDTreeMapHelp = '<F1>'
-let NERDTreeRespectWildIgnore=1
-let g:NERDTreeMinimalUI = 1
-let g:NERDTreeAutoDeleteBuffer = 1
-let NERDTreeShowHidden=1
-autocmd vimrc FileType nerdtree nmap <buffer> % ma
+nnoremap - :NvimTreeFindFile<CR>
+nnoremap <silent> <C-u> :lua windows.unloadBuffer()<CR>
 
 " }}}
 " {{{ More plugin customization
@@ -360,7 +343,8 @@ if has('nvim')
       " for some reason, using vim as a man reader opens 2 buffers, but we don't want FZFMixed here
       return
     endif
-    if @% == "" || bufexists(2)
+    " todo: this used to be bufexists(2), should investigate why a bump up was needed
+    if @% == "" || bufexists(3)
       FZFMixed
     endif
   endfunction
