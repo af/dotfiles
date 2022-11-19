@@ -242,16 +242,6 @@ highlight link GitSignsAdd GitGutterAdd
 highlight link GitSignsDelete GitGutterDelete
 highlight link GitSignsChange GitGutterChange
 
-" Show syntax highlighting groups for word under cursor with <leader>S
-" From Vimcasts #25: http://vimcasts.org/episodes/creating-colorschemes-for-vim/
-nnoremap <leader>S :call <SID>SynStack()<CR>
-function! <SID>SynStack()
-  if !exists('*synstack')
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
-
 " }}}
 " {{{ LSP & Diagnostics
 "===============================================================================
