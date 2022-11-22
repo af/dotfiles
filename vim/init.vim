@@ -55,9 +55,6 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'dcampos/nvim-snippy'
 Plug 'dcampos/cmp-snippy'
 
-" experimental: scrollbar with search status
-Plug 'petertriho/nvim-scrollbar'
-
 " tpope appreciation section
 Plug 'tpope/vim-apathy'
 Plug 'tpope/vim-commentary',        { 'commit': 'f8238d7' }
@@ -69,24 +66,23 @@ Plug 'tpope/vim-fugitive',          { 'commit': 'a6b823b' }
 Plug 'tpope/vim-rhubarb',           { 'commit': '977b3cc' }
 Plug 'tpope/vim-sleuth',            { 'commit': '039e2cd' }
 
-" Yanking and clipboard
-Plug 'bfredl/nvim-miniyank',        { 'commit': '2a3a0f3' }
-
 " Editing modifications
 Plug 'AndrewRadev/splitjoin.vim',   { 'commit': '03af68c' }     " gS and gJ to split/join lines
+Plug 'bfredl/nvim-miniyank',        { 'commit': '2a3a0f3' }
 
 " Indentation, etc. Autodetect, but override with .editorconfig if present:
 " Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load lazily, w/o input lag
 
 " language-specific plugins
-Plug 'junegunn/vim-xmark',          { 'commit': '6dd673a', 'do': 'make', 'for': 'markdown' }
+" usage-> :MarkdownPreview
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install', 'for': 'markdown' }
 
 " Color/Theme/syntax
 Plug 'shaunsingh/nord.nvim'
 
 " Misc
 Plug 'vimwiki/vimwiki',             { 'commit': '417490f' }
-Plug 'danro/rename.vim',            { 'commit': 'f133763' }
+Plug 'petertriho/nvim-scrollbar'
 
 " Enabled periodically, but not by default:
 " Plug 'takac/vim-hardtime',          { 'commit': 'acf59c8' }
@@ -237,10 +233,7 @@ augroup ErrorHighlights
 augroup END
 
 " syntax highlighting overrides:
-highlight link ctrlsfFilename Keyword
-highlight link GitSignsAdd GitGutterAdd
-highlight link GitSignsDelete GitGutterDelete
-highlight link GitSignsChange GitGutterChange
+highlight NvimTreeFolderIcon guifg=#5e81ac gui=bold
 
 " }}}
 " {{{ LSP & Diagnostics
