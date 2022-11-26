@@ -198,6 +198,7 @@ function af-npm-i-globals () {
       jsonlint\
       neovim\
       svgo\
+      @johnnymorganz/stylua-bin\
       yarn
 }
 

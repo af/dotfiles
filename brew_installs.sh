@@ -8,12 +8,12 @@ entr \
 fasd \
 fd \
 fnm \
-ghi \
+gh \
 git \
 gnu-sed \
 htop \
-hub \
 jq \
+lua-language-server \
 ncdu \
 neovim \
 ngrep \
