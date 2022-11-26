@@ -3,6 +3,22 @@
 
 local lspconfig = require('lspconfig')
 
+-- Set up integrations with non-LSP tools
+-- See https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
+local null_ls = require("null-ls")
+null_ls.setup({
+  sources = {
+    null_ls.builtins.formatting.prettier,
+    null_ls.builtins.formatting.lua_format,
+
+    null_ls.builtins.code_actions.eslint,
+    null_ls.builtins.diagnostics.eslint,
+
+    null_ls.builtins.diagnostics.stylelint,
+    null_ls.builtins.formatting.stylelint
+  },
+})
+
 --Enable completion with nvim-cmp
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
@@ -53,69 +69,6 @@ lspconfig.tsserver.setup{
     -- use prettier for formatting instead
     client.server_capabilities.documentFormatting = false
   end
-}
-
--- Formatting via efm
-local luafmt = {
-  -- Docs: https://github.com/Koihik/LuaFormatter
-  -- Install with:
-  -- luarocks install --server=https://luarocks.org/dev luaformatter
-  formatCommand = "lua-format --indent-width=2 -i",
-  formatStdin = true
-}
-
-local prettier = {
-  formatCommand = "prettier --stdin-filepath ${INPUT}",
-  formatStdin = true
-}
-
-local eslint = {
-  lintCommand = "eslint_d -f ~/dotfiles/tooling/eslint-formatter-vim.js --stdin --stdin-filename ${INPUT}",
-  lintIgnoreExitCode = true,
-  lintStdin = true,
-  lintFormats = {"%f:%l:%c:%t: %m"},
-}
-
--- TODO: look at stylelint-lsp:
--- https://www.jihadwaspada.com/post/how-to-setup-stylelint-with-neovim-lsp/
-local stylelint = {
-  lintCommand = 'stylelint --stdin --stdin-filename ${INPUT} --formatter compact',
-  lintIgnoreExitCode = true,
-  lintStdin = true,
-  lintFormats = {
-    '%f: line %l, col %c, %tarning - %m',
-    '%f: line %l, col %c, %trror - %m',
-  },
-  formatCommand = 'stylelint --fix --stdin --stdin-filename ${INPUT}',
-  formatStdin = true,
-}
-
-local pgformatter = {
-  formatCommand = "pg_format ${INPUT}",
-  formatStdin = true,
-}
-
-local languages = {
-  graphql = {prettier},
-  lua = {luafmt},
-  typescript = {prettier, eslint},
-  javascript = {prettier, eslint},
-  typescriptreact = {prettier, eslint},
-  javascriptreact = {prettier, eslint},
-  yaml = {prettier},
-  json = {prettier},
-  html = {prettier},
-  css = {stylelint},
-  markdown = {prettier},
-  sql = {pgformatter}
-}
-
-lspconfig.efm.setup {
-  root_dir = lspconfig.util.root_pattern(".git/"),
-  filetypes = vim.tbl_keys(languages),
-  init_options = {documentFormatting = true, codeAction = true},
-  on_attach=on_attach,
-  settings = { languages = languages }
 }
 
 -- CSS

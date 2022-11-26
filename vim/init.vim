@@ -34,6 +34,7 @@ Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
 Plug 'junegunn/fzf',                { 'tag': '0.30.0', 'do': { -> fzf#install() }}
 Plug 'junegunn/fzf.vim',            { 'commit': 'd5f1f86' }
 Plug 'nvim-tree/nvim-tree.lua'
+Plug 'jose-elias-alvarez/null-ls.nvim'
 
 Plug 'nvim-lua/plenary.nvim'  " Required for gitsigns
 Plug 'lewis6991/gitsigns.nvim',     { 'commit': '851cd32' }
