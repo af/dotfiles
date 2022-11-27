@@ -37,11 +37,12 @@ Plug 'nvim-tree/nvim-tree.lua'
 Plug 'jose-elias-alvarez/null-ls.nvim'
 
 Plug 'nvim-lua/plenary.nvim'  " Required for gitsigns
-Plug 'lewis6991/gitsigns.nvim',     { 'commit': '851cd32' }
 Plug 'cohama/lexima.vim'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'glepnir/galaxyline.nvim' ,    { 'commit': 'eb81be0' }
 Plug 'tiagovla/scope.nvim'
+Plug 'lewis6991/gitsigns.nvim',     { 'commit': '851cd32' }
+Plug 'ruifm/gitlinker.nvim'  " <leader>gy instead of :GBrowse
 
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'akinsho/bufferline.nvim',     { 'tag': 'v2.3.0' }
@@ -64,7 +65,6 @@ Plug 'tpope/vim-surround',          { 'commit': 'bf3480d' }
 Plug 'tpope/vim-repeat',            { 'commit': '24afe92' }
 Plug 'tpope/vim-unimpaired',        { 'commit': '11dc568' }
 Plug 'tpope/vim-fugitive',          { 'commit': 'a6b823b' }
-Plug 'tpope/vim-rhubarb',           { 'commit': '977b3cc' }
 Plug 'tpope/vim-sleuth',            { 'commit': '039e2cd' }
 
 " Editing modifications
@@ -212,6 +212,7 @@ if has('nvim')
   lua require('searchscroll')
   lua require('tree')
   lua require('scope').setup()
+  lua require('gitlinker').setup()
 elseif $TERM ==# 'xterm-256color' || $TERM ==# 'screen-256color'
   set t_Co=256    " 256 colours for regular vim if the terminal can handle it.
   let g:nvcode_termcolors=256
