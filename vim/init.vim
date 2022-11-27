@@ -36,7 +36,8 @@ Plug 'junegunn/fzf.vim',            { 'commit': 'd5f1f86' }
 Plug 'nvim-tree/nvim-tree.lua'
 Plug 'jose-elias-alvarez/null-ls.nvim'
 
-Plug 'nvim-lua/plenary.nvim'  " Required for gitsigns
+Plug 'nvim-lua/plenary.nvim'  " Required for gitsigns & null-ls
+Plug 'folke/neodev.nvim'
 Plug 'cohama/lexima.vim'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'glepnir/galaxyline.nvim' ,    { 'commit': 'eb81be0' }

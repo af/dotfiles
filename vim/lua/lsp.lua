@@ -1,3 +1,6 @@
+-- must be before lspconfig setup
+require('neodev').setup()
+
 -- For general LSP config info, see
 -- https://github.com/neovim/nvim-lspconfig
 local lspconfig = require('lspconfig')
