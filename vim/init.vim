@@ -72,9 +72,6 @@ Plug 'tpope/vim-sleuth',            { 'commit': '039e2cd' }
 Plug 'AndrewRadev/splitjoin.vim',   { 'commit': '03af68c' }     " gS and gJ to split/join lines
 Plug 'bfredl/nvim-miniyank',        { 'commit': '2a3a0f3' }
 
-" Indentation, etc. Autodetect, but override with .editorconfig if present:
-" Plug 'editorconfig/editorconfig-vim', { 'commit': '646c180' }   " TODO: load lazily, w/o input lag
-
 " language-specific plugins
 " usage-> :MarkdownPreview
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install', 'for': 'markdown' }
@@ -353,9 +350,6 @@ command! FZFMru call fzf#run(fzf#wrap({
 \ }))
 nnoremap gm :FZFMru<CR>
 
-" Sibling file selector
-nnoremap <silent> <leader>- :Files <C-r>=expand("%:h")<CR>/<CR>
-
 " fugitive
 nnoremap gs :Git<CR>
 nnoremap gl :Git log<CR>
@@ -368,7 +362,6 @@ let g:splitjoin_trailing_comma = 1
 " bufferline
 nnoremap <silent> <Tab> :BufferLineCycleNext<CR>
 nnoremap <silent> <S-Tab> :BufferLineCyclePrev<CR>
-" attempted mnemonic: "slip" to another buffer
 nnoremap <silent> s :BufferLinePick<CR>
 
 " nvim-miniyank (lighter-weight YankRing workalike)
@@ -385,8 +378,6 @@ let g:vimwiki_list = [{
   \ 'diary_rel_path': 'journal/', 'diary_index': 'index',
   \ 'diary_header': 'Journal', 'diary_sort': 'asc'
   \ }]
-
-let g:EditorConfig_core_mode = 'python_external'    " Speeds up load time by ~150ms
 
 " }}}
 " {{{ Autosave
@@ -499,8 +490,11 @@ noremap <silent> n /<CR>
 noremap <silent> N ?<CR>
 
 " yank to system clipboard:
-vnoremap <Leader>y "+y
+vnoremap <leader>y "+y
 nnoremap Y yy
+
+" normal mode: yank path of current buffer into system clipboard
+nnoremap <leader>y :let @+ = expand("%")<CR>
 
 " Resize window with arrow keys
 nnoremap <Left> :vertical resize -4<CR>
@@ -530,13 +524,8 @@ autocmd vimrc BufNewFile,BufRead *.md set filetype=markdown
 autocmd vimrc BufNewFile,BufRead *.gql set filetype=graphql
 autocmd vimrc BufNewFile,BufRead Procfile set filetype=sh
 
-" sql, see https://www.reddit.com/r/vim/comments/2om1ib/how_to_disable_sql_dynamic_completion/
-let g:omni_sql_no_default_maps = 1
-
 " html
 iabbrev target="_blank" target="_blank" rel="noopener"
-
-let g:vim_json_syntax_conceal = 0
 
 " Hack to open help in vsplit by default
 augroup vimrc_help
