@@ -1,15 +1,16 @@
-require("nvim-tree").setup({
-  sort_by = "case_sensitive",
+require('nvim-tree').setup({
+  sort_by = 'case_sensitive',
   remove_keymaps = { 'H' },
   renderer = {
     group_empty = true,
+    indent_width = 1,
   },
   filters = {
     dotfiles = false,
   },
   git = {
     ignore = false,
-  }
+  },
 })
 
 -- netrw is disabled to help with the tree
@@ -26,4 +27,4 @@ function _G.open_in_browser()
     print('No https or http URI found in line.')
   end
 end
-vim.api.nvim_set_keymap( 'n', 'gx', '<cmd>lua open_in_browser()<cr>', {})
+vim.api.nvim_set_keymap('n', 'gx', '<cmd>lua open_in_browser()<cr>', {})
