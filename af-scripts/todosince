@@ -7,7 +7,7 @@
 const { execSync } = require('child_process')
 const { colorize, parseCLI } = require('./_cli')
 
-const POSITIONAL_DEFAULTS = ['master']
+const POSITIONAL_DEFAULTS = ['main']
 const FLAG_DEFAULTS = {
   terms: 'TODO|FIXME|console.log|debugger|@ts-ignore|: ?any',
   output: 'pretty',
