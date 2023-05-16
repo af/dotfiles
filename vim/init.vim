@@ -27,14 +27,14 @@ call plug#begin('~/.vim/plugged')
 
 " Semi-official plugins
 Plug 'neovim/nvim-lspconfig',       { 'commit': 'fc2f44d' }
-Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '7ccb9a0', 'do': ':TSUpdate' }
+Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '95850f7', 'do': ':TSUpdate' }
 
 " Essentials
 Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
 Plug 'junegunn/fzf',                { 'tag': '0.30.0', 'do': { -> fzf#install() }}
 Plug 'junegunn/fzf.vim',            { 'commit': 'd5f1f86' }
-Plug 'nvim-tree/nvim-tree.lua'
-Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'nvim-tree/nvim-tree.lua',     { 'commit': '736c7ff' }
+Plug 'jose-elias-alvarez/null-ls.nvim', { 'commit': 'd09d7d8' }
 
 Plug 'nvim-lua/plenary.nvim'  " Required for gitsigns & null-ls
 Plug 'folke/neodev.nvim'
@@ -43,7 +43,7 @@ Plug 'norcalli/nvim-colorizer.lua'
 Plug 'glepnir/galaxyline.nvim' ,    { 'commit': 'eb81be0' }
 Plug 'tiagovla/scope.nvim'
 Plug 'lewis6991/gitsigns.nvim',     { 'commit': '851cd32' }
-Plug 'ruifm/gitlinker.nvim'  " <leader>gy instead of :GBrowse
+Plug 'ruifm/gitlinker.nvim',        { 'commit': 'cc59f73' }
 
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'akinsho/bufferline.nvim',     { 'tag': 'v2.3.0' }
@@ -65,7 +65,7 @@ Plug 'tpope/vim-obsession',         { 'commit': '4ab72e0' }     " start a sessio
 Plug 'tpope/vim-surround',          { 'commit': 'bf3480d' }
 Plug 'tpope/vim-repeat',            { 'commit': '24afe92' }
 Plug 'tpope/vim-unimpaired',        { 'commit': '11dc568' }
-Plug 'tpope/vim-fugitive',          { 'commit': 'a6b823b' }
+Plug 'tpope/vim-fugitive',          { 'commit': '5f0d280' }
 Plug 'tpope/vim-sleuth',            { 'commit': '039e2cd' }
 
 " Editing modifications

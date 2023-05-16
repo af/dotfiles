@@ -1,6 +1,14 @@
+local on_attach = function(bufnr)
+  local api = require('nvim-tree.api')
+  api.config.mappings.default_on_attach(bufnr)
+
+  -- Remove nvim-tree's default H mapping (use vim's default instead)
+  vim.keymap.del('n', 'H', { buffer = bufnr })
+end
+
 require('nvim-tree').setup({
+  on_attach = on_attach,
   sort_by = 'case_sensitive',
-  remove_keymaps = { 'H' },
   renderer = {
     group_empty = true,
     indent_width = 1,
