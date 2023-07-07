@@ -25,7 +25,7 @@ const trySync = (cmd) => {
 const run = () => {
   if (!tidyUpDirExists) mkdirSync(tidyUpDir)
 
-  trySync(`mv ${desktop}/Screen\\ Shot* ${tidyUpDir}`)
+  trySync(`mv ${desktop}/Screenshot* ${tidyUpDir}`)
   trySync(`mv ${desktop}/Screen\\ Recording* ${tidyUpDir}`)
 }
 
