@@ -33,8 +33,8 @@ Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '95850f7', 'do': ':TSUpdate'
 Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
 Plug 'junegunn/fzf',                { 'tag': '0.30.0', 'do': { -> fzf#install() }}
 Plug 'junegunn/fzf.vim',            { 'commit': 'd5f1f86' }
-Plug 'nvim-tree/nvim-tree.lua',     { 'commit': '736c7ff' }
-Plug 'jose-elias-alvarez/null-ls.nvim', { 'commit': 'd09d7d8' }
+Plug 'nvim-tree/nvim-tree.lua',     { 'commit': '3b62c6b' }
+Plug 'jose-elias-alvarez/null-ls.nvim', { 'commit': 'db09b6c' }
 
 Plug 'nvim-lua/plenary.nvim'  " Required for gitsigns & null-ls
 Plug 'folke/neodev.nvim'
@@ -233,7 +233,10 @@ augroup ErrorHighlights
 augroup END
 
 " syntax highlighting overrides:
+" for palette see https://github.com/shaunsingh/nord.nvim/blob/fab04b2dd4b64f4b1763b9250a8824d0b5194b8f/lua/nord/named_colors.lua
 highlight NvimTreeFolderIcon guifg=#5e81ac gui=bold
+highlight NvimTreeOpenedFile guifg=#8FBCBB gui=bold
+highlight NvimTreeSymlink guifg=#ECEFF4
 
 " }}}
 " {{{ LSP & Diagnostics

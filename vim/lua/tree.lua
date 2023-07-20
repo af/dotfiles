@@ -10,8 +10,10 @@ require('nvim-tree').setup({
   on_attach = on_attach,
   sort_by = 'case_sensitive',
   renderer = {
+    add_trailing = true,
     group_empty = true,
     indent_width = 1,
+    highlight_opened_files = 'all',
   },
   filters = {
     dotfiles = false,
