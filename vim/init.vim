@@ -26,7 +26,7 @@ augroup END
 call plug#begin('~/.vim/plugged')
 
 " Semi-official plugins
-Plug 'neovim/nvim-lspconfig',       { 'commit': 'fc2f44d' }
+Plug 'neovim/nvim-lspconfig',       { 'commit': 'b609127' }
 Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '95850f7', 'do': ':TSUpdate' }
 
 " Essentials
@@ -46,17 +46,20 @@ Plug 'lewis6991/gitsigns.nvim',     { 'commit': '851cd32' }
 Plug 'ruifm/gitlinker.nvim',        { 'commit': 'cc59f73' }
 
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'akinsho/bufferline.nvim',     { 'tag': 'v2.3.0' }
+Plug 'akinsho/bufferline.nvim',     { 'tag': 'v4.3.0' }
 
 " completion and snippets
+Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-nvim-lua'
 Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
-Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-emoji'
 Plug 'dcampos/nvim-snippy'
 Plug 'dcampos/cmp-snippy'
+Plug 'petertriho/cmp-git'
+Plug 'onsails/lspkind.nvim' " for completion type icons
 
 " tpope appreciation section
 Plug 'tpope/vim-apathy'
@@ -77,7 +80,7 @@ Plug 'bfredl/nvim-miniyank',        { 'commit': '2a3a0f3' }
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install', 'for': 'markdown' }
 
 " Color/Theme/syntax
-Plug 'shaunsingh/nord.nvim'
+Plug 'shaunsingh/nord.nvim',        { 'commit': 'fab04b2' }
 
 " Misc
 Plug 'vimwiki/vimwiki',             { 'commit': '417490f' }
@@ -276,6 +279,7 @@ let g:ctrlsf_context = '-B 2 -A 2'
 let g:ctrlsf_position = 'bottom'
 let g:ctrlsf_winsize = '65%'
 let g:ctrlsf_indent = 1
+let g:ctrlsf_default_root = 'project'
 let g:ctrlsf_ignore_dir = ['node_modules', '.git']
 nnoremap <C-g> :CtrlSF ""<left>
 nmap gr <Plug>CtrlSFCCwordExec

@@ -27,7 +27,7 @@ API.toggleLocationList = function()
 end
 
 API.moveRight = function()
-  if (vim.api.nvim_buf_get_option(0, 'filetype') == 'nerdtree') then
+  if vim.api.nvim_buf_get_option(0, 'filetype') == 'nerdtree' then
     vimCmd('wincmd p')
   else
     vimCmd('wincmd l')
@@ -39,18 +39,26 @@ end
 --
 -- Uses some tricks from https://stackoverflow.com/questions/17170902/in-vim-how-to-switch-quickly-between-h-and-cpp-files-with-the-same-name
 API.vsplitAlternateFiles = function()
-  local thisFile = vimFn('expand', {'%'})
-  if (thisFile == '') then return end
+  local thisFile = vimFn('expand', { '%' })
+  if thisFile == '' then
+    return
+  end
 
-  local thisFileWithoutExt = vimFn('expand', {'%:r'})
-  local siblingFiles = vimFn('glob', {thisFileWithoutExt .. '.*'})
+  -- todo: clean up extension logic. Lua patterns don't support alternation :(
+  local thisFileWithoutExt = vimFn('expand', { '%:r' })
+  thisFileWithoutExt = thisFileWithoutExt
+    :gsub('%_test$', '')
+    :gsub('%.test$', '')
+    :gsub('%.spec$', '')
+    :gsub('%.module$', '')
+  local siblingFiles = vimFn('glob', { thisFileWithoutExt .. '*' })
   local siblings = vim.split(siblingFiles, '\n')
 
   for _, filename in pairs(siblings) do
-    if (filename ~= thisFile) then
-      local bufferNumber = vimFn('bufnr', {filename})
-      local fileNotOpenInWindow = vimFn('bufwinnr', {bufferNumber}) < 0
-      if (fileNotOpenInWindow) then
+    if filename ~= thisFile then
+      local bufferNumber = vimFn('bufnr', { filename })
+      local fileNotOpenInWindow = vimFn('bufwinnr', { bufferNumber }) < 0
+      if fileNotOpenInWindow then
         vim.api.nvim_command('vsplit ' .. filename)
       end
     end
@@ -74,7 +82,7 @@ API.openCenteredFloat = function()
 
   -- width behaves slightly differently for small/large windows
   local win_width
-  if (width < 150) then
+  if width < 150 then
     win_width = math.ceil(width - 8)
   else
     -- use 90% of the editor's width
@@ -93,10 +101,10 @@ end
 
 API.unloadBuffer = function()
   local filetype = vim.api.nvim_buf_get_option(0, 'filetype')
-  if (filetype == 'ctrlsf') then
+  if filetype == 'ctrlsf' then
     vimCmd('bdelete')
   else
-    local buffer_number = vimFn('bufnr', {'%'})
+    local buffer_number = vimFn('bufnr', { '%' })
     vimCmd('bnext')
     vimCmd('bdelete ' .. buffer_number)
   end

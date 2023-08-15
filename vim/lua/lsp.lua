@@ -9,6 +9,15 @@ local lspconfig = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
+local runformatter = function(bufnr)
+  vim.lsp.buf.format({
+    filter = function(client)
+      return client.name == 'null-ls'
+    end,
+    bufnr = bufnr,
+  })
+end
+
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
@@ -28,27 +37,20 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', ']w', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
   -- buf_set_keymap('n', '<C-w>', '<cmd>lua vim.diagnostic.set_loclist()<CR>', opts)
 
-  _G.runformatter = function()
-    vim.lsp.buf.format({
-      filter = function(_client)
-        return _client.name == 'null-ls'
-      end,
-      bufnr = bufnr,
-    })
-  end
-
   -- TODO: cleanup. See https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Avoiding-LSP-formatting-conflicts
   -- buf_set_keymap("n", "<leader>f", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", opts)
-  buf_set_keymap('n', '<leader>f', '<cmd>lua _G.runformatter()<CR>', opts)
+  -- buf_set_keymap('n', '<leader>f', '<cmd>lua _G.runformatter(bufnr)<CR>', opts)
 
-  -- FIXME: this should work for null-ls also!
-  -- if client.supports_method("textDocument/formatting") then
-  vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-  vim.api.nvim_create_autocmd(
-    'BufWritePre',
-    { group = augroup, buffer = bufnr, callback = _G.runformatter }
-  )
-  -- end
+  if client.supports_method('textDocument/formatting') then
+    vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+    vim.api.nvim_create_autocmd('BufWritePre', {
+      group = augroup,
+      buffer = bufnr,
+      callback = function()
+        runformatter(bufnr)
+      end,
+    })
+  end
 end
 
 -- Set up integrations with non-LSP tools
@@ -62,14 +64,21 @@ null_ls.setup({
 
     -- Docs: https://github.com/JohnnyMorganz/StyLua
     -- Install with: npm i -g @johnnymorganz/stylua-bin
-    null_ls.builtins.formatting.stylua, -- eslint actions & diagnostics
-    null_ls.builtins.code_actions.eslint,
-    null_ls.builtins.diagnostics.eslint,
+    null_ls.builtins.formatting.stylua,
 
     -- stylelint formatting & diagnostics
     null_ls.builtins.diagnostics.stylelint,
     null_ls.builtins.formatting.stylelint,
   },
+})
+
+lspconfig.eslint.setup({
+  on_attach = function(_client, bufnr)
+    vim.api.nvim_create_autocmd('BufWritePre', {
+      buffer = bufnr,
+      command = 'EslintFixAll',
+    })
+  end,
 })
 
 -- TypeScript/JS
@@ -98,7 +107,7 @@ lspconfig.jsonls.setup({ capabilities = capabilities, on_attach = on_attach })
 
 -- Lua
 -- Need to run `brew install lua-language-server` for support
-lspconfig.sumneko_lua.setup({
+lspconfig.lua_ls.setup({
   settings = {
     Lua = {
       runtime = { version = 'LuaJIT', path = vim.split(package.path, ';') },

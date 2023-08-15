@@ -9,6 +9,7 @@ end
 require('nvim-tree').setup({
   on_attach = on_attach,
   sort_by = 'case_sensitive',
+  disable_netrw = true,
   renderer = {
     add_trailing = true,
     group_empty = true,
@@ -19,7 +20,15 @@ require('nvim-tree').setup({
     dotfiles = false,
   },
   git = {
+    enable = false, -- had some performance problems with this integration
     ignore = false,
+  },
+  view = {
+    width = 40,
+  },
+  update_focused_file = {
+    enable = true,
+    update_root = false,
   },
 })
 
