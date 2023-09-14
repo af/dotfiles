@@ -49,7 +49,7 @@ scrolling:
 # Font configuration (changes require restart)
 font:
   normal:
-    family: Hack Nerd Font Mono
+    family: Hack Nerd Font
     style: Regular
 
   bold:
@@ -74,22 +74,6 @@ font:
   glyph_offset:
     x: 0
     y: 0
-
-  # Thin stroke font rendering (macOS only)
-  #
-  # Thin strokes are suitable for retina displays, but for non-retina screens
-  # it is recommended to set `use_thin_strokes` to `false`
-  #
-  # macOS >= 10.14.x:
-  #
-  # If the font quality on non-retina display looks bad then set
-  # `use_thin_strokes` to `true` and enable font smoothing by running the
-  # following command:
-  #   `defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO`
-  #
-  # This is a global setting and will require a log out or restart to take
-  # effect.
-  use_thin_strokes: false
 
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: false
@@ -209,9 +193,6 @@ cursor:
 
 # Live config reload (changes require restart)
 live_config_reload: true
-
-# Send ESC (\x1b) before characters when alt is pressed.
-alt_send_esc: true
 
 # Key bindings
 #
