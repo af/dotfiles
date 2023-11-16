@@ -1,41 +1,72 @@
-#!/usr/bin/env node
-// @ts-check
+#!/usr/bin/env bun
 
-// TODO: help output
-// TODO: ts-node?
+import { execSync } from 'child_process'
 
-const { execSync } = require('child_process')
-const { colorize, parseCLI } = require('./_cli')
+declare const Bun: { argv: string[] }
+
+type Chunk = { fileName: string, lines: { lineText: string, lineNumber: number }[] }
 
 const POSITIONAL_DEFAULTS = ['main']
 const FLAG_DEFAULTS = {
   terms: 'TODO|FIXME|console.log|debugger|@ts-ignore|: ?any',
   output: 'pretty',
-}
+} as const
 
 const diffFileBoundaryRegex = /^diff --git a\//m
 const fileNameRegex = /\n\+\+\+ b\/(\S+)\n/
 const chunkBoundaryRegex = /\n@@ [^\+]+\+/m
 const lineNumberRegex = /^\d+/
 
-const getRawDiff = (commit, flags) => {
+const parseCLI = (argv: string[], positionalDefaults: string[], flagDefaults: Record<string, string>) => {
+  const params = argv.slice(2)
+
+  const parsedFlags: Record<string, string> = {}
+  const parsedPositionals: string[] = []
+  let queuedFlagName: string | null = null
+
+  for (const p of params) {
+    const isFlag = p.startsWith('--')
+    if (isFlag) {
+      if (queuedFlagName) throw new Error(`Missing value for flag ${queuedFlagName}`)
+      queuedFlagName = p.slice(2)
+    } else {
+      if (queuedFlagName) {
+        parsedFlags[queuedFlagName] = p
+        queuedFlagName = null
+      }
+      else parsedPositionals.push(p)
+    }
+  }
+  const positionalArgs = positionalDefaults.map((defaultVal, idx) => parsedPositionals[idx] || defaultVal)
+  const flags = { ...flagDefaults, ...parsedFlags }
+  return { positionalArgs, flags }
+}
+
+// Quick and dirty terminal colorize utils.
+// See https://stackoverflow.com/questions/9781218/how-to-change-node-jss-console-font-color
+const _makeColorizer = (colorCode: string) => (str: string) => `\x1b[${colorCode}m${str}\x1b[0m`
+const colorize = {
+  blue: _makeColorizer('34'),
+  cyan: _makeColorizer('36'),
+  yellow: _makeColorizer('33'),
+}
+
+const getRawDiff = (commit: string, flags: Record<string, string>) => {
   const diffCmd = `git diff -U0 -G '${flags.terms}' ${commit}`
   return execSync(diffCmd, { encoding: 'utf8' })
 }
 
-/** @type {(diff: string, termsRegex: any) => { fileName: string, lines: { lineText: string, lineNumber: number }[] }[]} */
-const parseChunks = (diffOutput, termsRegex) => {
+const parseChunks = (diffOutput: string, termsRegex: RegExp): Chunk[] => {
   return diffOutput
     .split(diffFileBoundaryRegex)
-    // @ts-ignore tsserver doesn't recognice flatMap yet?
-    .flatMap(chunk => {
-      const fileNameMatch = chunk.match(fileNameRegex)
+    .flatMap(rawChunk => {
+      const fileNameMatch = rawChunk.match(fileNameRegex)
       if (!fileNameMatch) return []
 
-      return chunk.split(chunkBoundaryRegex)
-        .map(innerChunk => {
+      return rawChunk.split(chunkBoundaryRegex)
+        .flatMap(innerChunk => {
           const lineNumberMatch = innerChunk.match(lineNumberRegex)
-          if (!lineNumberMatch) return null
+          if (!lineNumberMatch) return []
           const chunkStartLine = parseInt(lineNumberMatch[0])
 
           const matchingAddedLines = innerChunk
@@ -44,21 +75,21 @@ const parseChunks = (diffOutput, termsRegex) => {
             .filter(l => l.startsWith('+'))   // Filter for added lines only
             .map((lineText, idx) => ({ lineText: lineText.slice(1), lineNumber: idx + chunkStartLine }))
             .filter(({ lineText }) => termsRegex.test(lineText))   // Filter for lines with our grep terms
-          if (!matchingAddedLines.length) return null
+          if (!matchingAddedLines.length) return []
 
-          return {
+          return [{
             fileName: fileNameMatch[1],
             lines: matchingAddedLines
-          }
+          }]
         })
         .filter(c => c != null)
     })
 }
 
-const makeHighlighter = termsRegex => line => line.replace(termsRegex, colorize.yellow)
+const makeHighlighter = (termsRegex: RegExp) => (line: string) => line.replace(termsRegex, colorize.yellow)
 
 const formatters = {
-  pretty: (chunks, highlighter) => {
+  pretty: (chunks: Chunk[], highlighter: ReturnType<typeof makeHighlighter>) => {
     const fileSections = chunks.map(chunk => {
       const { fileName, lines } = chunk
       const location = `${colorize.cyan(fileName)}`
@@ -71,7 +102,7 @@ const formatters = {
     return fileSections.join('\n\n')
   },
 
-  vimgrep: (chunks) => {
+  vimgrep: (chunks: Chunk[]) => {
     return chunks.flatMap(chunk => chunk.lines.map(({ lineText, lineNumber }) => (
       // Note: character position is hardwired to "1" below for now
       `${chunk.fileName}:${lineNumber}:${lineText.trim()}}`
@@ -79,7 +110,7 @@ const formatters = {
   }
 }
 
-const main = (argv) => {
+const main = (argv: string[]) => {
   const { positionalArgs, flags } = parseCLI(argv, POSITIONAL_DEFAULTS, FLAG_DEFAULTS)
   const termsRegex = new RegExp(flags.terms, 'g')
   const [commitName] = positionalArgs
@@ -89,9 +120,9 @@ const main = (argv) => {
   const highlighter = makeHighlighter(termsRegex)
 
   const output = flags.output === 'vimgrep' ?
-    formatters.vimgrep(chunks, highlighter) :
+    formatters.vimgrep(chunks) :
     formatters.pretty(chunks, highlighter)
   console.log(output)
 }
 
-main(process.argv)
+main(Bun.argv)
