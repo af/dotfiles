@@ -33,7 +33,7 @@ Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '95850f7', 'do': ':TSUpdate'
 Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
 Plug 'junegunn/fzf',                { 'tag': '0.30.0', 'do': { -> fzf#install() }}
 Plug 'junegunn/fzf.vim',            { 'commit': 'd5f1f86' }
-Plug 'nvim-tree/nvim-tree.lua',     { 'commit': '3b62c6b' }
+Plug 'nvim-tree/nvim-tree.lua',     { 'tag': 'nvim-tree-v0.99.0' }
 Plug 'jose-elias-alvarez/null-ls.nvim', { 'commit': 'db09b6c' }
 
 Plug 'nvim-lua/plenary.nvim'  " Required for gitsigns & null-ls

@@ -24,11 +24,22 @@ require('nvim-tree').setup({
     ignore = false,
   },
   view = {
-    width = 40,
+    width = 35,
   },
   update_focused_file = {
     enable = true,
     update_root = false,
+  },
+
+  -- fix for :q being slow in nvim-tree when there's a large node_modules dir
+  -- see https://github.com/nvim-tree/nvim-tree.lua/issues/2438#issuecomment-1848866750
+  filesystem_watchers = {
+    enable = false,
+    -- enable = true,
+    debounce_delay = 50,
+    ignore_dirs = {
+      'node_modules',
+    },
   },
 })
 
