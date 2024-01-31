@@ -46,7 +46,7 @@ Plug 'lewis6991/gitsigns.nvim',     { 'commit': '851cd32' }
 Plug 'ruifm/gitlinker.nvim',        { 'commit': 'cc59f73' }
 
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'akinsho/bufferline.nvim',     { 'tag': 'v4.3.0' }
+Plug 'romgrk/barbar.nvim'
 
 " completion and snippets
 Plug 'hrsh7th/nvim-cmp'
@@ -78,9 +78,10 @@ Plug 'bfredl/nvim-miniyank',        { 'commit': '2a3a0f3' }
 " language-specific plugins
 " usage-> :MarkdownPreview
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install', 'for': 'markdown' }
+Plug 'folke/neodev.nvim'
 
 " Color/Theme/syntax
-Plug 'shaunsingh/nord.nvim',        { 'commit': 'fab04b2' }
+Plug 'shaunsingh/nord.nvim',        { 'commit': '80c1e53' }
 
 " Misc
 Plug 'vimwiki/vimwiki',             { 'commit': '417490f' }
@@ -241,6 +242,14 @@ highlight NvimTreeFolderIcon guifg=#5e81ac gui=bold
 highlight NvimTreeOpenedFile guifg=#8FBCBB gui=bold
 highlight NvimTreeSymlink guifg=#ECEFF4
 
+" barbar diagnostic overrides
+highlight BufferCurrentERROR guifg=#BF616A guibg=#3B4252
+highlight BufferCurrentWARN guifg=#EBCB8B guibg=#3B4252
+highlight BufferCurrentHINT guifg=#81A1C1 guibg=#3B4252
+highlight BufferInactiveERROR guifg=#BF616A guibg=#2E3440
+highlight BufferInactiveWARN guifg=#EBCB8B guibg=#2E3440
+highlight BufferInactiveHINT guifg=#81A1C1 guibg=#2E3440
+
 " }}}
 " {{{ LSP & Diagnostics
 "===============================================================================
@@ -304,7 +313,6 @@ let g:ctrlsf_auto_focus = {"at": "start"}
 "===============================================================================
 
 nnoremap - :NvimTreeFindFile<CR>
-nnoremap <silent> <C-u> :lua windows.unloadBuffer()<CR>
 
 " }}}
 " {{{ More plugin customization
@@ -366,10 +374,11 @@ nnoremap gb :Git blame<CR>
 let g:splitjoin_curly_brace_padding = 0
 let g:splitjoin_trailing_comma = 1
 
-" bufferline
-nnoremap <silent> <Tab> :BufferLineCycleNext<CR>
-nnoremap <silent> <S-Tab> :BufferLineCyclePrev<CR>
-nnoremap <silent> s :BufferLinePick<CR>
+" barbar
+nnoremap <silent> <Tab> <Cmd>BufferNext<CR>
+nnoremap <silent> <S-Tab> <Cmd>BufferPrevious<CR>
+nnoremap <silent> s <Cmd>BufferPick<CR>
+nnoremap <silent> <C-u> <Cmd>BufferWipeout<CR>
 
 " nvim-miniyank (lighter-weight YankRing workalike)
 let g:miniyank_maxitems = 25

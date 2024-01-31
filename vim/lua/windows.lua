@@ -99,15 +99,4 @@ API.openCenteredFloat = function()
   })
 end
 
-API.unloadBuffer = function()
-  local filetype = vim.api.nvim_buf_get_option(0, 'filetype')
-  if filetype == 'ctrlsf' then
-    vimCmd('bdelete')
-  else
-    local buffer_number = vimFn('bufnr', { '%' })
-    vimCmd('bnext')
-    vimCmd('bdelete ' .. buffer_number)
-  end
-end
-
 return API

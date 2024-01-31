@@ -1,24 +1,16 @@
--- For customization see https://github.com/akinsho/bufferline.nvim
-require('bufferline').setup({
-  options = {
-    tab_size = 12;
-    diagnostics = 'nvim_lsp';
-    show_buffer_close_icons = false;
-    separator_style = 'slant';
+vim.g.barbar_auto_setup = false -- disable auto-setup
 
-    -- Fancy colorful icons via kyazdani42/nvim-web-devicons
-    color_icons = true;
-    show_buffer_icons = true;
-
-    -- Separate errors and warnings in tab diagnostics
-    diagnostics_indicator = function(count, level, diagnostics_dict, context)
-      local s = " "
-      for e, n in pairs(diagnostics_dict) do
-        local sym = e == "error" and "✖ "
-          or (e == "warning" and "⚠ " or "H " )
-        s = s .. n .. sym
-      end
-      return s
-    end
+-- see https://github.com/romgrk/barbar.nvim
+require('barbar').setup({
+  -- fixme: better diagnostics bg color
+  icons = {
+    button = '',
+    diagnostics = {
+      [vim.diagnostic.severity.ERROR] = { enabled = true, icon = '✖ ' },
+      [vim.diagnostic.severity.WARN] = { enabled = true, icon = '⚠ ' },
+      [vim.diagnostic.severity.INFO] = { enabled = false },
+      [vim.diagnostic.severity.HINT] = { enabled = true },
+    },
+    separator = { left = '', right = '' },
   },
 })
