@@ -193,6 +193,7 @@ function af-npm-i-globals () {
       typescript-language-server\
       vim-language-server\
       vscode-langservers-extracted\
+      graphql-language-service-cli\
       diff-so-fancy\
       gist-cli\
       jsonlint\

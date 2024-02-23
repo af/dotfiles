@@ -72,6 +72,8 @@ null_ls.setup({
   },
 })
 
+lspconfig.graphql.setup({})
+
 lspconfig.eslint.setup({
   on_attach = function(_client, bufnr)
     vim.api.nvim_create_autocmd('BufWritePre', {
