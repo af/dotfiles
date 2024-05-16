@@ -26,14 +26,14 @@ augroup END
 call plug#begin('~/.vim/plugged')
 
 " Semi-official plugins
-Plug 'neovim/nvim-lspconfig',       { 'commit': 'b609127' }
-Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '95850f7', 'do': ':TSUpdate' }
+Plug 'neovim/nvim-lspconfig',       { 'commit': 'cee94b2' }
+Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '8012b55', 'do': ':TSUpdate' }
 
 " Essentials
-Plug 'dyng/ctrlsf.vim',             { 'commit': 'bf3611c' }
+Plug 'dyng/ctrlsf.vim',             { 'commit': '32236a8' }
 Plug 'junegunn/fzf',                { 'tag': '0.30.0', 'do': { -> fzf#install() }}
 Plug 'junegunn/fzf.vim',            { 'commit': 'd5f1f86' }
-Plug 'nvim-tree/nvim-tree.lua',     { 'tag': 'nvim-tree-v0.99.0' }
+Plug 'nvim-tree/nvim-tree.lua',     { 'tag': 'nvim-tree-v1.3.3' }
 Plug 'jose-elias-alvarez/null-ls.nvim', { 'commit': 'db09b6c' }
 
 Plug 'nvim-lua/plenary.nvim'  " Required for gitsigns & null-ls
@@ -63,7 +63,6 @@ Plug 'onsails/lspkind.nvim' " for completion type icons
 
 " tpope appreciation section
 Plug 'tpope/vim-apathy'
-Plug 'tpope/vim-commentary',        { 'commit': 'f8238d7' }
 Plug 'tpope/vim-obsession',         { 'commit': '4ab72e0' }     " start a session file with :Obsession
 Plug 'tpope/vim-surround',          { 'commit': 'bf3480d' }
 Plug 'tpope/vim-repeat',            { 'commit': '24afe92' }
@@ -287,7 +286,7 @@ let g:ctrlsf_ackprg = 'rg'
 let g:ctrlsf_context = '-B 2 -A 2'
 let g:ctrlsf_position = 'bottom'
 let g:ctrlsf_winsize = '65%'
-let g:ctrlsf_indent = 1
+let g:ctrlsf_indent = 2
 let g:ctrlsf_default_root = 'project'
 let g:ctrlsf_ignore_dir = ['node_modules', '.git']
 nnoremap <C-g> :CtrlSF ""<left>
