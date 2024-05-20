@@ -39,7 +39,6 @@ Plug 'jose-elias-alvarez/null-ls.nvim', { 'commit': 'db09b6c' }
 Plug 'nvim-lua/plenary.nvim'  " Required for gitsigns & null-ls
 Plug 'folke/neodev.nvim'
 Plug 'cohama/lexima.vim'
-Plug 'norcalli/nvim-colorizer.lua'
 Plug 'glepnir/galaxyline.nvim' ,    { 'commit': 'eb81be0' }
 Plug 'tiagovla/scope.nvim'
 Plug 'lewis6991/gitsigns.nvim',     { 'commit': '851cd32' }
@@ -81,6 +80,7 @@ Plug 'folke/neodev.nvim'
 
 " Color/Theme/syntax
 Plug 'shaunsingh/nord.nvim',        { 'commit': '80c1e53' }
+Plug 'brenoprata10/nvim-highlight-colors'
 
 " Misc
 Plug 'vimwiki/vimwiki',             { 'commit': '417490f' }
@@ -199,11 +199,10 @@ if has('nvim')
 
   " TODO: try/catch these imports to handle initial install run?
   lua require('git')
-  lua require('colorizer').setup({ 'css'; 'stylus'; 'html'; })
-  "lua snippets = require('mysnips')
   lua treesitter = require('treesitter')
   lua lsp = require('lsp')
   lua diag = require('diagnostics')
+  lua require('nvim-highlight-colors').setup { render = 'virtual', virtual_symbol = '■', }
   lua require('snippets')
   lua require('completion')
   lua fuzzy = require('fuzzy')
