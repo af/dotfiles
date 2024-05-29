@@ -44,6 +44,7 @@ Plug 'glepnir/galaxyline.nvim' ,    { 'commit': 'eb81be0' }
 Plug 'tiagovla/scope.nvim'
 Plug 'lewis6991/gitsigns.nvim',     { 'commit': '851cd32' }
 Plug 'ruifm/gitlinker.nvim',        { 'commit': 'cc59f73' }
+Plug 'supermaven-inc/supermaven-nvim'
 
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'romgrk/barbar.nvim'
@@ -205,6 +206,7 @@ if has('nvim')
   lua lsp = require('lsp')
   lua diag = require('diagnostics')
   lua require('snippets')
+  lua require('ai')
   lua require('completion')
   lua fuzzy = require('fuzzy')
   lua windows = require('windows')
