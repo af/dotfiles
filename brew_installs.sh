@@ -1,9 +1,7 @@
 #!/bin/bash
 
 brew install \
-bat \
 curl \
-efm-langserver \
 entr \
 fasd \
 fd \
@@ -18,7 +16,6 @@ ncdu \
 neovim \
 ngrep \
 noti \
-nmap \
 pgformatter \
 python3 \
 reattach-to-user-namespace \
@@ -28,6 +25,5 @@ tldr \
 tig \
 tokei \
 tmux \
-weechat \
 wget \
 zsh
