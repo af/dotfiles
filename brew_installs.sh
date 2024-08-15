@@ -6,6 +6,7 @@ entr \
 fasd \
 fd \
 fnm \
+fzf \
 gh \
 git \
 gnu-sed \
@@ -25,5 +26,4 @@ tldr \
 tig \
 tokei \
 tmux \
-wget \
-zsh
+wget
