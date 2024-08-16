@@ -5,9 +5,10 @@ zmodload zsh/zprof
 # Dead simple prompt with git branch, via https://dev.to/cassidoo/customizing-my-zsh-prompt-3417
 autoload -Uz vcs_info
 precmd() { vcs_info }
-zstyle ':vcs_info:git:*' formats '%b '
+zstyle ':vcs_info:git:*' formats '%b'
 setopt PROMPT_SUBST
-PROMPT='%F{blue}%~%f %F{green}${vcs_info_msg_0_}%f$ '
+DIVIDER=$'--------------------------------------------------------------------\n'
+PROMPT='%F{black}${DIVIDER}%f%F{blue}%~%f %F{cyan}(${vcs_info_msg_0_})%f%F{magenta} » %f'
 
 # completion support
 autoload -Uz compinit && compinit
@@ -28,7 +29,7 @@ export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
 # Hardcoding the full path here because using `$(brew --prefix ruby)` is slooooooowwwww
 export PATH=/usr/local/opt/ruby/bin:$PATH
 
-export PATH=/usr/local/bin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/git/bin:/usr/local/heroku/bin:/Users/aaron/.my_scripts:/usr/local/sbin
+export PATH=/usr/local/bin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin
 export PATH=node_modules/.bin:$PATH     # Handy for using locally-installed versions of eslint, etc
 export PATH=~/.af-scripts:$PATH         # Personal scripts folder
 
@@ -152,6 +153,7 @@ function af-workspace () {
 function af-npm-i-globals () {
     npm i -g \
       eslint_d\
+      @biomejs/biome\
       typescript\
       typescript-language-server\
       vim-language-server\
@@ -278,5 +280,7 @@ eval `fnm env`
 # https://github.com/zsh-users/zsh-syntax-highlighting
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
+# bun
+[ -s "/Users/aaron/.bun/_bun" ] && source "/Users/aaron/.bun/_bun"
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

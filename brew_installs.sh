@@ -26,4 +26,5 @@ tldr \
 tig \
 tokei \
 tmux \
-wget
+wget \
+zsh-syntax-highlighting
