@@ -81,9 +81,7 @@ alias yl='yarn lint'
 # Commonly used tools:
 alias v='nvim'
 alias vs='nvim -S'
-alias p='python'
 alias quickweb='python3 -m http.server'
-alias pypath='p -c "import sys, pprint; pprint.pprint(sys.path)"'
 
 # Aliases that "replace" stock unix tools
 # To access the original versions, prefix the command with `command `, eg. "command cat"
@@ -125,66 +123,57 @@ setopt hist_find_no_dups        # Do not surface duplicates
 
 # Shorthand function to create a new project with a git repo and README:
 function af-initproject () {
-    mkdir $1
-    cd $1
-    git init
-    touch README.md
-    git add README.md
-    git commit -m "First commit"
-    echo "\nYour new project is ready. Have fun."
+  mkdir $1
+  cd $1
+  git init
+  touch README.md
+  git add README.md
+  git commit -m "First commit"
+  echo "\nYour new project is ready. Have fun."
 }
 
 # Script tmux to set up a window in my (currently) preferred custom layout:
 function af-workspace () {
-    # Main pane for vim on the left:
-    tmux send-keys 'git status' 'C-m'
-    tmux splitw -h -p 35
+  # Main pane for vim on the left:
+  tmux send-keys 'git status' 'C-m'
+  tmux splitw -h -p 35
 
-    # tig running in the bottom right:
-    tmux splitw -v -p 30
-    tmux send-keys 'tig --all' 'C-m'
+  # tig running in the bottom right:
+  tmux splitw -v -p 30
+  tmux send-keys 'tig --all' 'C-m'
 
-    tmux select-pane -U
-    tmux select-pane -L     # End up on the main (left) pane
+  tmux select-pane -U
+  tmux select-pane -L     # End up on the main (left) pane
 }
 
 # Install the global npm packages that I use all the time
 # Need to run this any time I install a new node version via fnm
 function af-npm-i-globals () {
-    npm i -g \
-      eslint_d\
-      @biomejs/biome\
-      typescript\
-      typescript-language-server\
-      vim-language-server\
-      vscode-langservers-extracted\
-      graphql-language-service-cli\
-      diff-so-fancy\
-      gist-cli\
-      jsonlint\
-      neovim\
-      svgo\
-      @johnnymorganz/stylua-bin\
-      yarn
-}
-
-# Helper to send a command to the right tmux pane.
-# Usage: 'ts echo "hello"'
-function ts {
-    args=$@
-    tmux send-keys -t right C-c "$args" C-m
+  npm i -g \
+    @biomejs/biome\
+    typescript-language-server\
+    vim-language-server\
+    vscode-langservers-extracted\
+    graphql-language-service-cli\
+    diff-so-fancy\
+    gist-cli\
+    jsonlint\
+    neovim\
+    svgo\
+    @johnnymorganz/stylua-bin\
+    yarn
 }
 
 # Toggle between zsh and vim with ^z (instead of entering 'fg<CR>' one way)
 # source: http://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
 fancy-ctrl-z () {
-    if [[ $#BUFFER -eq 0 ]]; then
-        BUFFER="fg"
-        zle accept-line
-    else
-        zle push-input
-        zle clear-screen
-    fi
+  if [[ $#BUFFER -eq 0 ]]; then
+    BUFFER="fg"
+    zle accept-line
+  else
+    zle push-input
+    zle clear-screen
+  fi
 }
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
@@ -223,26 +212,11 @@ bindkey '^R' fzf-history-widget-accept
 # Check out git branch with FZF:
 b() {
   local branches branch
-  #branches=$(git branch -vv) &&        # Old version, via the fzf readme
   # Sort branches by most recently used:
   branches=$(git for-each-ref --sort=-committerdate refs/heads \
                  --format='%(committerdate:short)|%(color:green)%(refname:short)%(color:reset)|%(subject)') &&
   branch=$(echo "$branches" | column -t -s "|" | fzf --ansi +m) &&
   git checkout $(echo "$branch" | awk '{print $2}' | sed "s/.* //")
-}
-
-# Use FZF to stage modified files in git, and then show status
-fga() {
-  git ls-files -m | fzf -m | xargs git add
-  git status
-}
-
-# Check out a git commit with FZF:
-fco() {
-  local commits commit
-  commits=$(git log --pretty=format:"%h %<(15,trunc)%an %s" --reverse) &&
-  commit=$(echo "$commits" | fzf --tac +s +m -e) &&
-  git checkout $(echo "$commit" | sed "s/ .*//")
 }
 
 # Interactive process killing with FZF:
@@ -253,24 +227,6 @@ fkill() {
   then
     kill -${1:-9} $pid
   fi
-}
-
-ffdev() {
-  topicbranch=$(git rev-parse --abbrev-ref HEAD)
-  co dev
-  ff $topicbranch
-  # git log --oneline -n 5
-
-  # TODO: bail if ff didn't work above
-
-  # TODO: prompt "push to dev?"
-
-  # TODO: prompt "delete origin/topic?"
-  # prompt -p "Delete remote branch origin/$(echo topicbranch)?" shouldDelete
-
-  git hash | pbcopy
-  echo "Done."
-  echo "📋 Copied commit" $(git hash) "to the clipboard"
 }
 
 # fnm for (fast!) node version management: https://github.com/Schniz/fnm

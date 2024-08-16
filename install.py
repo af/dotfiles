@@ -44,7 +44,6 @@ section('Updating submodules')
 shell_out('git submodule update --init && echo Submodules updated!')
 
 section('Installing pip dependencies')
-shell_out('pip install --user pynvim')
 shell_out('pip3 install --user pynvim')
 
 section('Symlinking config files to ~')
