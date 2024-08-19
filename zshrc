@@ -10,7 +10,8 @@ setopt PROMPT_SUBST
 DIVIDER=$'--------------------------------------------------------------------\n'
 PROMPT='%F{black}${DIVIDER}%f%F{blue}%~%f %F{cyan}(${vcs_info_msg_0_})%f%F{magenta} » %f'
 
-# completion support
+# completion (with matches in the middle of file names)
+zstyle ':completion:*' matcher-list 'r:|=*' 'l:|=* r:|=*'
 autoload -Uz compinit && compinit
 
 # FIXME: assumed dotfiles location here
