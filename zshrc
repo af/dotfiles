@@ -17,11 +17,19 @@ autoload -Uz compinit && compinit
 # FIXME: assumed dotfiles location here
 source ~/dotfiles/git-fzf-helpers.zsh
 
-# VI keybindings:
-#bindkey -v
+# VI keybindings (use -e for emacs equivalents)
+bindkey -v
 
+bindkey '^A' vi-beginning-of-line
+bindkey '^E' vi-end-of-line
 bindkey '^k' up-line-or-search
 bindkey '^j' down-line-or-search
+bindkey '^p' autosuggest-accept
+
+# Ctrl-x to edit current command in nvim
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^x' edit-command-line
 
 # Various customizations for $PATH:
 export PATH="/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH"
@@ -236,6 +244,8 @@ eval `fnm env`
 
 # https://github.com/zsh-users/zsh-syntax-highlighting
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $(brew --prefix)/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # bun
 [ -s "/Users/aaron/.bun/_bun" ] && source "/Users/aaron/.bun/_bun"

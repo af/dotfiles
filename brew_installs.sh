@@ -27,4 +27,6 @@ tig \
 tokei \
 tmux \
 wget \
+zsh-autosuggestions \
+zsh-history-substring-search \
 zsh-syntax-highlighting
