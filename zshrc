@@ -251,3 +251,8 @@ source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 [ -s "/Users/aaron/.bun/_bun" ] && source "/Users/aaron/.bun/_bun"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Store local config (anything that shouldn't be in source control) in ~/.zsh_local_config
+if [ -f ~/.zsh_local_config ]; then
+    source ~/.zsh_local_config
+fi
