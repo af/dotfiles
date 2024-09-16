@@ -82,11 +82,11 @@ lspconfig.eslint.setup({
 })
 
 -- TypeScript/JS
-lspconfig.tsserver.setup({
+lspconfig.ts_ls.setup({
   capabilities = capabilities,
   on_attach = function(client, bufnr)
     on_attach(client, bufnr)
-    -- use prettier for formatting instead
+    -- use prettier/biome for formatting instead
     client.server_capabilities.documentFormatting = false
   end,
 })
@@ -96,7 +96,7 @@ lspconfig.cssls.setup({
   capabilities = capabilities,
   on_attach = function(client, bufnr)
     on_attach(client, bufnr)
-    -- use prettier for formatting instead
+    -- use prettier/biome for formatting instead
     client.server_capabilities.document_formatting = false
   end,
   filetypes = { 'css', 'scss', 'stylus' },

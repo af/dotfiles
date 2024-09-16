@@ -26,21 +26,19 @@ augroup END
 call plug#begin('~/.vim/plugged')
 
 " Semi-official plugins
-Plug 'neovim/nvim-lspconfig',       { 'commit': 'cee94b2' }
+Plug 'neovim/nvim-lspconfig',       { 'tag': 'v1.0.0' }
 Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '8012b55', 'do': ':TSUpdate' }
 
 " Essentials
 Plug 'dyng/ctrlsf.vim',             { 'commit': '32236a8' }
-Plug 'junegunn/fzf',                { 'tag': '0.30.0', 'do': { -> fzf#install() }}
+Plug 'junegunn/fzf',                { 'tag': 'v0.54.3', 'do': { -> fzf#install() }}
 Plug 'junegunn/fzf.vim',            { 'commit': 'd5f1f86' }
 Plug 'nvim-tree/nvim-tree.lua',     { 'tag': 'nvim-tree-v1.3.3' }
 Plug 'jose-elias-alvarez/null-ls.nvim', { 'commit': 'db09b6c' }
 
 Plug 'nvim-lua/plenary.nvim'  " Required for gitsigns & null-ls
-Plug 'folke/neodev.nvim'
 Plug 'cohama/lexima.vim'
 Plug 'glepnir/galaxyline.nvim' ,    { 'commit': 'eb81be0' }
-Plug 'tiagovla/scope.nvim'
 Plug 'lewis6991/gitsigns.nvim',     { 'commit': '851cd32' }
 Plug 'ruifm/gitlinker.nvim',        { 'commit': 'cc59f73' }
 Plug 'supermaven-inc/supermaven-nvim'
@@ -209,12 +207,12 @@ if has('nvim')
   lua require('completion')
   lua fuzzy = require('fuzzy')
   lua windows = require('windows')
+
   lua require('statusline')
   lua require('tabline')
   lua require('searchscroll')
   lua require('tree')
-  lua require('scope').setup()
-  lua require('gitlinker').setup()
+
 elseif $TERM ==# 'xterm-256color' || $TERM ==# 'screen-256color'
   set t_Co=256    " 256 colours for regular vim if the terminal can handle it.
   let g:nvcode_termcolors=256
