@@ -37,7 +37,7 @@ Plug 'nvim-tree/nvim-tree.lua',     { 'tag': 'nvim-tree-v1.3.3' }
 Plug 'jose-elias-alvarez/null-ls.nvim', { 'commit': 'db09b6c' }
 
 Plug 'nvim-lua/plenary.nvim'  " Required for gitsigns & null-ls
-Plug 'cohama/lexima.vim'
+Plug 'echasnovski/mini.nvim', { 'branch': 'stable' }
 Plug 'glepnir/galaxyline.nvim' ,    { 'commit': 'eb81be0' }
 Plug 'lewis6991/gitsigns.nvim',     { 'commit': '851cd32' }
 Plug 'ruifm/gitlinker.nvim',        { 'commit': 'cc59f73' }
@@ -212,6 +212,7 @@ if has('nvim')
   lua require('tabline')
   lua require('searchscroll')
   lua require('tree')
+  lua require('mini.pairs').setup()
 
 elseif $TERM ==# 'xterm-256color' || $TERM ==# 'screen-256color'
   set t_Co=256    " 256 colours for regular vim if the terminal can handle it.
@@ -261,9 +262,6 @@ set completeopt=menu,menuone,noselect
 
 imap <expr><C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 imap <expr><C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
-
-let g:lexima_no_default_rules = v:true
-call lexima#set_default_rules()
 
 " }}}
 " {{{ grepping (:grep, CTRLSF.vim, etc)
