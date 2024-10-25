@@ -196,24 +196,7 @@ if has('nvim')
     autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 1000)
   augroup END
 
-  " TODO: try/catch these imports to handle initial install run?
-  lua require('git')
-  lua treesitter = require('treesitter')
-  lua lsp = require('lsp')
-  lua diag = require('diagnostics')
-  lua require('nvim-highlight-colors').setup { render = 'virtual', virtual_symbol = '■', }
-  lua require('snippets')
-  lua require('ai')
-  lua require('completion')
-  lua fuzzy = require('fuzzy')
-  lua windows = require('windows')
-
-  lua require('statusline')
-  lua require('tabline')
-  lua require('searchscroll')
-  lua require('tree')
-  lua require('mini.pairs').setup()
-
+  lua require('init')
 elseif $TERM ==# 'xterm-256color' || $TERM ==# 'screen-256color'
   set t_Co=256    " 256 colours for regular vim if the terminal can handle it.
   let g:nvcode_termcolors=256
