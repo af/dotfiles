@@ -53,24 +53,15 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-nvim-lua'
 Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
-Plug 'hrsh7th/cmp-emoji'
 Plug 'dcampos/nvim-snippy'
 Plug 'dcampos/cmp-snippy'
-Plug 'petertriho/cmp-git'
 Plug 'onsails/lspkind.nvim' " for completion type icons
 
 " tpope appreciation section
 Plug 'tpope/vim-apathy'
-Plug 'tpope/vim-obsession',         { 'commit': '4ab72e0' }     " start a session file with :Obsession
-Plug 'tpope/vim-surround',          { 'commit': 'bf3480d' }
 Plug 'tpope/vim-repeat',            { 'commit': '24afe92' }
-Plug 'tpope/vim-unimpaired',        { 'commit': '11dc568' }
 Plug 'tpope/vim-fugitive',          { 'commit': '5f0d280' }
 Plug 'tpope/vim-sleuth',            { 'commit': '039e2cd' }
-
-" Editing modifications
-Plug 'AndrewRadev/splitjoin.vim',   { 'commit': '03af68c' }     " gS and gJ to split/join lines
-Plug 'bfredl/nvim-miniyank',        { 'commit': '2a3a0f3' }
 
 " language-specific plugins
 " usage-> :MarkdownPreview
@@ -84,6 +75,7 @@ Plug 'brenoprata10/nvim-highlight-colors'
 " Misc
 Plug 'vimwiki/vimwiki',             { 'commit': '417490f' }
 Plug 'petertriho/nvim-scrollbar'
+Plug 'bfredl/nvim-miniyank',        { 'commit': '2a3a0f3' }
 
 " Enabled periodically, but not by default:
 " Plug 'takac/vim-hardtime',          { 'commit': 'acf59c8' }
@@ -346,12 +338,8 @@ nnoremap gm :FZFMru<CR>
 
 " fugitive
 nnoremap gs :Git<CR>
-nnoremap gl :Git log<CR>
+"nnoremap gl :Git log<CR>
 nnoremap gb :Git blame<CR>
-
-" Splitjoin
-let g:splitjoin_curly_brace_padding = 0
-let g:splitjoin_trailing_comma = 1
 
 " barbar
 nnoremap <silent> <Tab> <Cmd>BufferNext<CR>
@@ -360,7 +348,6 @@ nnoremap <silent> s <Cmd>BufferPick<CR>
 nnoremap <silent> <C-u> <Cmd>BufferWipeout<CR>
 
 " nvim-miniyank (lighter-weight YankRing workalike)
-let g:miniyank_maxitems = 25
 map p <Plug>(miniyank-autoput)
 map P <Plug>(miniyank-autoPut)
 nmap <C-p> <Plug>(miniyank-cycle)
@@ -517,7 +504,6 @@ autocmd vimrc FileType vim set foldmethod=marker
 "===============================================================================
 autocmd vimrc BufNewFile,BufRead *.md set filetype=markdown
 autocmd vimrc BufNewFile,BufRead *.gql set filetype=graphql
-autocmd vimrc BufNewFile,BufRead Procfile set filetype=sh
 
 " html
 iabbrev target="_blank" target="_blank" rel="noopener"
