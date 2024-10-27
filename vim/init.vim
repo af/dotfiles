@@ -27,7 +27,7 @@ call plug#begin('~/.vim/plugged')
 
 " Semi-official plugins
 Plug 'neovim/nvim-lspconfig',       { 'tag': 'v1.0.0' }
-Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '8012b55', 'do': ':TSUpdate' }
+Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '48fc5d1', 'do': ':TSUpdate' }
 
 " Essentials
 Plug 'dyng/ctrlsf.vim',             { 'commit': '32236a8' }
