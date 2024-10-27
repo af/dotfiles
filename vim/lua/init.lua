@@ -19,5 +19,6 @@ require('tree')
 
 require('mini.bracketed').setup()
 require('mini.pairs').setup()
+require('mini.pick').setup()
 require('mini.splitjoin').setup({ mappings = { toggle = '', split = 'gS', join = 'gJ' } })
 require('mini.surround').setup()

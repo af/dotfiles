@@ -2,7 +2,7 @@ local vimFn = vim.api.nvim_call_function
 local vimCmd = vim.api.nvim_command
 local math = require('math')
 
-local API = {}
+local M = {}
 
 local defaultLocListHeight = 10
 
@@ -12,7 +12,7 @@ local getBufferCount = function()
 end
 
 -- Lua port of LListToggle from https://github.com/Valloric/ListToggle/blob/master/plugin/listtoggle.vim
-API.toggleLocationList = function()
+M.toggleLocationList = function()
   local bufCountBefore = getBufferCount()
 
   -- Location list can't be closed if there's cursor in it, so we need
@@ -26,7 +26,7 @@ API.toggleLocationList = function()
   end
 end
 
-API.moveRight = function()
+M.moveRight = function()
   if vim.api.nvim_buf_get_option(0, 'filetype') == 'nerdtree' then
     vimCmd('wincmd p')
   else
@@ -38,7 +38,7 @@ end
 -- eg. when editing foo.js, open sibling foo.css file in a vsplit
 --
 -- Uses some tricks from https://stackoverflow.com/questions/17170902/in-vim-how-to-switch-quickly-between-h-and-cpp-files-with-the-same-name
-API.vsplitAlternateFiles = function()
+M.vsplitAlternateFiles = function()
   local thisFile = vimFn('expand', { '%' })
   if thisFile == '' then
     return
@@ -69,7 +69,7 @@ end
 --
 -- via https://gabrielpoca.com/2019-11-13-a-bit-more-lua-in-your-vim/
 -- see also https://github.com/huytd/vim-config/blob/master/init.vim#L132-L171
-API.openCenteredFloat = function()
+M.openCenteredFloat = function()
   -- get the editor's max width and height
   local width = vim.api.nvim_get_option('columns')
   local height = vim.api.nvim_get_option('lines')
@@ -99,4 +99,9 @@ API.openCenteredFloat = function()
   })
 end
 
-return API
+-- Global key bindings
+vim.keymap.set('n', '<C-l>', M.moveRight)
+vim.keymap.set('n', '<leader>a', M.vsplitAlternateFiles)
+vim.keymap.set('n', '<leader>w', M.toggleLocationList)
+
+return M

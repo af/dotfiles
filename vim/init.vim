@@ -305,29 +305,19 @@ let $FZF_DEFAULT_OPTS='--layout=reverse --color gutter:-1 --margin=2,4 --multi -
 
 if has('nvim')
   " use floating window (via https://github.com/junegunn/fzf.vim/issues/664#issuecomment-476438294)
-  let g:fzf_layout = { 'window': 'lua windows.openCenteredFloat()' }
+  "let g:fzf_layout = { 'window': 'lua windows.openCenteredFloat()' }
 
   " Search buffers + project files, inspired by https://github.com/junegunn/fzf/issues/274
   " See also https://github.com/junegunn/fzf/blob/master/README-VIM.md
-  command! FZFMixed call fzf#run(fzf#wrap({
-  \ 'source': 'echo "'.luaeval('fuzzy.getBufferNames()').'"; rg --files',
-  \ 'options': '--header-lines=1 --ansi --tiebreak=index'
-  \ }))
-  nnoremap , :FZFMixed<CR>
-  nnoremap <leader><leader> :FZFMixed<CR>
+  "command! FZFMixed call fzf#run(fzf#wrap({
+  "\ 'source': 'echo "'.luaeval('fuzzy.getBufferNames()').'"; rg --files',
+  "\ 'options': '--header-lines=1 --ansi --tiebreak=index'
+  "\ }))
+  "nnoremap , :FZFMixed<CR>
+  "nnoremap <leader><leader> :FZFMixed<CR>
 
-  " When launching vim, if no file was provided (or there were multiple), launch FZFMixed automatically
-  function! s:fzf_on_launch()
-    if @% =~ "man://"
-      " for some reason, using vim as a man reader opens 2 buffers, but we don't want FZFMixed here
-      return
-    endif
-    " todo: this used to be bufexists(2), should investigate why a bump up was needed
-    if @% == "" || bufexists(3)
-      FZFMixed
-    endif
-  endfunction
-  autocmd VimEnter * call <SID>fzf_on_launch()
+  nnoremap , :lua MiniPick.builtin.files()<CR>
+  nnoremap <leader><leader> :lua MiniPick.builtin.files()<CR>
 endif
 
 " Custom MRU based on this example: https://github.com/junegunn/fzf/wiki/Examples-(vim)
@@ -425,9 +415,6 @@ nnoremap <C-t> :tabn<CR>
 nmap <silent> <C-j> <C-w>j
 nmap <silent> <C-k> <C-w>k
 nmap <silent> <C-h> <C-w>h
-nmap <silent> <C-l> :lua windows.moveRight()<CR>
-nnoremap <silent> <leader>a :lua windows.vsplitAlternateFiles()<CR>
-nnoremap <silent> <leader>w :lua windows.toggleLocationList()<CR>
 
 " Automatically resize/equalize splits when vim is resized
 autocmd vimrc VimResized * wincmd =
