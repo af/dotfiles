@@ -70,7 +70,6 @@ Plug 'folke/neodev.nvim'
 
 " Color/Theme/syntax
 Plug 'shaunsingh/nord.nvim',        { 'commit': '80c1e53' }
-Plug 'brenoprata10/nvim-highlight-colors'
 
 " Misc
 Plug 'vimwiki/vimwiki',             { 'commit': '417490f' }
@@ -231,6 +230,8 @@ highlight BufferInactiveHINT guifg=#81A1C1 guibg=#2E3440
 highlight link DiagnosticSignError healthError
 highlight link DiagnosticSignWarning SpecialChar
 highlight link DiagnosticVirtualTextError healthError
+
+highlight MiniPickMatchCurrent guibg=#5e81ac guifg=#ffffff
 
 " completion with nvim-cmp
 set completeopt=menu,menuone,noselect
