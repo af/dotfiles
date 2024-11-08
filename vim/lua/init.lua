@@ -10,7 +10,6 @@ require('ai')
 require('completion')
 require('windows')
 require('highlight')
-local fuzzy = require('fuzzy')
 
 require('statusline')
 require('tabline')
@@ -20,6 +19,9 @@ require('tree')
 require('mini.bracketed').setup()
 require('mini.pairs').setup()
 
-require('mini.pick').setup(fuzzy.miniPickConfig)
 require('mini.splitjoin').setup({ mappings = { toggle = '', split = 'gS', join = 'gJ' } })
 require('mini.surround').setup()
+
+local fuzzy = require('fuzzy')
+vim.api.nvim_set_keymap('n', ',', '', { callback = fuzzy.openFilePickOnKeydown, silent = true })
+vim.api.nvim_create_autocmd('VimEnter', { callback = fuzzy.openFilePickOnOpen })

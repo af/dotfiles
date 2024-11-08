@@ -1,44 +1,5 @@
-local utils = require('utils')
-local vimFn = vim.api.nvim_call_function
-
 local M = {}
-
-local yellow = function(t)
-  local color = '\x1B[33m'
-  local reset = '\x1B[m'
-  return color .. t .. reset
-end
-
-local highlightName = function(path)
-  -- wrap the last segment of a file path in ANSI color codes
-  local highlighted = string.gsub(path, '[^/]+$', yellow)
-  return highlighted
-end
-
-M.getBufferNames = function()
-  local cwd = vimFn('getcwd', {})
-  local bufs = vimFn('getbufinfo', {})
-  local currentFile = vimFn('expand', { '%' })
-  --print(vim.inspect(bufs))
-
-  local bufnames = {}
-  for _, buf in ipairs(bufs) do
-    if buf.name ~= '' and string.match(buf.name, 'NERD_tree_') == nil then
-      local localbufname, _ = string.gsub(buf.name, cwd .. '/', '')
-      if buf.listed == 1 and localbufname ~= currentFile then
-        table.insert(bufnames, highlightName(localbufname))
-      end
-    end
-  end
-
-  table.insert(bufnames, highlightName(currentFile))
-  if not utils.isEmpty(bufnames) then
-    utils.reverse(bufnames)
-    -- separate buffers and project files with a single extra newline:
-    table.insert(bufnames, '')
-  end
-  return table.concat(bufnames, '\n')
-end
+local MiniPick = require('mini.pick')
 
 local picker_win_config = function()
   return {
@@ -56,5 +17,45 @@ M.miniPickConfig = {
   },
   window = { config = picker_win_config },
 }
+
+MiniPick.setup(M.miniPickConfig)
+
+M.openFilePickOnOpen = function()
+  -- if a file was read on open, don't launch the picker
+  local currentBufName = vim.api.nvim_buf_get_name(0)
+  if currentBufName ~= '' then
+    return
+  end
+
+  MiniPick.builtin.files()
+end
+
+M.openFilePickOnKeydown = function()
+  -- see https://github.com/echasnovski/mini.nvim/blob/main/lua/mini/pick.lua#L1280
+  local command = { 'rg', '--files', '--no-follow', '--color=never' }
+  local postprocess = function(t1)
+    local bufs = vim.api.nvim_list_bufs()
+    local bufNames = {}
+    for _, buf in ipairs(bufs) do
+      table.insert(bufNames, vim.api.nvim_buf_get_name(buf))
+    end
+
+    -- create new output table with bufNames at the beginning
+    local result = {}
+    table.move(bufNames, 1, #bufNames, 1, result)
+    table.move(t1, 1, #t1, #bufNames + 1, result)
+    return result
+  end
+  MiniPick.builtin.cli({ command = command, postprocess = postprocess }, opts)
+
+  -- MiniPick.builtin.files({ })
+end
+
+-- TODO: migrate MRU picker from vim config:
+-- " Custom MRU based on this example: https://github.com/junegunn/fzf/wiki/Examples-(vim)
+-- command! FZFMru call fzf#run(fzf#wrap({
+-- \ 'source':  filter(copy(v:oldfiles), "v:val !~ 'term:\\|fugitive:\\|NERD_tree_\\|__CtrlSF\\|^/tmp/\\|.git/'")
+-- \ }))
+-- nnoremap gm :FZFMru<CR>
 
 return M

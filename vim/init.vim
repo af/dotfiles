@@ -290,43 +290,6 @@ nnoremap - :NvimTreeFindFile<CR>
 " {{{ More plugin customization
 "===============================================================================
 
-" FZF
-" More tips: https://github.com/junegunn/fzf/wiki/Examples-(vim)
-nnoremap <leader>H :History:<CR>
-function! s:close_fzf_noop(files)
-endfunction
-let g:fzf_action = {
-  \ 'ctrl-s': 'split',
-  \ 'ctrl-v': 'vertical split',
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-u': 'bd',
-  \ ',': function('s:close_fzf_noop')
-  \ }
-let $FZF_DEFAULT_OPTS='--layout=reverse --color gutter:-1 --margin=2,4 --multi --tiebreak=index'
-
-if has('nvim')
-  " use floating window (via https://github.com/junegunn/fzf.vim/issues/664#issuecomment-476438294)
-  "let g:fzf_layout = { 'window': 'lua windows.openCenteredFloat()' }
-
-  " Search buffers + project files, inspired by https://github.com/junegunn/fzf/issues/274
-  " See also https://github.com/junegunn/fzf/blob/master/README-VIM.md
-  "command! FZFMixed call fzf#run(fzf#wrap({
-  "\ 'source': 'echo "'.luaeval('fuzzy.getBufferNames()').'"; rg --files',
-  "\ 'options': '--header-lines=1 --ansi --tiebreak=index'
-  "\ }))
-  "nnoremap , :FZFMixed<CR>
-  "nnoremap <leader><leader> :FZFMixed<CR>
-
-  nnoremap , :lua MiniPick.builtin.files()<CR>
-  nnoremap <leader><leader> :lua MiniPick.builtin.files()<CR>
-endif
-
-" Custom MRU based on this example: https://github.com/junegunn/fzf/wiki/Examples-(vim)
-command! FZFMru call fzf#run(fzf#wrap({
-\ 'source':  filter(copy(v:oldfiles), "v:val !~ 'term:\\|fugitive:\\|NERD_tree_\\|__CtrlSF\\|^/tmp/\\|.git/'")
-\ }))
-nnoremap gm :FZFMru<CR>
-
 " fugitive
 nnoremap gs :Git<CR>
 "nnoremap gl :Git log<CR>
