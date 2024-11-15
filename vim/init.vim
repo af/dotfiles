@@ -446,7 +446,7 @@ cnoremap <C-l> <Right>
 " }}}
 " {{{ Folding
 "===============================================================================
-set foldlevelstart=99
+set foldlevel=99
 set foldmethod=syntax
 autocmd vimrc FileType vim set foldmethod=marker
 
@@ -454,6 +454,7 @@ autocmd vimrc FileType vim set foldmethod=marker
 " {{{ Filetype-specific settings
 "===============================================================================
 autocmd vimrc BufNewFile,BufRead *.md set filetype=markdown
+autocmd vimrc BufNewFile,BufRead *.mdx set filetype=markdown
 autocmd vimrc BufNewFile,BufRead *.gql set filetype=graphql
 
 " html
