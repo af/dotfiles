@@ -32,8 +32,6 @@ Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '48fc5d1', 'do': ':TSUpdate'
 " Essentials
 Plug 'echasnovski/mini.nvim',       { 'branch': 'main' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': '32236a8' }
-Plug 'junegunn/fzf',                { 'tag': 'v0.54.3', 'do': { -> fzf#install() }}
-Plug 'junegunn/fzf.vim',            { 'commit': 'd5f1f86' }
 Plug 'nvim-tree/nvim-tree.lua',     { 'tag': 'nvim-tree-v1.3.3' }
 Plug 'jose-elias-alvarez/null-ls.nvim', { 'commit': 'db09b6c' }
 
@@ -74,10 +72,6 @@ Plug 'shaunsingh/nord.nvim',        { 'commit': '80c1e53' }
 " Misc
 Plug 'vimwiki/vimwiki',             { 'commit': '417490f' }
 Plug 'bfredl/nvim-miniyank',        { 'commit': '2a3a0f3' }
-
-" Enabled periodically, but not by default:
-" Plug 'takac/vim-hardtime',          { 'commit': 'acf59c8' }
-" Plug 'troydm/zoomwintab.vim',       { 'commit': 'b7a940e' }
 
 call plug#end()
 
