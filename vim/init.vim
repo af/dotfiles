@@ -30,6 +30,7 @@ Plug 'neovim/nvim-lspconfig',       { 'tag': 'v1.0.0' }
 Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '48fc5d1', 'do': ':TSUpdate' }
 
 " Essentials
+Plug 'echasnovski/mini.nvim',       { 'branch': 'main' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': '32236a8' }
 Plug 'junegunn/fzf',                { 'tag': 'v0.54.3', 'do': { -> fzf#install() }}
 Plug 'junegunn/fzf.vim',            { 'commit': 'd5f1f86' }
@@ -37,7 +38,6 @@ Plug 'nvim-tree/nvim-tree.lua',     { 'tag': 'nvim-tree-v1.3.3' }
 Plug 'jose-elias-alvarez/null-ls.nvim', { 'commit': 'db09b6c' }
 
 Plug 'nvim-lua/plenary.nvim'  " Required for gitsigns & null-ls
-Plug 'echasnovski/mini.nvim', { 'branch': 'stable' }
 Plug 'glepnir/galaxyline.nvim' ,    { 'commit': 'eb81be0' }
 Plug 'lewis6991/gitsigns.nvim',     { 'commit': '851cd32' }
 Plug 'ruifm/gitlinker.nvim',        { 'commit': 'cc59f73' }
@@ -73,7 +73,6 @@ Plug 'shaunsingh/nord.nvim',        { 'commit': '80c1e53' }
 
 " Misc
 Plug 'vimwiki/vimwiki',             { 'commit': '417490f' }
-Plug 'petertriho/nvim-scrollbar'
 Plug 'bfredl/nvim-miniyank',        { 'commit': '2a3a0f3' }
 
 " Enabled periodically, but not by default:

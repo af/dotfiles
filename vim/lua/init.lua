@@ -13,7 +13,6 @@ require('highlight')
 
 require('statusline')
 require('tabline')
-require('searchscroll')
 require('tree')
 
 require('mini.bracketed').setup()
@@ -25,3 +24,20 @@ require('mini.surround').setup()
 local fuzzy = require('fuzzy')
 vim.api.nvim_set_keymap('n', ',', '', { callback = fuzzy.openFilePickOnKeydown, silent = true })
 vim.api.nvim_create_autocmd('VimEnter', { callback = fuzzy.openFilePickOnOpen })
+
+-- workalike for nvim-scrollbar
+local map = require('mini.map')
+map.setup({
+  integrations = {
+    map.gen_integration.builtin_search(),
+  },
+  window = {
+    width = 1,
+    winblend = 25,
+  },
+  symbols = {
+    scroll_view = '█',
+    scroll_line = '',
+  },
+})
+map.open()
