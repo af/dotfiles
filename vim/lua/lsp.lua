@@ -51,13 +51,14 @@ local on_attach = function(client, bufnr)
   end
 end
 
+lspconfig.biome.setup({})
+
 -- Set up integrations with non-LSP tools
 -- See https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
 local null_ls = require('null-ls')
 null_ls.setup({
   on_attach = on_attach,
   sources = {
-    null_ls.builtins.formatting.prettier,
     null_ls.builtins.formatting.pg_format,
 
     -- Docs: https://github.com/JohnnyMorganz/StyLua
@@ -72,21 +73,12 @@ null_ls.setup({
 
 lspconfig.graphql.setup({})
 
-lspconfig.eslint.setup({
-  on_attach = function(_client, bufnr)
-    vim.api.nvim_create_autocmd('BufWritePre', {
-      buffer = bufnr,
-      command = 'EslintFixAll',
-    })
-  end,
-})
-
 -- TypeScript/JS
 lspconfig.ts_ls.setup({
   capabilities = capabilities,
   on_attach = function(client, bufnr)
     on_attach(client, bufnr)
-    -- use prettier/biome for formatting instead
+    -- use biome for formatting instead
     client.server_capabilities.documentFormatting = false
   end,
 })
@@ -96,7 +88,7 @@ lspconfig.cssls.setup({
   capabilities = capabilities,
   on_attach = function(client, bufnr)
     on_attach(client, bufnr)
-    -- use prettier/biome for formatting instead
+    -- use biome for formatting instead
     client.server_capabilities.document_formatting = false
   end,
   filetypes = { 'css', 'scss', 'stylus' },
