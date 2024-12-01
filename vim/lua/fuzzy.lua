@@ -28,6 +28,10 @@ M.openFilePickOnOpen = function()
   end
 
   M.customPicker()
+
+  -- for some reason, need to manually set filetype here, it's not set automatically when calling
+  -- the picker on VimEnter (??)
+  vim.cmd('filetype detect')
 end
 
 -- Custom picker (like MiniPick.builtin.files()), but sorts files by access time
