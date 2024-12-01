@@ -27,35 +27,22 @@ M.openFilePickOnOpen = function()
     return
   end
 
-  MiniPick.builtin.files()
+  M.customPicker()
 end
 
-M.openFilePickOnKeydown = function()
-  -- see https://github.com/echasnovski/mini.nvim/blob/main/lua/mini/pick.lua#L1280
-  local command = { 'rg', '--files', '--no-follow', '--color=never' }
-  local postprocess = function(t1)
-    local bufs = vim.api.nvim_list_bufs()
-    local bufNames = {}
-    for _, buf in ipairs(bufs) do
-      table.insert(bufNames, vim.api.nvim_buf_get_name(buf))
-    end
-
-    -- create new output table with bufNames at the beginning
-    local result = {}
-    table.move(bufNames, 1, #bufNames, 1, result)
-    table.move(t1, 1, #t1, #bufNames + 1, result)
-    return result
+-- Custom picker (like MiniPick.builtin.files()), but sorts files by access time
+-- see https://github.com/echasnovski/mini.nvim/blob/main/lua/mini/pick.lua
+M.customPicker = function()
+  -- copied from minipick source
+  local show_with_icons = function(buf_id, items, query)
+    MiniPick.default_show(buf_id, items, query, { show_icons = true })
   end
-  MiniPick.builtin.cli({ command = command, postprocess = postprocess }, opts)
 
-  -- MiniPick.builtin.files({ })
+  local sortedCmd = { 'rg', '--files', '--no-follow', '--color=never', '--sortr=accessed' }
+  MiniPick.builtin.cli(
+    { command = sortedCmd },
+    { source = { name = '  ', show = show_with_icons } }
+  )
 end
-
--- TODO: migrate MRU picker from vim config:
--- " Custom MRU based on this example: https://github.com/junegunn/fzf/wiki/Examples-(vim)
--- command! FZFMru call fzf#run(fzf#wrap({
--- \ 'source':  filter(copy(v:oldfiles), "v:val !~ 'term:\\|fugitive:\\|NERD_tree_\\|__CtrlSF\\|^/tmp/\\|.git/'")
--- \ }))
--- nnoremap gm :FZFMru<CR>
 
 return M
