@@ -1,98 +1,27 @@
-local fn = vim.fn
-local gl = require('galaxyline')
-local vcs = require('galaxyline.provider_vcs')
-local condition = require('galaxyline.condition')
-local section = gl.section
-gl.short_line_list = {'nerdtree'}
+-- See :h mini.statusline
+local statusline = require('mini.statusline')
+statusline.setup({
+  content = {
+    active = function()
+      local mode, mode_hl = statusline.section_mode({ trunc_width = 120 })
+      local git = statusline.section_git({ trunc_width = 40 })
+      local lsp = statusline.section_lsp({ trunc_width = 75 })
+      local filename = statusline.section_filename({ trunc_width = 999 })
+      local fileinfo = statusline.section_fileinfo({ trunc_width = 9999 })
+      local search = statusline.section_searchcount({ trunc_width = 75 })
+      local location = '%3l:%v' -- simple line/column without icon
 
-local colors = {
-  bg = '#2E3440',
-  fg = '#ffffff',
-  line_bg = 'NONE',
-  yellow = '#EBCB8B',
-  cyan = '#A3BE8C',
-  green = '#8FBCBB',
-  gray = '#616E88',
-  blue = '#5E81AC',
-  red = '#BF616A'
-}
+      -- TODO: clean up highlighting
+      return statusline.combine_groups({
+        { hl = mode_hl, strings = { git } },
+        '%<', -- Mark general truncate point
+        { hl = 'MiniStatuslineFilename', strings = { filename } },
+        '%=', -- End left alignment
 
-local buffer_not_empty = function()
-  if fn.empty(fn.expand('%:t')) ~= 1 then return true end
-  return false
-end
-
-local padded = function(input)
-  local startSpacer = function() return '  ' end
-  local endSpacer = function() return ' ' end
-  input.provider = { startSpacer, input.provider, endSpacer }
-  return input
-end
-
-section.left = {
-  {
-    GitBranch = padded({
-      provider = vcs.get_git_branch,
-      condition = condition.check_git_workspace,
-      highlight = {colors.fg, colors.gray},
-      separator = ' ',
-      separator_highlight = {colors.bg, colors.bg}
-    })
-  }, {
-    DiagnosticError = {
-      provider = 'DiagnosticError',
-      separator = ' ',
-      icon = ' ✗ ',
-      highlight = {colors.fg, colors.red},
-      separator_highlight = {colors.bg, colors.bg}
-    }
-  }, {
-    DiagnosticWarn = {
-      provider = 'DiagnosticWarn',
-      icon = ' ⚠ ',
-      separator = ' ',
-      highlight = {colors.bg, colors.yellow},
-      separator_highlight = {colors.bg, colors.bg}
-    }
-  }, {
-    FileName = {
-      provider = function() return fn.expand('%:F') end,
-      condition = buffer_not_empty,
-      separator = '',
-      separator_highlight = {colors.green, colors.bg},
-      highlight = {colors.green, colors.line_bg}
-    }
-  }
-}
-
-section.right = {
-  {
-    DiffAdd = {
-      provider = 'DiffAdd',
-      icon = '+',
-      highlight = {colors.green, colors.line_bg}
-    }
-  }, {
-    DiffModified = {
-      provider = 'DiffModified',
-      icon = '~',
-      highlight = {colors.yellow, colors.line_bg}
-    }
-  }, {
-    DiffRemove = {
-      provider = 'DiffRemove',
-      icon = '-',
-      highlight = {colors.red, colors.line_bg}
-    }
-  }, {
-    FileTypeName = padded({
-      provider = 'FileTypeName',
-      highlight = {colors.fg, colors.bg},
-    })
-  }, {
-    LineInfo = padded({
-      provider = 'LineColumn',
-      highlight = {colors.bg, colors.green}
-    })
-  }
-}
+        { hl = 'MiniStatuslineLocation', strings = { location } },
+        { hl = 'MiniStatuslineFileinfo', strings = { fileinfo, lsp } },
+        { hl = 'MiniHipatternsHack', strings = { search } },
+      })
+    end,
+  },
+})

@@ -22,7 +22,7 @@ require('mini.splitjoin').setup({ mappings = { toggle = '', split = 'gS', join =
 require('mini.surround').setup()
 
 local fuzzy = require('fuzzy')
-vim.api.nvim_set_keymap('n', ',', '', { callback = fuzzy.openFilePickOnKeydown, silent = true })
+vim.api.nvim_set_keymap('n', ',', '', { callback = fuzzy.customPicker, silent = true })
 vim.api.nvim_create_autocmd('VimEnter', { callback = fuzzy.openFilePickOnOpen })
 
 -- workalike for nvim-scrollbar
