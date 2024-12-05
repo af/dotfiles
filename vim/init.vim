@@ -36,7 +36,6 @@ Plug 'nvim-tree/nvim-tree.lua',     { 'tag': 'nvim-tree-v1.3.3' }
 Plug 'jose-elias-alvarez/null-ls.nvim', { 'commit': 'db09b6c' }
 
 Plug 'nvim-lua/plenary.nvim'  " Required for gitsigns & null-ls
-Plug 'lewis6991/gitsigns.nvim',     { 'commit': '851cd32' }
 Plug 'ruifm/gitlinker.nvim',        { 'commit': 'cc59f73' }
 Plug 'supermaven-inc/supermaven-nvim'
 
@@ -108,6 +107,7 @@ let g:python_host_prog = '/usr/local/bin/python'
 "===============================================================================
 syntax on
 set number                  " line number gutter
+set numberwidth=3           " line number width
 set ruler                   " line numbers at bottom of page
 set showcmd
 set title
@@ -224,6 +224,10 @@ highlight link DiagnosticSignWarning SpecialChar
 highlight link DiagnosticVirtualTextError healthError
 
 highlight MiniPickMatchCurrent guibg=#5e81ac guifg=#ffffff
+
+highlight MiniDiffSignDelete guifg=#BF616A guibg=NONE
+highlight MiniDiffSignChange guifg=#EBCB8B guibg=NONE
+highlight MiniDiffSignAdd guifg=#8FBC8B guibg=NONE
 
 " completion with nvim-cmp
 set completeopt=menu,menuone,noselect
