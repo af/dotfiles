@@ -11,15 +11,17 @@ require('completion')
 require('windows')
 require('highlight')
 
+require('mini.git').setup() -- needed for statusline
 require('statusline')
 require('tabline')
 require('tree')
 
 require('mini.bracketed').setup()
 require('mini.pairs').setup()
+require('mini.ai').setup()
+require('mini.surround').setup()
 
 require('mini.splitjoin').setup({ mappings = { toggle = '', split = 'gS', join = 'gJ' } })
-require('mini.surround').setup()
 
 local fuzzy = require('fuzzy')
 vim.api.nvim_set_keymap('n', ',', '', { callback = fuzzy.customPicker, silent = true })
