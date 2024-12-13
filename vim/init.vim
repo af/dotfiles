@@ -295,7 +295,6 @@ nnoremap gb :Git blame<CR>
 nnoremap <silent> <Tab> <Cmd>BufferNext<CR>
 nnoremap <silent> <S-Tab> <Cmd>BufferPrevious<CR>
 nnoremap <silent> s <Cmd>BufferPick<CR>
-nnoremap <silent> <C-u> <Cmd>BufferWipeout<CR>
 
 " nvim-miniyank (lighter-weight YankRing workalike)
 map p <Plug>(miniyank-autoput)
