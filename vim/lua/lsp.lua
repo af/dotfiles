@@ -8,15 +8,8 @@ local lspconfig = require('lspconfig')
 -- Enable completion with nvim-cmp
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
-local runformatter = function(bufnr)
-  vim.lsp.buf.format({
-    filter = function(client)
-      return client.name == 'null-ls'
-    end,
-    bufnr = bufnr,
-  })
-end
+-- Format on save
+vim.cmd([[autocmd BufWritePre * lua vim.lsp.buf.format()]])
 
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...)
@@ -34,44 +27,12 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'gR', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   buf_set_keymap('n', '<C-e>', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
   -- buf_set_keymap('n', '<C-w>', '<cmd>lua vim.diagnostic.set_loclist()<CR>', opts)
-
-  -- TODO: cleanup. See https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Avoiding-LSP-formatting-conflicts
-  -- buf_set_keymap("n", "<leader>f", "<cmd>lua vim.lsp.buf.format({ async = true })<CR>", opts)
-  -- buf_set_keymap('n', '<leader>f', '<cmd>lua _G.runformatter(bufnr)<CR>', opts)
-
-  if client.supports_method('textDocument/formatting') then
-    vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-    vim.api.nvim_create_autocmd('BufWritePre', {
-      group = augroup,
-      buffer = bufnr,
-      callback = function()
-        runformatter(bufnr)
-      end,
-    })
-  end
 end
 
 lspconfig.biome.setup({})
-
--- Set up integrations with non-LSP tools
--- See https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md
-local null_ls = require('null-ls')
-null_ls.setup({
-  on_attach = on_attach,
-  sources = {
-    null_ls.builtins.formatting.pg_format,
-
-    -- Docs: https://github.com/JohnnyMorganz/StyLua
-    -- Install with: npm i -g @johnnymorganz/stylua-bin
-    null_ls.builtins.formatting.stylua,
-
-    -- stylelint formatting & diagnostics
-    null_ls.builtins.diagnostics.stylelint,
-    null_ls.builtins.formatting.stylelint,
-  },
-})
-
+lspconfig.jsonls.setup({ capabilities = capabilities, on_attach = on_attach })
 lspconfig.graphql.setup({})
+lspconfig.vimls.setup({ on_attach = on_attach })
 
 -- TypeScript/JS
 lspconfig.ts_ls.setup({
@@ -94,9 +55,6 @@ lspconfig.cssls.setup({
   filetypes = { 'css', 'scss', 'stylus' },
 })
 
--- JSON
-lspconfig.jsonls.setup({ capabilities = capabilities, on_attach = on_attach })
-
 -- Lua
 -- Need to run `brew install lua-language-server` for support
 lspconfig.lua_ls.setup({
@@ -112,6 +70,3 @@ lspconfig.lua_ls.setup({
     },
   },
 })
-
--- VimScript
-lspconfig.vimls.setup({ on_attach = on_attach })

@@ -33,9 +33,7 @@ Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '48fc5d1', 'do': ':TSUpdate'
 Plug 'echasnovski/mini.nvim',       { 'branch': 'main' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': '32236a8' }
 Plug 'nvim-tree/nvim-tree.lua',     { 'tag': 'nvim-tree-v1.3.3' }
-Plug 'jose-elias-alvarez/null-ls.nvim', { 'commit': 'db09b6c' }
 
-Plug 'nvim-lua/plenary.nvim'  " Required for gitsigns & null-ls
 Plug 'ruifm/gitlinker.nvim',        { 'commit': 'cc59f73' }
 Plug 'supermaven-inc/supermaven-nvim'
 
