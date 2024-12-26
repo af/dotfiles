@@ -1,6 +1,7 @@
 -- Main entrypoint for lua config
 
 -- TODO: try/catch these imports to handle initial install run?
+require('color')
 require('git')
 require('treesitter')
 require('lsp')

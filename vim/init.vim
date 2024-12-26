@@ -62,9 +62,6 @@ Plug 'tpope/vim-sleuth',            { 'commit': '039e2cd' }
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install', 'for': 'markdown' }
 Plug 'folke/neodev.nvim'
 
-" Color/Theme/syntax
-Plug 'shaunsingh/nord.nvim',        { 'commit': '80c1e53' }
-
 " Misc
 Plug 'vimwiki/vimwiki',             { 'commit': '417490f' }
 Plug 'bfredl/nvim-miniyank',        { 'commit': '2a3a0f3' }
@@ -113,6 +110,8 @@ set wildmenu
 set wildignore=.svn,.git,.gitignore,*.pyc,*.so,*.swp,*.jpg,*.png,*.gif,node_modules,_site,_build,esy.lock
 set laststatus=2            " Always show a status line for lowest window in a split
 set cursorline              " highlight the full line that the cursor is currently on
+set background=dark
+set synmaxcol=400           " Performance improvement on large single-line files
 set colorcolumn=80,100      " Highlight these columns with a different bg
 set signcolumn=yes          " Always show sign column. Prevents rendering jank on startup
 set showtabline=2
@@ -184,48 +183,8 @@ elseif $TERM ==# 'xterm-256color' || $TERM ==# 'screen-256color'
 endif
 
 " }}}
-" {{{ Colorscheme & syntax
+" {{{ Completion
 "===============================================================================
-let g:nord_contrast = v:true
-let g:nord_borders = v:true
-color nord
-set background=dark
-set synmaxcol=400    " Performance improvement on large single-line files
-
-" highlight trailing whitespace
-augroup ErrorHighlights
-  autocmd!
-  autocmd InsertEnter * call clearmatches()
-  autocmd InsertLeave * call matchadd('ErrorMsg', '\s\+$', 100)
-augroup END
-
-" syntax highlighting overrides:
-" for palette see https://github.com/shaunsingh/nord.nvim/blob/fab04b2dd4b64f4b1763b9250a8824d0b5194b8f/lua/nord/named_colors.lua
-highlight NvimTreeFolderIcon guifg=#5e81ac gui=bold
-highlight NvimTreeOpenedFile guifg=#8FBCBB gui=bold
-highlight NvimTreeSymlink guifg=#ECEFF4
-
-" barbar diagnostic overrides
-highlight BufferCurrentERROR guifg=#BF616A guibg=#3B4252
-highlight BufferCurrentWARN guifg=#EBCB8B guibg=#3B4252
-highlight BufferCurrentHINT guifg=#81A1C1 guibg=#3B4252
-highlight BufferInactiveERROR guifg=#BF616A guibg=#2E3440
-highlight BufferInactiveWARN guifg=#EBCB8B guibg=#2E3440
-highlight BufferInactiveHINT guifg=#81A1C1 guibg=#2E3440
-
-" }}}
-" {{{ LSP & Diagnostics
-"===============================================================================
-
-highlight link DiagnosticSignError healthError
-highlight link DiagnosticSignWarning SpecialChar
-highlight link DiagnosticVirtualTextError healthError
-
-highlight MiniPickMatchCurrent guibg=#5e81ac guifg=#ffffff
-
-highlight MiniDiffSignDelete guifg=#BF616A guibg=NONE
-highlight MiniDiffSignChange guifg=#EBCB8B guibg=NONE
-highlight MiniDiffSignAdd guifg=#8FBC8B guibg=NONE
 
 " completion with nvim-cmp
 set completeopt=menu,menuone,noselect
