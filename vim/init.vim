@@ -34,7 +34,6 @@ Plug 'echasnovski/mini.nvim',       { 'branch': 'main' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': '32236a8' }
 Plug 'nvim-tree/nvim-tree.lua',     { 'tag': 'nvim-tree-v1.3.3' }
 
-Plug 'ruifm/gitlinker.nvim',        { 'commit': 'cc59f73' }
 Plug 'supermaven-inc/supermaven-nvim'
 
 Plug 'kyazdani42/nvim-web-devicons'
@@ -55,6 +54,7 @@ Plug 'onsails/lspkind.nvim' " for completion type icons
 Plug 'tpope/vim-apathy'
 Plug 'tpope/vim-repeat',            { 'commit': '24afe92' }
 Plug 'tpope/vim-fugitive',          { 'commit': '5f0d280' }
+Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-sleuth',            { 'commit': '039e2cd' }
 
 " language-specific plugins

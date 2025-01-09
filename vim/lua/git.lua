@@ -13,15 +13,11 @@ require('mini.diff').setup({
   },
 })
 
-vim.api.nvim_set_keymap(
-  'n',
-  'gl',
-  '<cmd>lua require"gitlinker".get_buf_range_url("n", {action_callback = require"gitlinker.actions".open_in_browser})<cr>',
-  { silent = true }
-)
-vim.api.nvim_set_keymap(
-  'v',
-  'gl',
-  '<cmd>lua require"gitlinker".get_buf_range_url("v", {action_callback = require"gitlinker.actions".open_in_browser})<cr>',
-  {}
+-- Implement a 'Browse' command for vim-rhubarb's GBrowse to work
+vim.api.nvim_create_user_command(
+  'Browse',
+  function(opts)
+    vim.fn.system { 'open', opts.fargs[1] }
+  end,
+  { nargs = 1 }
 )
