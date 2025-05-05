@@ -6,6 +6,7 @@ entr \
 fasd \
 fd \
 fnm \
+font-hack-nerd-font \
 fzf \
 gh \
 git \

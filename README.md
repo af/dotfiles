@@ -14,15 +14,4 @@ Mac-specific, but most should work on any unix-ish OS.
 * `./install.py`
 * `af-npm-i-globals`
 * `tic term/tmux256.terminfo`
-* homebrew font setup (see section below)
 * `brew cask install alacritty`
-* `brew tap homebrew/services` (see https://superuser.com/a/1010357)
-
-## Homebrew font setup
-
-via https://github.com/ryanoasis/nerd-fonts#option-4-homebrew-fonts
-
-```bash
-brew tap homebrew/cask-fonts
-brew install --cask font-hack-nerd-font
-```
