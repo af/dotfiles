@@ -2,8 +2,9 @@ local on_attach = function(bufnr)
   local api = require('nvim-tree.api')
   api.config.mappings.default_on_attach(bufnr)
 
-  -- Remove nvim-tree's default H mapping (use vim's default instead)
+  -- Remove nvim-tree's default H and M mappings (use nvim's defaults instead)
   vim.keymap.del('n', 'H', { buffer = bufnr })
+  vim.keymap.del('n', 'M', { buffer = bufnr })
 end
 
 require('nvim-tree').setup({
@@ -57,4 +58,5 @@ function _G.open_in_browser()
     print('No https or http URI found in line.')
   end
 end
+
 vim.api.nvim_set_keymap('n', 'gx', '<cmd>lua open_in_browser()<cr>', {})
