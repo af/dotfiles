@@ -26,11 +26,11 @@ augroup END
 call plug#begin('~/.vim/plugged')
 
 " Semi-official plugins
-Plug 'neovim/nvim-lspconfig',       { 'tag': 'v1.0.0' }
-Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '48fc5d1', 'do': ':TSUpdate' }
+Plug 'neovim/nvim-lspconfig',       { 'commit': '3a7387a' }
+Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '684eeac', 'do': ':TSUpdate' }
 
 " Essentials
-Plug 'echasnovski/mini.nvim',       { 'branch': 'main' }
+Plug 'echasnovski/mini.nvim',       { 'tag': 'v0.16.0' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': '32236a8' }
 Plug 'nvim-tree/nvim-tree.lua',     { 'tag': 'nvim-tree-v1.3.3' }
 
