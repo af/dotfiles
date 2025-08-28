@@ -6,12 +6,25 @@ require('mini.diff').setup({
   },
 
   mappings = {
-    -- TODO: port this mapping over (gh is the default mapping, but need visual mode?)
-    -- reset = '<leader>hr',
     goto_prev = '[h',
     goto_next = ']h',
   },
 })
+
+-- reset (revert) the changes of the hunk the cursor is inside (if any)
+vim.keymap.set('n', '<leader>hr', function()
+  local current_line = vim.api.nvim_win_get_cursor(0)[1]
+  local hunks = require('mini.diff').get_buf_data(0).hunks
+
+  -- Find the hunk containing the current line and reset it
+  for _, hunk in ipairs(hunks) do
+    if current_line >= hunk.buf_start and current_line <= hunk.buf_start + hunk.buf_count - 1 then
+      require('mini.diff').do_hunks(0, 'reset',
+        { line_start = hunk.buf_start, line_end = hunk.buf_start + hunk.buf_count - 1 })
+      return
+    end
+  end
+end, { desc = 'Reset git hunk' })
 
 -- Implement a 'Browse' command for vim-rhubarb's GBrowse to work
 vim.api.nvim_create_user_command(
