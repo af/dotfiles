@@ -4,10 +4,10 @@
  * Clean up a sea of old screenshots and screen recordings on the Desktop
  */
 
-const { execSync } = require('child_process')
-const { existsSync, readdirSync, mkdirSync } = require('fs')
-const { homedir } = require('os')
-const path = require('path')
+const { execSync } = require('node:child_process')
+const { existsSync, readdirSync, mkdirSync } = require('node:fs')
+const { homedir } = require('node:os')
+const path = require('node:path')
 
 const desktop = path.join(homedir(), 'Desktop')
 const tidyUpDir = path.join(desktop, 'old_screenshots')
@@ -22,11 +22,18 @@ const trySync = (cmd) => {
   }
 }
 
+const execToString = (cmd) => execSync(cmd).toString().trim()
+
 const run = () => {
   if (!tidyUpDirExists) mkdirSync(tidyUpDir)
 
-  trySync(`mv ${desktop}/Screenshot* ${tidyUpDir}`)
-  trySync(`mv ${desktop}/Screen\\ Recording* ${tidyUpDir}`)
+  const screenshotCount = execToString(`ls -l ${desktop} | grep 'Screenshot*' | wc -l`)
+  const recordingCount = execToString(`ls -l ${desktop} | grep 'Screen\\ Recording*' | wc -l`)
+  console.log(`tidying ${screenshotCount.trim()} screenshots and ${recordingCount.trim()} screen recordings...`)
+
+  if (screenshotCount != '0') trySync(`mv ${desktop}/Screenshot* ${tidyUpDir}`)
+  if (recordingCount != '0') trySync(`mv ${desktop}/Screen\\ Recording* ${tidyUpDir}`)
+  console.log('done')
 }
 
 run()
