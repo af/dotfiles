@@ -17,23 +17,29 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 -- Format on save
 vim.cmd([[autocmd BufWritePre * lua vim.lsp.buf.format()]])
 
-vim.lsp.enable('biome')
-vim.lsp.enable('graphql')
-vim.lsp.enable('vimls')
--- vim.lsp.enable('jsonls')
+local enable = function(lspname, config)
+  if config then
+    vim.lsp.config(lspname, config)
+  end
+  vim.lsp.enable(lspname)
+end
+
+enable('biome')
+enable('graphql')
+enable('vimls')
+enable('jsonls')
 
 -- TypeScript/JS
-vim.lsp.config('ts_ls', {
+enable('ts_ls', {
   capabilities = capabilities,
   on_attach = function(client, bufnr)
     -- use biome for formatting instead
     client.server_capabilities.documentFormatting = false
   end,
 })
-vim.lsp.enable('ts_ls')
 
 -- CSS
-vim.lsp.config('cssls', {
+enable('cssls', {
   capabilities = capabilities,
   on_attach = function(client, bufnr)
     -- use biome for formatting instead
@@ -41,11 +47,10 @@ vim.lsp.config('cssls', {
   end,
   filetypes = { 'css', 'scss' },
 })
-vim.lsp.enable('cssls')
 
 -- Lua
 -- Need to run `brew install lua-language-server` for support
-vim.lsp.config('lua_ls', {
+enable('lua_ls', {
   settings = {
     Lua = {
       runtime = { version = 'LuaJIT', path = vim.split(package.path, ';') },
@@ -58,19 +63,18 @@ vim.lsp.config('lua_ls', {
     },
   },
 })
-vim.lsp.enable('lua_ls')
 
 -- ruby
-vim.lsp.config('rubocop', {
+enable('rubocop', {
   capabilities = capabilities,
-  on_attach = function(client, bufnr)
+  on_attach = function(client)
     client.server_capabilities.document_formatting = true
   end
 })
-vim.lsp.config('ruby_lsp', { capabilities = capabilities })
+enable('ruby_lsp', { capabilities = capabilities })
 
 -- python
-vim.lsp.config('ty', {
+enable('ty', {
   capabilities = capabilities,
   root_markers = { 'uv.lock' },
   settings = {
@@ -82,5 +86,4 @@ vim.lsp.config('ty', {
     },
   },
 })
-vim.lsp.enable('ty')
-vim.lsp.enable('ruff')
+enable('ruff')
