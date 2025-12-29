@@ -30,7 +30,7 @@ Plug 'neovim/nvim-lspconfig',       { 'tag': 'v2.5.0' }
 Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '684eeac', 'do': ':TSUpdate' }
 
 " Essentials
-Plug 'echasnovski/mini.nvim',       { 'tag': 'v0.16.0' }
+Plug 'echasnovski/mini.nvim',       { 'tag': 'v0.17.0' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': '32236a8' }
 Plug 'nvim-tree/nvim-tree.lua',     { 'tag': 'nvim-tree-v1.3.3' }
 
@@ -89,7 +89,6 @@ set scrolloff=3             " # of lines always shown above/below the cursor
 set expandtab
 set tabstop=2 shiftwidth=2 softtabstop=2
 set autoindent
-set breakindent
 set showbreak=…
 set list listchars=tab:›\ ,trail:·          " mark trailing white space
 
@@ -101,7 +100,6 @@ let g:python_host_prog = '/usr/local/bin/python'
 " {{{ Display/window settings
 "===============================================================================
 syntax on
-set number                  " line number gutter
 set numberwidth=3           " line number width
 set ruler                   " line numbers at bottom of page
 set showcmd
@@ -109,22 +107,16 @@ set title
 set wildmenu
 set wildignore=.svn,.git,.gitignore,*.pyc,*.so,*.swp,*.jpg,*.png,*.gif,node_modules,_site,_build,esy.lock
 set laststatus=2            " Always show a status line for lowest window in a split
-set cursorline              " highlight the full line that the cursor is currently on
 set background=dark
 set synmaxcol=400           " Performance improvement on large single-line files
 set colorcolumn=80,100      " Highlight these columns with a different bg
 set signcolumn=yes          " Always show sign column. Prevents rendering jank on startup
 set showtabline=2
-set splitright
-set splitbelow
 set shortmess+=c
 
 " }}}
 " {{{ Searching & Replacing
 "===============================================================================
-set ignorecase
-set smartcase               " override 'ignorecase' if search term has upper case chars
-set incsearch               " incremental search
 set showmatch
 set hlsearch                " highlight searched items
 set gdefault                " use 'global' mode by default for substitutions
