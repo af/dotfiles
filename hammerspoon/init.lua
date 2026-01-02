@@ -1,20 +1,21 @@
-local Audio = require 'audio'
-local Grid = require 'grid'
-local Utils = require 'utils'   -- miscellaneous commands
+local Audio = require('audio')
+local Grid = require('grid')
+local Utils = require('utils') -- miscellaneous commands
 
 -- Enable dual-mapping of Ctrl to Escape
 -- I used to use karabiner for this but it isn't supported on OS X Sierra
 -- See this link for more discussion, context, and workarounds:
 -- https://github.com/tekezo/Karabiner-Elements/issues/8
-require 'ctrl_escape'
+require('ctrl_escape')
 
 -- Remap some chorded Ctrl bindings for ergonomics:
-require 'ctrl_remaps'
+require('ctrl_remaps')
 
-local mash = {'ctrl', 'alt', 'cmd'}
+local mash = { 'ctrl', 'alt', 'cmd' }
+local ctrl = { 'ctrl' }
 
 -- WIP pomodoro app
-local Pomo = require 'pomodoro'
+local Pomo = require('pomodoro')
 hs.hotkey.bind(mash, 'U', Pomo.startNew)
 hs.hotkey.bind(mash, 'I', Pomo.togglePaused)
 hs.hotkey.bind(mash, 'O', Pomo.toggleLatestDisplay)
@@ -26,8 +27,7 @@ hs.hotkey.bind(mash, 'O', Pomo.toggleLatestDisplay)
 hs.pathwatcher.new(os.getenv('HOME') .. '/.hammerspoon/', hs.reload):start()
 hs.alert('🔨🥄')
 
-hs.window.animationDuration = 0     -- Disable window animations (janky for iTerm)
-
+hs.window.animationDuration = 0 -- Disable window animations (janky for iTerm)
 
 -- Hammerspoon repl:
 hs.hotkey.bind(mash, 'C', hs.openConsole)
@@ -53,19 +53,17 @@ hs.hotkey.bind(mash, 'RIGHT', hs.itunes.next)
 hs.hotkey.bind(mash, '/', Utils.musicTrackAlert)
 hs.hotkey.bind(mash, 'S', Utils.toggleShuffle)
 
-
 -- Launch/focus specific apps with one keystroke.
 -- Note: to get {^1,^2,^3} to work, you might need to change some conflicting
 -- Mission Control keyboard shortcuts in SysPrefs > Keyboard > Shortcuts
-hs.hotkey.bind({'ctrl'}, '1', function() hs.application.launchOrFocus('Google Chrome') end)
-hs.hotkey.bind({'ctrl'}, '2', function() hs.application.launchOrFocus('Alacritty') end)
-hs.hotkey.bind({'ctrl'}, '3', function() hs.application.launchOrFocus('TablePlus') end)
-hs.hotkey.bind({'ctrl'}, '4', function() hs.application.launchOrFocus('Finder') end)
-hs.hotkey.bind({'ctrl'}, '5', function() hs.application.launchOrFocus('Figma') end)
+hs.hotkey.bind(ctrl, '1', function() hs.application.launchOrFocus('Google Chrome') end)
+hs.hotkey.bind(ctrl, '2', function() hs.application.launchOrFocus('Alacritty') end)
+hs.hotkey.bind(ctrl, '3', function() hs.application.launchOrFocus('TablePlus') end)
+hs.hotkey.bind(ctrl, '4', function() hs.application.launchOrFocus('Finder') end)
+hs.hotkey.bind(ctrl, '5', function() hs.application.launchOrFocus('Figma') end)
 
-hs.hotkey.bind({'ctrl'}, '9', function() hs.application.launchOrFocus('Slack') end)
-hs.hotkey.bind({'ctrl'}, '0', function() hs.application.launchOrFocus('Music') end)
-
+hs.hotkey.bind(ctrl, '9', function() hs.application.launchOrFocus('Slack') end)
+hs.hotkey.bind(ctrl, '0', function() hs.application.launchOrFocus('Music') end)
 
 -- Audio volume control
 hs.hotkey.bind({}, 'F13', Audio.toggleMute)
@@ -78,9 +76,9 @@ hs.hotkey.bind(mash, 'X', Utils.dismissAllNotifications)
 -- focus latest screenshot in a new Finder window
 hs.hotkey.bind(mash, '[', function() hs.execute('showscreenshot', true) end)
 
-local emoji = require 'emoji'
+local emoji = require('emoji')
 hs.hotkey.bind(mash, 'Y', emoji.choose)
 
-local mortality = require 'mortality'
-local estimatedDeath = os.time{year=2065, month=1, day=1}
+local mortality = require('mortality')
+local estimatedDeath = os.time({ year = 2065, month = 1, day = 1 })
 mortality(estimatedDeath)
