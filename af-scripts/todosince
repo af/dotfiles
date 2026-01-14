@@ -6,10 +6,13 @@ declare const Bun: { argv: string[] }
 
 type Chunk = { fileName: string, lines: { lineText: string, lineNumber: number }[] }
 
-const POSITIONAL_DEFAULTS = ['main']
+const baseBranch = execSync('basename $(git symbolic-ref --short refs/remotes/origin/HEAD)', { encoding: 'utf8' }).trim()
+
+// TODO: replace with util.parseArg: https://bun.com/docs/guides/process/argv
 const FLAG_DEFAULTS = {
   terms: 'TODO|FIXME|console.log|debugger|@ts-ignore|: ?any',
   output: 'pretty',
+  baseBranch,
 } as const
 
 const diffFileBoundaryRegex = /^diff --git a\//m
@@ -17,11 +20,11 @@ const fileNameRegex = /\n\+\+\+ b\/(\S+)\n/
 const chunkBoundaryRegex = /\n@@ [^\+]+\+/m
 const lineNumberRegex = /^\d+/
 
-const parseCLI = (argv: string[], positionalDefaults: string[], flagDefaults: Record<string, string>) => {
+
+const parseCLI = (argv: string[], flagDefaults: Record<keyof typeof FLAG_DEFAULTS, string>) => {
   const params = argv.slice(2)
 
   const parsedFlags: Record<string, string> = {}
-  const parsedPositionals: string[] = []
   let queuedFlagName: string | null = null
 
   for (const p of params) {
@@ -34,12 +37,10 @@ const parseCLI = (argv: string[], positionalDefaults: string[], flagDefaults: Re
         parsedFlags[queuedFlagName] = p
         queuedFlagName = null
       }
-      else parsedPositionals.push(p)
     }
   }
-  const positionalArgs = positionalDefaults.map((defaultVal, idx) => parsedPositionals[idx] || defaultVal)
   const flags = { ...flagDefaults, ...parsedFlags }
-  return { positionalArgs, flags }
+  return { flags }
 }
 
 // Quick and dirty terminal colorize utils.
@@ -51,8 +52,8 @@ const colorize = {
   yellow: _makeColorizer('33'),
 }
 
-const getRawDiff = (commit: string, flags: Record<string, string>) => {
-  const diffCmd = `git diff -U0 -G '${flags.terms}' ${commit}`
+const getRawDiff = (flags: Record<string, string>) => {
+  const diffCmd = `git diff -U0 -G '${flags.terms}' ${flags.baseBranch}`
   return execSync(diffCmd, { encoding: 'utf8' })
 }
 
@@ -111,11 +112,10 @@ const formatters = {
 }
 
 const main = (argv: string[]) => {
-  const { positionalArgs, flags } = parseCLI(argv, POSITIONAL_DEFAULTS, FLAG_DEFAULTS)
+  const { flags } = parseCLI(argv, FLAG_DEFAULTS)
   const termsRegex = new RegExp(flags.terms, 'g')
-  const [commitName] = positionalArgs
 
-  const rawOutput = getRawDiff(commitName, flags)
+  const rawOutput = getRawDiff(flags)
   const chunks = parseChunks(rawOutput, termsRegex)
   const highlighter = makeHighlighter(termsRegex)
 
