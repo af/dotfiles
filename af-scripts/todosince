@@ -1,46 +1,35 @@
 #!/usr/bin/env bun
 
 import { execSync } from 'child_process'
+import { parseArgs } from 'util'
 
 declare const Bun: { argv: string[] }
 
-type Chunk = { fileName: string, lines: { lineText: string, lineNumber: number }[] }
+type Chunk = {
+  fileName: string,
+  lines: { lineText: string, lineNumber: number }[]
+}
 
+// Get the default branch for this repo (eg 'main'). By default, look for changes relative to that ref
 const baseBranch = execSync('basename $(git symbolic-ref --short refs/remotes/origin/HEAD)', { encoding: 'utf8' }).trim()
-
-// TODO: replace with util.parseArg: https://bun.com/docs/guides/process/argv
-const FLAG_DEFAULTS = {
-  terms: 'TODO|FIXME|console.log|debugger|@ts-ignore|: ?any',
-  output: 'pretty',
-  baseBranch,
-} as const
 
 const diffFileBoundaryRegex = /^diff --git a\//m
 const fileNameRegex = /\n\+\+\+ b\/(\S+)\n/
 const chunkBoundaryRegex = /\n@@ [^\+]+\+/m
 const lineNumberRegex = /^\d+/
 
-
-const parseCLI = (argv: string[], flagDefaults: Record<keyof typeof FLAG_DEFAULTS, string>) => {
-  const params = argv.slice(2)
-
-  const parsedFlags: Record<string, string> = {}
-  let queuedFlagName: string | null = null
-
-  for (const p of params) {
-    const isFlag = p.startsWith('--')
-    if (isFlag) {
-      if (queuedFlagName) throw new Error(`Missing value for flag ${queuedFlagName}`)
-      queuedFlagName = p.slice(2)
-    } else {
-      if (queuedFlagName) {
-        parsedFlags[queuedFlagName] = p
-        queuedFlagName = null
-      }
-    }
-  }
-  const flags = { ...flagDefaults, ...parsedFlags }
-  return { flags }
+const parseCLI = () => {
+  const { values, positionals } = parseArgs({
+    argv: Bun.argv,
+    options: {
+      terms: { type: 'string', default: 'TODO|FIXME|console.log|debugger|@ts-ignore|: ?any' },
+      output: { type: 'string', default: 'pretty' }, // 'pretty' or 'vimgrep'
+      base: { type: 'string', default: baseBranch },
+    },
+    strict: true,
+    allowPositionals: true,
+  })
+  return { flags: values }
 }
 
 // Quick and dirty terminal colorize utils.
@@ -53,7 +42,7 @@ const colorize = {
 }
 
 const getRawDiff = (flags: Record<string, string>) => {
-  const diffCmd = `git diff -U0 -G '${flags.terms}' ${flags.baseBranch}`
+  const diffCmd = `git diff -U0 -G '${flags.terms}' ${flags.base}`
   return execSync(diffCmd, { encoding: 'utf8' })
 }
 
@@ -83,7 +72,6 @@ const parseChunks = (diffOutput: string, termsRegex: RegExp): Chunk[] => {
             lines: matchingAddedLines
           }]
         })
-        .filter(c => c != null)
     })
 }
 
@@ -106,13 +94,13 @@ const formatters = {
   vimgrep: (chunks: Chunk[]) => {
     return chunks.flatMap(chunk => chunk.lines.map(({ lineText, lineNumber }) => (
       // Note: character position is hardwired to "1" below for now
-      `${chunk.fileName}:${lineNumber}:${lineText.trim()}}`
+      `${chunk.fileName}:${lineNumber}:${lineText.trim()}`
     ))).join('\n')
   }
 }
 
 const main = (argv: string[]) => {
-  const { flags } = parseCLI(argv, FLAG_DEFAULTS)
+  const { flags } = parseCLI()
   const termsRegex = new RegExp(flags.terms, 'g')
 
   const rawOutput = getRawDiff(flags)
@@ -126,3 +114,5 @@ const main = (argv: string[]) => {
 }
 
 main(Bun.argv)
+
+// vim: set filetype=typescript:
