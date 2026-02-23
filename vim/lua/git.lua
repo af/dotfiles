@@ -34,3 +34,6 @@ vim.api.nvim_create_user_command(
   end,
   { nargs = 1 }
 )
+
+-- visual mapping to get a GitHub URL for the visual selection
+vim.keymap.set('v', 'gl', ':GBrowse<CR>', { desc = 'Open GitHub URL' })
