@@ -30,9 +30,9 @@ enable('vimls')
 enable('jsonls')
 
 -- TypeScript/JS
-enable('ts_ls', {
+enable('tsgo', {
   capabilities = capabilities,
-  on_attach = function(client, bufnr)
+  on_attach = function(client)
     -- use biome for formatting instead
     client.server_capabilities.documentFormatting = false
   end,
