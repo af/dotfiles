@@ -83,9 +83,7 @@ alias ff='git merge --ff-only'
 
 alias yd='yarn dev'
 alias ys='yarn start'
-alias yw='yarn watch'
 alias yt='yarn test'
-alias yl='yarn lint'
 
 # Commonly used tools:
 alias v='nvim'
@@ -155,22 +153,18 @@ function af-workspace () {
   tmux select-pane -L     # End up on the main (left) pane
 }
 
-# Install the global npm packages that I use all the time
-# Need to run this any time I install a new node version via fnm
+# Install frequently used global npm packages
+# Run this any time a new node version is installed via fnm
 function af-npm-i-globals () {
   npm i -g \
     @biomejs/biome\
-    typescript-language-server\
     vim-language-server\
     vscode-langservers-extracted\
     graphql-language-service-cli\
     diff-so-fancy\
-    gist-cli\
     jsonlint\
     neovim\
-    svgo\
-    @johnnymorganz/stylua-bin\
-    yarn
+    svgo
 }
 
 # Toggle between zsh and vim with ^z (instead of entering 'fg<CR>' one way)
@@ -251,6 +245,7 @@ source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 [ -s "/Users/aaron/.bun/_bun" ] && source "/Users/aaron/.bun/_bun"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 # Store local config (anything that shouldn't be in source control) in ~/.zsh_local_config
 if [ -f ~/.zsh_local_config ]; then
