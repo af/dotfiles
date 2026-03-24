@@ -26,8 +26,8 @@ augroup END
 call plug#begin('~/.vim/plugged')
 
 " Semi-official plugins
-Plug 'neovim/nvim-lspconfig',       { 'tag': 'v2.5.0' }
-Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '684eeac', 'do': ':TSUpdate' }
+Plug 'neovim/nvim-lspconfig',       { 'tag': 'v2.7.0' }
+Plug 'nvim-treesitter/nvim-treesitter', { 'commit': '6620ae1', 'do': ':TSUpdate' }
 
 " Essentials
 Plug 'echasnovski/mini.nvim',       { 'tag': 'v0.17.0' }
