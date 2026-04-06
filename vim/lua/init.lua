@@ -59,3 +59,6 @@ map.setup({
   },
 })
 map.open()
+
+-- Copy to system clipboard
+vim.opt.clipboard:append("unnamedplus")
