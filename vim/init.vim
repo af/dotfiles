@@ -144,6 +144,8 @@ augroup END
 set textwidth=99
 autocmd vimrc FileType markdown,txt set breakindent
 set formatoptions=qrn1j
+nnoremap j gj
+nnoremap k gk
 
 " }}}
 " {{{ Neovim-specific settings
@@ -364,6 +366,8 @@ nmap <leader>t :silent make<CR>
 noremap <silent> n /<CR>
 noremap <silent> N ?<CR>
 
+" yank to system clipboard:
+vnoremap <leader>y "+y
 nnoremap Y yy
 
 " normal mode: yank path of current buffer into system clipboard
