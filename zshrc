@@ -81,9 +81,9 @@ alias lat='git latest'
 alias t='tig --all'
 alias ff='git merge --ff-only'
 
-alias yd='yarn dev'
-alias ys='yarn start'
-alias yt='yarn test'
+alias yd='bun dev'
+alias ys='bun start'
+alias yt='bun run test'
 
 # Commonly used tools:
 alias v='nvim'
@@ -126,18 +126,6 @@ setopt interactivecomments
 
 setopt hist_ignore_all_dups     # Ignore duplicate history items
 setopt hist_find_no_dups        # Do not surface duplicates
-
-
-# Shorthand function to create a new project with a git repo and README:
-function af-initproject () {
-  mkdir $1
-  cd $1
-  git init
-  touch README.md
-  git add README.md
-  git commit -m "First commit"
-  echo "\nYour new project is ready. Have fun."
-}
 
 # Script tmux to set up a window in my (currently) preferred custom layout:
 function af-workspace () {

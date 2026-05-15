@@ -59,7 +59,7 @@ Plug 'tpope/vim-sleuth',            { 'commit': '039e2cd' }
 
 " language-specific plugins
 " usage-> :MarkdownPreview
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install', 'for': 'markdown' }
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npm install', 'for': 'markdown' }
 Plug 'folke/neodev.nvim'
 
 " Misc
