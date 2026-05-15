@@ -14,9 +14,9 @@ local timer = nil
 local currentPomo = nil
 local alertId = nil
 
-local INTERVAL_SECONDS = 60     -- Set to 60 (one minute) for real use; set lower for debugging
-local POMO_LENGTH = 25          -- Number of intervals (minutes) in one work pomodoro
-local BREAK_LENGTH = 5          -- Number of intervals (minutes) in one break time
+local INTERVAL_SECONDS = 60 -- Set to 60 (one minute) for real use; set lower for debugging
+local POMO_LENGTH = 25 -- Number of intervals (minutes) in one work pomodoro
+local BREAK_LENGTH = 5 -- Number of intervals (minutes) in one break time
 local LOG_FILE = '~/.pomo'
 
 -- Namespace tables
@@ -28,15 +28,21 @@ local App = {}
 local showChooserPrompt = function(items, callback)
   local chooser = nil
   chooser = hs.chooser.new(function(item)
-    if item then callback(item.text) end
-    if chooser then chooser:delete() end
+    if item then
+      callback(item.text)
+    end
+    if chooser then
+      chooser:delete()
+    end
   end)
+
+  chooser:placeholderText('Type a task, or pick a previous one')
 
   -- The table of choices to present to the user. It's comprised of one empty
   -- item (which we update as the user types), and those passed in as items
-  local choiceList = { {text=''} }
-  for i=1, #items do
-    choiceList[#choiceList+1] = items[i]
+  local choiceList = { { text = '' } }
+  for i = 1, #items do
+    choiceList[#choiceList + 1] = items[i]
   end
 
   chooser:choices(function()
@@ -46,14 +52,18 @@ local showChooserPrompt = function(items, callback)
 
   -- Re-compute the choices every time a key is pressed, to ensure that the top
   -- choice is always the entered text:
-  chooser:queryChangedCallback(function() chooser:refreshChoicesCallback() end)
+  chooser:queryChangedCallback(function()
+    chooser:refreshChoicesCallback()
+  end)
 
   chooser:show()
 end
 
 -- Read the last {count} lines of the log file, ordered with the most recent one first
 Log.read = function(count)
-  if not count then count = 10 end
+  if not count then
+    count = 10
+  end
   -- Note the funky sed command at the end is to reverse the ordering of the lines:
   return hs.execute('tail -' .. count .. ' ' .. LOG_FILE .. " | sed '1!G;h;$!d' ${inputfile}")
 end
@@ -62,14 +72,18 @@ Log.writeItem = function(pomo)
   local timestamp = os.date('%Y-%m-%d %H:%M')
   local isFirstToday = #(Log.getCompletedToday()) == 0
 
-  if (isFirstToday) then hs.execute('echo "" >> ' .. LOG_FILE) end  -- Add linebreak between days
+  if isFirstToday then
+    hs.execute('echo "" >> ' .. LOG_FILE)
+  end -- Add linebreak between days
   hs.execute('echo "[' .. timestamp .. '] ' .. pomo.name .. '" >> ' .. LOG_FILE)
 end
 
 Log.getLatestItems = function(count)
   local logs = Log.read(count)
   local logItems = {}
-  for match in logs:gmatch('(.-)\r?\n') do table.insert(logItems, match) end
+  for match in logs:gmatch('(.-)\r?\n') do
+    table.insert(logItems, match)
+  end
   return logItems
 end
 
@@ -85,12 +99,14 @@ end
 -- Return a table of recent tasks ({text, subText}), most recent first
 Log.getRecentTaskNames = function()
   local tasks = Log.getLatestItems(12)
-  local nonEmptyTasks = hs.fnutils.filter(tasks, function(t) return t ~= '' end)
+  local nonEmptyTasks = hs.fnutils.filter(tasks, function(t)
+    return t ~= ''
+  end)
   local names = hs.fnutils.map(nonEmptyTasks, function(taskWithTimestamp)
     local timeStampEnd = string.find(taskWithTimestamp, ']')
     return {
       text = string.sub(taskWithTimestamp, timeStampEnd + 2),
-      subText = string.sub(taskWithTimestamp, 2, timeStampEnd - 1)  -- slice braces off
+      subText = string.sub(taskWithTimestamp, 2, timeStampEnd - 1), -- slice braces off
     }
   end)
 
@@ -102,8 +118,10 @@ Commands.startNew = function()
   local options = Log.getRecentTaskNames()
   showChooserPrompt(options, function(taskName)
     if taskName then
-      currentPomo = {minutesLeft=POMO_LENGTH, name=taskName}
-      if timer then timer:stop() end
+      currentPomo = { minutesLeft = POMO_LENGTH, name = taskName }
+      if timer then
+        timer:stop()
+      end
       timer = hs.timer.doEvery(INTERVAL_SECONDS, App.timerCallback)
     end
     App.updateUI()
@@ -111,7 +129,9 @@ Commands.startNew = function()
 end
 
 Commands.togglePaused = function()
-  if not currentPomo then return end
+  if not currentPomo then
+    return
+  end
   currentPomo.paused = not currentPomo.paused
   App.updateUI()
 end
@@ -123,25 +143,33 @@ Commands.toggleLatestDisplay = function()
     alertId = nil
   else
     local msg = 'LATEST ACTIVITY\n\n' .. logs
-    if currentPomo then msg = 'NOW: ' .. currentPomo.name .. '\n==========\n\n' .. msg end
-    alertId = hs.alert(msg, {textSize=17, textFont='Courier'}, 'indefinite')
+    if currentPomo then
+      msg = 'NOW: ' .. currentPomo.name .. '\n==========\n\n' .. msg
+    end
+    alertId = hs.alert(msg, { textSize = 17, textFont = 'Courier' }, 'indefinite')
   end
 end
 
 App.timerCallback = function()
-  if not currentPomo then return end
-  if currentPomo.paused then return end
+  if not currentPomo then
+    return
+  end
+  if currentPomo.paused then
+    return
+  end
   currentPomo.minutesLeft = currentPomo.minutesLeft - 1
-  if (currentPomo.minutesLeft <= 0) then App.completePomo(currentPomo) end
+  if currentPomo.minutesLeft <= 0 then
+    App.completePomo(currentPomo)
+  end
   App.updateUI()
 end
 
 App.completePomo = function(pomo)
   local n = hs.notify.new({
-    title='Pomodoro complete',
-    subTitle=pomo.name,
-    informativeText='Completed at ' .. os.date('%H:%M'),
-    soundName='Hero'
+    title = 'Pomodoro complete',
+    subTitle = pomo.name,
+    informativeText = 'Completed at ' .. os.date('%H:%M'),
+    soundName = 'Hero',
   })
   n:autoWithdraw(false)
   n:hasActionButton(false)
@@ -150,13 +178,15 @@ App.completePomo = function(pomo)
   Log.writeItem(pomo)
   currentPomo = nil
 
-  if timer then timer:stop() end
+  if timer then
+    timer:stop()
+  end
   timer = hs.timer.doAfter(INTERVAL_SECONDS * BREAK_LENGTH, function()
     local n2 = hs.notify.new({
-      title='Get back to work',
-      subTitle='Break time is over',
-      informativeText='Sent at ' .. os.date('%H:%M'),
-      soundName='Hero'
+      title = 'Get back to work',
+      subTitle = 'Break time is over',
+      informativeText = 'Sent at ' .. os.date('%H:%M'),
+      soundName = 'Hero',
     })
     n2:autoWithdraw(false)
     n2:hasActionButton(false)
@@ -182,11 +212,13 @@ end
 App.init = function()
   menu:setMenu(function()
     local completedCount = #(Log.getCompletedToday())
+    local currentText = currentPomo and currentPomo.name or 'Not active'
     return {
+      { title = 'Currently: ' .. currentText, disabled = true },
       -- TODO: make these menu items contextual:
-      { title=completedCount .. ' pomos completed today', disabled=true },
-      { title='Start', fn=Commands.startNew },
-      { title='Pause', fn=Commands.togglePaused }
+      { title = completedCount .. ' pomos completed today', disabled = true },
+      { title = 'Start new', fn = Commands.startNew },
+      { title = 'Pause', fn = Commands.togglePaused },
     }
   end)
 

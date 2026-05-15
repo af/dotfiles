@@ -62,7 +62,7 @@ hs.hotkey.bind(ctrl, '3', function() hs.application.launchOrFocus('TablePlus') e
 hs.hotkey.bind(ctrl, '4', function() hs.application.launchOrFocus('Finder') end)
 hs.hotkey.bind(ctrl, '5', function() hs.application.launchOrFocus('Figma') end)
 
-hs.hotkey.bind(ctrl, '9', function() hs.application.launchOrFocus('Slack') end)
+-- hs.hotkey.bind(ctrl, '9', function() hs.application.launchOrFocus('Slack') end)
 hs.hotkey.bind(ctrl, '0', function() hs.application.launchOrFocus('Music') end)
 
 -- Audio volume control
