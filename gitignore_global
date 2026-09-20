@@ -1,2 +1,4 @@
 .DS_Store
 Session.vim
+
+**/.claude/settings.local.json

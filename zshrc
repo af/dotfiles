@@ -127,6 +127,27 @@ setopt interactivecomments
 setopt hist_ignore_all_dups     # Ignore duplicate history items
 setopt hist_find_no_dups        # Do not surface duplicates
 
+# Kill a process that's listening on a given port
+killport() {
+  local port=$1
+  [ -z "$port" ] && { echo "usage: killport <port> [-9]" >&2; return 1; }
+  local pids
+  pids=$(lsof -t -iTCP:"$port" -sTCP:LISTEN)
+  [ -z "$pids" ] && { echo "nothing listening on tcp/$port" >&2; return 1; }
+  kill ${2:-} $pids && echo "killed $pids (tcp/$port)"
+}
+
+# Shorthand function to create a new project with a git repo and README:
+function af-initproject () {
+  mkdir $1
+  cd $1
+  git init
+  touch README.md
+  git add README.md
+  git commit -m "First commit"
+  echo "\nYour new project is ready. Have fun."
+}
+
 # Script tmux to set up a window in my (currently) preferred custom layout:
 function af-workspace () {
   # Main pane for vim on the left:
