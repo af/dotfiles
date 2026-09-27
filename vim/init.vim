@@ -34,8 +34,6 @@ Plug 'echasnovski/mini.nvim',       { 'tag': 'v0.17.0' }
 Plug 'dyng/ctrlsf.vim',             { 'commit': '32236a8' }
 Plug 'nvim-tree/nvim-tree.lua',     { 'tag': 'nvim-tree-v1.3.3' }
 
-Plug 'supermaven-inc/supermaven-nvim'
-
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'romgrk/barbar.nvim'
 
