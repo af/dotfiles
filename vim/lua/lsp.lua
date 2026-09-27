@@ -1,3 +1,9 @@
+-- more default mappings
+-- • |gri| in Normal mode maps to |vim.lsp.buf.implementation()|
+-- • |gO| in Normal mode maps to |vim.lsp.buf.document_symbol()|
+-- • |gra| in Normal and Visual mode maps to |vim.lsp.buf.code_action()|
+-- • CTRL-S in Insert and Select mode maps to |vim.lsp.buf.signature_help()|
+
 -- must be before lspconfig setup
 require('neodev').setup()
 
@@ -87,3 +93,24 @@ enable('ty', {
   },
 })
 enable('ruff')
+
+-- markdown prose linting
+-- brew install vale vale-ls
+enable('vale_ls', {
+  filetypes = { 'markdown' },
+  -- only start when a .vale.ini is found; otherwise vale-ls errors out
+  root_dir = function(bufnr, on_dir)
+    local root = vim.fs.root(bufnr, { '.vale.ini' })
+    if root then on_dir(root) end
+  end,
+})
+
+-- for typst
+-- brew install tinymist
+enable("tinymist", {
+  settings = {
+    formatterMode = "typstyle",
+    exportPdf = "onType",
+    semanticTokens = "disable"
+  }
+})
