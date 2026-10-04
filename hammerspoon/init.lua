@@ -16,9 +16,9 @@ local ctrl = { 'ctrl' }
 
 -- WIP pomodoro app
 local Pomo = require('pomodoro')
-hs.hotkey.bind(mash, 'U', Pomo.startNew)
 hs.hotkey.bind(mash, 'I', Pomo.togglePaused)
 hs.hotkey.bind(mash, 'O', Pomo.toggleLatestDisplay)
+hs.hotkey.bind(mash, 'P', Pomo.startNew)
 
 -- For more crazy remapping shenanigans and ideas, see this file:
 -- https://github.com/wincent/wincent/blob/master/roles/dotfiles/files/.hammerspoon/eventtap.lua
@@ -43,7 +43,7 @@ hs.hotkey.bind(mash, 'N', Grid.topleft)
 hs.hotkey.bind(mash, 'M', Grid.bottomleft)
 hs.hotkey.bind(mash, ',', Grid.topright)
 hs.hotkey.bind(mash, '.', Grid.bottomright)
-hs.hotkey.bind(mash, 'P', Grid.rightpeek)
+-- hs.hotkey.bind(mash, 'P', Grid.rightpeek)
 
 -- Music.app control
 hs.hotkey.bind(mash, 'UP', hs.itunes.play)
@@ -56,7 +56,7 @@ hs.hotkey.bind(mash, 'S', Utils.toggleShuffle)
 -- Launch/focus specific apps with one keystroke.
 -- Note: to get {^1,^2,^3} to work, you might need to change some conflicting
 -- Mission Control keyboard shortcuts in SysPrefs > Keyboard > Shortcuts
-hs.hotkey.bind(ctrl, '1', function() hs.application.launchOrFocus('Google Chrome') end)
+hs.hotkey.bind(ctrl, '1', function() hs.application.launchOrFocus('Zen') end)
 hs.hotkey.bind(ctrl, '2', function() hs.application.launchOrFocus('Alacritty') end)
 hs.hotkey.bind(ctrl, '3', function() hs.application.launchOrFocus('TablePlus') end)
 hs.hotkey.bind(ctrl, '4', function() hs.application.launchOrFocus('Finder') end)
